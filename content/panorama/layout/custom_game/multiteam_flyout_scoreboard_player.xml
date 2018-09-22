@@ -16,10 +16,25 @@
 			}
 		}
 
+		function ToggleDisableHelp()
+		{
+			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
+			if ( playerId !== -1 )
+			{
+				var disable = $("#DisableHelpButton").checked;
+				GameEvents.SendCustomGameEventToServer("set_disable_help", { disable: disable, to: playerId } );
+			}
+		}
+
 		(function()
 		{
 			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
 			$.GetContextPanel().SetHasClass( "player_muted", Game.IsPlayerMuted( playerId ) );
+
+			var disableHelp = CustomNetTables.GetTableValue("disable_help", Players.GetLocalPlayer());
+			if (disableHelp && disableHelp[playerId]) {
+				$("#DisableHelpButton").checked = true;
+			}
 		})();
 	</script>
 	<Panel class="PlayerRow">
@@ -33,6 +48,7 @@
 					<Label id="HeroNameAndDescription" text="#custom_scoreboard_hero_name_and_desc" />
 				</Panel>
 				<Label id="TeammateGoldAmount" text="999" />
+				<ToggleButton id="DisableHelpButton" onactivate="ToggleDisableHelp();" onmouseover="DOTAShowTextTooltip(Disable Help)" onmouseout="DOTAHideTextTooltip()" />
 				<Button id="MuteButton" onactivate="ToggleMute();" />
 			</Panel>
 			<Panel id="TeamScoreSpace" class="ScoreCol_TeamScore" />

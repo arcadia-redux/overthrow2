@@ -8,7 +8,7 @@
 	margin-top: 150px;
     flow-children: down;
     padding: 10px;
-	
+
     transform: translatex( -600px );
     transition-property: transform;
     transition-duration: 0.1s;
@@ -65,7 +65,7 @@
 }
 
 .FlyoutPlayer
-{ 
+{
     flow-children: right;
 }
 
@@ -261,6 +261,26 @@
 .player_muted #MuteButton
 {
     background-image: url("s2r://panorama/images/custom_game/button_audio_off_psd.vtex");
+}
+
+#DisableHelpButton
+{
+	margin-right: 17px;
+	margin-top: 0px;
+	horizontal-align: right;
+	vertical-align: top;
+}
+
+#DisableHelpButton .TickBox
+{
+	width: 14px;
+	height:14px;
+}
+
+.not_local_player_team #DisableHelpButton,
+.is_local_player #DisableHelpButton
+{
+	visibility: collapse;
 }
 
 #TeammateGoldAmount
