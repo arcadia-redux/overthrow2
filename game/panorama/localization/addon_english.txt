@@ -36,7 +36,7 @@
 	"DOTA_Custom6"    								"Cyan Boar"
 	"DOTA_Custom7"    								"Olive Snake"
 	"DOTA_Custom8"    								"Purple Horse"
-	
+
 	"OverthrowHeroPickup"							"{s:hero_id}"
 	"OverthrowTextPickup"							"HAS PICKED UP"
 	"OverthrowItemPickup"							"{s:item_id}!"
@@ -49,7 +49,7 @@
 	"KillMessageHero"								"{s:hero_id}"
 	"KillMessageText"								"HAS KILLED THE LEADER"
 	"KillMessageBounty"								"FOR 500 BONUS GOLD!"
-	
+
 	"addonname"										"Overthrow"
 	"overthrow_game_info_header_objective"			"Objective:"
 	"overthrow_brief_description"					"Slay your enemies! First team to hit the kill limit wins!"
@@ -70,5 +70,7 @@
 	"npc_dota_hero_bounty_hunter_notification"		"Bounty Hunter"
 	"npc_dota_hero_broodmother_notification"		"Broodmother"
 	"npc_dota_hero_pudge_notification"				"Pudge"
+
+	"npc_dota_hero_undying_notification"				"Undying"
 }
 
