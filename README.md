@@ -5,3 +5,4 @@ Changelog:
 Version 1.1:
 
 Items from chests will now go into your backpack if your inventory is full
+Improved how heroes are displayed in topbar in hero pick phase
