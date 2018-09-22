@@ -493,7 +493,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		if pickedItem:GetAbilityName() == "item_treasure_chest" then
 			local player = PlayerResource:GetPlayer(filterTable["issuer_player_id_const"])
 			local hero = player:GetAssignedHero()
-			if hero:GetNumItemsInInventory() < 6 then
+			if hero:GetNumItemsInInventory() <= DOTA_ITEM_SLOT_9 then
 				--print("inventory has space")
 				return true
 			else
