@@ -545,4 +545,3 @@ CustomGameEventManager:RegisterListener("set_disable_help", function(_, data)
 		CustomNetTables:SetTableValue("disable_help", tostring(playerId), disableHelp)
 	end
 end)
-print(GameRules:GetDOTATime(false, true))
