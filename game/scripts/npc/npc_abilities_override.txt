@@ -3,7 +3,7 @@
 "DOTAAbilities"
 {
 	"Version"		"1"
-	
+
 	//=================================================================================================================
 	// Special Item Drops
 	//=================================================================================================================
@@ -300,6 +300,7 @@
 			{
 				"var_type"				"FIELD_FLOAT"
 				"intellect_damage_pct"	"15 25 35 45"
+				"LinkedSpecialBonus"	"special_bonus_unique_silencer_3"
 			}
 			"02"
 			{
@@ -380,6 +381,7 @@
 			{
 				"var_type"					"FIELD_INTEGER"
 				"tooltip_range"					"350"
+				"LinkedSpecialBonus"		"special_bonus_unique_riki_3"
 			}
 			"02"
 			{
@@ -399,6 +401,7 @@
 			{
 				"var_type"						"FIELD_FLOAT"
 				"damage_multiplier"				"0.4 0.6 0.8 1.0"
+				"LinkedSpecialBonus"		"special_bonus_unique_riki_1"
 			}
 			"02"
 			{
@@ -460,6 +463,7 @@
 			{
 				"var_type"							"FIELD_FLOAT"
 				"flesh_heap_strength_buff_amount"	"0.5 0.75 1.0 1.25"
+				"LinkedSpecialBonus"			"special_bonus_unique_pudge_1"
 			}
 			"03"
 			{
@@ -494,6 +498,7 @@
 			{
 				"var_type"				"FIELD_FLOAT"
 				"int_steal_duration"		"15"
+				"LinkedSpecialBonus"	"special_bonus_unique_outworld_devourer"
 			}
 		}
 	}
