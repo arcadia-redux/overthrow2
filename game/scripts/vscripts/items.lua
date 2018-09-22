@@ -71,7 +71,7 @@ function COverthrowGameMode:SpecialItemAdd( event )
 	local lastPlace = sortedTeams[n].teamID
 
 	local tableindex = 0
-	local tier1 = 
+	local tier1 =
 	{
 		"item_urn_of_shadows",
 		"item_ring_of_basilius",
@@ -85,7 +85,7 @@ function COverthrowGameMode:SpecialItemAdd( event )
 		"item_gem",
 		"item_orb_of_venom"
 	}
-	local tier2 = 
+	local tier2 =
 	{
 		"item_blink",
 		"item_force_staff",
@@ -100,9 +100,12 @@ function COverthrowGameMode:SpecialItemAdd( event )
 		"item_mekansm",
 		"item_hood_of_defiance",
 		"item_veil_of_discord",
-		"item_glimmer_cape"
+		"item_glimmer_cape",
+
+		"item_kaya",
+		"item_meteor_hammer",
 	}
-	local tier3 = 
+	local tier3 =
 	{
 		"item_shivas_guard",
 		"item_sphere",
@@ -120,9 +123,14 @@ function COverthrowGameMode:SpecialItemAdd( event )
 		"item_bloodstone",
 		"item_lotus_orb",
 		"item_guardian_greaves",
-		"item_moon_shard"
+		"item_moon_shard",
+
+		"item_nullifier",
+		"item_aeon_disk",
+		"item_hurricane_pike",
+		"item_spirit_vessel",
 	}
-	local tier4 = 
+	local tier4 =
 	{
 		"item_skadi",
 		"item_sange_and_yasha",
@@ -139,7 +147,9 @@ function COverthrowGameMode:SpecialItemAdd( event )
 		"item_satanic",
 		"item_octarine_core",
 		"item_silver_edge",
-		"item_rapier"
+		"item_rapier",
+
+		"item_bloodthorn",
 	}
 
 	local t1 = PickRandomShuffle( tier1, self.tier1ItemBucket )
@@ -193,7 +203,7 @@ function COverthrowGameMode:ThinkSpecialItemDrop()
 	local t = GameRules:GetDOTATime( false, false )
 	local tSpawn = ( self.spawnTime * self.nNextSpawnItemNumber )
 	local tWarn = tSpawn - 15
-	
+
 	if not self.hasWarnedSpawn and t >= tWarn then
 		-- warn the item is about to spawn
 		self:WarnItem()
@@ -229,7 +239,7 @@ function COverthrowGameMode:PlanNextSpawn()
 		spawnLocation = SpawnEntityFromTableSynchronous( "path_track", missingSpawnPoint )
 		spawnLocation:SetAbsOrigin(spawnPoint)
 	end
-	
+
 	self.itemSpawnLocation = spawnLocation
 	self.itemSpawnIndex = r
 end
@@ -243,7 +253,7 @@ function COverthrowGameMode:WarnItem()
 	-- notify everyone
 	CustomGameEventManager:Send_ServerToAllClients( "item_will_spawn", { spawn_location = spawnLocation } )
 	EmitGlobalSound( "powerup_03" )
-	
+
 	-- fire the destination particles
 	DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Start", "0", 0, self, self )
 
@@ -281,7 +291,7 @@ end
 function COverthrowGameMode:KnockBackFromTreasure( center, radius, knockback_duration, knockback_distance, knockback_height )
 	local targetType = bit.bor( DOTA_UNIT_TARGET_CREEP, DOTA_UNIT_TARGET_HERO )
 	local knockBackUnits = FindUnitsInRadius( DOTA_TEAM_NOTEAM, center, nil, radius, DOTA_UNIT_TARGET_TEAM_BOTH, targetType, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )
- 
+
 	local modifierKnockback =
 	{
 		center_x = center.x,
@@ -323,7 +333,7 @@ function COverthrowGameMode:TreasureDrop( treasureCourier )
 
 	--Knock people back from the treasure
 	self:KnockBackFromTreasure( spawnPoint, 375, 0.25, 400, 100 )
-		
+
 	--Destroy the courier
 	UTIL_Remove( treasureCourier )
 end
