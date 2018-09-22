@@ -1,4 +1,5 @@
 "use strict";
+var playerStats = {};
 
 function OnUpdateHeroSelection()
 {
@@ -42,7 +43,7 @@ function UpdatePlayer( teamPanel, playerId )
 
 	var localPlayerTeamId = localPlayerInfo.player_team_id;
 	var playerPortrait = playerPanel.FindChildInLayoutFile( "PlayerPortrait" );
-	
+
 	if ( playerId == localPlayerInfo.player_id )
 	{
 		playerPanel.AddClass( "is_local_player" );
@@ -69,6 +70,17 @@ function UpdatePlayer( teamPanel, playerId )
 	playerName.text = playerInfo.player_name;
 
 	playerPanel.SetHasClass( "is_local_player", ( playerId == Game.GetLocalPlayerID() ) );
+
+	var stats = playerStats[playerId];
+	var hasStats = stats !== undefined && stats.games > 0;
+	playerPanel.SetHasClass("has_stats", hasStats)
+	if (hasStats) {
+		var winRate = Math.floor(((stats.wins || 0) / stats.games) * 100)
+		var playerWinrate = playerPanel.FindChildInLayoutFile( "PlayerWinrate" );
+		playerWinrate.text = (stats.wins || 0) + "/" + stats.games + ' (' + winRate + '%)'
+		var playerStreak = playerPanel.FindChildInLayoutFile( "PlayerStreak" );
+		playerStreak.text = 'Streak: ' + (stats.streak || 0);
+	}
 }
 
 function UpdateTimer()
@@ -77,7 +89,7 @@ function UpdateTimer()
 	var transitionTime = Game.GetStateTransitionTime();
 
 	var timerValue = Math.max( 0, Math.floor( transitionTime - gameTime ) );
-	
+
 	if ( Game.GameStateIsAfter( DOTA_GameState.DOTA_GAMERULES_STATE_HERO_SELECTION ) )
 	{
 		timerValue = 0;
@@ -95,6 +107,25 @@ function UpdateTimer()
 	$.Schedule( 0.1, UpdateTimer );
 }
 
+function FetchPlayerStats()
+{
+	var steamIds = [];
+	var steamIdToPlayerId = {}
+	for (var playerId of Game.GetAllPlayerIDs()) {
+		steamIds.push(Game.GetPlayerInfo(playerId).player_steamid);
+		steamIdToPlayerId[Game.GetPlayerInfo(playerId).player_steamid] = playerId;
+	}
+
+	$.AsyncWebRequest("http://lodr-lodr.1d35.starter-us-east-1.openshiftapps.com/overthrow/players?ids=" + steamIds.join(","), {
+		success: function (response) {
+			for (var player of response) {
+				playerStats[steamIdToPlayerId[player.steam_id]] = player;
+			}
+			OnUpdateHeroSelection()
+		}
+	})
+}
+
 (function()
 {
 	var bLargeGame = Game.GetAllPlayerIDs().length >= 12;
@@ -105,7 +136,7 @@ function UpdateTimer()
 	var teamsContainer2 = $("#HeroSelectTeamsContainer2");
 	$.CreatePanel( "Panel", teamsContainer, "EndSpacer" );
 	$.CreatePanel( "Panel", teamsContainer2, "EndSpacer" );
-	
+
 	var timerPanel = $.CreatePanel( "Panel", $.GetContextPanel(), "TimerPanel" );
 	timerPanel.BLoadLayout( "file://{resources}/layout/custom_game/multiteam_hero_select_overlay_timer.xml", false, false );
 
@@ -122,7 +153,7 @@ function UpdateTimer()
 		else
 		{
 			teamPanelToUse = teamsContainer;
-			
+
 		}
 
 		$.CreatePanel( "Panel", teamPanelToUse, "Spacer" );
@@ -143,7 +174,7 @@ function UpdateTimer()
 			teamLogoPanel.SetAttributeInt( "team_id", teamId );
 			teamLogoPanel.BLoadLayout( logo_xml, false, false );
 		}
-		
+
 		var teamGradient = teamPanel.FindChildInLayoutFile( "TeamGradient" );
 		if ( teamGradient && GameUI.CustomUIConfig().team_colors )
 		{
@@ -179,5 +210,6 @@ function UpdateTimer()
 	GameEvents.Subscribe( "dota_player_update_hero_selection", OnUpdateHeroSelection );
 
 	UpdateTimer();
+	FetchPlayerStats()
 })();
 

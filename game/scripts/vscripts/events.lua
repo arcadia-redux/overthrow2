@@ -93,7 +93,7 @@ function COverthrowGameMode:OnTeamKillCredit( event )
 	local nTeamID = event.teamnumber
 	local nTeamKills = event.herokills
 	local nKillsRemaining = self.TEAM_KILLS_TO_WIN - nTeamKills
-	
+
 	local broadcast_kill_event =
 	{
 		killer_id = event.killer_userid,
@@ -107,6 +107,7 @@ function COverthrowGameMode:OnTeamKillCredit( event )
 
 	if nKillsRemaining <= 0 then
 		GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[nTeamID] )
+		SendMatchResults(nTeamID)
 		GameRules:SetGameWinner( nTeamID )
 		broadcast_kill_event.victory = 1
 	elseif nKillsRemaining == 1 then

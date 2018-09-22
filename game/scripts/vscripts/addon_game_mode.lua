@@ -27,7 +27,7 @@ require( "utility_functions" )
 function Precache( context )
 	--Cache the gold bags
 		PrecacheItemByNameSync( "item_bag_of_gold", context )
-		PrecacheResource( "particle", "particles/items2_fx/veil_of_discord.vpcf", context )	
+		PrecacheResource( "particle", "particles/items2_fx/veil_of_discord.vpcf", context )
 
 		PrecacheItemByNameSync( "item_treasure_chest", context )
 		PrecacheModel( "item_treasure_chest", context )
@@ -53,7 +53,7 @@ function Precache( context )
        	PrecacheResource( "particle", "particles/econ/wards/f2p/f2p_ward/f2p_ward_true_sight_ambient.vpcf", context )
        	PrecacheResource( "particle", "particles/econ/items/lone_druid/lone_druid_cauldron/lone_druid_bear_entangle_dust_cauldron.vpcf", context )
        	PrecacheResource( "particle", "particles/newplayer_fx/npx_landslide_debris.vpcf", context )
-       	
+
 	--Cache particles for traps
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_dragon_knight", context )
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_venomancer", context )
@@ -83,7 +83,7 @@ end
 ---------------------------------------------------------------------------
 function COverthrowGameMode:InitGameMode()
 	print( "Overthrow is loaded." )
-	
+
 --	CustomNetTables:SetTableValue( "test", "value 1", {} );
 --	CustomNetTables:SetTableValue( "test", "value 2", { a = 1, b = 2 } );
 
@@ -209,7 +209,7 @@ function COverthrowGameMode:InitGameMode()
 	Convars:SetInt( "dota_server_side_animation_heroesonly", 0 )
 
 	COverthrowGameMode:SetUpFountains()
-	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 ) 
+	GameRules:GetGameModeEntity():SetThink( "OnThink", self, 1 )
 
 	-- Spawning monsters
 	spawncamps = {}
@@ -260,6 +260,7 @@ function COverthrowGameMode:EndGame( victoryTeam )
 		end
 	end
 
+	SendMatchResults(victoryTeam)
 	GameRules:SetGameWinner( victoryTeam )
 end
 
@@ -299,7 +300,7 @@ function COverthrowGameMode:UpdateScoreboard()
 		local clr = self:ColorForTeam( t.teamID )
 
 		-- Scaleform UI Scoreboard
-		local score = 
+		local score =
 		{
 			team_id = t.teamID,
 			team_score = t.teamScore
@@ -353,7 +354,7 @@ function COverthrowGameMode:OnThink()
 	for nPlayerID = 0, (DOTA_MAX_TEAM_PLAYERS-1) do
 		self:UpdatePlayerColor( nPlayerID )
 	end
-	
+
 	self:UpdateScoreboard()
 	-- Stop thinking if game is paused
 	if GameRules:IsGamePaused() == true then
@@ -373,7 +374,7 @@ function COverthrowGameMode:OnThink()
 				self.countdownEnabled = false
 			else
 				self.TEAM_KILLS_TO_WIN = self.leadingTeamScore + 1
-				local broadcast_killcount = 
+				local broadcast_killcount =
 				{
 					killcount = self.TEAM_KILLS_TO_WIN
 				}
@@ -381,7 +382,7 @@ function COverthrowGameMode:OnThink()
 			end
        	end
 	end
-	
+
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		--Spawn Gold Bags
 		COverthrowGameMode:ThinkGoldDrop()
@@ -404,7 +405,7 @@ function COverthrowGameMode:GatherAndRegisterValidTeams()
 
 	local numTeams = TableCount(foundTeams)
 	print( "GatherValidTeams - Found spawns for a total of " .. numTeams .. " teams" )
-	
+
 	local foundTeamsList = {}
 	for t, _ in pairs( foundTeams ) do
 		table.insert( foundTeamsList, t )
@@ -452,7 +453,7 @@ function spawnunits(campname)
 		return
 	end
 
-    local randomCreature = 
+    local randomCreature =
     	{
 			"basic_zombie",
 			"berserk_zombie"
@@ -507,4 +508,24 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		end
 	end
 	return true
+end
+
+function SendMatchResults(winnerTeam)
+	if not GameRules:IsCheatMode() then
+		local data = { players = {} }
+		for playerId = 0,23 do
+			if PlayerResource:IsValidPlayerID(playerId) and not PlayerResource:IsFakeClient(playerId) then
+				table.insert(data.players, {
+					steam_id = tostring(PlayerResource:GetSteamID(playerId)),
+					win = tonumber(PlayerResource:GetTeam(playerId)) == winnerTeam,
+				})
+			end
+		end
+
+		if #data.players >= 5 then
+			local http_script_request = CreateHTTPRequestScriptVM("POST", "http://lodr-lodr.1d35.starter-us-east-1.openshiftapps.com/overthrow/match")
+			http_script_request:SetHTTPRequestGetOrPostParameter("data", json.encode(data))
+			http_script_request:Send(function() end)
+		end
+	end
 end
