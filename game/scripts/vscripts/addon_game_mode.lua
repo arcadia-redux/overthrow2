@@ -511,22 +511,25 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 end
 
 function SendMatchResults(winnerTeam)
-	if not GameRules:IsCheatMode() then
-		local data = { players = {} }
-		for playerId = 0,23 do
-			if PlayerResource:IsValidPlayerID(playerId) and not PlayerResource:IsFakeClient(playerId) then
-				table.insert(data.players, {
-					steam_id = tostring(PlayerResource:GetSteamID(playerId)),
-					win = tonumber(PlayerResource:GetTeam(playerId)) == winnerTeam,
-				})
-			end
-		end
+	if GameRules:IsCheatMode() then return end
+	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
+	if winnerTeam == DOTA_TEAM_NEUTRALS or winnerTeam == DOTA_TEAM_NOTEAM then return end
+	if GameRules:GetDOTATime(false, true) < 60 then return end
 
-		if #data.players >= 5 then
-			local http_script_request = CreateHTTPRequestScriptVM("POST", "http://lodr-lodr.1d35.starter-us-east-1.openshiftapps.com/overthrow/match")
-			http_script_request:SetHTTPRequestGetOrPostParameter("data", json.encode(data))
-			http_script_request:Send(function() end)
+	local data = { players = {} }
+	for playerId = 0, 23 do
+		if PlayerResource:IsValidTeamPlayerID(playerId) and not PlayerResource:IsFakeClient(playerId) then
+			table.insert(data.players, {
+				steam_id = tostring(PlayerResource:GetSteamID(playerId)),
+				win = tonumber(PlayerResource:GetTeam(playerId)) == winnerTeam,
+			})
 		end
+	end
+
+	if #data.players >= 5 then
+		local http_script_request = CreateHTTPRequestScriptVM("POST", "http://lodr-lodr.1d35.starter-us-east-1.openshiftapps.com/overthrow/match")
+		http_script_request:SetHTTPRequestGetOrPostParameter("data", json.encode(data))
+		http_script_request:Send(function() end)
 	end
 end
 
@@ -542,3 +545,4 @@ CustomGameEventManager:RegisterListener("set_disable_help", function(_, data)
 		CustomNetTables:SetTableValue("disable_help", tostring(playerId), disableHelp)
 	end
 end)
+print(GameRules:GetDOTATime(false, true))
