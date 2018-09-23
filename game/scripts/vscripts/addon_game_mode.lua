@@ -358,10 +358,11 @@ function COverthrowGameMode:OnThink()
 	end
 
 	self:UpdateScoreboard()
-	-- Stop thinking if game is paused
-	if GameRules:IsGamePaused() == true then
-        return 1
-    end
+	if GameRules:IsGamePaused() then
+		Say(nil, "Pauses are disabled", true)
+		PauseGame(false)
+		return 1
+	end
 
 	if self.countdownEnabled == true then
 		CountdownTimer()
