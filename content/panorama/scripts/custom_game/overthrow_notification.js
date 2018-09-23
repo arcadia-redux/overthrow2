@@ -43,34 +43,7 @@ function OnItemDrop( msg )
 //	$.Msg( msg.hero_id )
 	$.GetContextPanel().SetHasClass( "recent_item_drop", true );
 
-	if ( msg.hero_id == "npc_dota_hero_silencer" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_silencer_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_necrolyte" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_necrolyte_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_zuus" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_zuus_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_riki" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_riki_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_broodmother" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_broodmother_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_pudge" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_pudge_notification" ) );
-	}
-	else
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#"+msg.hero_id ) );
-	}
+	$( "#PickupMessage_Hero_Text" ).SetDialogVariable("hero_id", getUnmodifiedHeroName(msg.hero_id));
 
 	$( "#PickupMessage_Item_Text" ).SetDialogVariable( "item_id", $.Localize( "#DOTA_Tooltip_Ability_"+msg.dropped_item ) );
 
@@ -168,34 +141,7 @@ function OnLeaderKilled( msg )
 
 	$.GetContextPanel().SetHasClass( "leader_has_been_killed", true );
 
-	if ( msg.hero_id == "npc_dota_hero_silencer" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_silencer_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_necrolyte" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_necrolyte_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_zuus" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_zuus_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_riki" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_riki_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_broodmother" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_broodmother_notification" ) );
-	}
-	else if ( msg.hero_id == "npc_dota_hero_pudge" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_pudge_notification" ) );
-	}
-	else
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#"+msg.hero_id ) );
-	}
+	$( "#KillMessage_Hero" ).SetDialogVariable("hero_id", getUnmodifiedHeroName(msg.hero_id));
 
 	$.Schedule( 5, ClearKillMessage );
 }
@@ -203,6 +149,10 @@ function OnLeaderKilled( msg )
 function ClearKillMessage()
 {
 	$.GetContextPanel().SetHasClass( "leader_has_been_killed", false );
+}
+
+function getUnmodifiedHeroName(heroId) {
+	return $.Localize('#' + heroId).replace(/ \(Modified\)$/, '');
 }
 
 (function () {
@@ -213,4 +163,3 @@ function ClearKillMessage()
     GameEvents.Subscribe( "overtime_alert", OnOvertimeStart );
     GameEvents.Subscribe( "kill_alert", OnLeaderKilled );
 })();
-
