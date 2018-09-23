@@ -8,8 +8,8 @@
         <include src="file://{resources}/scripts/custom_game/multiteam_hero_select_overlay.js" />
     </scripts>
 
-  <Panel class="HeroSelectOverlayRoot">
-  	<Panel id="HeroSelectTeamsContainer" />
+  <Panel class="HeroSelectOverlayRoot" hittest="false">
+  	<Panel id="HeroSelectTeamsContainer"  hittest="false" />
 
     <Panel id="TimerPanel">
       <Image id="TimerBg" src="s2r://panorama/images/status_icons/timer_background_psd.vtex" />
