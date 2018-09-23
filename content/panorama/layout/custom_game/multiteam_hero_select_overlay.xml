@@ -9,13 +9,13 @@
     </scripts>
 
   <Panel class="HeroSelectOverlayRoot">
-    <Panel id="PhaseInstructions">
-      <Label id="BanPhaseInstructions" text="#DOTA_LoadingBanPhase"/>
-      <Label id="PickPhaseInstructions" text="#DOTA_LoadingPickPhase"/>
-    </Panel>
-    <Panel class="HeroSelectTeamRowsContainer">
-  		<Panel id="HeroSelectTeamsContainer" />
-      <Panel id="HeroSelectTeamsContainer2" />
+  	<Panel id="HeroSelectTeamsContainer" />
+
+    <Panel id="TimerPanel">
+      <Image id="TimerBg" src="s2r://panorama/images/status_icons/timer_background_psd.vtex" />
+      <Image id="TimerRing" src="s2r://panorama/images/status_icons/timer_ring_psd.vtex" />
+      <Label id="Timer" text="#HeroSelectionTimer" />
+      <Label id="TimerLabel" />
     </Panel>
   </Panel>
 </root>

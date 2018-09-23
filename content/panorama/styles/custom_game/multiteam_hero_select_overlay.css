@@ -2,61 +2,29 @@
 .HeroSelectOverlayRoot
 {
 	width: 100%;
-	height: 210px;
-    margin-top: 20px;
-
+	height: 100%;
 }
 
-.HeroSelectTeamRowsContainer
+#HeroSelectTeamsContainer
 {
-	width: 80%;
+	width: 100%;
 	height: 210px;
-	flow-children: down;
 	horizontal-align: center;
+	margin-top: 30px;
+	margin-bottom: 5px;
+	flow-children: right;
 }
 
-#HeroSelectTeamsContainer,
-#HeroSelectTeamsContainer2
+.AspectRatio4x3 #HeroSelectTeamsContainer
 {
-    width: 100%;
-    flow-children: right;
-    margin-bottom: 5px;
+	margin-top: 50px;
 }
 
-.HeroSelectOverlayTimer
+#TimerPanel
 {
-	vertical-align: center;
+	vertical-align: bottom;
 	margin-left: 200px;
 	margin-bottom: 75px;
-}
-
-.AspectRatio4x3 .HeroSelectOverlayTimer
-{
-	margin-left: 50px;
-}
-
-#PhaseInstructions > Label
-{
-	visibility: collapse;
-    font-size: 25px;
-    color: #CCCCCC;
-	vertical-align: center;
-	text-align: center;
-	width: 300px;
-	margin-left: 85px;
-	margin-top: 115px;
-	text-transform: uppercase;
-}
-
-
-.AspectRatio4x3 #PhaseInstructions > Label
-{
-	margin-left: -65px;
-}
-
-#PhaseInstructions > Label.Visible
-{
-	visibility:visible;
 }
 
 #Timer
@@ -64,7 +32,7 @@
     font-size: 48px;
     color: #CCCCCC;
 	horizontal-align: left;
-	vertical-align: center;
+	margin-top: 5px;
 	width: 100%;
 	text-align: center;
 	margin-left: 3px;
@@ -75,8 +43,6 @@
 #TimerBg
 {
 	wash-color: #222222;
-	vertical-align: center;
-	horizontal-align: center;
 }
 
 #TimerBg,
@@ -84,22 +50,28 @@
 {
 	width: 70px;
 	height: 70px;
-
 }
 
 #TimerLabel
 {
-	visibility: collapse;
-    color: #a9aaaa;
-    font-size: 16px;
+	font-size: 25px;
+	color: #CCCCCC;
+	vertical-align: center;
+	text-align: center;
 	text-transform: uppercase;
-
+	margin-top: 70px;
 }
 
 .HeroSelectTeamRoot
 {
     margin-left: 9px;
     margin-right: 9px;
+}
+
+.AspectRatio4x3 .HeroSelectTeamRoot
+{
+	margin-left: 3px;
+	margin-right: 3px;
 }
 
 .HeroSelectTeamRoot.no_players
@@ -172,6 +144,11 @@
     border: 1px solid black;
     width: 90px;
     height: 50px;
+}
+
+.AspectRatio4x3 #PlayerPortrait
+{
+	width: 84px;
 }
 
 #PlayerName

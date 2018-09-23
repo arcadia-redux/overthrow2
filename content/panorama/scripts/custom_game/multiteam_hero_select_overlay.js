@@ -96,13 +96,8 @@ function UpdateTimer()
 	}
 	$("#TimerPanel").SetDialogVariableInt( "timer_seconds", timerValue );
 
-	var banPhaseInstructions = $("#BanPhaseInstructions");
-	var pickPhaseInstructions = $("#PickPhaseInstructions");
-
 	var bIsInBanPhase = Game.IsInBanPhase();
-
-	banPhaseInstructions.SetHasClass(  "Visible", bIsInBanPhase == true );
-	pickPhaseInstructions.SetHasClass( "Visible", bIsInBanPhase == false );
+	$("#TimerLabel").text = $.Localize(bIsInBanPhase ? "DOTA_LoadingBanPhase" : "DOTA_LoadingPickPhase");
 
 	$.Schedule( 0.1, UpdateTimer );
 }
@@ -128,38 +123,19 @@ function FetchPlayerStats()
 
 (function()
 {
-	var bLargeGame = Game.GetAllPlayerIDs().length >= 12;
+	var preMapContainer = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse('PreMinimapContainer');
+	preMapContainer.visible = false;
 
 	var localPlayerTeamId = Game.GetLocalPlayerInfo().player_team_id;
-	var first = true;
 	var teamsContainer = $("#HeroSelectTeamsContainer");
-	var teamsContainer2 = $("#HeroSelectTeamsContainer2");
 	$.CreatePanel( "Panel", teamsContainer, "EndSpacer" );
-	$.CreatePanel( "Panel", teamsContainer2, "EndSpacer" );
 
-	var timerPanel = $.CreatePanel( "Panel", $.GetContextPanel(), "TimerPanel" );
-	timerPanel.BLoadLayout( "file://{resources}/layout/custom_game/multiteam_hero_select_overlay_timer.xml", false, false );
-
-	var nTeamsCreated = 0;
-	var nTeams = Game.GetAllTeamIDs().length
-	$.Msg( nTeams );
 	for ( var teamId of Game.GetAllTeamIDs() )
 	{
-		var teamPanelToUse = null;
-		if ( bLargeGame && nTeamsCreated >= ( nTeams / 2 ) )
-		{
-			teamPanelToUse = teamsContainer2;
-		}
-		else
-		{
-			teamPanelToUse = teamsContainer;
-
-		}
-
-		$.CreatePanel( "Panel", teamPanelToUse, "Spacer" );
+		$.CreatePanel( "Panel", teamsContainer, "Spacer" );
 
 		var teamPanelName = "team_" + teamId;
-		var teamPanel = $.CreatePanel( "Panel", teamPanelToUse, teamPanelName );
+		var teamPanel = $.CreatePanel( "Panel", teamsContainer, teamPanelName );
 		teamPanel.BLoadLayout( "file://{resources}/layout/custom_game/multiteam_hero_select_overlay_team.xml", false, false );
 		var teamName = teamPanel.FindChildInLayoutFile( "TeamName" );
 		if ( teamName )
@@ -181,7 +157,6 @@ function FetchPlayerStats()
 			var teamColor = GameUI.CustomUIConfig().team_colors[ teamId ];
 			teamColor = teamColor.replace( ";", "" );
 			var gradientText = 'gradient( linear, 0% 0%, 0% 100%, from( ' + teamColor + '40  ), to( #00000000 ) );';
-//			$.Msg( gradientText );
 			teamGradient.style.backgroundColor = gradientText;
 		}
 
@@ -190,20 +165,10 @@ function FetchPlayerStats()
 			teamName.text = $.Localize( Game.GetTeamDetails( teamId ).team_name );
 		}
 		teamPanel.AddClass( "TeamPanel" );
-
-		if ( teamId === localPlayerTeamId )
-		{
-			teamPanel.AddClass( "local_player_team" );
-		}
-		else
-		{
-			teamPanel.AddClass( "not_local_player_team" );
-		}
-		nTeamsCreated = nTeamsCreated + 1;
+		teamPanel.AddClass(teamId === localPlayerTeamId ? "local_player_team" : "not_local_player_team");
 	}
 
 	$.CreatePanel( "Panel", teamsContainer, "EndSpacer" );
-	$.CreatePanel( "Panel", teamsContainer2, "EndSpacer" );
 
 	OnUpdateHeroSelection();
 	GameEvents.Subscribe( "dota_player_hero_selection_dirty", OnUpdateHeroSelection );
