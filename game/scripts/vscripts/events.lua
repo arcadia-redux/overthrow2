@@ -107,7 +107,7 @@ function COverthrowGameMode:OnTeamKillCredit( event )
 
 	if nKillsRemaining <= 0 then
 		GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[nTeamID] )
-		SendMatchResults(nTeamID)
+		self:SendMatchResults(nTeamID)
 		GameRules:SetGameWinner( nTeamID )
 		broadcast_kill_event.victory = 1
 	elseif nKillsRemaining == 1 then

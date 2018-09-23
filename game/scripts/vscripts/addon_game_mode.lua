@@ -262,7 +262,7 @@ function COverthrowGameMode:EndGame( victoryTeam )
 		end
 	end
 
-	SendMatchResults(victoryTeam)
+	self:SendMatchResults(victoryTeam)
 	GameRules:SetGameWinner( victoryTeam )
 end
 
@@ -513,7 +513,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	return true
 end
 
-function SendMatchResults(winnerTeam)
+function COverthrowGameMode:SendMatchResults(winnerTeam)
 	if GameRules:IsCheatMode() then return end
 	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
 	if winnerTeam == DOTA_TEAM_NEUTRALS or winnerTeam == DOTA_TEAM_NOTEAM then return end
