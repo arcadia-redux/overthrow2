@@ -24,10 +24,10 @@ function OnItemHasSpawned( msg )
 	$( "#AlertMessage_Delivery" ).html = true;
 	$( "#AlertMessage_Chest" ).text = $.Localize( "#Chest" );
 	$( "#AlertMessage_Delivery" ).text = $.Localize( "#ItemHasSpawned" );
-				
+
 	$.Schedule( 3, ClearItemSpawnMessage );
 }
-		
+
 function ClearItemSpawnMessage()
 {
 	$.GetContextPanel().SetHasClass( "item_will_spawn", false );
@@ -59,10 +59,6 @@ function OnItemDrop( msg )
 	{
 		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_riki_notification" ) );
 	}
-	else if ( msg.hero_id == "npc_dota_hero_bounty_hunter" )
-	{
-		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_bounty_hunter_notification" ) );
-	}
 	else if ( msg.hero_id == "npc_dota_hero_broodmother" )
 	{
 		$( "#PickupMessage_Hero_Text" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_broodmother_notification" ) );
@@ -83,13 +79,13 @@ function OnItemDrop( msg )
 
 	var chest_image_name = "file://{images}/econ/tools/gift_lockless_luckbox.png";
 	$( "#PickupMessage_Chest" ).SetImage( chest_image_name );
-			
+
 	var item_image_name = "file://{images}/items/" + msg.dropped_item.replace( "item_", "" ) + ".png"
 	$( "#PickupMessage_Item" ).SetImage( item_image_name );
 
 	$.Schedule( 5, ClearDropMessage );
 }
-		
+
 function ClearDropMessage()
 {
 	$.GetContextPanel().SetHasClass( "recent_item_drop", false );
@@ -101,7 +97,7 @@ function AlertTimer( data )
 {
 //	$.Msg( "AlertTimer: ", data );
 	var remainingText = "";
-	
+
 	if ( ( data.timer_minute_01 == 2 ) && ( data.timer_second_10 == 0 ) && ( data.timer_second_01 == 0 ) )
 	{
 		remainingText = "2 MINUTES";
@@ -188,10 +184,6 @@ function OnLeaderKilled( msg )
 	{
 		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_riki_notification" ) );
 	}
-	else if ( msg.hero_id == "npc_dota_hero_bounty_hunter" )
-	{
-		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_bounty_hunter_notification" ) );
-	}
 	else if ( msg.hero_id == "npc_dota_hero_broodmother" )
 	{
 		$( "#KillMessage_Hero" ).SetDialogVariable( "hero_id", $.Localize( "#npc_dota_hero_broodmother_notification" ) );
@@ -207,7 +199,7 @@ function OnLeaderKilled( msg )
 
 	$.Schedule( 5, ClearKillMessage );
 }
-		
+
 function ClearKillMessage()
 {
 	$.GetContextPanel().SetHasClass( "leader_has_been_killed", false );

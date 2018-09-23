@@ -67,7 +67,6 @@
 	"npc_dota_hero_necrolyte_notification"			"Necrophos"
 	"npc_dota_hero_zuus_notification"				"Zeus"
 	"npc_dota_hero_riki_notification"				"Riki"
-	"npc_dota_hero_bounty_hunter_notification"		"Bounty Hunter"
 	"npc_dota_hero_broodmother_notification"		"Broodmother"
 	"npc_dota_hero_pudge_notification"				"Pudge"
 
