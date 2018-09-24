@@ -185,26 +185,31 @@ function COverthrowGameMode:OnEntityKilled( event )
 				end
 			end
 		end
-		if killedUnit:GetRespawnTime() > 10 then
-			--print("Hero has long respawn time")
-			if killedUnit:IsReincarnating() == true then
-				--print("Set time for Wraith King respawn disabled")
-				return nil
-			else
-				COverthrowGameMode:SetRespawnTime( killedTeam, killedUnit, extraTime )
-			end
-		else
-			COverthrowGameMode:SetRespawnTime( killedTeam, killedUnit, extraTime )
+
+		if not killedUnit:IsReincarnating() then
+			COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		end
 	end
 end
 
-function COverthrowGameMode:SetRespawnTime( killedTeam, killedUnit, extraTime )
-	--print("Setting time for respawn")
-	if killedTeam == self.leadingTeam and self.isGameTied == false then
-		killedUnit:SetTimeUntilRespawn( 20 + extraTime )
-	else
-		killedUnit:SetTimeUntilRespawn( 10 + extraTime )
+function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
+	local units = {killedUnit}
+	if killedUnit:GetUnitName() == "npc_dota_hero_meepo" then
+		local playerId = killedUnit:GetPlayerID()
+		for _, unit in ipairs(Entities:FindAllByName("npc_dota_hero_meepo")) do
+			if unit:IsRealHero() and unit ~= killedUnit and unit:GetPlayerID() == playerId then
+				table.insert(units, unit)
+			end
+		end
+	end
+
+	local baseTime = 10
+	if killedTeam == self.leadingTeam and not self.isGameTied then
+		baseTime = 20
+	end
+
+	for _,unit in ipairs(units) do
+		unit:SetTimeUntilRespawn(baseTime + extraTime)
 	end
 end
 
