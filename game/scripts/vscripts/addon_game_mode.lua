@@ -137,6 +137,7 @@ function COverthrowGameMode:InitGameMode()
 	self.tier2ItemBucket = {}
 	self.tier3ItemBucket = {}
 	self.tier4ItemBucket = {}
+	self.heroSelectionStage = 0
 
 	self.TEAM_KILLS_TO_WIN = 25
 	self.CLOSE_TO_VICTORY_THRESHOLD = 5
@@ -364,7 +365,27 @@ function COverthrowGameMode:OnThink()
 		return 1
 	end
 
-	if self.countdownEnabled == true then
+	local time = GameRules:GetDOTATime(false, true)
+	if self.heroSelectionStage == 1 and time > -2 then
+		self.heroSelectionStage = 2
+	end
+	if self.heroSelectionStage == 2 and time < -20 then
+		self.heroSelectionStage = 3
+	end
+	if self.heroSelectionStage == 3 and time > -2 and not self.randomedHeroes then
+		self.heroSelectionStage = 4
+
+		self.randomedHeroes = true
+		for i = 0, 23 do
+			if PlayerResource:IsValidPlayerID(i) and not PlayerResource:HasSelectedHero(i) then
+				if PlayerResource:GetPlayer(i) then
+					PlayerResource:GetPlayer(i):MakeRandomHeroSelection()
+				end
+			end
+		end
+	end
+
+	if self.countdownEnabled then
 		CountdownTimer()
 		if nCOUNTDOWNTIMER == 30 then
 			CustomGameEventManager:Send_ServerToAllClients( "timer_alert", {} )
@@ -383,7 +404,7 @@ function COverthrowGameMode:OnThink()
 				}
 				CustomGameEventManager:Send_ServerToAllClients( "overtime_alert", broadcast_killcount )
 			end
-       	end
+		end
 	end
 
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
