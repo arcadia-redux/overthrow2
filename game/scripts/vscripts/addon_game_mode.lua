@@ -138,6 +138,7 @@ function COverthrowGameMode:InitGameMode()
 	self.tier3ItemBucket = {}
 	self.tier4ItemBucket = {}
 	self.heroSelectionStage = 0
+	self.couriers = {}
 
 	self.TEAM_KILLS_TO_WIN = 25
 	self.CLOSE_TO_VICTORY_THRESHOLD = 5

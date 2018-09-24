@@ -62,11 +62,17 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			ParticleManager:DestroyParticle( deathEffects, true )
 			spawnedUnit:DeleteAttribute( "effectsID" )
 		end
+
+		local unitTeam = spawnedUnit:GetTeam()
+		if not self.couriers[unitTeam] then
+			self.couriers[unitTeam] = true
+			spawnedUnit:AddItemByName("item_courier")
+		end
+
 		if self.allSpawned == false then
 			if GetMapName() == "mines_trio" then
 				--print("mines_trio is the map")
 				--print("self.allSpawned is " .. tostring(self.allSpawned) )
-				local unitTeam = spawnedUnit:GetTeam()
 				local particleSpawn = ParticleManager:CreateParticleForTeam( "particles/addons_gameplay/player_deferred_light.vpcf", PATTACH_ABSORIGIN, spawnedUnit, unitTeam )
 				ParticleManager:SetParticleControlEnt( particleSpawn, PATTACH_ABSORIGIN, spawnedUnit, PATTACH_ABSORIGIN, "attach_origin", spawnedUnit:GetAbsOrigin(), true )
 			end
