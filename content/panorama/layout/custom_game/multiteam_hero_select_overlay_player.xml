@@ -6,7 +6,6 @@
 	<Panel hittest="false" class="HeroSelectPlayerRoot">
 		<Image id="PlayerPortrait" />
 		<Label id="PlayerName" />
-		<Label id="PlayerWinrate" onmouseover="DOTAShowTextTooltip(Wins/Total (Win Rate))" onmouseout="DOTAHideTextTooltip()" />
 		<Label id="PlayerStreak" onmouseover="DOTAShowTextTooltip(Win Streak)" onmouseout="DOTAHideTextTooltip()" />
 	</Panel>
 </root>

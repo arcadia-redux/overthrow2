@@ -75,9 +75,6 @@ function UpdatePlayer( teamPanel, playerId )
 	var hasStats = stats !== undefined && stats.games > 0;
 	playerPanel.SetHasClass("has_stats", hasStats)
 	if (hasStats) {
-		var winRate = Math.floor(((stats.wins || 0) / stats.games) * 100)
-		var playerWinrate = playerPanel.FindChildInLayoutFile( "PlayerWinrate" );
-		playerWinrate.text = (stats.wins || 0) + "/" + stats.games + ' (' + winRate + '%)'
 		var playerStreak = playerPanel.FindChildInLayoutFile( "PlayerStreak" );
 		playerStreak.text = 'Streak: ' + (stats.streak || 0);
 	}
