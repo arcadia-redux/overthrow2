@@ -63,8 +63,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		spawnedUnit:DeleteAttribute( "effectsID" )
 	end
 
+	local unitTeam = spawnedUnit:GetTeam()
 	if not spawnedUnit.firstTimeSpawned then
-		local unitTeam = spawnedUnit:GetTeam()
 		spawnedUnit:SetContextThink("AddCourier", function()
 			if self.couriers[unitTeam] then return end
 			self.couriers[unitTeam] = true
