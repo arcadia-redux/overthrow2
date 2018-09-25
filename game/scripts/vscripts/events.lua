@@ -55,27 +55,35 @@ end
 --------------------------------------------------------------------------------
 function COverthrowGameMode:OnNPCSpawned( event )
 	local spawnedUnit = EntIndexToHScript( event.entindex )
-	if spawnedUnit:IsRealHero() then
-		-- Destroys the last hit effects
-		local deathEffects = spawnedUnit:Attribute_GetIntValue( "effectsID", -1 )
-		if deathEffects ~= -1 then
-			ParticleManager:DestroyParticle( deathEffects, true )
-			spawnedUnit:DeleteAttribute( "effectsID" )
-		end
+	if not spawnedUnit:IsRealHero() then return end
+	-- Destroys the last hit effects
+	local deathEffects = spawnedUnit:Attribute_GetIntValue( "effectsID", -1 )
+	if deathEffects ~= -1 then
+		ParticleManager:DestroyParticle( deathEffects, true )
+		spawnedUnit:DeleteAttribute( "effectsID" )
+	end
 
-		local unitTeam = spawnedUnit:GetTeam()
-		if not self.couriers[unitTeam] then
-			self.couriers[unitTeam] = true
-			spawnedUnit:AddItemByName("item_courier")
-		end
-
-		if self.allSpawned == false then
-			if GetMapName() == "mines_trio" then
-				--print("mines_trio is the map")
-				--print("self.allSpawned is " .. tostring(self.allSpawned) )
-				local particleSpawn = ParticleManager:CreateParticleForTeam( "particles/addons_gameplay/player_deferred_light.vpcf", PATTACH_ABSORIGIN, spawnedUnit, unitTeam )
-				ParticleManager:SetParticleControlEnt( particleSpawn, PATTACH_ABSORIGIN, spawnedUnit, PATTACH_ABSORIGIN, "attach_origin", spawnedUnit:GetAbsOrigin(), true )
+	if not spawnedUnit.firstTimeSpawned then
+		spawnedUnit.firstTimeSpawned = true
+		spawnedUnit:SetContextThink("RemoveItems", function()
+			for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
+				UTIL_Remove(spawnedUnit:GetItemInSlot(i))
 			end
+		end, 0)
+	end
+
+	local unitTeam = spawnedUnit:GetTeam()
+	if not self.couriers[unitTeam] then
+		self.couriers[unitTeam] = true
+		spawnedUnit:AddItemByName("item_courier")
+	end
+
+	if self.allSpawned == false then
+		if GetMapName() == "mines_trio" then
+			--print("mines_trio is the map")
+			--print("self.allSpawned is " .. tostring(self.allSpawned) )
+			local particleSpawn = ParticleManager:CreateParticleForTeam( "particles/addons_gameplay/player_deferred_light.vpcf", PATTACH_ABSORIGIN, spawnedUnit, unitTeam )
+			ParticleManager:SetParticleControlEnt( particleSpawn, PATTACH_ABSORIGIN, spawnedUnit, PATTACH_ABSORIGIN, "attach_origin", spawnedUnit:GetAbsOrigin(), true )
 		end
 	end
 end
