@@ -64,8 +64,28 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	end
 
 	if not spawnedUnit.firstTimeSpawned then
+		local unitTeam = spawnedUnit:GetTeam()
+		spawnedUnit:SetContextThink("AddCourier", function()
+			if self.couriers[unitTeam] then return end
+			self.couriers[unitTeam] = true
+			local firstSlotItem = spawnedUnit:GetItemInSlot(DOTA_ITEM_SLOT_1)
+			if firstSlotItem then spawnedUnit:TakeItem(firstSlotItem) end
+
+			local courier = spawnedUnit:AddItemByName("item_courier")
+			if courier then
+				spawnedUnit:CastAbilityImmediately(courier, spawnedUnit:GetPlayerID())
+			end
+
+			if firstSlotItem then
+				spawnedUnit:SetContextThink("AddCourierReturnItem", function()
+					spawnedUnit:AddItem(firstSlotItem)
+				end, 0)
+			end
+		end, 0)
+
+
 		spawnedUnit.firstTimeSpawned = true
-		spawnedUnit:SetContextThink("RemoveItems", function()
+		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
 				local item = spawnedUnit:GetItemInSlot(i)
 				if item and item:GetAbilityName() == "item_tpscroll" then
@@ -77,12 +97,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 				end
 			end
 		end, 0)
-	end
-
-	local unitTeam = spawnedUnit:GetTeam()
-	if not self.couriers[unitTeam] then
-		self.couriers[unitTeam] = true
-		spawnedUnit:AddItemByName("item_courier")
 	end
 
 	if self.allSpawned == false then
