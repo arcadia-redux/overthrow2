@@ -28,6 +28,7 @@ Added ingame win stats and win streak stat<br/>
 Bounty Hunter's Invisbility is no longer nerfed<br/>
 Riki's Blink Strike is no longer nerfed<br/>
 Fixed OD not stealing int<br/>
+Fixed Meepo having high respawn time if a clone died<br/>
 Sentry Wards now cost 50 gold<br/>
 Disabled Game Setup Phase<br/>
 Disabled Pause<br/>
