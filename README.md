@@ -8,6 +8,7 @@ Teams receive a free courier<br/>
 Fixed Meepo having high respawn time if a clone died<br/>
 Removed outdated text saying Broodmother is modified<br/>
 Fixed OD not stealing int<br/>
+Reduced attack range of Pugna's nether ward<br/>
 
 Version 1:<br/>
 Chest items will now go into your backpack if your inventory is full<br/>
