@@ -14,14 +14,13 @@ function COverthrowGameMode:OnGameRulesStateChange()
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		self.heroSelectionStage = 5
 		local numberOfPlayers = PlayerResource:GetPlayerCount()
-		if numberOfPlayers > 7 then
-			--self.TEAM_KILLS_TO_WIN = 25
+		if numberOfPlayers > 16 then
+			nCOUNTDOWNTIMER = 1201
+		elseif numberOfPlayers > 7 then
 			nCOUNTDOWNTIMER = 901
 		elseif numberOfPlayers > 4 and numberOfPlayers <= 7 then
-			--self.TEAM_KILLS_TO_WIN = 20
 			nCOUNTDOWNTIMER = 721
 		else
-			--self.TEAM_KILLS_TO_WIN = 15
 			nCOUNTDOWNTIMER = 601
 		end
 		if GetMapName() == "forest_solo" then
@@ -32,6 +31,8 @@ function COverthrowGameMode:OnGameRulesStateChange()
 			self.TEAM_KILLS_TO_WIN = 50
 		elseif GetMapName() == "temple_quartet" then
 			self.TEAM_KILLS_TO_WIN = 50
+		elseif GetMapName() == "desert_octet" then
+			self.TEAM_KILLS_TO_WIN = 70
 		else
 			self.TEAM_KILLS_TO_WIN = 30
 		end
