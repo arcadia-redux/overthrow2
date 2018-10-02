@@ -20,6 +20,7 @@ end
 require( "events" )
 require( "items" )
 require( "utility_functions" )
+require("patreons")
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -182,7 +183,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:SetCustomGameEndDelay( 0 )
 	GameRules:SetCustomVictoryMessageDuration( 10 )
 	GameRules:SetPreGameTime( 10 )
-	GameRules:SetStrategyTime( 0.0 )
+	GameRules:SetStrategyTime( 10.0 )
 	GameRules:SetShowcaseTime( 0.0 )
 	--GameRules:SetHideKillMessageHeaders( true )
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesOverride( true )
