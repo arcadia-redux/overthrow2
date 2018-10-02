@@ -251,7 +251,7 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 
 	local baseTime = 10
 	if GetMapName() == "desert_octet" then
-		if self.isGameTied then
+		if not self.isGameTied then
 			if killedTeam == self.leadingTeam then
 				baseTime = 20
 			elseif killedTeam == self.runnerupTeam then
