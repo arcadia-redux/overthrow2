@@ -156,7 +156,7 @@ function COverthrowGameMode:InitGameMode()
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_CUSTOM_1, 8 )
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
-		self.m_GoldDropPercent = 8
+		self.m_GoldDropPercent = 12
 	elseif GetMapName() == "desert_quintet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
