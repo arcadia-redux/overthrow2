@@ -4,6 +4,7 @@
 	"IsPlayable"	"1"
 	"HeroGuidesSupported" "1"
 	"PenaltiesEnabled"			"1"
+	"EnablePickRules"    "1"
 	"mines_trio"
 	{
 					"MaxPlayers"                    "9"
