@@ -234,6 +234,13 @@ function COverthrowGameMode:InitGameMode()
 			WaypointName = "camp"..i.."_path_wp1"
 		}
 	end
+
+	local firstPlayerLoaded
+	ListenToGameEvent("player_connect_full", function()
+		if firstPlayerLoaded then return end
+		firstPlayerLoaded = true
+		FetchPatreons()
+	end, nil)
 end
 
 ---------------------------------------------------------------------------

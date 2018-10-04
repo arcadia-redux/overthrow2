@@ -174,12 +174,11 @@ function FetchPlayerStats()
 	UpdateTimer();
 	FetchPlayerStats()
 
-	var localPlayerSteamId = Game.GetLocalPlayerInfo().player_steamid;
-	var patreons = CustomNetTables.GetTableValue('game_state', 'patreons');
-	$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[localPlayerSteamId]));
+	var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
+	$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
 	CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, patreons) {
 		if (key !== 'patreons') return;
-		$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[localPlayerSteamId]));
+		$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
 	});
 })();
 
