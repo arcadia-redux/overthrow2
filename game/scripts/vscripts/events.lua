@@ -126,15 +126,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	end
 end
 
---------------------------------------------------------------------------------
--- Event: BountyRunePickupFilter
---------------------------------------------------------------------------------
-function COverthrowGameMode:BountyRunePickupFilter( filterTable )
-      filterTable["xp_bounty"] = 2*filterTable["xp_bounty"]
-      filterTable["gold_bounty"] = 2*filterTable["gold_bounty"]
-      return true
-end
-
 ---------------------------------------------------------------------------
 -- Event: OnTeamKillCredit, see if anyone won
 ---------------------------------------------------------------------------
