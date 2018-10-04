@@ -54,9 +54,7 @@ function COverthrowGameMode:KillLoot( item, drop )
 	UTIL_Remove( drop )
 end
 
-function COverthrowGameMode:SpecialItemAdd( event )
-	local item = EntIndexToHScript( event.ItemEntityIndex )
-	local owner = EntIndexToHScript( event.HeroEntityIndex )
+function COverthrowGameMode:SpecialItemAdd(item, owner)
 	local hero = owner:GetClassname()
 	local ownerTeam = owner:GetTeamNumber()
 	local sortedTeams = {}

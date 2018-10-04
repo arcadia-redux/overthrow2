@@ -278,19 +278,25 @@ end
 --------------------------------------------------------------------------------
 function COverthrowGameMode:OnItemPickUp( event )
 	local item = EntIndexToHScript( event.ItemEntityIndex )
-	local owner = EntIndexToHScript( event.HeroEntityIndex )
-	r = 300
-	--r = RandomInt(200, 400)
+	local owner
+	if event.HeroEntityIndex then
+		owner = EntIndexToHScript(event.HeroEntityIndex)
+	elseif event.UnitEntityIndex then
+		owner = EntIndexToHScript(event.UnitEntityIndex)
+		if not owner:GetUnitName():match("npc_dota_lone_druid_bear%d") then
+			return
+		end
+	end
+
+	local r = 300
 	if event.itemname == "item_bag_of_gold" then
-		--print("Bag of gold picked up")
-		PlayerResource:ModifyGold( owner:GetPlayerID(), r, true, 0 )
+		PlayerResource:ModifyGold( owner:GetPlayerOwnerID(), r, true, 0 )
 		SendOverheadEventMessage( owner, OVERHEAD_ALERT_GOLD, owner, r, nil )
-		UTIL_Remove( item ) -- otherwise it pollutes the player inventory
+		UTIL_Remove(item)
 	elseif event.itemname == "item_treasure_chest" then
-		--print("Special Item Picked Up")
 		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
-		COverthrowGameMode:SpecialItemAdd( event )
-		UTIL_Remove( item ) -- otherwise it pollutes the player inventory
+		COverthrowGameMode:SpecialItemAdd(item, owner)
+		UTIL_Remove(item)
 	end
 end
 
