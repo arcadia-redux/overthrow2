@@ -571,7 +571,7 @@ function COverthrowGameMode:ModifyGoldFilter(filterTable)
 	if hero then
 		local goblinsGreed = hero:FindAbilityByName("alchemist_goblins_greed_custom")
 		if goblinsGreed and goblinsGreed:GetLevel() > 0 then
-			filterTable.gold = filterTable.gold * goblinsGreed:GetSpecialValueFor("gold_multiplier")
+			filterTable.gold = filterTable.gold * (1 + goblinsGreed:GetSpecialValueFor("gold_bonus_pct") * 0.01)
 			if filterTable.gold > goblinsGreed:GetSpecialValueFor("message_min_gold") then
 				SendOverheadEventMessage(PlayerResource:GetPlayer(playerId), OVERHEAD_ALERT_GOLD, hero, filterTable.gold, nil)
 			end

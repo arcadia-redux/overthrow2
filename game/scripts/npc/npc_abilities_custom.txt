@@ -684,8 +684,13 @@
 		{
 			"01"
 			{
+				"var_type"				"FIELD_INTEGER"
+				"gold_bonus_pct"		"5 10 15 20"
+			}
+			"01"
+			{
 				"var_type"				"FIELD_FLOAT"
-				"gold_multiplier"		"1.25 1.5 1.75 2"
+				"gold_coin_multiplier"		"1.25 1.5 1.75 2"
 			}
 			"02"
 			{
