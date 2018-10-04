@@ -377,7 +377,7 @@ function COverthrowGameMode:OnThink()
 
 	self:UpdateScoreboard()
 	if GameRules:IsGamePaused() then
-		Say(nil, "Pauses are disabled", true)
+		GameRules:SendCustomMessage("Pauses are disabled", -1, -1)
 		PauseGame(false)
 		return 1
 	end
