@@ -54,17 +54,13 @@ function UpdateKillsToWin()
 	}
 }
 
-function OnGameStateChanged( table, key, data )
-{
-	$.Msg( "Table '", table, "' changed: '", key, "' = ", data );
-	UpdateKillsToWin();
-}
-
 (function()
 {
 	// We use a nettable to communicate victory conditions to make sure we get the value regardless of timing.
 	UpdateKillsToWin();
-	CustomNetTables.SubscribeNetTableListener( "game_state", OnGameStateChanged );
+	CustomNetTables.SubscribeNetTableListener("game_state", function(_tableName, key) {
+		if (key === 'victory_condition') UpdateKillsToWin();
+	});
 
     GameEvents.Subscribe( "countdown", UpdateTimer );
     GameEvents.Subscribe( "show_timer", ShowTimer );

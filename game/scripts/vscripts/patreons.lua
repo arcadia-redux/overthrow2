@@ -9,3 +9,5 @@ function GetPlayerPatreonLevel(playerId)
 	local steamId = tostring(PlayerResource:GetSteamID(playerId))
 	return patreonLevels[steamId] or 0
 end
+
+CustomNetTables:SetTableValue("game_state", "patreons", patreonLevels)

@@ -184,3 +184,28 @@
 {
     saturation: 0.0;
 }
+
+#PatreonButton
+{
+	vertical-align: bottom;
+	margin-left: 140px;
+	margin-bottom: 20px;
+	height: 48px;
+	width: 200px;
+
+	background-image: url('file://{images}/custom_game/patreon.png');
+	background-size: 100%;
+}
+#PatreonButton:hover
+{
+	pre-transform-scale2d: 0.98;
+}
+#PatreonButton:active
+{
+	pre-transform-scale2d: 1.02;
+}
+
+#PatreonButton.IsPatreon
+{
+	background-image: url('file://{images}/custom_game/patreon_active.png');
+}

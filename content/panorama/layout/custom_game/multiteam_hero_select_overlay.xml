@@ -17,5 +17,7 @@
       <Label id="Timer" text="#HeroSelectionTimer" />
       <Label id="TimerLabel" />
     </Panel>
+
+    <Image id="PatreonButton" onmouseactivate="ExternalBrowserGoToURL(https://www.patreon.com/dota2unofficial)" />
   </Panel>
 </root>
