@@ -202,6 +202,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetFountainPercentageManaRegen( 0 )
 	GameRules:GetGameModeEntity():SetFountainConstantManaRegen( 0 )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( COverthrowGameMode, "ExecuteOrderFilter" ), self )
+	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
@@ -550,6 +551,23 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	return true
 end
 
+function COverthrowGameMode:ModifierGainedFilter(filterTable)
+	if filterTable.name_const == "modifier_tiny_toss" then
+		local parent = EntIndexToHScript(filterTable.entindex_parent_const)
+		local caster = EntIndexToHScript(filterTable.entindex_caster_const)
+		local ability = EntIndexToHScript(filterTable.entindex_ability_const)
+
+		if PlayerResource:IsDisableHelpSetForPlayerID(parent:GetPlayerOwnerID(), caster:GetPlayerOwnerID()) then
+			ability:EndCooldown()
+			ability:RefundManaCost()
+			DisplayError(caster:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
+			return false
+		end
+	end
+
+	return true
+end
+
 function COverthrowGameMode:SendMatchResults(winnerTeam)
 	if GameRules:IsCheatMode() then return end
 	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
@@ -585,3 +603,10 @@ CustomGameEventManager:RegisterListener("set_disable_help", function(_, data)
 		CustomNetTables:SetTableValue("disable_help", tostring(playerId), disableHelp)
 	end
 end)
+
+function DisplayError(playerId, message)
+	local player = PlayerResource:GetPlayer(playerId)
+	if player then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = message })
+	end
+end
