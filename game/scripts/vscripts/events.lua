@@ -284,7 +284,9 @@ function COverthrowGameMode:OnItemPickUp( event )
 		if owner then
 			local goblinsGreed = owner:FindAbilityByName("alchemist_goblins_greed_custom")
 			if goblinsGreed and goblinsGreed:GetLevel() > 0 then
-				r = r * goblinsGreed:GetSpecialValueFor("gold_coin_multiplier")
+				local bonusGold = r * (goblinsGreed:GetSpecialValueFor("gold_coin_multiplier") - 1)
+				r = r + bonusGold
+				goblinsGreed.coinBonusGold = (goblinsGreed.coinBonusGold or 0) + bonusGold
 			end
 		end
 		PlayerResource:ModifyGold( owner:GetPlayerOwnerID(), r, true, 0 )

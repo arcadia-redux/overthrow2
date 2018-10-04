@@ -238,6 +238,17 @@ function COverthrowGameMode:InitGameMode()
 		firstPlayerLoaded = true
 		FetchPatreons()
 	end, nil)
+	ListenToGameEvent("player_chat", function(data)
+		if data.text == "-goblinsgreed" then
+			local playerId = data.playerid
+			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+			local goblinsGreed = hero:FindAbilityByName("alchemist_goblins_greed_custom")
+			if goblinsGreed then
+				local message = "Alchemist's bonus gold: " .. (goblinsGreed.coinBonusGold or 0) .. " from coins, " .. math.floor(goblinsGreed.gainBonusGold or 0) .. " from other sources"
+				GameRules:SendCustomMessage(message, PlayerResource:GetTeam(playerId), -1)
+			end
+		end
+	end, nil)
 end
 
 ---------------------------------------------------------------------------
@@ -571,7 +582,10 @@ function COverthrowGameMode:ModifyGoldFilter(filterTable)
 	if hero then
 		local goblinsGreed = hero:FindAbilityByName("alchemist_goblins_greed_custom")
 		if goblinsGreed and goblinsGreed:GetLevel() > 0 then
-			filterTable.gold = filterTable.gold * goblinsGreed:GetSpecialValueFor("gold_gain_multiplier")
+			local bonusGold = filterTable.gold * (goblinsGreed:GetSpecialValueFor("gold_gain_multiplier") - 1)
+			filterTable.gold = filterTable.gold + bonusGold
+			goblinsGreed.gainBonusGold = (goblinsGreed.gainBonusGold or 0) + bonusGold
+
 			if filterTable.gold > goblinsGreed:GetSpecialValueFor("message_min_gold") then
 				SendOverheadEventMessage(PlayerResource:GetPlayer(playerId), OVERHEAD_ALERT_GOLD, hero, filterTable.gold, nil)
 			end
