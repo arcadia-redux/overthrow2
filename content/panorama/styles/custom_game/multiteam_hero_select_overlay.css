@@ -29,11 +29,11 @@
 
 #Timer
 {
+	horizontal-align: center;
     font-size: 48px;
     color: #CCCCCC;
-	horizontal-align: left;
 	margin-top: 5px;
-	width: 100%;
+	width: 70px;
 	text-align: center;
 	margin-left: 3px;
 	margin-right: 3px;
@@ -48,6 +48,7 @@
 #TimerBg,
 #TimerRing
 {
+	horizontal-align: center;
 	width: 70px;
 	height: 70px;
 }
