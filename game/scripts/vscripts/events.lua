@@ -295,6 +295,9 @@ function COverthrowGameMode:OnItemPickUp( event )
 		UTIL_Remove(item)
 	elseif event.itemname == "item_treasure_chest" then
 		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
+		if owner:GetUnitName() == "npc_dota_hero_meepo" then
+			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
+		end
 		COverthrowGameMode:SpecialItemAdd(item, owner)
 		UTIL_Remove(item)
 	end
