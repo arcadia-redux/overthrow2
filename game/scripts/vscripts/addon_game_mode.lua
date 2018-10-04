@@ -243,10 +243,14 @@ function COverthrowGameMode:InitGameMode()
 			local playerId = data.playerid
 			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 			local goblinsGreed = hero:FindAbilityByName("alchemist_goblins_greed_custom")
-			if goblinsGreed then
-				local message = "Alchemist's bonus gold: " .. (goblinsGreed.coinBonusGold or 0) .. " from coins, " .. math.floor(goblinsGreed.gainBonusGold or 0) .. " from other sources"
-				GameRules:SendCustomMessage(message, PlayerResource:GetTeam(playerId), -1)
-			end
+			if not goblinsGreed then return end
+
+			local now = GameRules:GetDOTATime(false, true)
+			if goblinsGreed.nextTime and goblinsGreed.nextTime < now then return end
+			goblinsGreed.nextTime = now + 5
+
+			local message = "Alchemist's bonus gold: " .. (goblinsGreed.coinBonusGold or 0) .. " from coins, " .. math.floor(goblinsGreed.gainBonusGold or 0) .. " from other sources"
+			GameRules:SendCustomMessage(message, PlayerResource:GetTeam(playerId), -1)
 		end
 	end, nil)
 end
