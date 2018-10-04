@@ -134,10 +134,6 @@ function COverthrowGameMode:InitGameMode()
 	self.countdownEnabled = false
 	self.itemSpawnIndex = 1
 	self.itemSpawnLocation = Entities:FindByName( nil, "greevil" )
-	self.tier1ItemBucket = {}
-	self.tier2ItemBucket = {}
-	self.tier3ItemBucket = {}
-	self.tier4ItemBucket = {}
 	self.heroSelectionStage = 0
 	self.couriers = {}
 

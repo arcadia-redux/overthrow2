@@ -68,7 +68,6 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 	local leader = sortedTeams[1].teamID
 	local lastPlace = sortedTeams[n].teamID
 
-	local tableindex = 0
 	local tier1 =
 	{
 		"item_urn_of_shadows",
@@ -150,32 +149,31 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 		"item_bloodthorn",
 	}
 
-	local t1 = PickRandomShuffle( tier1, self.tier1ItemBucket )
-	local t2 = PickRandomShuffle( tier2, self.tier2ItemBucket )
-	local t3 = PickRandomShuffle( tier3, self.tier3ItemBucket )
-	local t4 = PickRandomShuffle( tier4, self.tier4ItemBucket )
-
-	local spawnedItem = ""
-
-	-- pick the item we're giving them
+	local group
 	if GetTeamHeroKills( leader ) > 5 and GetTeamHeroKills( leader ) <= 10 then
 		if ownerTeam == leader and ( self.leadingTeamScore - self.runnerupTeamScore > 3 ) then
-			spawnedItem = t1
+			group = tier1
 		elseif ownerTeam == lastPlace then
-			spawnedItem = t3
+			group = tier3
 		else
-			spawnedItem = t2
+			group = tier2
 		end
 	elseif GetTeamHeroKills( leader ) > 10 and GetTeamHeroKills( leader ) <= 15 then
 		if ownerTeam == leader and ( self.leadingTeamScore - self.runnerupTeamScore > 3 ) then
-			spawnedItem = t2
+			group = tier2
 		elseif ownerTeam == lastPlace then
-			spawnedItem = t4
+			group = tier4
 		else
-			spawnedItem = t3
+			group = tier3
 		end
 	else
-		spawnedItem = t2
+		group = tier2
+	end
+
+	local spawnedItem
+	while true do
+		spawnedItem = group[RandomInt(1, #group)]
+		if not owner:HasItemInInventory(spawnedItem) then break end
 	end
 
 	-- add the item to the inventory and broadcast
