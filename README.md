@@ -36,6 +36,7 @@ Disbaled Pause<br/>
 -Bounty Hunter's Invisibility is no longer nerfed<br/>
 -Riki's Blink Strike is no longer nerfed<br/>
 -Fixed OD not stealing int<br/>
+-Fixed Lone Druid's bear being unable to collect coins or chest items<br/>
 -Fixed Meepo having high respawn time if a clone died<br/>
 -Sentry Wards now cost 50 gold<br/>
 -Disabled Game Setup Phase<br/>
