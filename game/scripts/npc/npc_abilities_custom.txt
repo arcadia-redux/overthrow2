@@ -684,15 +684,15 @@
 		{
 			"01"
 			{
-				"var_type"				"FIELD_INTEGER"
-				"gold_bonus_pct"		"5 10 15 20"
-			}
-			"01"
-			{
 				"var_type"				"FIELD_FLOAT"
-				"gold_coin_multiplier"		"1.25 1.5 1.75 2"
+				"gold_coin_multiplier"		"2.5"
 			}
 			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"gold_gain_multiplier"		"1 1.1 1.2 1.3"
+			}
+			"03"
 			{
 				"var_type"				"FIELD_INTEGER"
 				"message_min_gold"		"125 150 175 200"
