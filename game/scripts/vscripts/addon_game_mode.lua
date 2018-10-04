@@ -203,6 +203,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetFountainConstantManaRegen( 0 )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( COverthrowGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
+	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
@@ -565,6 +566,21 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 		end
 	end
 
+	return true
+end
+
+function COverthrowGameMode:ModifyGoldFilter(filterTable)
+	local playerId = filterTable.player_id_const
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+	if hero then
+		local goblinsGreed = hero:FindAbilityByName("alchemist_goblins_greed_custom")
+		if goblinsGreed and goblinsGreed:GetLevel() > 0 then
+			filterTable.gold = filterTable.gold * goblinsGreed:GetSpecialValueFor("gold_multiplier")
+			if filterTable.gold > goblinsGreed:GetSpecialValueFor("message_min_gold") then
+				SendOverheadEventMessage(PlayerResource:GetPlayer(playerId), OVERHEAD_ALERT_GOLD, hero, filterTable.gold, nil)
+			end
+		end
+	end
 	return true
 end
 

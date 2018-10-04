@@ -281,6 +281,12 @@ function COverthrowGameMode:OnItemPickUp( event )
 
 	local r = 300
 	if event.itemname == "item_bag_of_gold" then
+		if owner then
+			local goblinsGreed = owner:FindAbilityByName("alchemist_goblins_greed_custom")
+			if goblinsGreed and goblinsGreed:GetLevel() > 0 then
+				r = r * goblinsGreed:GetSpecialValueFor("gold_multiplier")
+			end
+		end
 		PlayerResource:ModifyGold( owner:GetPlayerOwnerID(), r, true, 0 )
 		SendOverheadEventMessage( owner, OVERHEAD_ALERT_GOLD, owner, r, nil )
 		UTIL_Remove(item)
