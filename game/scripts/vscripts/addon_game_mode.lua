@@ -186,13 +186,6 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetTopBarTeamValuesVisible( false )
 	GameRules:SetHideKillMessageHeaders( true )
 	GameRules:SetUseUniversalShopMode( true )
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_DOUBLEDAMAGE , true ) --Double Damage
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_HASTE, true ) --Haste
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_ILLUSION, true ) --Illusion
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_INVISIBILITY, true ) --Invis
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_REGENERATION, false ) --Regen
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_ARCANE, true ) --Arcane
-	GameRules:GetGameModeEntity():SetRuneEnabled( DOTA_RUNE_BOUNTY, false ) --Bounty
 	GameRules:GetGameModeEntity():SetLoseGoldOnDeath( false )
 	GameRules:GetGameModeEntity():SetFountainPercentageHealthRegen( 0 )
 	GameRules:GetGameModeEntity():SetFountainPercentageManaRegen( 0 )
@@ -200,6 +193,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( COverthrowGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
+	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
@@ -595,6 +589,19 @@ function COverthrowGameMode:ModifyGoldFilter(filterTable)
 			end
 		end
 	end
+	return true
+end
+
+local enabledRuneTypes = {
+	DOTA_RUNE_DOUBLEDAMAGE,
+	DOTA_RUNE_HASTE,
+	DOTA_RUNE_ILLUSION,
+	DOTA_RUNE_INVISIBILITY,
+	DOTA_RUNE_REGENERATION,
+	DOTA_RUNE_ARCANE,
+}
+function COverthrowGameMode:RuneSpawnFilter(filterTable)
+	filterTable.rune_type = enabledRuneTypes[RandomInt(1, #enabledRuneTypes)]
 	return true
 end
 
