@@ -134,7 +134,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"aura_radius"				"1400"
+				"aura_radius"				"1000"
 			}
 			"02"
 			{
@@ -161,7 +161,7 @@
 			"01"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"aura_radius"				"3400"
+				"aura_radius"				"1400"
 			}
 			"02"
 			{
