@@ -178,59 +178,22 @@
 
 	"dota_ability_xp_global"
 	{
-		"BaseClass"          			    "ability_datadriven"
-		"AbilityName"           			"dota_ability_xp_global"
+		"BaseClass"							"ability_lua"
+		"ScriptFile"						"abilities/xp_global"
+		"AbilityName"						"dota_ability_xp_global"
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
-		"Modifiers"
+		"AbilitySpecial"
 		{
-			"modifier_dota_ability_xp_global"
+			"01"
 			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-
-				"Aura"					"modifier_get_xp_global"
-				"Aura_Radius"			"8000"
-				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
-				"Aura_ApplyToCaster"	"0"
-				"Aura_Flags"    		"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"ThinkInterval"	".5"
-
-				"OnIntervalThink"
-				{
-					"GrantXPGold"
-					{
-						"Target"
-						{
-							"Center"		"CASTER"
-							"radius"		"3400"
-							"Types"			"DOTA_UNIT_TARGET_HERO"
-							"Flags"			"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-						}
-						"XPAmount"		"6"
-						"SplitEvenly"	"0"
-						"GoldAmount"	"4"
-						"ReliableGold"	"0"
-						"PlayAlert"		"0"
-					}
-				}
+				"var_type"					"FIELD_INTEGER"
+				"aura_gold"					"4"
 			}
-
-			"modifier_get_xp_global"
+			"02"
 			{
-				"Passive"       "1"
-				"EffectName"	"particles/econ/courier/courier_greevil_yellow/courier_greevil_yellow_ambient_3_b.vpcf"
-				"TextureName"	"alchemist_goblins_greed"
+				"var_type"					"FIELD_INTEGER"
+				"aura_xp"					"6"
 			}
 		}
 	}
