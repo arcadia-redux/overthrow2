@@ -35,7 +35,6 @@ modifier_get_xp_global = {
 	GetEffectName = function() return "particles/econ/courier/courier_greevil_yellow/courier_greevil_yellow_ambient_3_b.vpcf" end,
 }
 
-local isFirstXpAuraModifier = true
 if IsServer() then
 	function modifier_get_xp_global:OnCreated()
 		self:StartIntervalThink(0.5)
