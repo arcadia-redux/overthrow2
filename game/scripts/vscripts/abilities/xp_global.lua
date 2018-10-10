@@ -6,7 +6,7 @@ dota_ability_xp_global = {
 LinkLuaModifier("modifier_dota_ability_xp_global", "abilities/xp_global", LUA_MODIFIER_MOTION_NONE)
 modifier_dota_ability_xp_global = {
 	IsHidden = function() return true end,
-	IsAura = function() return true end,
+	IsAura = function() return GameRules:GetDOTATime(false, true) > 0 end,
 	GetModifierAura = function() return "modifier_get_xp_global" end,
 	GetAuraRadius = function() return FIND_UNITS_EVERYWHERE end,
 	GetAuraSearchTeam = function() return DOTA_UNIT_TARGET_TEAM_BOTH end,
