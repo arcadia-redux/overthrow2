@@ -75,6 +75,7 @@ if IsServer() then
 		self.wasConnected = keys.wasConnected
 		self.leftFountain = keys.leftFountain
 		self:StartIntervalThink(0.5)
+		self:OnIntervalThink()
 	end
 
 	function modifier_get_xp_late_bonus:OnIntervalThink()
