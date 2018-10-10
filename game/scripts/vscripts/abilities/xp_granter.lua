@@ -86,7 +86,7 @@ if IsServer() then
 			return
 		end
 
-		if not self.wasConnected then
+		if not self.wasConnected and self:GetRemainingTime() > 30 then
 			local isConnected = parent:GetPlayerOwner() ~= nil
 			if isConnected then
 				self:Destroy()
@@ -99,7 +99,7 @@ if IsServer() then
 				return
 			end
 		end
-		if not self.leftFountain then
+		if not self.leftFountain and self:GetRemainingTime() > 10 then
 			local isOnFountain = parent:HasModifier("modifier_fountain_aura_effect_lua")
 			if not isOnFountain then
 				self:Destroy()
