@@ -14,10 +14,6 @@ modifier_dota_ability_xp_global = {
 	GetAuraSearchFlags = function() return DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS end,
 }
 
-function modifier_dota_ability_xp_global:GetAuraEntityReject(entity)
-	return entity:HasModifier("modifier_fountain_aura_effect_lua") and not entity:HasModifier("modifier_get_xp_late_bonus")
-end
-
 function modifier_dota_ability_xp_global:CheckState()
 	return {
 		[MODIFIER_STATE_UNSELECTABLE] = true,
