@@ -241,19 +241,18 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 	end
 
 	local baseTime = 10
+	local sortedTeams = self:GetSortedTeams()
 	if GetMapName() == "desert_octet" then
-		if not self.isGameTied then
-			if killedTeam == self.leadingTeam then
-				baseTime = 20
-			elseif killedTeam == self.runnerupTeam then
-				baseTime = 10
-			end
+		if killedTeam == sortedTeams[1].team and sortedTeams[1].score - sortedTeams[2].score >= 2 then
+			baseTime = 20
 		end
-		if killedTeam ~= self.leadingTeam and killedTeam ~= self.runnerupTeam then
+
+		local lastPlace = sortedTeams[#sortedTeams].team
+		if killedTeam == lastPlace then
 			baseTime = 5
 		end
 	else
-		if killedTeam == self.leadingTeam and not self.isGameTied then
+		if killedTeam == sortedTeams[1].team and sortedTeams[1].score ~= sortedTeams[2].score then
 			baseTime = 20
 		end
 	end

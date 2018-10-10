@@ -57,16 +57,10 @@ end
 function COverthrowGameMode:SpecialItemAdd(item, owner)
 	local hero = owner:GetClassname()
 	local ownerTeam = owner:GetTeamNumber()
-	local sortedTeams = {}
-	for _, team in pairs( self.m_GatheredShuffledTeams ) do
-		table.insert( sortedTeams, { teamID = team, teamScore = GetTeamHeroKills( team ) } )
-	end
 
-	-- reverse-sort by score
-	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
-	local n = TableCount( sortedTeams )
-	local leader = sortedTeams[1].teamID
-	local lastPlace = sortedTeams[n].teamID
+	local sortedTeams = self:GetSortedTeams()
+	local leader = sortedTeams[1].team
+	local lastPlace = sortedTeams[#sortedTeams].team
 
 	local tier1 =
 	{

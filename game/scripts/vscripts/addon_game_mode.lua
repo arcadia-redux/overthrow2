@@ -314,40 +314,25 @@ end
 -- Simple scoreboard using debug text
 ---------------------------------------------------------------------------
 function COverthrowGameMode:UpdateScoreboard()
-	local sortedTeams = {}
-	for _, team in pairs( self.m_GatheredShuffledTeams ) do
-		table.insert( sortedTeams, { teamID = team, teamScore = GetTeamHeroKills( team ) } )
-	end
-
-	-- reverse-sort by score
-	table.sort( sortedTeams, function(a,b) return ( a.teamScore > b.teamScore ) end )
-
-	for _, t in pairs( sortedTeams ) do
-		local clr = self:ColorForTeam( t.teamID )
-
+	local sortedTeams = self:GetSortedTeams()
+	for _, t in ipairs(sortedTeams) do
 		-- Scaleform UI Scoreboard
-		local score =
-		{
-			team_id = t.teamID,
-			team_score = t.teamScore
-		}
-		FireGameEvent( "score_board", score )
+		FireGameEvent("score_board", {
+			team_id = t.team,
+			team_score = t.score
+		})
 	end
 	-- Leader effects (moved from OnTeamKillCredit)
-	local leader = sortedTeams[1].teamID
-	--print("Leader = " .. leader)
+	local leader = sortedTeams[1].team
 	self.leadingTeam = leader
-	self.runnerupTeam = sortedTeams[2].teamID
-	self.leadingTeamScore = sortedTeams[1].teamScore
-	self.runnerupTeamScore = sortedTeams[2].teamScore
-	if sortedTeams[1].teamScore == sortedTeams[2].teamScore then
-		self.isGameTied = true
-	else
-		self.isGameTied = false
-	end
+	self.runnerupTeam = sortedTeams[2].team
+	self.leadingTeamScore = sortedTeams[1].score
+	self.runnerupTeamScore = sortedTeams[2].score
+	self.isGameTied = sortedTeams[1].score == sortedTeams[2].score
+
 	local allHeroes = HeroList:GetAllHeroes()
 	for _,entity in pairs( allHeroes) do
-		if entity:GetTeamNumber() == leader and sortedTeams[1].teamScore ~= sortedTeams[2].teamScore then
+		if entity:GetTeamNumber() == leader and sortedTeams[1].score ~= sortedTeams[2].score then
 			if entity:IsAlive() == true then
 				-- Attaching a particle to the leading team heroes
 				local existingParticle = entity:Attribute_GetIntValue( "particleID", -1 )
@@ -646,4 +631,14 @@ function DisplayError(playerId, message)
 	if player then
 		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = message })
 	end
+end
+
+function COverthrowGameMode:GetSortedTeams()
+	local sortedTeams = {}
+	for _, team in pairs(self.m_GatheredShuffledTeams) do
+		table.insert(sortedTeams, { team = team, score = GetTeamHeroKills(team) })
+	end
+
+	table.sort(sortedTeams, function(a, b) return a.score > b.score end)
+	return sortedTeams
 end
