@@ -1,6 +1,5 @@
 "use strict";
 var playerStats = {};
-var isPatreon = false;
 
 function OnUpdateHeroSelection()
 {
@@ -175,14 +174,11 @@ function FetchPlayerStats()
 	UpdateTimer();
 	FetchPlayerStats()
 
-	var parent = $.GetContextPanel().GetParent().GetParent().GetParent();
 	var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
-	isPatreon = Boolean(patreons[Game.GetLocalPlayerID()])
-	parent.SetHasClass('IsPatreon', isPatreon);
+	$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
 	CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, patreons) {
 		if (key !== 'patreons') return;
-		isPatreon = Boolean(patreons[Game.GetLocalPlayerID()])
-		parent.SetHasClass('IsPatreon', isPatreon);
+		$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
 	});
 })();
 

@@ -206,17 +206,7 @@
 	pre-transform-scale2d: 1.02;
 }
 
-.IsPatreon #PatreonButton
+#PatreonButton.IsPatreon
 {
 	background-image: url('file://{images}/custom_game/patreon_active.png');
-}
-
-.PatreonBonusButtonContainer
-{
-	visibility: collapse;
-}
-
-.IsPatreon .PatreonBonusButtonContainer
-{
-	visibility: visible;
 }

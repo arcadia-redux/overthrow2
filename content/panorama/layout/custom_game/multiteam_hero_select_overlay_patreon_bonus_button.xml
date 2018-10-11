@@ -4,17 +4,43 @@
 			<include src="file://{resources}/styles/custom_game/multiteam_hero_select_overlay.css" />
 	</styles>
 	<script>
+		var isPatreon;
+		function GoToPatreonPage() {
+			if (isPatreon) return;
+			$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
+		}
 		function TogglePatreonBonusButton() {
+			if (!isPatreon) return;
 			var enable = $('#PatreonBonusButton').checked;
 			GameEvents.SendCustomGameEventToServer("set_patreon_bonus", { enable: enable } );
+		}
+		function OnMouseOver() {
+			if (isPatreon) return;
+			$.DispatchEvent('DOTAShowTextTooltip', '#patreon_bonus_button_tooltip')
 		}
 
 		(function() {
 			var patreonBonuses = CustomNetTables.GetTableValue("game_state", "patreon_bonus");
 			$('#PatreonBonusButton').checked = !patreonBonuses || patreonBonuses[Game.GetLocalPlayerID()] !== 0;
+
+			var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
+			isPatreon = Boolean(patreons[Game.GetLocalPlayerID()]);
+			if (!isPatreon) $('#PatreonBonusButton').checked = false;
+			$('#PatreonBonusButton').enabled = isPatreon
+			CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, patreons) {
+				if (key !== 'patreons') return;
+				isPatreon = Boolean(patreons[Game.GetLocalPlayerID()]);
+				if (!isPatreon) $('#PatreonBonusButton').checked = false;
+				$('#PatreonBonusButton').enabled = isPatreon
+			});
 		})();
 	</script>
-	<Panel class="PatreonBonusButtonContainer">
+	<Panel
+		class="PatreonBonusButtonContainer"
+		onmouseactivate="GoToPatreonPage()"
+		onmouseover="OnMouseOver()"
+		onmouseout="DOTAHideTextTooltip()"
+	>
 		<ToggleButton text="#patreon_bonus_button_text" id="PatreonBonusButton" onactivate="TogglePatreonBonusButton()" />
 	</Panel>
 </root>
