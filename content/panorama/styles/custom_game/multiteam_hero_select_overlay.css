@@ -206,7 +206,38 @@
 	pre-transform-scale2d: 1.02;
 }
 
-#PatreonButton.IsPatreon
+.IsPatreon #PatreonButton
 {
 	background-image: url('file://{images}/custom_game/patreon_active.png');
+}
+
+:not(.IsPatreon) #PatreonBonusButton > Label
+{
+	animation-name: patreon-button-animation;
+	animation-duration: 4s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	font-weight: bold;
+}
+
+@keyframes 'patreon-button-animation' {
+	10% { color: #333333; }
+	50% { color: orange; }
+	90% { color: #333333; }
+}
+
+:not(.IsPatreon) #PatreonBonusButton > .TickBox
+{
+	animation-name: patreon-button-tick-animation;
+	animation-duration: 4s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'patreon-button-tick-animation' {
+	0% { background-color: black; }
+	10% { background-color: black; }
+	50% { background-color: #d1a301; }
+	90% { background-color: black; }
+	100% { background-color: black; }
 }
