@@ -1,0 +1,20 @@
+<root>
+	<styles>
+			<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+			<include src="file://{resources}/styles/custom_game/multiteam_hero_select_overlay.css" />
+	</styles>
+	<script>
+		function TogglePatreonBonusButton() {
+			var enable = $('#PatreonBonusButton').checked;
+			GameEvents.SendCustomGameEventToServer("set_patreon_bonus", { enable: enable } );
+		}
+
+		(function() {
+			var patreonBonuses = CustomNetTables.GetTableValue("game_state", "patreon_bonus");
+			$('#PatreonBonusButton').checked = !patreonBonuses || patreonBonuses[Game.GetLocalPlayerID()] !== 0;
+		})();
+	</script>
+	<Panel class="PatreonBonusButtonContainer">
+		<ToggleButton text="#patreon_bonus_button_text" id="PatreonBonusButton" onactivate="TogglePatreonBonusButton()" />
+	</Panel>
+</root>

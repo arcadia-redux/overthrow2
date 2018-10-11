@@ -87,31 +87,19 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 		spawnedUnit.firstTimeSpawned = true
 		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
-			local hasBoots = false
-			local hasTpScroll = false
 			for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
 				local item = spawnedUnit:GetItemInSlot(i)
-				if item then
-					local itemName = item:GetAbilityName()
-					if itemName == "item_tpscroll" and not hasTpScroll then
-						hasTpScroll = true
-						item:SetCurrentCharges(item:GetCurrentCharges() - 1)
-						if item:GetCurrentCharges() == 0 then
-							UTIL_Remove(item)
-						end
+				if item and item:GetAbilityName() == "item_tpscroll" then
+					item:SetCurrentCharges(item:GetCurrentCharges() - 1)
+					if item:GetCurrentCharges() == 0 then
+						UTIL_Remove(item)
 					end
-					if itemName == "item_boots" then
-						hasBoots = true
-					end
+					break
 				end
 			end
 
-			if GetPlayerPatreonLevel(spawnedUnit:GetPlayerID()) >= 1 then
-				if hasBoots then
-					spawnedUnit:ModifyGold(500, false, 0)
-				else
-					spawnedUnit:AddItemByName("item_boots")
-				end
+			if HasPlayerPatreonBonusesEnabled(playerId) then
+				GivePlayerPatreonBonus(spawnedUnit:GetPlayerID())
 			end
 		end, 2/30)
 	end
