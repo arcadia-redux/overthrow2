@@ -8,7 +8,7 @@ local function getPlayerIdBySteam(id)
 	return -1
 end
 
-local patreonLevels =  {}
+local patreonLevels = {}
 function FetchPatreons()
 	local ids = {}
 	for i = 0, 23 do
@@ -32,3 +32,56 @@ end
 function GetPlayerPatreonLevel(playerId)
 	return patreonLevels[playerId] or 0
 end
+
+function HasPlayerPatreonBonusesEnabled(playerId)
+	local patreonBonuses = CustomNetTables:GetTableValue("game_state", "patreon_bonus") or {}
+	return patreonBonuses[playerId] ~= 0
+end
+
+function GivePlayerPatreonBonus(playerId)
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+	if GetPlayerPatreonLevel(playerId) < 1 then return end
+
+	if hero:HasItemInInventory("item_boots") then
+		hero:ModifyGold(500, false, 0)
+	else
+		hero:AddItemByName("item_boots")
+	end
+end
+
+function TakePlayerPatreonBonus(playerId)
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+	if GetPlayerPatreonLevel(playerId) < 1 then return end
+
+	if hero:HasItemInInventory("item_boots") then
+		for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
+			local item = hero:GetItemInSlot(i)
+			if item and item:GetAbilityName() == "item_boots" then
+				UTIL_Remove(item)
+				break
+			end
+		end
+	else
+		hero:ModifyGold(-500, false, 0)
+	end
+end
+
+CustomGameEventManager:RegisterListener("set_patreon_bonus", function(_, data)
+	local playerId = data.PlayerID
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+	if not hero then return end
+
+	local enable = data.enable == 1
+	local patreonBonuses = CustomNetTables:GetTableValue("game_state", "patreon_bonus") or {}
+	local oldState = patreonBonuses[tostring(playerId)] ~= 0
+	if oldState == data.enable then return end
+
+	patreonBonuses[tostring(playerId)] = enable
+	CustomNetTables:SetTableValue("game_state", "patreon_bonus", patreonBonuses)
+
+	if enable then
+		GivePlayerPatreonBonus(playerId)
+	else
+		TakePlayerPatreonBonus(playerId)
+	end
+end)

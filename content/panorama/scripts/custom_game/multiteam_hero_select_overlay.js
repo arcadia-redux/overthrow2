@@ -1,5 +1,6 @@
 "use strict";
 var playerStats = {};
+var isPatreon = false;
 
 function OnUpdateHeroSelection()
 {
@@ -174,11 +175,27 @@ function FetchPlayerStats()
 	UpdateTimer();
 	FetchPlayerStats()
 
+	var parent = $.GetContextPanel().GetParent().GetParent().GetParent();
 	var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
-	$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
+	isPatreon = Boolean(patreons[Game.GetLocalPlayerID()])
+	parent.SetHasClass('IsPatreon', isPatreon);
 	CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, patreons) {
 		if (key !== 'patreons') return;
-		$('#PatreonButton').SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
+		isPatreon = Boolean(patreons[Game.GetLocalPlayerID()])
+		parent.SetHasClass('IsPatreon', isPatreon);
 	});
 })();
 
+(function() {
+	var root = $.GetContextPanel().GetParent().GetParent().GetParent();
+	var startingItemsLeftColumn = root.FindChildTraverse("StartingItemsLeftColumn");
+	startingItemsLeftColumn.Children().forEach(function(child) {
+		if (child.BHasClass('PatreonBonusButtonContainer')) child.DeleteAsync(0);
+	})
+	var inventoryStrategyControl = root.FindChildTraverse("InventoryStrategyControl");
+	inventoryStrategyControl.style.marginTop = (46 - 32) + 'px';
+
+	var patreonBonusButton = $.CreatePanel("Panel", startingItemsLeftColumn, "");
+	patreonBonusButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_patreon_bonus_button.xml", false, false)
+	startingItemsLeftColumn.MoveChildAfter(patreonBonusButton, startingItemsLeftColumn.GetChild(0));
+})();
