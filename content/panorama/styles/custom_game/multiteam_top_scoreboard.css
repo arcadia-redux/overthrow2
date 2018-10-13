@@ -10,14 +10,9 @@
 
 #TopBarScoreboard
 {
-	margin-left: 450px;
+	margin-left: 150px;
     horizontal-align: left;
     vertical-align: top;
-}
-
-.AspectRatio4x3 #TopBarScoreboard
-{
-	margin-left: 225px;
 }
 
 #ScoreboardContainer
@@ -108,13 +103,13 @@
 	{
 		pre-transform-scale2d: 1;
 	}
-	
+
 	100%
 	{
 		pre-transform-scale2d: 1;
 	}
 }
-    
+
 
 @keyframes 'GettingBetterAnim'
 {
@@ -127,7 +122,7 @@
 	{
 		pre-transform-scale2d: 1.05;
 	}
-	
+
 	100%
 	{
 		pre-transform-scale2d: 1;
