@@ -4,8 +4,9 @@ Overthrow Game Mode
 
 _G.nCOUNTDOWNTIMER = 901
 _G.DISABLE_PAUSES = true
-BULDOG_STEAM_IDS = {
+TRUSTED_HOSTS = {
 	["76561198036748162"] = true,
+	["76561198003571172"] = true,
 }
 
 
@@ -254,7 +255,7 @@ function COverthrowGameMode:InitGameMode()
 		local playerId = data.PlayerID
 		local player = PlayerResource:GetPlayer(playerId)
 		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
-		if BULDOG_STEAM_IDS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
+		if TRUSTED_HOSTS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
 			DISABLE_PAUSES = false
 			GameRules:LockCustomGameSetupTeamAssignment(false)
 			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
