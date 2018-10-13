@@ -86,3 +86,7 @@ function SetTimer( cmdName, time )
     print( "Set the timer to: " .. time )
     nCOUNTDOWNTIMER = time
 end
+
+function GetConnectionState(playerId)
+	return PlayerResource:IsFakeClient(playerId) and DOTA_CONNECTION_STATE_CONNECTED or PlayerResource:GetConnectionState(playerId)
+end

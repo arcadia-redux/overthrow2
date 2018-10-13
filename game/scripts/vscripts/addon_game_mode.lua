@@ -9,6 +9,7 @@ TRUSTED_HOSTS = {
 	["76561198003571172"] = true,
 }
 
+_G.DISCONNECT_TIMES = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -270,6 +271,7 @@ function COverthrowGameMode:SetUpFountains()
 
 	LinkLuaModifier( "modifier_fountain_aura_lua", LUA_MODIFIER_MOTION_NONE )
 	LinkLuaModifier( "modifier_fountain_aura_effect_lua", LUA_MODIFIER_MOTION_NONE )
+	LinkLuaModifier( "modifier_disconnect_invulnerable", LUA_MODIFIER_MOTION_NONE )
 
 	local fountainEntities = Entities:FindAllByClassname( "ent_dota_fountain")
 	for _,fountainEnt in pairs( fountainEntities ) do
@@ -435,6 +437,19 @@ function COverthrowGameMode:OnThink()
 		--Spawn Gold Bags
 		COverthrowGameMode:ThinkGoldDrop()
 		COverthrowGameMode:ThinkSpecialItemDrop()
+	end
+
+	for playerId = 0, 23 do
+		if PlayerResource:IsValidPlayerID(playerId) then
+			local connectionState = GetConnectionState(playerId)
+			if not DISCONNECT_TIMES[playerId] then
+				if connectionState == DOTA_CONNECTION_STATE_DISCONNECTED or connectionState == DOTA_CONNECTION_STATE_ABANDONED then
+					DISCONNECT_TIMES[playerId] = GameRules:GetDOTATime(false, true)
+				end
+			elseif connectionState == DOTA_CONNECTION_STATE_CONNECTED then
+				DISCONNECT_TIMES[playerId] = nil
+			end
+		end
 	end
 
 	return 1

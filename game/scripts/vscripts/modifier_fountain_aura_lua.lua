@@ -38,9 +38,9 @@ end
 
 --------------------------------------------------------------------------------
 
---function modifier_vengefulspirit_command_aura_lua:GetAuraSearchFlags()
---	return DOTA_UNIT_TARGET_FLAG_INVULNERABLE
---end
+function modifier_fountain_aura_lua:GetAuraSearchFlags()
+	return DOTA_UNIT_TARGET_FLAG_INVULNERABLE
+end
 
 --------------------------------------------------------------------------------
 
