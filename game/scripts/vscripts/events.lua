@@ -98,8 +98,9 @@ function COverthrowGameMode:OnNPCSpawned( event )
 				end
 			end
 
-			if HasPlayerPatreonBonusesEnabled(playerId) then
-				GivePlayerPatreonBonus(spawnedUnit:GetPlayerID())
+			local playerId = spawnedUnit:GetPlayerID()
+			if HasPlayerPatreonBonusesEnabled(playerId) and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
+				GivePlayerPatreonBonus(playerId)
 			end
 		end, 2/30)
 	end
