@@ -2,8 +2,11 @@
 Overthrow Game Mode
 ]]
 
-_G.nNEUTRAL_TEAM = 4
 _G.nCOUNTDOWNTIMER = 901
+_G.DISABLE_PAUSES = true
+BULDOG_STEAM_IDS = {
+	["76561198036748162"] = true,
+}
 
 
 ---------------------------------------------------------------------------
@@ -247,6 +250,16 @@ function COverthrowGameMode:InitGameMode()
 			GameRules:SendCustomMessage(message, PlayerResource:GetTeam(playerId), -1)
 		end
 	end, nil)
+	ListenToGameEvent("player_connect_full", function(data)
+		local playerId = data.PlayerID
+		local player = PlayerResource:GetPlayer(playerId)
+		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
+		if BULDOG_STEAM_IDS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
+			DISABLE_PAUSES = false
+			GameRules:LockCustomGameSetupTeamAssignment(false)
+			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
+		end
+	end, nil)
 end
 
 ---------------------------------------------------------------------------
@@ -368,8 +381,10 @@ function COverthrowGameMode:OnThink()
 
 	self:UpdateScoreboard()
 	if GameRules:IsGamePaused() then
-		GameRules:SendCustomMessage("Pauses are disabled", -1, -1)
-		PauseGame(false)
+		if DISABLE_PAUSES then
+			GameRules:SendCustomMessage("Pauses are disabled", -1, -1)
+			PauseGame(false)
+		end
 		return 1
 	end
 
