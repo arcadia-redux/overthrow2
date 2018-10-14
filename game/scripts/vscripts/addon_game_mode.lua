@@ -200,6 +200,9 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
+	if IsInToolsMode() then
+		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
+	end
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
