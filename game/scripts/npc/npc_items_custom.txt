@@ -70,10 +70,8 @@
 	"item_recipe_helm_of_the_dominator_custom"
 	{
 		"BaseClass"						"item_datadriven"
-		"ItemCost"						"0"
-
 		"ItemRecipe"					"1"
-		"ItemResult"					"item_helm_of_the_dominator"
+		"ItemResult"					"item_helm_of_the_dominator_custom"
 		"ItemRequirements"
 		{
 			"01"						"item_gloves;item_headdress;item_ring_of_health"

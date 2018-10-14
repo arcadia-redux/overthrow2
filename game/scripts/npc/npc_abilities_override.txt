@@ -91,10 +91,6 @@
 	{
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 	}
-	"item_helm_of_the_dominator"
-	{
-		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-	}
 	"item_mekansm"
 	{
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
