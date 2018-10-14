@@ -88,6 +88,8 @@ end
 LinkLuaModifier("modifier_item_helm_of_the_dominator_custom", "abilities/items/helm_of_the_dominator", LUA_MODIFIER_MOTION_NONE)
 modifier_item_helm_of_the_dominator_custom = {
 	IsHidden = function() return true end,
+	IsPurgable = function() return false end,
+	GetAttributes = function() return MODIFIER_ATTRIBUTE_MULTIPLE end,
 
 	IsAura = function() return true end,
 	GetModifierAura = function() return "modifier_item_helm_of_the_dominator_custom_aura" end,
