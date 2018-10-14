@@ -20,12 +20,12 @@ if IsServer() then
 
 	function modifier_fountain_aura_effect_lua:OnIntervalThink()
 		local parent = self:GetParent()
+		if not parent:IsRealHero() then return end
 		local hasInvulnerability = parent:HasModifier("modifier_disconnect_invulnerable")
-		if (
-			parent:IsRealHero() and
+		if not hasInvulnerability and (
 			DISCONNECT_TIMES[parent:GetPlayerID()] and
 			GameRules:GetDOTATime(false, true) - DISCONNECT_TIMES[parent:GetPlayerID()] >= 10
-		) and not hasInvulnerability then
+		) then
 			parent:AddNewModifier(parent, nil, "modifier_disconnect_invulnerable", nil)
 		elseif not DISCONNECT_TIMES[parent:GetPlayerID()] and hasInvulnerability then
 			parent:RemoveModifierByName("modifier_disconnect_invulnerable")
