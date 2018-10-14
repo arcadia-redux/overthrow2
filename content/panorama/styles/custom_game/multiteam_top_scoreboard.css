@@ -10,9 +10,14 @@
 
 #TopBarScoreboard
 {
-	margin-left: 150px;
+	margin-left: 450px;
     horizontal-align: left;
     vertical-align: top;
+}
+
+.AspectRatio4x3 #TopBarScoreboard
+{
+	margin-left: 225px;
 }
 
 #ScoreboardContainer
