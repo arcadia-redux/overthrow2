@@ -4,4 +4,8 @@
 	{
 		"Ability3"	"alchemist_goblins_greed_custom"
 	}
+	"npc_dota_hero_doom_bringer"
+	{
+		"Ability1"	"doom_bringer_devour_custom"
+	}
 }
