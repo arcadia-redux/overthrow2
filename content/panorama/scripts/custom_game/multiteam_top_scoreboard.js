@@ -11,6 +11,7 @@ function UpdateScoreboard()
 
 (function()
 {
+	$.GetContextPanel().SetHasClass('IsLargeGame', Game.GetAllPlayerIDs().length > 16)
 	var shouldSort = true;
 
 	if ( GameUI.CustomUIConfig().multiteam_top_scoreboard )
@@ -30,7 +31,7 @@ function UpdateScoreboard()
 			shouldSort = cfg.shouldSort;
 		}
 	}
-	
+
 	if ( ScoreboardUpdater_InitializeScoreboard === null ) { $.Msg( "WARNING: This file requires shared_scoreboard_updater.js to be included." ); }
 
 	var scoreboardConfig =

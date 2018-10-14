@@ -20,6 +20,32 @@
 	margin-left: 225px;
 }
 
+.IsLargeGame #HeroIcon
+{
+	width: 56px;
+}
+
+.AspectRatio4x3 .IsLargeGame #HeroIcon
+{
+	width: 43px;
+}
+
+.IsLargeGame .ScoreboardTeamWrapper
+{
+	border-left-width: 1px;
+	border-right-width: 1px;
+}
+
+.IsLargeGame #TopBarScoreboard
+{
+	margin-left: 150px;
+}
+
+.AspectRatio4x3 .IsLargeGame #TopBarScoreboard
+{
+	margin-left: 135px;
+}
+
 #ScoreboardContainer
 {
     flow-children: right;
