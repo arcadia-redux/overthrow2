@@ -9,7 +9,16 @@
     </scripts>
 
   <Panel class="HeroSelectOverlayRoot" hittest="false">
-  	<Panel id="HeroSelectTeamsContainer" hittest="false" />
+    <Panel id="HeroSelectTeamsContainer">
+      <Panel>
+        <Panel class="EndSpacer" />
+        <Panel class="EndSpacer" />
+      </Panel>
+      <Panel>
+        <Panel class="EndSpacer" />
+        <Panel class="EndSpacer" />
+      </Panel>
+    </Panel>
 
     <Panel id="TimerPanel">
       <Image id="TimerBg" src="s2r://panorama/images/status_icons/timer_background_psd.vtex" />

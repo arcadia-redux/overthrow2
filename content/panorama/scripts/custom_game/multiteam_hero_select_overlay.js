@@ -121,19 +121,21 @@ function FetchPlayerStats()
 
 (function()
 {
+	var largeGame = Game.GetAllPlayerIDs().length > 16;
 	var preMapContainer = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse('PreMinimapContainer');
 	preMapContainer.visible = false;
 
 	var localPlayerTeamId = Game.GetLocalPlayerInfo().player_team_id;
 	var teamsContainer = $("#HeroSelectTeamsContainer");
-	$.CreatePanel( "Panel", teamsContainer, "EndSpacer" );
 
-	for ( var teamId of Game.GetAllTeamIDs() )
-	{
-		$.CreatePanel( "Panel", teamsContainer, "Spacer" );
-
+	var teams = 0;
+	var teamsTotal = Game.GetAllTeamIDs().length;
+	for (var teamId of Game.GetAllTeamIDs()) {
+		teams += 1;
+		var containerRoot = teamsContainer.GetChild(!largeGame || teams <= Math.ceil(teamsTotal / 2) ? 0 : 1)
 		var teamPanelName = "team_" + teamId;
-		var teamPanel = $.CreatePanel( "Panel", teamsContainer, teamPanelName );
+		var teamPanel = $.CreatePanel( "Panel", containerRoot, teamPanelName );
+		containerRoot.MoveChildBefore(teamPanel, containerRoot.GetChild(containerRoot.GetChildCount() - 2));
 		teamPanel.BLoadLayout( "file://{resources}/layout/custom_game/multiteam_hero_select_overlay_team.xml", false, false );
 		var teamName = teamPanel.FindChildInLayoutFile( "TeamName" );
 		if ( teamName )
@@ -165,8 +167,6 @@ function FetchPlayerStats()
 		teamPanel.AddClass( "TeamPanel" );
 		teamPanel.AddClass(teamId === localPlayerTeamId ? "local_player_team" : "not_local_player_team");
 	}
-
-	$.CreatePanel( "Panel", teamsContainer, "EndSpacer" );
 
 	OnUpdateHeroSelection();
 	GameEvents.Subscribe( "dota_player_hero_selection_dirty", OnUpdateHeroSelection );
