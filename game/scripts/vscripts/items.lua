@@ -85,7 +85,7 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 		"item_vanguard",
 		"item_mask_of_madness",
 		"item_blade_mail",
-		"item_helm_of_the_dominator",
+		"item_helm_of_the_dominator_custom",
 		"item_vladmir",
 		"item_yasha",
 		"item_mekansm",
