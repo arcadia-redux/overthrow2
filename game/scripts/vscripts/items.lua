@@ -54,6 +54,18 @@ function COverthrowGameMode:KillLoot( item, drop )
 	UTIL_Remove( drop )
 end
 
+function COverthrowGameMode:AddGoldenCoin(owner)
+	local gold = 300
+	local goblinsGreed = owner:FindAbilityByName("alchemist_goblins_greed_custom")
+	if goblinsGreed and goblinsGreed:GetLevel() > 0 then
+		local bonusGold = gold * (goblinsGreed:GetSpecialValueFor("gold_coin_multiplier") - 1)
+		gold = gold + bonusGold
+		goblinsGreed.coinBonusGold = (goblinsGreed.coinBonusGold or 0) + bonusGold
+	end
+	PlayerResource:ModifyGold(owner:GetPlayerOwnerID(), gold, true, 0)
+	SendOverheadEventMessage(owner, OVERHEAD_ALERT_GOLD, owner, gold, nil)
+end
+
 function COverthrowGameMode:SpecialItemAdd(item, owner)
 	local hero = owner:GetClassname()
 	local ownerTeam = owner:GetTeamNumber()

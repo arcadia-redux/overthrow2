@@ -64,6 +64,8 @@
 	"overthrow_game_info_tip04"						"The fewer kills your team has, the stronger items you will recieve from a delivery."
 
 	"patreon_bonus_button_text"						"Free Boots"
-	"patreon_bonus_button_tooltip"				"Support Overthrow 2.0 to get this feature"
+	"patreon_bonus_button_tooltip"					"Support Overthrow 2.0 to get this feature"
+
+	"custom_hud_error_no_coins"						"Ability Can't Be Used Without Coins"
 }
 

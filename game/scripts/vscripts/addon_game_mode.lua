@@ -48,7 +48,7 @@ function Precache( context )
         PrecacheUnitByNameSync( "npc_dota_treasure_courier", context )
         PrecacheModel( "npc_dota_treasure_courier", context )
 
-    --Cache new particles
+	--Cache new particles
        	PrecacheResource( "particle", "particles/econ/events/nexon_hero_compendium_2014/teleport_end_nexon_hero_cp_2014.vpcf", context )
        	PrecacheResource( "particle", "particles/leader/leader_overhead.vpcf", context )
        	PrecacheResource( "particle", "particles/last_hit/last_hit.vpcf", context )
@@ -59,6 +59,8 @@ function Precache( context )
        	PrecacheResource( "particle", "particles/econ/wards/f2p/f2p_ward/f2p_ward_true_sight_ambient.vpcf", context )
        	PrecacheResource( "particle", "particles/econ/items/lone_druid/lone_druid_cauldron/lone_druid_bear_entangle_dust_cauldron.vpcf", context )
        	PrecacheResource( "particle", "particles/newplayer_fx/npx_landslide_debris.vpcf", context )
+       	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_cast.vpcf", context )
+       	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_coin.vpcf", context )
 
 	--Cache particles for traps
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_dragon_knight", context )

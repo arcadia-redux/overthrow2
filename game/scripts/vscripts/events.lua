@@ -267,18 +267,8 @@ function COverthrowGameMode:OnItemPickUp( event )
 		end
 	end
 
-	local r = 300
 	if event.itemname == "item_bag_of_gold" then
-		if owner then
-			local goblinsGreed = owner:FindAbilityByName("alchemist_goblins_greed_custom")
-			if goblinsGreed and goblinsGreed:GetLevel() > 0 then
-				local bonusGold = r * (goblinsGreed:GetSpecialValueFor("gold_coin_multiplier") - 1)
-				r = r + bonusGold
-				goblinsGreed.coinBonusGold = (goblinsGreed.coinBonusGold or 0) + bonusGold
-			end
-		end
-		PlayerResource:ModifyGold( owner:GetPlayerOwnerID(), r, true, 0 )
-		SendOverheadEventMessage( owner, OVERHEAD_ALERT_GOLD, owner, r, nil )
+		COverthrowGameMode:AddGoldenCoin(owner)
 		UTIL_Remove(item)
 	elseif event.itemname == "item_treasure_chest" then
 		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
