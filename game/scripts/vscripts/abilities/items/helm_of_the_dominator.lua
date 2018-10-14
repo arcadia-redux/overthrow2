@@ -55,14 +55,14 @@ if IsServer() then
 		local unit = self:GetCursorTarget()
 		if IsValidEntity(unit) then
 			unit:SetTeam(casterTeam)
-			unit:SetOwner(caster:GetPlayerOwner())
+			unit:SetOwner(caster)
 			if IsValidEntity(unit.dominationAbility) then
 				unit.dominationAbility.dominatedUnit = nil
 			end
 		else
 			local positionTarget = self:GetCursorPosition()
 			local unitName = JUNGLE_UNITS[RandomInt(1, #JUNGLE_UNITS)]
-			unit = CreateUnitByName(unitName, positionTarget, true, caster, caster:GetPlayerOwner(), casterTeam)
+			unit = CreateUnitByName(unitName, positionTarget, true, caster, caster, casterTeam)
 		end
 		self.dominatedUnit = unit
 		unit.dominationAbility = self
