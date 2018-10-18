@@ -63,6 +63,7 @@ if IsServer() then
 			local positionTarget = self:GetCursorPosition()
 			local unitName = JUNGLE_UNITS[RandomInt(1, #JUNGLE_UNITS)]
 			unit = CreateUnitByName(unitName, positionTarget, true, caster, caster, casterTeam)
+			ParticleManager:CreateParticle("particles/dev/library/base_dust_hit.vpcf", PATTACH_ROOTBONE_FOLLOW, unit)
 		end
 		self.dominatedUnit = unit
 		unit.dominationAbility = self
