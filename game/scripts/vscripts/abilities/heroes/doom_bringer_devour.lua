@@ -48,7 +48,10 @@ if IsServer() then
 			true
 		)
 
-		local abilitySet = ABILITY_SETS[RandomInt(1, #ABILITY_SETS)]
+		if not self.sets or #self.sets == 0 then
+			self.sets = ShuffledList(ABILITY_SETS)
+		end
+		local abilitySet = table.remove(self.sets)
 		for i = 1, 2 do
 			local abilityName = abilitySet[i]
 			local slot = caster:GetAbilityByIndex(3 + i)
