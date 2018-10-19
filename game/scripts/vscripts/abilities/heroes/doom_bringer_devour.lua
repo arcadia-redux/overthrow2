@@ -9,17 +9,17 @@ local ABILITY_SETS = {
 	{ "enraged_wildkin_tornado", "enraged_wildkin_toughness_aura" },
 	{ "satyr_soulstealer_mana_burn" },
 	{ "satyr_hellcaller_shockwave", "satyr_hellcaller_unholy_aura" },
-	{ "spawnlord_aura" },
-	{ "spawnlord_master_stomp", "spawnlord_master_freeze" },
-	{ "granite_golem_hp_aura" },
-	{ "big_thunder_lizard_frenzy", "big_thunder_lizard_wardrums_aura", "big_thunder_lizard_slam" },
+	-- { "spawnlord_aura" },
+	-- { "spawnlord_master_stomp", "spawnlord_master_freeze" },
+	-- { "granite_golem_hp_aura" },
+	-- { "big_thunder_lizard_frenzy", "big_thunder_lizard_wardrums_aura", "big_thunder_lizard_slam" },
 	{ "gnoll_assassin_envenomed_weapon" },
 	{ "ghost_frost_attack" },
 	{ "dark_troll_warlord_ensnare", "dark_troll_warlord_raise_dead" },
 	{ "satyr_trickster_purge" },
 	{ "forest_troll_high_priest_heal", "forest_troll_high_priest_mana_aura" },
 	{ "harpy_storm_chain_lightning" },
-	{ "black_dragon_fireball", "black_dragon_splash_attack", "black_dragon_dragonhide_aura" },
+	-- { "black_dragon_fireball", "black_dragon_splash_attack", "black_dragon_dragonhide_aura" },
 }
 
 doom_bringer_devour_custom = {
