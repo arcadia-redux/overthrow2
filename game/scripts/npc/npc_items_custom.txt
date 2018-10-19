@@ -90,7 +90,7 @@
 
 		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"60"
+		"AbilityCooldown"				"45"
 
 		"ItemQuality"					"artifact"
 		"ItemAliases"					"hotd;helm of the dominator"
@@ -130,7 +130,7 @@
 			"07"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"gold_bounty"			"200"
+				"gold_bounty"			"100"
 			}
 			"08"
 			{
@@ -163,9 +163,9 @@
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_CREEP"
 		"AbilityUnitTargetFlags"		"DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS | DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
 
-		"AbilityCastRange"				"600"
+		"AbilityCastRange"				"700"
 		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"45"
+		"AbilityCooldown"				"20"
 
 		"ItemShopTags"					"attack_speed;hard_to_tag"
 		"ItemQuality"					"common"
