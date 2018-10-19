@@ -61,7 +61,10 @@ if IsServer() then
 			end
 		else
 			local positionTarget = self:GetCursorPosition()
-			local unitName = JUNGLE_UNITS[RandomInt(1, #JUNGLE_UNITS)]
+			if not self.unitNames or #self.unitNames == 0 then
+				self.unitNames = ShuffledList(JUNGLE_UNITS)
+			end
+			local unitName = table.remove(self.unitNames)
 			unit = CreateUnitByName(unitName, positionTarget, true, caster, caster, casterTeam)
 			ParticleManager:CreateParticle("particles/dev/library/base_dust_hit.vpcf", PATTACH_ROOTBONE_FOLLOW, unit)
 		end
