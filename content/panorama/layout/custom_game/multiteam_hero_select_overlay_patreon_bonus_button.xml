@@ -8,16 +8,16 @@
 		var isSameHeroDay = false;
 
 		function GoToPatreonPage() {
-			if (isPatreon) return;
+			if (isPatreon || isSameHeroDay) return;
 			$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
 		}
 		function TogglePatreonBonusButton() {
-			if (!isPatreon) return;
+			if (!isPatreon && !isSameHeroDay) return;
 			var enable = $('#PatreonBonusButton').checked;
 			GameEvents.SendCustomGameEventToServer("set_patreon_bonus", { enable: enable } );
 		}
 		function OnMouseOver() {
-			if (isPatreon) return;
+			if (isPatreon || isSameHeroDay) return;
 			$.DispatchEvent('DOTAShowTextTooltip', '#patreon_bonus_button_tooltip')
 		}
 
