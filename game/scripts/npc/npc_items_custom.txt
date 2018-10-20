@@ -197,7 +197,7 @@
 			"05"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"transmute_cast_range_tooltip"		"600"
+				"transmute_cast_range_tooltip"		"700"
 			}
 		}
 	}
