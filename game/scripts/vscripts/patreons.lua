@@ -62,7 +62,7 @@ end
 
 function GivePlayerPatreonBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if sameHeroDayHoursLeft ~= nil and GetPlayerPatreonLevel(playerId) < 1 then return end
+	if sameHeroDayHoursLeft == nil and GetPlayerPatreonLevel(playerId) < 1 then return end
 
 	if hero:HasItemInInventory("item_boots") then
 		hero:ModifyGold(500, false, 0)
@@ -73,7 +73,7 @@ end
 
 function TakePlayerPatreonBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if sameHeroDayHoursLeft ~= nil and GetPlayerPatreonLevel(playerId) < 1 then return end
+	if sameHeroDayHoursLeft == nil and GetPlayerPatreonLevel(playerId) < 1 then return end
 
 	if hero:HasItemInInventory("item_boots") then
 		for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
