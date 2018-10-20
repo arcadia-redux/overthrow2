@@ -30,7 +30,7 @@
 			var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
 			isPatreon = Boolean(patreons[Game.GetLocalPlayerID()]);
 			if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
-			$('#PatreonBonusButton').enabled = isPatreon || isSameHeroDay
+			$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
 			CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, value) {
 				if (key === 'patreons') isPatreon = Boolean(value[Game.GetLocalPlayerID()]);
 				if (key === 'is_same_hero_day') {
@@ -39,7 +39,7 @@
 				}
 				if (key === 'patreons' || key === 'is_same_hero_day') {
 					if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
-					$('#PatreonBonusButton').enabled = isPatreon || isSameHeroDay
+					$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
 				}
 			});
 		})();
