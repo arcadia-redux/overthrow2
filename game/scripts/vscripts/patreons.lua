@@ -9,6 +9,7 @@ local function getPlayerIdBySteam(id)
 end
 
 local patreonLevels = {}
+local sameHeroDayHoursLeft
 function FetchPatreons()
 	local ids = {}
 	for i = 0, 23 do
@@ -27,6 +28,21 @@ function FetchPatreons()
 		end
 		CustomNetTables:SetTableValue("game_state", "patreons", patreonLevels)
 	end)
+
+	local request = CreateHTTPRequestScriptVM("GET", "http://163.172.174.77:8000/api/same-hero-day")
+	request:Send(function(response)
+		if response.StatusCode ~= 200 then return end
+		sameHeroDayHoursLeft = json.decode(response.Body)
+
+		CustomNetTables:SetTableValue(
+			"game_state",
+			"is_same_hero_day",
+			{ enable = sameHeroDayHoursLeft ~= nil }
+		)
+		if sameHeroDayHoursLeft then
+			GameRules:SetSameHeroSelectionEnabled(true)
+		end
+	end)
 end
 
 function GetPlayerPatreonLevel(playerId)
@@ -38,9 +54,15 @@ function HasPlayerPatreonBonusesEnabled(playerId)
 	return patreonBonuses[playerId] ~= 0
 end
 
+function SendSameHeroDayMessage()
+	if sameHeroDayHoursLeft then
+		GameRules:SendCustomMessage("Same Hero Saturday has " .. math.ceil(sameHeroDayHoursLeft) .. " hours left. All Players have Patreon benefits today. Thanks for playing.", -1, -1)
+	end
+end
+
 function GivePlayerPatreonBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if GetPlayerPatreonLevel(playerId) < 1 then return end
+	if sameHeroDayHoursLeft ~= nil and GetPlayerPatreonLevel(playerId) < 1 then return end
 
 	if hero:HasItemInInventory("item_boots") then
 		hero:ModifyGold(500, false, 0)
@@ -51,7 +73,7 @@ end
 
 function TakePlayerPatreonBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if GetPlayerPatreonLevel(playerId) < 1 then return end
+	if sameHeroDayHoursLeft ~= nil and GetPlayerPatreonLevel(playerId) < 1 then return end
 
 	if hero:HasItemInInventory("item_boots") then
 		for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do

@@ -211,7 +211,7 @@
 	background-image: url('file://{images}/custom_game/patreon_active.png');
 }
 
-:not(.IsPatreon) #PatreonBonusButton > Label
+:not(.IsPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > Label
 {
 	animation-name: patreon-button-animation;
 	animation-duration: 4s;
@@ -226,7 +226,7 @@
 	90% { color: #333333; }
 }
 
-:not(.IsPatreon) #PatreonBonusButton > .TickBox
+:not(.IsPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > .TickBox
 {
 	animation-name: patreon-button-tick-animation;
 	animation-duration: 4s;
