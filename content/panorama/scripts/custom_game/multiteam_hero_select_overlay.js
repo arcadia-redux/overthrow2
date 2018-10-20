@@ -1,6 +1,5 @@
 "use strict";
 var playerStats = {};
-var isPatreon = false;
 
 function OnUpdateHeroSelection()
 {
@@ -177,12 +176,15 @@ function FetchPlayerStats()
 
 	var parent = $.GetContextPanel().GetParent().GetParent().GetParent();
 	var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
-	isPatreon = Boolean(patreons[Game.GetLocalPlayerID()])
-	parent.SetHasClass('IsPatreon', isPatreon);
-	CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, patreons) {
-		if (key !== 'patreons') return;
-		isPatreon = Boolean(patreons[Game.GetLocalPlayerID()])
-		parent.SetHasClass('IsPatreon', isPatreon);
+	parent.SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
+	parent.SetHasClass('IsSameHeroDay', Boolean((CustomNetTables.GetTableValue('game_state', 'is_same_hero_day') || {}).enable));
+	CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, value) {
+		if (key === 'patreons') {
+			parent.SetHasClass('IsPatreon', Boolean(value[Game.GetLocalPlayerID()]));
+		}
+		if (key === 'is_same_hero_day') {
+			parent.SetHasClass('IsSameHeroDay', Boolean(value.enable));
+		}
 	});
 })();
 

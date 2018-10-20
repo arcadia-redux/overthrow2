@@ -206,7 +206,8 @@
 	pre-transform-scale2d: 1.02;
 }
 
-.IsPatreon #PatreonButton
+.IsPatreon #PatreonButton,
+.IsSameHeroDay #PatreonButton
 {
 	background-image: url('file://{images}/custom_game/patreon_active.png');
 }
