@@ -26,6 +26,7 @@ require( "events" )
 require( "items" )
 require( "utility_functions" )
 require("patreons")
+require("statcollection/init")
 
 ---------------------------------------------------------------------------
 -- Precache
