@@ -1,0 +1,80 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "multiblend.vfx"
+
+	//---- Normal Maps ----
+	F_NORMAL_MAP 1
+
+	//---- Specular ----
+	F_SPECULAR 1
+
+	//---- Global ----
+	g_flSpecularBloom "0.000"
+	g_flSpecularIntensity "1.000"
+
+	//---- Layer 0 ----
+	g_flTexCoordRotate0 "0.000"
+	g_flTexCoordScale0 "1.000"
+	g_vColorTint0 "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordOffset0 "[0.000 0.000]"
+	g_vTexCoordScroll0 "[0.000 0.000]"
+	TextureBloom0 "materials/default/default_bloom.tga"
+	TextureColor0 "materials/floor_dirt_01_color.psd"
+	TextureNormal0 "materials/floor_dirt_01_normal.psd"
+	TextureReflectance0 "materials/floor_dirt_01_refl.psd"
+	TextureSelfIllumMask0 "materials/default/default_selfillum.tga"
+
+	//---- Layer 1 ----
+	g_flTexCoordRotate1 "0.000"
+	g_flTexCoordScale1 "1.000"
+	g_vColorTint1 "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordOffset1 "[0.000 0.000]"
+	g_vTexCoordScroll1 "[0.000 0.000]"
+	TextureBloom1 "materials/default/default_bloom.tga"
+	TextureColor1 "materials/floor_grass_02_color.psd"
+	TextureNormal1 "materials/default/default_normal.tga"
+	TextureReflectance1 "materials/floor_grass_02_refl.psd"
+	TextureRevealMask1 "materials/floor_grass_02_blend.psd"
+	TextureSelfIllumMask1 "materials/default/default_selfillum.tga"
+
+	//---- Layer 2 ----
+	g_flTexCoordRotate2 "0.000"
+	g_flTexCoordScale2 "1.000"
+	g_vColorTint2 "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordOffset2 "[0.000 0.000]"
+	g_vTexCoordScroll2 "[0.000 0.000]"
+	TextureBloom2 "materials/default/default_bloom.tga"
+	TextureColor2 "materials/floor_grass_01_color.psd"
+	TextureNormal2 "materials/default/default_normal.tga"
+	TextureReflectance2 "materials/floor_grass_01_refl.psd"
+	TextureRevealMask2 "materials/floor_grass_01_blend.psd"
+	TextureSelfIllumMask2 "materials/default/default_selfillum.tga"
+
+	//---- Layer 3 ----
+	g_flTexCoordRotate3 "0.000"
+	g_flTexCoordScale3 "2.000"
+	g_vColorTint3 "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordOffset3 "[0.000 0.000]"
+	g_vTexCoordScroll3 "[0.000 0.000]"
+	TextureBloom3 "materials/default/default_bloom.tga"
+	TextureColor3 "materials/floor_stone_02_color.psd"
+	TextureNormal3 "materials/floor_stone_02_normal.psd"
+	TextureReflectance3 "materials/floor_stone_02_refl.psd"
+	TextureRevealMask3 "materials/floor_stone_02_blend.psd"
+	TextureSelfIllumMask3 "materials/default/default_selfillum.tga"
+
+	//---- Normal Map ----
+	g_flBumpStrength "1.000"
+
+	Attributes
+	{
+		dota.nav.walkable "1"
+	}
+
+	SystemAttributes
+	{
+		PhysicsSurfaceProperties "dirt"
+	}
+}

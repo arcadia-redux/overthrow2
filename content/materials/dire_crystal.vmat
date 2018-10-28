@@ -1,0 +1,41 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "global_lit_simple.vfx"
+
+	//---- 2-Sided Rendering ----
+	F_RENDER_BACKFACES 1
+
+	//---- Specular ----
+	F_SPECULAR 1
+
+	//---- Tint Mask ----
+	F_TINT_MASK 1
+
+	//---- Translucent ----
+	F_ALPHA_ANGLE_POWER 1
+	F_TRANSLUCENT 1
+
+	//---- Color ----
+	g_vColorTint "[0.662745 0.113725 0.121569 0.000000]"
+	g_vColorTint2 "[0.200000 0.000000 0.000000 0.000000]"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+	TextureColor "materials/radiant_crystal_color.psd"
+	TextureTintMask "materials/radiant_crystal_mask.psd"
+
+	//---- Self Illum ----
+	TextureSelfIllumMask "[0.756000 0.756000 0.756000 0.000000]"
+
+	//---- Specular ----
+	g_flSpecularBloom "7.065"
+	g_flSpecularIntensity "1.000"
+	TextureBloom "[0.508000 0.508000 0.508000 0.000000]"
+	TextureReflectance "materials/radiant_crystal_refl.psd"
+
+	//---- Translucent ----
+	g_flAlphaAnglePower "0.637"
+	g_flOpacityScale "0.900"
+	TextureTranslucency "materials/radiant_crystal_trans.psd"
+}

@@ -1,0 +1,18 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "global_lit_simple.vfx"
+
+	//---- Do not Cast Shadows ----
+	F_DO_NOT_CAST_SHADOWS 1
+
+	//---- Fullbright ----
+	F_FULLBRIGHT 1
+
+	//---- Color ----
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	g_vTexCoordOffset "[-0.368 0.000]"
+	g_vTexCoordScale "[8.000 8.000]"
+	TextureColor "[1.000000 0.713726 0.000000 1.000000]"
+}

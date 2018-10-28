@@ -1,0 +1,46 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "global_lit_simple.vfx"
+
+	//---- Scroll UV ----
+	F_SCROLL_UV 2 // Scroll All Textures
+
+	//---- Specular ----
+	F_SPECULAR 1
+
+	//---- Tint Mask ----
+	F_TINT_MASK 1
+
+	//---- Translucent ----
+	F_ALPHA_ANGLE_POWER 1
+	F_TRANSLUCENT 1
+
+	//---- Color ----
+	g_vColorTint "[1.000000 0.415686 0.000000 0.000000]"
+	g_vColorTint2 "[0.000000 0.000000 0.000000 0.000000]"
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[2.000 2.000]"
+	TextureColor "materials/radiant_crystal_color.psd"
+	TextureTintMask "materials/radiant_crystal_mask.psd"
+
+	//---- Scroll UV ----
+	g_flScrollUvSpeed "5.000"
+	g_vScrollUvDirection "[1.000 1.000]"
+	TextureScrollSpeed "materials/default/default.tga"
+
+	//---- Self Illum ----
+	TextureSelfIllumMask "[0.502000 0.502000 0.502000 0.000000]"
+
+	//---- Specular ----
+	g_flSpecularBloom "7.015"
+	g_flSpecularIntensity "1.000"
+	TextureBloom "[0.508000 0.508000 0.508000 0.000000]"
+	TextureReflectance "materials/radiant_crystal_refl.psd"
+
+	//---- Translucent ----
+	g_flAlphaAnglePower "4.816"
+	g_flOpacityScale "0.796"
+	TextureTranslucency "materials/radiant_crystal_trans.psd"
+}
