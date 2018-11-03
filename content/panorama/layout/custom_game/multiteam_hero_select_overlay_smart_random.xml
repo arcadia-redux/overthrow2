@@ -1,0 +1,37 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/multiteam_hero_select_overlay.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/util.js" />
+	</scripts>
+	<script>
+		var reason;
+		function Activate() {
+			if (reason == null) {
+				GameEvents.SendCustomGameEventToServer("smart_random_hero", {});
+			} else if (reason === 'cooldown') {
+				$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
+			}
+		}
+
+		function OnMouseOver() {
+			$.DispatchEvent('DOTAShowTextTooltip', 'smart_random_tooltip_' + (reason || 'ready'));
+		}
+
+		SubscribeToNetTableKey('game_state', 'smart_random_reasons', function(value) {
+			reason = value[Game.GetLocalPlayerID()];
+			$.GetContextPanel().SetHasClass('CantActivate', reason != null);
+		});
+	</script>
+
+	<Button
+		class="SmartRandomButton"
+		onactivate="Activate()"
+		onmouseover="OnMouseOver()"
+		onmouseout="DOTAHideTextTooltip()"
+	>
+		<Label text="SMART RANDOM" />
+	</Button>
+</root>

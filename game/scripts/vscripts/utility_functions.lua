@@ -90,3 +90,42 @@ end
 function GetConnectionState(playerId)
 	return PlayerResource:IsFakeClient(playerId) and DOTA_CONNECTION_STATE_CONNECTED or PlayerResource:GetConnectionState(playerId)
 end
+
+function GetPlayerIdBySteamId(id)
+	for i = 0, 23 do
+		if PlayerResource:IsValidPlayerID(i) and tostring(PlayerResource:GetSteamID(i)) == id then
+			return i
+		end
+	end
+
+	return -1
+end
+
+WEB_API_TESTING = IsInToolsMode() and false
+local serverHost = WEB_API_TESTING and "http://127.0.0.1:5000" or "http://163.172.174.77:8000"
+function SendWebApiRequest(path, data, onSuccess, onError)
+	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/vscripts/" .. path)
+	if WEB_API_TESTING then
+		print("Request to " .. path)
+		DeepPrintTable(data)
+	end
+	if data ~= nil then
+		request:SetHTTPRequestRawPostBody("application/json", json.encode(data))
+	end
+
+	request:Send(function(response)
+		if response.StatusCode == 200 then
+			local data = json.decode(response.Body)
+			if WEB_API_TESTING then
+				print("Response from " .. path .. ":")
+				DeepPrintTable(data)
+			end
+			if onSuccess then onSuccess(data, response.StatusCode) end
+		else
+			if WEB_API_TESTING then
+				print("Error from " .. path .. ": " .. response.StatusCode)
+			end
+			if onError then onError(response.StatusCode, response.Body) end
+		end
+	end)
+end

@@ -72,11 +72,12 @@ function UpdatePlayer( teamPanel, playerId )
 	playerPanel.SetHasClass( "is_local_player", ( playerId == Game.GetLocalPlayerID() ) );
 
 	var stats = playerStats[playerId];
-	var hasStats = stats !== undefined && stats.games > 0;
+	var hasStats = stats != null;
 	playerPanel.SetHasClass("has_stats", hasStats)
 	if (hasStats) {
+		playerPanel.SetHasClass('IsPatreon', stats.patreonLevel > 0);
 		var playerStreak = playerPanel.FindChildInLayoutFile( "PlayerStreak" );
-		playerStreak.text = 'Streak: ' + (stats.streak || 0);
+		playerStreak.text = 'Streak: ' + (stats.streak || 0) + '/' + (stats.bestStreak);
 	}
 }
 
@@ -97,25 +98,6 @@ function UpdateTimer()
 	$("#TimerLabel").text = $.Localize(bIsInBanPhase ? "DOTA_LoadingBanPhase" : "DOTA_LoadingPickPhase");
 
 	$.Schedule( 0.1, UpdateTimer );
-}
-
-function FetchPlayerStats()
-{
-	var steamIds = [];
-	var steamIdToPlayerId = {}
-	for (var playerId of Game.GetAllPlayerIDs()) {
-		steamIds.push(Game.GetPlayerInfo(playerId).player_steamid);
-		steamIdToPlayerId[Game.GetPlayerInfo(playerId).player_steamid] = playerId;
-	}
-
-	$.AsyncWebRequest("http://lodr-lodr.1d35.starter-us-east-1.openshiftapps.com/overthrow/players?ids=" + steamIds.join(","), {
-		success: function (response) {
-			for (var player of response) {
-				playerStats[steamIdToPlayerId[player.steam_id]] = player;
-			}
-			OnUpdateHeroSelection()
-		}
-	})
 }
 
 (function()
@@ -167,25 +149,30 @@ function FetchPlayerStats()
 		teamPanel.AddClass(teamId === localPlayerTeamId ? "local_player_team" : "not_local_player_team");
 	}
 
-	OnUpdateHeroSelection();
-	GameEvents.Subscribe( "dota_player_hero_selection_dirty", OnUpdateHeroSelection );
-	GameEvents.Subscribe( "dota_player_update_hero_selection", OnUpdateHeroSelection );
+	var root = $.GetContextPanel().GetParent().GetParent().GetParent();
+	SubscribeToNetTableKey('game_state', 'player_stats', function(value) {
+		playerStats = value;
+		OnUpdateHeroSelection();
+		var localStats = playerStats[Game.GetLocalPlayerID()];
+		root.SetHasClass('LocalPlayerPatreon', Boolean(localStats && localStats.patreonLevel));
 
-	UpdateTimer();
-	FetchPlayerStats()
-
-	var parent = $.GetContextPanel().GetParent().GetParent().GetParent();
-	var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
-	parent.SetHasClass('IsPatreon', Boolean(patreons[Game.GetLocalPlayerID()]));
-	parent.SetHasClass('IsSameHeroDay', Boolean((CustomNetTables.GetTableValue('game_state', 'is_same_hero_day') || {}).enable));
-	CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, value) {
-		if (key === 'patreons') {
-			parent.SetHasClass('IsPatreon', Boolean(value[Game.GetLocalPlayerID()]));
-		}
-		if (key === 'is_same_hero_day') {
-			parent.SetHasClass('IsSameHeroDay', Boolean(value.enable));
+		if (localStats) {
+			$('#PlayerStatsAverageWinsLoses').text = localStats.wins + '/' + localStats.loses;
+			$('#PlayerStatsAverageKDA').text = [
+				localStats.averageKills,
+				localStats.averageDeaths,
+				localStats.averageAssists,
+			].map(function(value) { return value.toFixed(2) }).join('/');
 		}
 	});
+
+	SubscribeToNetTableKey('game_state', 'is_same_hero_day', function(value) {
+		root.SetHasClass('IsSameHeroDay', Boolean(value.enable));
+	});
+
+	GameEvents.Subscribe( "dota_player_hero_selection_dirty", OnUpdateHeroSelection );
+	GameEvents.Subscribe( "dota_player_update_hero_selection", OnUpdateHeroSelection );
+	UpdateTimer();
 })();
 
 (function() {
@@ -200,4 +187,14 @@ function FetchPlayerStats()
 	var patreonBonusButton = $.CreatePanel("Panel", startingItemsLeftColumn, "");
 	patreonBonusButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_patreon_bonus_button.xml", false, false)
 	startingItemsLeftColumn.MoveChildAfter(patreonBonusButton, startingItemsLeftColumn.GetChild(0));
+})();
+
+(function() {
+	var root = $.GetContextPanel().GetParent().GetParent().GetParent();
+	var heroPickRightColumn = root.FindChildTraverse('HeroPickRightColumn');
+	var smartRandomButton = heroPickRightColumn.FindChildTraverse('smartRandomButton');
+	if (smartRandomButton != null) smartRandomButton.DeleteAsync(0);
+
+	smartRandomButton = $.CreatePanel('Button', heroPickRightColumn, 'smartRandomButton');
+	smartRandomButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_smart_random.xml", false, false)
 })();

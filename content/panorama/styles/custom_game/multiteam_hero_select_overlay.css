@@ -163,6 +163,12 @@
 	text-overflow: clip;
 }
 
+.IsPatreon #PlayerName
+{
+	color: #ffdb66;
+	font-weight: bold;
+}
+
 #PlayerStreak
 {
 	visibility: collapse;
@@ -206,13 +212,13 @@
 	pre-transform-scale2d: 1.02;
 }
 
-.IsPatreon #PatreonButton,
+.LocalPlayerPatreon #PatreonButton,
 .IsSameHeroDay #PatreonButton
 {
 	background-image: url('file://{images}/custom_game/patreon_active.png');
 }
 
-:not(.IsPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > Label
+:not(.LocalPlayerPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > Label
 {
 	animation-name: patreon-button-animation;
 	animation-duration: 4s;
@@ -227,7 +233,7 @@
 	90% { color: #333333; }
 }
 
-:not(.IsPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > .TickBox
+:not(.LocalPlayerPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > .TickBox
 {
 	animation-name: patreon-button-tick-animation;
 	animation-duration: 4s;
@@ -241,4 +247,62 @@
 	50% { background-color: #d1a301; }
 	90% { background-color: black; }
 	100% { background-color: black; }
+}
+
+.SmartRandomButton
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	width: 93px;
+	margin-bottom: 70px;
+	background-color: #34d143;
+	border-top: 4px solid #73f76a;
+}
+
+.SmartRandomButton.CantActivate
+{
+	saturation: 0.4;
+	brightness: 0.2;
+}
+
+.SmartRandomButton:not(.CantActivate):hover Label
+{
+	margin-bottom: 2px;
+}
+
+.SmartRandomButton:not(.CantActivate):active Label
+{
+	margin-bottom: -2px;
+}
+
+.SmartRandomButton Label
+{
+	color: white;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+}
+
+.HasSelectedHero .SmartRandomButton
+{
+	visibility: collapse;
+}
+
+#PlayerStats
+{
+	vertical-align: bottom;
+	margin-left: 375px;
+	margin-bottom: 120px;
+	flow-children: down;
+}
+
+#PlayerStatsTitle
+{
+	text-align: center;
+	color: white;
+}
+
+.PlayerStatsLine
+{
+	flow-children: right;
 }

@@ -26,6 +26,7 @@ require( "events" )
 require( "items" )
 require( "utility_functions" )
 require("patreons")
+require("smart_random")
 require("statcollection/init")
 
 ---------------------------------------------------------------------------
@@ -241,7 +242,7 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent("player_connect_full", function()
 		if firstPlayerLoaded then return end
 		firstPlayerLoaded = true
-		FetchPatreons()
+		self:BeforeMatch()
 	end, nil)
 	ListenToGameEvent("player_chat", function(data)
 		if data.text == "-goblinsgreed" then
@@ -308,7 +309,7 @@ function COverthrowGameMode:EndGame( victoryTeam )
 		end
 	end
 
-	self:SendMatchResults(victoryTeam)
+	COverthrowGameMode:EndMatch(victoryTeam)
 	GameRules:SetGameWinner( victoryTeam )
 end
 
@@ -403,18 +404,11 @@ function COverthrowGameMode:OnThink()
 	end
 	if self.heroSelectionStage == 2 and time < -20 then
 		self.heroSelectionStage = 3
+		SmartRandom:PrepareAutoPick()
 	end
-	if self.heroSelectionStage == 3 and time > -2 and not self.randomedHeroes then
+	if self.heroSelectionStage == 3 and time > -2 then
 		self.heroSelectionStage = 4
-
-		self.randomedHeroes = true
-		for i = 0, 23 do
-			if PlayerResource:IsValidPlayerID(i) and not PlayerResource:HasSelectedHero(i) then
-				if PlayerResource:GetPlayer(i) then
-					PlayerResource:GetPlayer(i):MakeRandomHeroSelection()
-				end
-			end
-		end
+		SmartRandom:AutoPick()
 	end
 
 	if self.countdownEnabled then
@@ -627,29 +621,6 @@ function COverthrowGameMode:RuneSpawnFilter(filterTable)
 	return true
 end
 
-function COverthrowGameMode:SendMatchResults(winnerTeam)
-	if GameRules:IsCheatMode() then return end
-	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
-	if winnerTeam == DOTA_TEAM_NEUTRALS or winnerTeam == DOTA_TEAM_NOTEAM then return end
-	if GameRules:GetDOTATime(false, true) < 60 then return end
-
-	local data = { players = {} }
-	for playerId = 0, 23 do
-		if PlayerResource:IsValidTeamPlayerID(playerId) and not PlayerResource:IsFakeClient(playerId) then
-			table.insert(data.players, {
-				steam_id = tostring(PlayerResource:GetSteamID(playerId)),
-				win = tonumber(PlayerResource:GetTeam(playerId)) == winnerTeam,
-			})
-		end
-	end
-
-	if #data.players >= 5 then
-		local http_script_request = CreateHTTPRequestScriptVM("POST", "http://lodr-lodr.1d35.starter-us-east-1.openshiftapps.com/overthrow/match")
-		http_script_request:SetHTTPRequestGetOrPostParameter("data", json.encode(data))
-		http_script_request:Send(function() end)
-	end
-end
-
 CustomGameEventManager:RegisterListener("set_disable_help", function(_, data)
 	local to = data.to;
 	if PlayerResource:IsValidPlayerID(to) then
@@ -678,4 +649,94 @@ function COverthrowGameMode:GetSortedTeams()
 
 	table.sort(sortedTeams, function(a, b) return a.score > b.score end)
 	return sortedTeams
+end
+
+function COverthrowGameMode:BeforeMatch()
+	local players = {}
+	for i = 0, 23 do
+		if PlayerResource:IsValidPlayerID(i) then
+			table.insert(players, tostring(PlayerResource:GetSteamID(i)))
+		end
+	end
+
+	SendWebApiRequest("before-match", { mapName = GetMapName(), players = players }, function(data)
+		local publicStats = {}
+		for _,player in ipairs(data.players) do
+			local playerId = GetPlayerIdBySteamId(player.steamId)
+			Patreons:SetPlayerLevel(playerId, player.patreonLevel)
+			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes)
+
+			publicStats[playerId] = {
+				streak = player.streak,
+				bestStreak = player.bestStreak,
+				patreonLevel = player.patreonLevel,
+				averageKills = player.averageKills,
+				averageDeaths = player.averageDeaths,
+				averageAssists = player.averageAssists,
+				wins = player.wins,
+				loses = player.loses,
+			}
+		end
+		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
+	end)
+
+	SendWebApiRequest("same-hero-day", nil, function(sameHeroDayHoursLeft)
+		Patreons:SetSameHeroDayHoursLeft(sameHeroDayHoursLeft)
+	end)
+end
+
+function COverthrowGameMode:EndMatch(winnerTeam)
+	if not WEB_API_TESTING then
+		if GameRules:IsCheatMode() then return end
+		if GameRules:GetDOTATime(false, true) < 60 then return end
+	end
+	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
+	if winnerTeam == DOTA_TEAM_NEUTRALS or winnerTeam == DOTA_TEAM_NOTEAM then return end
+
+	local requestBody = {
+		matchId = WEB_API_TESTING and RandomInt(1, 10000000) or tonumber(tostring(GameRules:GetMatchID())),
+		duration = math.floor(GameRules:GetDOTATime(false, true)),
+		mapName = GetMapName(),
+		winner = winnerTeam,
+
+		players = {}
+	}
+
+	for playerId = 0, 23 do
+		if PlayerResource:IsValidTeamPlayerID(playerId) and not PlayerResource:IsFakeClient(playerId) then
+			local playerData = {
+				playerId = playerId,
+				steamId = tostring(PlayerResource:GetSteamID(playerId)),
+				team = PlayerResource:GetTeam(playerId),
+
+				hero = PlayerResource:GetSelectedHeroName(playerId),
+				pickReason = SmartRandom.PickReasons[playerId] or (PlayerResource:HasRandomed(playerId) and "random" or "pick"),
+				kills = PlayerResource:GetKills(playerId),
+				deaths = PlayerResource:GetDeaths(playerId),
+				assists = PlayerResource:GetAssists(playerId),
+				level = 0,
+				items = {},
+			}
+
+			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+			if IsValidEntity(hero) then
+				playerData.level = hero:GetLevel()
+				for slot = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
+					local item = hero:GetItemInSlot(slot)
+					if item then
+						table.insert(playerData.items, {
+							slot = slot,
+							name = item:GetAbilityName(),
+							charges = item:GetCurrentCharges()
+						})
+					end
+				end
+			end
+
+			table.insert(requestBody.players, playerData)
+		end
+	end
+	if WEB_API_TESTING or #requestBody.players >= 5 then
+		SendWebApiRequest("end-match", requestBody)
+	end
 end

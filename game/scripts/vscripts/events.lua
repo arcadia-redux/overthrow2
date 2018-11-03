@@ -41,7 +41,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
 
 		self._fPreGameStartTime = GameRules:GetGameTime()
-		SendSameHeroDayMessage()
+		Patreons:SendSameHeroDayMessage()
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -100,8 +100,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 
 			local playerId = spawnedUnit:GetPlayerID()
-			if HasPlayerPatreonBonusesEnabled(playerId) and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
-				GivePlayerPatreonBonus(playerId)
+			if Patreons:GetPlayerBonusesEnabled(playerId) and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
+				Patreons:GiveOnSpawnBonus(playerId)
 			end
 		end, 2/30)
 	end
@@ -141,7 +141,7 @@ function COverthrowGameMode:OnTeamKillCredit( event )
 
 	if nKillsRemaining <= 0 then
 		GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[nTeamID] )
-		self:SendMatchResults(nTeamID)
+		COverthrowGameMode:EndMatch(nTeamID)
 		GameRules:SetGameWinner( nTeamID )
 		broadcast_kill_event.victory = 1
 	elseif nKillsRemaining == 1 then

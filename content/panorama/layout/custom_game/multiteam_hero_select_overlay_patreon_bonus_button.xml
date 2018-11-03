@@ -1,21 +1,26 @@
 <root>
 	<styles>
-			<include src="s2r://panorama/styles/dotastyles.vcss_c" />
-			<include src="file://{resources}/styles/custom_game/multiteam_hero_select_overlay.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/multiteam_hero_select_overlay.css" />
 	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/util.js" />
+	</scripts>
 	<script>
-		var isPatreon;
+		var isPatreon = false;
 		var isSameHeroDay = false;
 
 		function GoToPatreonPage() {
 			if (isPatreon || isSameHeroDay) return;
 			$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
 		}
+
 		function TogglePatreonBonusButton() {
 			if (!isPatreon && !isSameHeroDay) return;
 			var enable = $('#PatreonBonusButton').checked;
 			GameEvents.SendCustomGameEventToServer("set_patreon_bonus", { enable: enable } );
 		}
+
 		function OnMouseOver() {
 			if (isPatreon || isSameHeroDay) return;
 			$.DispatchEvent('DOTAShowTextTooltip', '#patreon_bonus_button_tooltip')
@@ -25,22 +30,21 @@
 			var patreonBonuses = CustomNetTables.GetTableValue("game_state", "patreon_bonus");
 			$('#PatreonBonusButton').checked = !patreonBonuses || patreonBonuses[Game.GetLocalPlayerID()] !== 0;
 
-			isSameHeroDay = Boolean((CustomNetTables.GetTableValue('game_state', 'is_same_hero_day') || {}).enable);
-			$('#PatreonBonusButton').SetHasClass("IsSameHeroDay", isSameHeroDay)
-			var patreons = CustomNetTables.GetTableValue('game_state', 'patreons') || {};
-			isPatreon = Boolean(patreons[Game.GetLocalPlayerID()]);
-			if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
-			$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
-			CustomNetTables.SubscribeNetTableListener('game_state', function(_tableName, key, value) {
-				if (key === 'patreons') isPatreon = Boolean(value[Game.GetLocalPlayerID()]);
-				if (key === 'is_same_hero_day') {
-					isSameHeroDay = Boolean(value.enable);
-					$('#PatreonBonusButton').SetHasClass("IsSameHeroDay", isSameHeroDay)
-				}
-				if (key === 'patreons' || key === 'is_same_hero_day') {
-					if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
-					$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
-				}
+			function UpdateButtonState() {
+				if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
+				$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
+			}
+
+			SubscribeToNetTableKey('game_state', 'player_stats', function(value) {
+				var localStats = value[Game.GetLocalPlayerID()];
+				isPatreon = Boolean(localStats && localStats.patreonLevel);
+				UpdateButtonState();
+			});
+
+			SubscribeToNetTableKey('game_state', 'is_same_hero_day', function(value) {
+				isSameHeroDay = Boolean(value.enable);
+				$('#PatreonBonusButton').SetHasClass("IsSameHeroDay", isSameHeroDay);
+				UpdateButtonState();
 			});
 		})();
 	</script>
