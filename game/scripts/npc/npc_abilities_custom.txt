@@ -1,4 +1,3 @@
-// Dota Heroes File
 "DOTAAbilities"
 {
 	"Version"       "1"
@@ -26,7 +25,7 @@
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -37,7 +36,7 @@
 			}
 		}
 	}
-	
+
 	"dota_ability_throw_coin_core"
 	{
 		"BaseClass"							"ability_datadriven"
@@ -46,7 +45,7 @@
 		"AbilityCastAnimation"				"ACT_DOTA_CAST_ABILITY_1"
 		"AbilityCastPoint"					"3"
 
-		"OnSpellStart"
+ 		"OnSpellStart"
 		{
 			"RunScript"
 			{
@@ -55,13 +54,13 @@
 			}
 		}
 
-		"Modifiers"
+ 		"Modifiers"
 		{
 			"modifier_dota_ability_throw_coin"
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -72,7 +71,7 @@
 			}
 		}
 	}
-	
+
 	"dota_ability_throw_coin_long"
 	{
 		"BaseClass"							"ability_datadriven"
@@ -96,7 +95,7 @@
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -107,7 +106,7 @@
 			}
 		}
 	}
-	
+
 	"dota_ability_throw_coin_long_core"
 	{
 		"BaseClass"							"ability_datadriven"
@@ -116,7 +115,7 @@
 		"AbilityCastAnimation"				"ACT_DOTA_CAST_ABILITY_2"
 		"AbilityCastPoint"					"4"
 
-		"OnSpellStart"
+ 		"OnSpellStart"
 		{
 			"RunScript"
 			{
@@ -125,13 +124,13 @@
 			}
 		}
 
-		"Modifiers"
+ 		"Modifiers"
 		{
 			"modifier_dota_ability_throw_coin"
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -142,7 +141,7 @@
 			}
 		}
 	}
-	
+
 	"dota_ability_celebrate"
 	{
 		"BaseClass"							"ability_datadriven"
@@ -156,7 +155,7 @@
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -180,7 +179,7 @@
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					"MODIFIER_STATE_PROVIDES_VISION"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -195,236 +194,103 @@
 
 	"dota_ability_xp_granter"
 	{
-		"BaseClass"          			    "ability_datadriven"
+		"BaseClass"          			    "ability_lua"
+		"ScriptFile"						"abilities/xp_granter"
 		"AbilityName"           			"dota_ability_xp_granter"
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
-		"Modifiers"
+		"AbilitySpecial"
 		{
-			"modifier_dota_ability_xp_granter"
+			"01"
 			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-				
-				"Aura"					"modifier_get_xp"
-				"Aura_Radius"			"800"
-				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
-				"Aura_ApplyToCaster"	"0"
-				"Aura_Flags"    		"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"ThinkInterval"	".5"
-
-				"OnIntervalThink"
-				{
-					"GrantXPGold"
-					{
-						"Target"
-						{
-							"Center"		"CASTER"
-							"radius"		"1000"
-							"Types"			"DOTA_UNIT_TARGET_HERO"
-							"Flags"			"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-						}
-						"XPAmount"		"8"
-						"SplitEvenly"	"0"
-						"GoldAmount"	"4"
-						"ReliableGold"	"0"
-						"PlayAlert"		"0"
-					}
-				}
+				"var_type"					"FIELD_INTEGER"
+				"aura_radius"				"1000"
 			}
-
-			"modifier_get_xp"
+			"02"
 			{
-				"Passive"       "1"
-				"EffectName"	""
-				"TextureName"	"custom_games_xp_coin"
+				"var_type"					"FIELD_INTEGER"
+				"aura_gold"					"4"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"aura_xp"					"8"
 			}
 		}
 	}
 
 	"dota_ability_xp_granter2"
 	{
-		"BaseClass"          			    "ability_datadriven"
-		"AbilityName"           			"dota_ability_xp_granter"
+		"BaseClass"							"ability_lua"
+		"ScriptFile"						"abilities/xp_granter"
+		"AbilityName"						"dota_ability_xp_granter"
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
-		"Modifiers"
+		"AbilitySpecial"
 		{
-			"modifier_dota_ability_xp_granter"
+			"01"
 			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-				
-				"Aura"					"modifier_get_xp"
-				"Aura_Radius"			"1400"
-				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
-				"Aura_ApplyToCaster"	"0"
-				"Aura_Flags"    		"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"ThinkInterval"	".5"
-
-				"OnIntervalThink"
-				{
-					"GrantXPGold"
-					{
-						"Target"
-						{
-							"Center"		"CASTER"
-							"radius"		"1400"
-							"Types"			"DOTA_UNIT_TARGET_HERO"
-							"Flags"			"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-						}
-						"XPAmount"		"16"
-						"SplitEvenly"	"0"
-						"GoldAmount"	"10"
-						"ReliableGold"	"0"
-						"PlayAlert"		"0"
-					}
-				}
+				"var_type"					"FIELD_INTEGER"
+				"aura_radius"				"1400"
 			}
-
-			"modifier_get_xp"
+			"02"
 			{
-				"Passive"       "1"
-				"EffectName"	""
-				"TextureName"	"custom_games_xp_coin"
+				"var_type"					"FIELD_INTEGER"
+				"aura_gold"					"10"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"aura_xp"					"16"
 			}
 		}
 	}
 
 	"dota_ability_xp_granter3"
 	{
-		"BaseClass"          			    "ability_datadriven"
-		"AbilityName"           			"dota_ability_xp_granter"
+		"BaseClass"							"ability_lua"
+		"ScriptFile"						"abilities/xp_granter"
+		"AbilityName"						"dota_ability_xp_granter"
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
-		"Modifiers"
+		"AbilitySpecial"
 		{
-			"modifier_dota_ability_xp_granter"
+			"01"
 			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-				
-				"Aura"					"modifier_get_xp"
-				"Aura_Radius"			"1750"
-				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
-				"Aura_ApplyToCaster"	"0"
-				"Aura_Flags"    		"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"ThinkInterval"	".5"
-
-				"OnIntervalThink"
-				{
-					"GrantXPGold"
-					{
-						"Target"
-						{
-							"Center"		"CASTER"
-							"radius"		"1400"
-							"Types"			"DOTA_UNIT_TARGET_HERO"
-							"Flags"			"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-						}
-						"XPAmount"		"16"
-						"SplitEvenly"	"0"
-						"GoldAmount"	"10"
-						"ReliableGold"	"0"
-						"PlayAlert"		"0"
-					}
-				}
+				"var_type"					"FIELD_INTEGER"
+				"aura_radius"				"1750"
 			}
-
-			"modifier_get_xp"
+			"02"
 			{
-				"Passive"       "1"
-				"EffectName"	""
-				"TextureName"	"custom_games_xp_coin"
+				"var_type"					"FIELD_INTEGER"
+				"aura_gold"					"16"
+			}
+			"03"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"aura_xp"					"10"
 			}
 		}
 	}
-	
+
 	"dota_ability_xp_global"
 	{
-		"BaseClass"          			    "ability_datadriven"
-		"AbilityName"           			"dota_ability_xp_global"
+		"BaseClass"							"ability_lua"
+		"ScriptFile"						"abilities/xp_global"
+		"AbilityName"						"dota_ability_xp_global"
 		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
-		"Modifiers"
+		"AbilitySpecial"
 		{
-			"modifier_dota_ability_xp_global"
+			"01"
 			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-				
-				"Aura"					"modifier_get_xp_global"
-				"Aura_Radius"			"8000"
-				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
-				"Aura_Types"			"DOTA_UNIT_TARGET_HERO"
-				"Aura_ApplyToCaster"	"0"
-				"Aura_Flags"    		"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-
-				"ThinkInterval"	".5"
-
-				"OnIntervalThink"
-				{
-					"GrantXPGold"
-					{
-						"Target"
-						{
-							"Center"		"CASTER"
-							"radius"		"3400"
-							"Types"			"DOTA_UNIT_TARGET_HERO"
-							"Flags"			"DOTA_UNIT_TARGET_FLAG_NOT_ILLUSIONS"
-						}
-						"XPAmount"		"6"
-						"SplitEvenly"	"0"
-						"GoldAmount"	"4"
-						"ReliableGold"	"0"
-						"PlayAlert"		"0"
-					}
-				}
+				"var_type"					"FIELD_INTEGER"
+				"aura_gold"					"4"
 			}
-
-			"modifier_get_xp_global"
+			"02"
 			{
-				"Passive"       "1"
-				"EffectName"	"particles/econ/courier/courier_greevil_yellow/courier_greevil_yellow_ambient_3_b.vpcf"
-				"TextureName"	"alchemist_goblins_greed"
+				"var_type"					"FIELD_INTEGER"
+				"aura_xp"					"6"
 			}
 		}
 	}
@@ -441,7 +307,7 @@
                 {
                      "IsHidden"					"1"
                      "Passive"					"1"
-                     
+
                      "Aura"						"modifier_invis_revealed"
                      "Aura_Radius"				"350"
                      "Aura_Teams"				"DOTA_UNIT_TARGET_TEAM_BOTH"
@@ -485,7 +351,7 @@
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"Aura"					""
 				"Aura_Radius"			"600"
 				"Aura_Teams"			"DOTA_UNIT_TARGET_TEAM_BOTH"
@@ -521,7 +387,7 @@
 			{
 				"IsHidden"				"1"
 				"Passive"				"1"
-				
+
 				"States"
 				{
 					//"MODIFIER_STATE_INVULNERABLE"		"MODIFIER_STATE_VALUE_ENABLED"
@@ -534,16 +400,16 @@
 				}
 			}
 		}
-	}	
+	}
 	//=================================================================================================================
 	// Ability: Traps
 	//=================================================================================================================
 	"trap_unselectable"
   	{
 	    "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
-	    
+
 	    "BaseClass"             "ability_datadriven"
-	    
+
 	    "Modifiers"
 	    {
 			"modifier_unselectable"
@@ -572,25 +438,25 @@
 	{
 		"BaseClass"           			"ability_lua"
 		"ScriptFile"					"breathe_fire"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"				   
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"3000"
 		"AbilityCastPoint"				"0"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"1.5"
-		
+
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0"
-		
-		// Special	
+
+		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
@@ -626,25 +492,25 @@
 	{
 		"BaseClass"           			"ability_lua"
 		"ScriptFile"					"breathe_poison"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"				   
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"3000"
 		"AbilityCastPoint"				"0"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"3.5"
-		
+
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
-		
+
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0"
-		
-		// Special	
+
+		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
@@ -705,17 +571,17 @@
 	{
 		"BaseClass"           			"ability_lua"
 		"ScriptFile"					"spike_trap"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"				   
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"600"
 		"AbilityCastPoint"				"0.45"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"2"
-		
+
 		// Damage.
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityDamage"					"150"
@@ -723,8 +589,8 @@
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0"
-		
-		// Special	
+
+		// Special
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilitySpecial"
 		{
@@ -733,13 +599,13 @@
 				"var_type"					"FIELD_INTEGER"
 				"light_strike_array_aoe"	"192"
 			}
-			
+
 			"02"
 			{
 				"var_type"						"FIELD_FLOAT"
 				"light_strike_array_delay_time"	"0.65"
 			}
-						
+
 			"03"
 			{
 				"var_type"						"FIELD_FLOAT"
@@ -761,23 +627,23 @@
 	{
 		"BaseClass"           			"ability_lua"
 		"ScriptFile"					"pendulum_trap"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"	
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_ENEMY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"			   
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 
 		// Casting
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCastRange"				"60000"
 		"AbilityCastPoint"				"0"
 
-		// Time		
+		// Time
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0"
 
 		// Cost
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityManaCost"				"0"
-			
+
 		// Stats
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityModifierSupportValue"	"0.0"	// Modifier just delays damage
@@ -800,6 +666,57 @@
 			{
 				"var_type"					"FIELD_FLOAT"
 				"damage_delay"				"0"
+			}
+		}
+	}
+
+	"alchemist_goblins_greed_custom"
+	{
+		"BaseClass"						"ability_datadriven"
+		"AbilityTextureName"			"alchemist_goblins_greed"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"gold_coin_multiplier"		"2.5"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"gold_gain_multiplier"		"1 1.1 1.2 1.3"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"message_min_gold"		"125 150 175 200"
+			}
+		}
+	}
+
+	"doom_bringer_devour_custom"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/doom_bringer_devour"
+		"AbilityTextureName"			"doom_bringer_devour"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"SpellDispellableType"			"SPELL_DISPELLABLE_NO"
+		"AbilitySound"					"Hero_DoomBringer.Devour"
+		"AbilityCastAnimation"			"ACT_DOTA_CAST_ABILITY_1"
+
+		"AbilityCastPoint"				"0.3"
+		"AbilityCastRange"				"300"
+		"AbilityCooldown"				"70 60 50 40"
+		"AbilityManaCost"				"40 50 60 70"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_gold_per_minute"	"100 150 200 250"
 			}
 		}
 	}

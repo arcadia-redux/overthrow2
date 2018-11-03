@@ -6,6 +6,9 @@ dota_ability_xp_granter2 = {
 	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_granter" end
 }
 
+dota_ability_xp_granter3 = {
+	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_granter" end
+}
 
 LinkLuaModifier("modifier_dota_ability_xp_granter", "abilities/xp_granter", LUA_MODIFIER_MOTION_NONE)
 modifier_dota_ability_xp_granter = {
