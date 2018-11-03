@@ -263,9 +263,6 @@ function COverthrowGameMode:OnItemPickUp( event )
 		owner = EntIndexToHScript(event.HeroEntityIndex)
 	elseif event.UnitEntityIndex then
 		owner = EntIndexToHScript(event.UnitEntityIndex)
-		if not owner:GetUnitName():match("npc_dota_lone_druid_bear%d") then
-			return
-		end
 	end
 
 	if event.itemname == "item_bag_of_gold" then
@@ -273,7 +270,7 @@ function COverthrowGameMode:OnItemPickUp( event )
 		UTIL_Remove(item)
 	elseif event.itemname == "item_treasure_chest" then
 		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
-		if owner:GetUnitName() == "npc_dota_hero_meepo" then
+		if not owner:HasInventory() or owner:GetUnitName() == "npc_dota_hero_meepo" then
 			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
 		end
 		COverthrowGameMode:SpecialItemAdd(item, owner)
