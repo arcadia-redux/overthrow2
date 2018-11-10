@@ -4,7 +4,7 @@
 		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
 	</styles>
 	<script>
-		var mapName = Game.GetMapInfo().map_name_display;
+		var mapName = Game.GetMapInfo().map_display_name;
 		var isCore = mapName === 'core_quartet';
 		$('#seq_bg').visible = !isCore;
 		$('#seq_bg_core').visible = isCore;
