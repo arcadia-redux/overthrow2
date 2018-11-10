@@ -7,22 +7,40 @@
 		<include src="file://{resources}/scripts/custom_game/util.js" />
 	</scripts>
 	<script>
-		var reason;
+		var root = $.GetContextPanel().GetParent().GetParent();
+		var gridCore = root.FindChildTraverse('GridCore');
+		var mainFilters = root.FindChildTraverse('MainFilters');
+		var heroes;
+
 		function Activate() {
-			if (reason == null) {
-				GameEvents.SendCustomGameEventToServer("smart_random_hero", {});
-			} else if (reason === 'cooldown') {
+			if (heroes == null) {
 				$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
+			} else if (heroes.length > 0) {
+				GameEvents.SendCustomGameEventToServer("smart_random_hero", {});
 			}
 		}
 
 		function OnMouseOver() {
-			$.DispatchEvent('DOTAShowTextTooltip', 'smart_random_tooltip_' + (reason || 'ready'));
+			var message = heroes == null ? 'cooldown' : heroes.length === 0 ? 'no_stats' : 'ready';
+			$.DispatchEvent('DOTAShowTextTooltip', 'smart_random_tooltip_' + message);
+			if (message === 'ready') {
+				gridCore.Children().forEach(function (child) {
+					if (child.paneltype !== 'DOTAHeroCard') return;
+					var heroName = 'npc_dota_hero_' + child.FindChildTraverse('HeroImage').heroname;
+					child.SetHasClass('Filtered', heroes.indexOf(heroName) === -1);
+				});
+			}
 		}
 
-		SubscribeToNetTableKey('game_state', 'smart_random_reasons', function(value) {
-			reason = value[Game.GetLocalPlayerID()];
-			$.GetContextPanel().SetHasClass('CantActivate', reason != null);
+		function OnMouseOut() {
+			$.DispatchEvent('DOTAHideTextTooltip');
+			$.DispatchEvent('DOTAUpdateEnabledHeroes', mainFilters);
+		}
+
+		SubscribeToNetTableKey('game_state', 'smart_random', function(value) {
+			heroes = value[Game.GetLocalPlayerID()];
+			if (heroes != null) heroes = Object.keys(heroes).map(function(x) { return heroes[x] });
+			$.GetContextPanel().SetHasClass('CantActivate', heroes == null || heroes.length === 0);
 		});
 	</script>
 
@@ -30,7 +48,7 @@
 		class="SmartRandomButton"
 		onactivate="Activate()"
 		onmouseover="OnMouseOver()"
-		onmouseout="DOTAHideTextTooltip()"
+		onmouseout="OnMouseOut()"
 	>
 		<Label text="SMART RANDOM" />
 	</Button>

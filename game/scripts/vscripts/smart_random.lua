@@ -4,15 +4,18 @@ SmartRandom.AutoPickHeroes = SmartRandom.AutoPickHeroes or {}
 SmartRandom.PickReasons = SmartRandom.PickReasons or {}
 
 function SmartRandom:SetPlayerInfo(playerId, heroes)
-	local reasons = CustomNetTables:GetTableValue("game_state", "smart_random_reasons") or {}
-	if not heroes then
-		reasons[playerId] = "cooldown"
-	elseif #heroes < 3 then
-		reasons[playerId] = "no_stats"
-	else
-		SmartRandom.SmartRandomHeroes[playerId] = heroes
+	local table = CustomNetTables:GetTableValue("game_state", "smart_random") or {}
+
+	if heroes then
+		if #heroes >= 3 then
+			SmartRandom.SmartRandomHeroes[playerId] = heroes
+			table[playerId] = heroes
+		else
+			table[playerId] = {}
+		end
 	end
-	CustomNetTables:SetTableValue("game_state", "smart_random_reasons", reasons)
+
+	CustomNetTables:SetTableValue("game_state", "smart_random", table)
 end
 
 local function pickRandomHeroFromList(playerId, list)
