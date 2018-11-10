@@ -60,6 +60,10 @@ end
 function COverthrowGameMode:OnNPCSpawned( event )
 	local spawnedUnit = EntIndexToHScript( event.entindex )
 	if not spawnedUnit:IsRealHero() then return end
+	if GetMapName() == "core_quartet" then
+		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
+	end
+
 	-- Destroys the last hit effects
 	local deathEffects = spawnedUnit:Attribute_GetIntValue( "effectsID", -1 )
 	if deathEffects ~= -1 then
