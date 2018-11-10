@@ -50,6 +50,6 @@
 		onmouseover="OnMouseOver()"
 		onmouseout="OnMouseOut()"
 	>
-		<Label text="SMART RANDOM" />
+		<Label text="#smart_random_button" />
 	</Button>
 </root>

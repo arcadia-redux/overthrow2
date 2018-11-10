@@ -68,6 +68,7 @@
 
 	"custom_hud_error_no_coins"						"Ability Can't Be Used Without Coins"
 
+	"smart_random_button"							"SMART RANDOM"
 	"smart_random_tooltip_ready"					"TODO"
 	"smart_random_tooltip_cooldown"					"You can use Smart Random only once per 24 hours. Support Overthrow 2.0 to remove the cooldown!"
 	"smart_random_tooltip_no_stats"					"Play more games to use Smart Random"
