@@ -1,6 +1,6 @@
 "AddonInfo"
 {
-	maps			"desert_duo mines_trio forest_solo desert_quintet temple_quartet desert_octet"
+	maps			"desert_duo mines_trio forest_solo desert_quintet temple_quartet desert_octet core_quartet"
 	"IsPlayable"	"1"
 	"HeroGuidesSupported" "1"
 	"PenaltiesEnabled"			"1"
@@ -27,6 +27,10 @@
 					"MaxPlayers"                    "16"
 	}
 	"desert_octet"
+	{
+					"MaxPlayers"                    "24"
+	}
+	"core_quartet"
 	{
 					"MaxPlayers"                    "24"
 	}

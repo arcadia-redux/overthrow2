@@ -226,7 +226,7 @@ function COverthrowGameMode:PlanNextSpawn()
 	}
 
 	local r = RandomInt( 1, 8 )
-	if GetMapName() == "desert_quintet" or GetMapName() == "desert_octet" then
+	if GetMapName() == "desert_quintet" or GetMapName() == "desert_octet" or GetMapName() == "core_quartet" then
 		r = RandomInt( 1, 6 )
 	elseif GetMapName() == "temple_quartet" then
 		r = RandomInt( 1, 4 )
