@@ -3,9 +3,17 @@
 		<include src="file://{resources}/styles/dotastyles.css" />
 		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
 	</styles>
+	<script>
+		var mapName = Game.GetMapInfo().map_name_display;
+		var isCore = mapName === 'core_quartet';
+		$('#seq_bg').visible = !isCore;
+		$('#seq_bg_core').visible = isCore;
+	</script>
 	<Panel class="OverthrowLoadingRoot">
 		<Panel id="seq" >
 			<Image id="seq_bg" class="SeqBg" src="file://{images}/custom_game/loading_screen/loading_seq_bg.psd" />
+			<Image id="seq_bg_core" class="SeqBg" src="file://{images}/custom_game/loading_screen/loading_seq_bg_core.psd" />
+
 			<Image id="seq_beastmaster_pets" class="SeqImg" src="file://{images}/custom_game/loading_screen/loading_seq_beastmaster_pets.psd" />
 			<Image id="seq_beastmaster" class="SeqImg" src="file://{images}/custom_game/loading_screen/loading_seq_beastmaster.psd" />
 			<Image id="seq_luna" class="SeqImg" src="file://{images}/custom_game/loading_screen/loading_seq_luna.psd" />
