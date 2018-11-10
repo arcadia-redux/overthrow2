@@ -342,3 +342,14 @@ function COverthrowGameMode:ForceSpawnGold()
 	self:SpawnGold()
 end
 
+function COverthrowGameMode:ThinkPumpkins()
+	local now = GameRules:GetDOTATime(false, false)
+	for _, spawner in ipairs(self.pumpkin_spawns) do
+		if not spawner.itemIndex and now >= spawner.nextSpawn then
+			local item = CreateItem("item_core_pumpkin", nil, nil)
+			spawner.itemIndex = item:GetEntityIndex()
+			CreateItemOnPositionForLaunch(spawner.position, item)
+			item:LaunchLootInitialHeight(false, 0, 0, 0.5, spawner.position)
+		end
+	end
+end

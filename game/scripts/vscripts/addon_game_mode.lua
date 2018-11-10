@@ -29,6 +29,8 @@ require("patreons")
 require("smart_random")
 require("statcollection/init")
 
+LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
+
 ---------------------------------------------------------------------------
 -- Precache
 ---------------------------------------------------------------------------
@@ -238,6 +240,14 @@ function COverthrowGameMode:InitGameMode()
 		}
 	end
 
+	self.pumpkin_spawns = {}
+	for _, entity in ipairs(Entities:FindAllByName("item_pumpkin_spawn")) do
+		table.insert(self.pumpkin_spawns, {
+			position = entity:GetAbsOrigin(),
+			nextSpawn = 0
+		})
+	end
+
 	local firstPlayerLoaded
 	ListenToGameEvent("player_connect_full", function()
 		if firstPlayerLoaded then return end
@@ -437,6 +447,7 @@ function COverthrowGameMode:OnThink()
 		--Spawn Gold Bags
 		COverthrowGameMode:ThinkGoldDrop()
 		COverthrowGameMode:ThinkSpecialItemDrop()
+		COverthrowGameMode:ThinkPumpkins()
 	end
 
 	for playerId = 0, 23 do

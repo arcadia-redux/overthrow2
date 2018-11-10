@@ -275,6 +275,17 @@ function COverthrowGameMode:OnItemPickUp( event )
 		end
 		COverthrowGameMode:SpecialItemAdd(item, owner)
 		UTIL_Remove(item)
+	elseif event.itemname == "item_core_pumpkin" then
+		for _, spawner in ipairs(self.pumpkin_spawns) do
+			if spawner.itemIndex == event.ItemEntityIndex then
+				local now = GameRules:GetDOTATime(false, false)
+				spawner.nextSpawn = now + 60
+				spawner.itemIndex = nil
+				break
+			end
+		end
+		owner:AddNewModifier(owner, item, "modifier_core_pumpkin_regeneration", { duration = 10 })
+		UTIL_Remove(item)
 	end
 end
 
