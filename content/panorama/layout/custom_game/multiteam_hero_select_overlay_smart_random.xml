@@ -40,10 +40,8 @@
 		SubscribeToNetTableKey('game_state', 'smart_random', function(value) {
 			heroes = value[Game.GetLocalPlayerID()];
 			if (heroes != null) heroes = Object.keys(heroes).map(function(x) { return heroes[x] });
-      var isOnCooldown = heroes == null;
-      var hasNoData = !isOnCooldown && heroes.length === 0;
-			$.GetContextPanel().visible = !hasNoData;
-			$.GetContextPanel().SetHasClass('OnCooldown', isOnCooldown);
+			$.GetContextPanel().SetHasClass('NoStats', heroes != null && heroes.length === 0);
+			$.GetContextPanel().SetHasClass('OnCooldown', heroes == null);
 		});
 	</script>
 

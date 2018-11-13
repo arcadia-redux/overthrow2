@@ -259,6 +259,14 @@
 	border-top: 4px solid #73f76a;
 }
 
+/* FIXME: Potential exploit */
+#PreGame:not(.DOTA_GAMERULES_STATE_HERO_SELECTION) .SmartRandomButton,
+.IsInBanPhase .SmartRandomButton,
+.SmartRandomButton.NoStats
+{
+	visibility: collapse;
+}
+
 .SmartRandomButton.OnCooldown
 {
 	saturation: 0.4;
