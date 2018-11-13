@@ -10,7 +10,9 @@ modifier_core_spawn_movespeed = {
 }
 
 if IsServer() then
-	function modifier_core_spawn_movespeed:OnUnitMoved()
+	function modifier_core_spawn_movespeed:OnUnitMoved(keys)
+		local unit = keys.unit
+		if unit ~= self:GetParent() then return end
 		if self:GetDuration() == -1 then
 			self:SetDuration(10, true)
 
@@ -23,7 +25,7 @@ if IsServer() then
 			end
 
 			if xpGranterAbility then
-				self:GetParent():AddNewModifier(self:GetCaster(), xpGranterAbility, "modifier_get_xp", { duration = 10 })
+				unit:AddNewModifier(self:GetCaster(), xpGranterAbility, "modifier_get_xp", { duration = 10 })
 			end
 		end
 	end
