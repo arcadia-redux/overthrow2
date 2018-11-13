@@ -66,6 +66,7 @@ function Precache( context )
        	PrecacheResource( "particle", "particles/newplayer_fx/npx_landslide_debris.vpcf", context )
        	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_cast.vpcf", context )
        	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_coin.vpcf", context )
+       	PrecacheResource( "particle", "particles/custom/items/core_pumpkin_owner.vpcf", context )
 
 	--Cache particles for traps
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_dragon_knight", context )

@@ -9,4 +9,5 @@ modifier_core_pumpkin_regeneration = {
 	end,
 	GetModifierHealthRegenPercentage = function() return 5 end,
 	GetModifierTotalPercentageManaRegen = function() return 5 end,
+	GetEffectName = function() return "particles/custom/items/core_pumpkin_owner.vpcf" end,
 }

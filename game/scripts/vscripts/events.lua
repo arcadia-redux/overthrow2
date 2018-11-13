@@ -290,6 +290,7 @@ function COverthrowGameMode:OnItemPickUp( event )
 				break
 			end
 		end
+		owner:EmitSound("Rune.Regen")
 		owner:AddNewModifier(owner, item, "modifier_core_pumpkin_regeneration", { duration = 10 })
 		UTIL_Remove(item)
 	end
