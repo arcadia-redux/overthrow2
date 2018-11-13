@@ -259,18 +259,18 @@
 	border-top: 4px solid #73f76a;
 }
 
-.SmartRandomButton.CantActivate
+.SmartRandomButton.OnCooldown
 {
 	saturation: 0.4;
 	brightness: 0.2;
 }
 
-.SmartRandomButton:not(.CantActivate):hover Label
+.SmartRandomButton:not(.OnCooldown):hover Label
 {
 	margin-bottom: 2px;
 }
 
-.SmartRandomButton:not(.CantActivate):active Label
+.SmartRandomButton:not(.OnCooldown):active Label
 {
 	margin-bottom: -2px;
 }
