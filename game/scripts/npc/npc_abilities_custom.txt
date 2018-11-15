@@ -263,12 +263,12 @@
 			"02"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"aura_gold"					"16"
+				"aura_gold"					"10"
 			}
 			"03"
 			{
 				"var_type"					"FIELD_INTEGER"
-				"aura_xp"					"10"
+				"aura_xp"					"16"
 			}
 		}
 	}
