@@ -13,7 +13,7 @@
 		var heroes;
 
 		function Activate() {
-			if (heroes == null) {
+			if (heroes == 'cooldown') {
 				$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
 			} else {
 				GameEvents.SendCustomGameEventToServer("smart_random_hero", {});
@@ -21,9 +21,9 @@
 		}
 
 		function OnMouseOver() {
-			var message = heroes == null ? 'cooldown' : 'ready';
+			var message = Array.isArray(heroes) ? 'ready' : heroes;
 			$.DispatchEvent('DOTAShowTextTooltip', 'smart_random_tooltip_' + message);
-			if (message === 'ready') {
+			if (Array.isArray(heroes)) {
 				gridCore.Children().forEach(function (child) {
 					if (child.paneltype !== 'DOTAHeroCard') return;
 					var heroName = 'npc_dota_hero_' + child.FindChildTraverse('HeroImage').heroname;
@@ -39,9 +39,11 @@
 
 		SubscribeToNetTableKey('game_state', 'smart_random', function(value) {
 			heroes = value[Game.GetLocalPlayerID()];
-			if (heroes != null) heroes = Object.keys(heroes).map(function(x) { return heroes[x] });
-			$.GetContextPanel().SetHasClass('NoStats', heroes != null && heroes.length === 0);
-			$.GetContextPanel().SetHasClass('OnCooldown', heroes == null);
+			if (heroes == null) return;
+
+			if (typeof heroes === 'object') heroes = Object.keys(heroes).map(function(x) { return heroes[x] });
+			$.GetContextPanel().SetHasClass('NoStats', heroes === 'no_stats');
+			$.GetContextPanel().SetHasClass('OnCooldown', heroes === 'cooldown');
 		});
 	</script>
 

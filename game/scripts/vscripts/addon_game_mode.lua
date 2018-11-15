@@ -687,7 +687,7 @@ function COverthrowGameMode:BeforeMatch()
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			Patreons:SetPlayerLevel(playerId, player.patreonLevel)
-			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes)
+			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, player.smartRandomHeroesError)
 
 			publicStats[playerId] = {
 				streak = player.streak,

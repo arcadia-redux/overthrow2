@@ -3,18 +3,10 @@ SmartRandom.SmartRandomHeroes = SmartRandom.SmartRandomHeroes or {}
 SmartRandom.AutoPickHeroes = SmartRandom.AutoPickHeroes or {}
 SmartRandom.PickReasons = SmartRandom.PickReasons or {}
 
-function SmartRandom:SetPlayerInfo(playerId, heroes)
+function SmartRandom:SetPlayerInfo(playerId, heroes, err)
 	local table = CustomNetTables:GetTableValue("game_state", "smart_random") or {}
-
-	if heroes then
-		if #heroes >= 3 then
-			SmartRandom.SmartRandomHeroes[playerId] = heroes
-			table[playerId] = heroes
-		else
-			table[playerId] = {}
-		end
-	end
-
+	SmartRandom.SmartRandomHeroes[playerId] = heroes
+	table[playerId] = heroes or err
 	CustomNetTables:SetTableValue("game_state", "smart_random", table)
 end
 
