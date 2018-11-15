@@ -129,7 +129,3 @@ function SendWebApiRequest(path, data, onSuccess, onError)
 		end
 	end)
 end
-
-function string.starts(s, start)
-	return string.sub(s, 1, #start) == start
-end
