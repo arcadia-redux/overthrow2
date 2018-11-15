@@ -1,0 +1,6 @@
+""
+{
+	"smart_random_button"							"SMART RANDOM"
+	"smart_random_tooltip_ready"					"TODO"
+	"smart_random_tooltip_cooldown"					"You can use Smart Random only once per 24 hours. Support Overthrow 2.0 to remove the cooldown!"
+}
