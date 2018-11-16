@@ -1,6 +1,6 @@
 ""
 {
-	"smart_random_button"							"SMART RANDOM"
-	"smart_random_tooltip_ready"					"TODO"
-	"smart_random_tooltip_cooldown"					"You can use Smart Random only once per 24 hours. Support Overthrow 2.0 to remove the cooldown!"
+	"smart_random_button"							"智能随机"
+	"smart_random_tooltip_ready"					"从你最常用的英雄中随机选择一个"
+	"smart_random_tooltip_cooldown"					"每24小时只能使用一次，向乱战先锋2.0捐助可以移除这个限制！"
 }
