@@ -667,13 +667,6 @@ CustomGameEventManager:RegisterListener("set_disable_help", function(_, data)
 	end
 end)
 
-function DisplayError(playerId, message)
-	local player = PlayerResource:GetPlayer(playerId)
-	if player then
-		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = message })
-	end
-end
-
 function COverthrowGameMode:GetSortedTeams()
 	local sortedTeams = {}
 	for _, team in pairs(self.m_GatheredShuffledTeams) do

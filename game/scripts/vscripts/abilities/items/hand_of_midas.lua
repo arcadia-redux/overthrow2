@@ -28,6 +28,11 @@ if IsServer() then
 	function item_hand_of_midas_custom:OnSpellStart()
 		local caster = self:GetCaster()
 		local position = self:GetCursorPosition()
+		local errMessage = self:GetCustomCastErrorLocation(position)
+		if errMessage ~= "" then
+			DisplayError(caster:GetPlayerOwnerID(), errMessage)
+			return
+		end
 
 		caster:EmitSound("DOTA_Item.Hand_Of_Midas")
 		ParticleManager:SetParticleControl(

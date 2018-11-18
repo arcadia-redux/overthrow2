@@ -129,3 +129,10 @@ function SendWebApiRequest(path, data, onSuccess, onError)
 		end
 	end)
 end
+
+function DisplayError(playerId, message)
+	local player = PlayerResource:GetPlayer(playerId)
+	if player then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = message })
+	end
+end
