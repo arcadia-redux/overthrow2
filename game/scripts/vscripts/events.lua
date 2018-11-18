@@ -79,16 +79,27 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			local firstSlotItem = spawnedUnit:GetItemInSlot(DOTA_ITEM_SLOT_1)
 			if firstSlotItem then spawnedUnit:TakeItem(firstSlotItem) end
 
+			local playerId = spawnedUnit:GetPlayerID()
 			local courier = spawnedUnit:AddItemByName("item_courier")
 			if courier then
-				spawnedUnit:CastAbilityImmediately(courier, spawnedUnit:GetPlayerID())
+				spawnedUnit:CastAbilityImmediately(courier, playerId)
 			end
 
-			if firstSlotItem then
-				spawnedUnit:SetContextThink("AddCourierReturnItem", function()
+			spawnedUnit:SetContextThink("AddCourierUpgrade", function()
+				if GetMapName() == "core_quartet" then
+					for _,courier in ipairs(Entities:FindAllByClassname("npc_dota_courier")) do
+						local owner = courier:GetOwner()
+						if IsValidEntity(owner) and owner:GetPlayerID() == playerId then
+							courier:SetOwner(nil)
+							courier:UpgradeToFlyingCourier()
+							courier:AddNewModifier(courier, nil, "modifier_core_courier", nil)
+						end
+					end
+				end
+				if firstSlotItem then
 					spawnedUnit:AddItem(firstSlotItem)
-				end, 0)
-			end
+				end
+			end, 0)
 		end, 0)
 
 
