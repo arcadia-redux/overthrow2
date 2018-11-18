@@ -10,6 +10,11 @@ function SmartRandom:SetPlayerInfo(playerId, heroes, err)
 	CustomNetTables:SetTableValue("game_state", "smart_random", table)
 end
 
+local npc_heroes = LoadKeyValues("scripts/npc/npc_heroes.txt")
+local function getReadableHeroName(name)
+	return npc_heroes[name].workshop_guide_name or ""
+end
+
 local function pickRandomHeroFromList(playerId, list)
 	local player = PlayerResource:GetPlayer(playerId)
 	if not player then return end
@@ -35,6 +40,8 @@ function SmartRandom:SmartRandomHero(event)
 
 	SmartRandom.PickReasons[playerId] = "smart-random"
 	pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {})
+
+	GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
 end
 
 function SmartRandom:PrepareAutoPick()
@@ -64,6 +71,7 @@ function SmartRandom:AutoPick()
 			if PlayerResource:GetPlayer(i) then
 				SmartRandom.PickReasons[i] = "auto"
 				pickRandomHeroFromList(i, SmartRandom.AutoPickHeroes[i] or {})
+				GameRules:SendCustomMessage("%s1 has auto-picked " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(i)), i, -1)
 			end
 		end
 	end
