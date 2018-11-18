@@ -255,8 +255,15 @@
 	horizontal-align: right;
 	width: 93px;
 	margin-bottom: 70px;
-	background-color: #34d143;
-	border-top: 4px solid #73f76a;
+	background-color: #3A8D42;
+	border-top: 4px solid #44E153;
+	brightness: 0.9;
+}
+
+.SmartRandomButton:hover
+{
+	saturation: 1.6;
+	brightness: 1.5;
 }
 
 /* FIXME: Potential exploit */
