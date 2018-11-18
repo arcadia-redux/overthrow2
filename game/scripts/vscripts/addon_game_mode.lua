@@ -569,22 +569,31 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		return true
 	else
 		local item = EntIndexToHScript( filterTable["entindex_target"] )
-		if item == nil then
-			return true
-		end
+		local unit = EntIndexToHScript(filterTable.units["0"])
+		if not item then return true end
 		local pickedItem = item:GetContainedItem()
-		--print(pickedItem:GetAbilityName())
-		if pickedItem == nil then
+		if not pickedItem then return true end
+
+		local itemName = pickedItem:GetAbilityName()
+		if (unit and unit:IsCourier()) and (
+			itemName == "item_bag_of_gold" or
+			itemName == "item_treasure_chest" or
+			itemName == "item_core_pumpkin"
+		) then
+			local position = item:GetAbsOrigin()
+			filterTable["position_x"] = position.x
+			filterTable["position_y"] = position.y
+			filterTable["position_z"] = position.z
+			filterTable["order_type"] = DOTA_UNIT_ORDER_MOVE_TO_POSITION
 			return true
 		end
-		if pickedItem:GetAbilityName() == "item_treasure_chest" then
+
+		if itemName == "item_treasure_chest" then
 			local player = PlayerResource:GetPlayer(filterTable["issuer_player_id_const"])
 			local hero = player:GetAssignedHero()
 			if hero:GetNumItemsInInventory() <= DOTA_ITEM_SLOT_9 then
-				--print("inventory has space")
 				return true
 			else
-				--print("Moving to target instead")
 				local position = item:GetAbsOrigin()
 				filterTable["position_x"] = position.x
 				filterTable["position_y"] = position.y
