@@ -7,4 +7,4 @@ Differences from original Overthrow: https://steamcommunity.com/workshop/filedet
 
 Q&A: https://steamcommunity.com/workshop/filedetails/discussion/1517661692/1732089092445255074/
 
-Subreddit:https://www.reddit.com/r/dota2unofficial/
+Subreddit: https://www.reddit.com/r/dota2unofficial/
