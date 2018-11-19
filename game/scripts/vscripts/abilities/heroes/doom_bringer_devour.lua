@@ -68,6 +68,9 @@ LinkLuaModifier("modifier_doom_bringer_devour_custom", "abilities/heroes/doom_br
 modifier_doom_bringer_devour_custom = {
 	IsHidden = function() return true end,
 	IsPurgable = function() return false end,
+
+	DeclareFunctions = function() return { MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT } end,
+	GetModifierConstantHealthRegen = function(self) return self:GetAbility():GetSpecialValueFor("health_regen") end,
 }
 
 if IsServer() then

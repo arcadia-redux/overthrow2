@@ -76,6 +76,7 @@ function Precache( context )
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_life_stealer", context )
 
 	--Cache sounds for traps
+		PrecacheResource( "soundfile", "soundevents/soundevents_custom.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
 end

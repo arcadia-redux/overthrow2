@@ -718,6 +718,11 @@
 				"var_type"				"FIELD_INTEGER"
 				"bonus_gold_per_minute"	"100 150 200 250"
 			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"health_regen"			"2.5 5 7.5 10"
+			}
 		}
 	}
 }
