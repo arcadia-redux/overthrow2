@@ -105,17 +105,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 		spawnedUnit.firstTimeSpawned = true
 		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
-			for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
-				local item = spawnedUnit:GetItemInSlot(i)
-				if item and item:GetAbilityName() == "item_tpscroll" then
-					item:SetCurrentCharges(item:GetCurrentCharges() - 1)
-					if item:GetCurrentCharges() == 0 then
-						UTIL_Remove(item)
-					end
-					break
-				end
-			end
-
 			local playerId = spawnedUnit:GetPlayerID()
 			if Patreons:GetPlayerBonusesEnabled(playerId) and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
 				Patreons:GiveOnSpawnBonus(playerId)
