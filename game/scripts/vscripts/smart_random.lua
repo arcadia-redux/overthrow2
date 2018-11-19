@@ -41,6 +41,7 @@ function SmartRandom:SmartRandomHero(event)
 	SmartRandom.PickReasons[playerId] = "smart-random"
 	pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {})
 
+	EmitGlobalSound("custom.smart_random")
 	GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
 end
 
