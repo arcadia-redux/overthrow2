@@ -405,7 +405,7 @@
 			"01"
 			{
 				"var_type"						"FIELD_INTEGER"
-				"flesh_heap_magic_resist"		"6 8 10 12"
+				"health_regen"		"3 6 9 12"
 			}
 			"02"
 			{
