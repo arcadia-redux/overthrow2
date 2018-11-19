@@ -280,16 +280,6 @@
 	brightness: 0.2;
 }
 
-.SmartRandomButton:not(.OnCooldown):hover Label
-{
-	margin-bottom: 2px;
-}
-
-.SmartRandomButton:not(.OnCooldown):active Label
-{
-	margin-bottom: -2px;
-}
-
 .SmartRandomButton Label
 {
 	color: white;
