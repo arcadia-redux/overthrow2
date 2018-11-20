@@ -219,6 +219,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( COverthrowGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
+	GameRules:GetGameModeEntity():SetModifyExperienceFilter(Dynamic_Wrap(COverthrowGameMode, 'ModifyExperienceFilter'), self)
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
@@ -649,6 +650,24 @@ function COverthrowGameMode:ModifyGoldFilter(filterTable)
 		end
 	end
 	return true
+end
+
+function COverthrowGameMode:ModifyExperienceFilter(filterTable)
+	--Static XP gain from hero kills
+	if GetMapName() == "core_quartet" then
+		local experience = filterTable["experience"]
+	    local playerID = filterTable["player_id_const"]
+	    local reason = filterTable["reason_const"]
+	    	print(filterTable["experience"])
+	    -- Disable all hero kill experience
+	    if reason == DOTA_ModifyXP_HeroKill then
+	    	filterTable["experience"] = 0
+	    	print("fired1")
+	        return true
+	    end
+		print("something else")
+	end
+    return true
 end
 
 local enabledRuneTypes = {

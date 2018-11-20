@@ -61,7 +61,33 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	local spawnedUnit = EntIndexToHScript( event.entindex )
 	if not spawnedUnit:IsRealHero() then return end
 	if GetMapName() == "core_quartet" then
+		local sortedTeams = self:GetSortedTeams()
+		local teamNumber = spawnedUnit:GetTeam()
+		local TeamsKills = GetTeamHeroKills(teamNumber)
+		local LeaderKills = self.leadingTeamScore
+
+		local goldDuration = 0
+		if TeamsKills < LeaderKills then
+			goldDuration = LeaderKills - TeamsKills
+		end
+		goldDuration = goldDuration * 3
+		print(TeamsKills)
+		print(LeaderKills)
+		print(goldDuration)
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
+		
+		if goldDuration > 0 then
+			local xpGranterAbility
+			for _, v in ipairs(Entities:FindAllByClassname("npc_dota_creature")) do
+				if v:GetUnitName():starts("npc_dota_xp_granter") then
+					xpGranterAbility = v:GetAbilityByIndex(0)
+					break
+				end
+			end
+			if xpGranterAbility then
+				spawnedUnit:AddNewModifier(spawnedUnit, xpGranterAbility, "modifier_get_xp", { duration = goldDuration })
+			end
+		end
 	end
 
 	-- Destroys the last hit effects
@@ -195,7 +221,9 @@ function COverthrowGameMode:OnEntityKilled( event )
 			if killedUnit:GetTeam() == self.leadingTeam and self.isGameTied == false then
 				local memberID = hero:GetPlayerID()
 				PlayerResource:ModifyGold( memberID, 500, true, 0 )
-				hero:AddExperience( 100, 0, false, false )
+				if GetMapName() ~= "core_quartet" then
+						hero:AddExperience( 100, 0, false, false )
+				end
 				local name = hero:GetClassname()
 				local victim = killedUnit:GetClassname()
 				local kill_alert =
@@ -204,7 +232,9 @@ function COverthrowGameMode:OnEntityKilled( event )
 					}
 				CustomGameEventManager:Send_ServerToAllClients( "kill_alert", kill_alert )
 			else
-				hero:AddExperience( 50, 0, false, false )
+				if GetMapName() ~= "core_quartet" then
+					hero:AddExperience( 50, 0, false, false )
+				end
 			end
 		end
 		--Granting XP to all heroes who assisted
@@ -214,7 +244,9 @@ function COverthrowGameMode:OnEntityKilled( event )
 			for i = 0, killedUnit:GetNumAttackers() - 1 do
 				if attacker == killedUnit:GetAttacker( i ) then
 					--print("Granting assist xp")
-					attacker:AddExperience( 25, 0, false, false )
+					if GetMapName() ~= "core_quartet" then
+						attacker:AddExperience( 25, 0, false, false )
+					end
 				end
 			end
 		end
