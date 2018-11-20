@@ -478,6 +478,14 @@ function COverthrowGameMode:OnThink()
 		end
 	end
 
+	if GetMapName() == "core_quartet" then
+		local timeOfDay = GameRules:IsDaytime() and "day" or "night"
+		for _, teamId in ipairs({ DOTA_TEAM_GOODGUYS, DOTA_TEAM_BADGUYS, DOTA_TEAM_CUSTOM_1, DOTA_TEAM_CUSTOM_2, DOTA_TEAM_CUSTOM_3, DOTA_TEAM_CUSTOM_4 }) do
+			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
+			AddFOWViewer(teamId, position, 500, 2, true)
+		end
+	end
+
 	return 1
 end
 
