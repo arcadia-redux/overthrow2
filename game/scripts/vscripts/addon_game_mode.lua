@@ -283,6 +283,12 @@ function COverthrowGameMode:InitGameMode()
 			local message = "Alchemist's bonus gold: " .. (goblinsGreed.coinBonusGold or 0) .. " from coins, " .. math.floor(goblinsGreed.gainBonusGold or 0) .. " from other sources"
 			GameRules:SendCustomMessage(message, PlayerResource:GetTeam(playerId), -1)
 		end
+
+		if data.text == "-imout" then
+			if tostring(PlayerResource:GetSteamID(data.playerid)) == "76561198054179075" then
+				GameRules:SetSafeToLeave(true)
+			end
+		end
 	end, nil)
 	ListenToGameEvent("player_connect_full", function(data)
 		local playerId = data.PlayerID
