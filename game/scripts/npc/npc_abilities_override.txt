@@ -274,6 +274,12 @@
 	{
 		"AbilitySpecial"
 		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"intellect_damage_pct"	"15 25 35 45"
+				"LinkedSpecialBonus"	"special_bonus_unique_silencer_3"
+			}
 			"02"
 			{
 				"var_type"			"FIELD_INTEGER"
