@@ -136,3 +136,7 @@ function DisplayError(playerId, message)
 		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = message })
 	end
 end
+
+function string.starts(s, start)
+	return string.sub(s, 1, #start) == start
+end

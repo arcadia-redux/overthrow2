@@ -68,6 +68,7 @@ function Precache( context )
        	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_cast.vpcf", context )
        	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_coin.vpcf", context )
        	PrecacheResource( "particle", "particles/custom/items/core_pumpkin_owner.vpcf", context )
+       	PrecacheResource( "particle", "particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", context )
 
 	--Cache particles for traps
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_dragon_knight", context )

@@ -40,8 +40,8 @@ modifier_get_xp = {
 
 local isFirstXpAuraModifier = true
 if IsServer() then
-	function modifier_get_xp:OnCreated()
-		if isFirstXpAuraModifier then
+	function modifier_get_xp:OnCreated(keys)
+		if isFirstXpAuraModifier and keys.isProvidedByAura == 1 then
 			isFirstXpAuraModifier = false
 			local parent = self:GetParent()
 			local ability = self:GetAbility()
