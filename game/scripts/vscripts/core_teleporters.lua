@@ -25,17 +25,6 @@ function OnStartTouch(args)
 		unit:SetContextThink("CoreTeleportUnlockCamera", function() return PlayerResource:SetCameraTarget(playerId, nil) end, 0.1)
 	end
 
-	unit:AddNewModifier(unit, nil, "modifier_core_spawn_movespeed", { duration = 10 })
-	if isMainHero then
-		local xpGranterAbility
-		for _, v in ipairs(Entities:FindAllByClassname("npc_dota_creature")) do
-			if v:GetUnitName():starts("npc_dota_xp_granter") then
-				xpGranterAbility = v:GetAbilityByIndex(0)
-				break
-			end
-		end
-		if xpGranterAbility then
-			unit:AddNewModifier(unit, xpGranterAbility, "modifier_get_xp", { duration = 10 })
-		end
-	end
+	unit:RemoveModifierByName("modifier_core_spawn_movespeed")
+	unit:AddNewModifier(unit, nil, "modifier_core_spawn_movespeed", { xp = isMainHero })
 end
