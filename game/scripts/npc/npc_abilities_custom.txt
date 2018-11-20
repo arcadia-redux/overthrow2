@@ -37,41 +37,6 @@
 		}
 	}
 
-	"dota_ability_throw_coin_core"
-	{
-		"BaseClass"							"ability_datadriven"
-		"AbilityName"						"dota_ability_throw_coin"
-		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCastAnimation"				"ACT_DOTA_CAST_ABILITY_1"
-		"AbilityCastPoint"					"3"
-
- 		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"			"overboss2.lua"
-				"Function"				"ThrowCoin"
-			}
-		}
-
- 		"Modifiers"
-		{
-			"modifier_dota_ability_throw_coin"
-			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
-		}
-	}
-
 	"dota_ability_throw_coin_long"
 	{
 		"BaseClass"							"ability_datadriven"
@@ -90,41 +55,6 @@
 		}
 
 		"Modifiers"
-		{
-			"modifier_dota_ability_throw_coin"
-			{
-				"IsHidden"				"1"
-				"Passive"				"1"
-
-				"States"
-				{
-					"MODIFIER_STATE_UNSELECTABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_NO_HEALTH_BAR"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_INVULNERABLE"	"MODIFIER_STATE_VALUE_ENABLED"
-					"MODIFIER_STATE_OUT_OF_GAME"	"MODIFIER_STATE_VALUE_ENABLED"
-				}
-			}
-		}
-	}
-
-	"dota_ability_throw_coin_long_core"
-	{
-		"BaseClass"							"ability_datadriven"
-		"AbilityName"						"dota_ability_throw_coin_long"
-		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"AbilityCastAnimation"				"ACT_DOTA_CAST_ABILITY_2"
-		"AbilityCastPoint"					"4"
-
- 		"OnSpellStart"
-		{
-			"RunScript"
-			{
-				"ScriptFile"			"overboss2.lua"
-				"Function"				"ThrowCoin"
-			}
-		}
-
- 		"Modifiers"
 		{
 			"modifier_dota_ability_throw_coin"
 			{
