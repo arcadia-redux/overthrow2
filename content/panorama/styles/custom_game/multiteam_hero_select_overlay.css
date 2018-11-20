@@ -260,10 +260,16 @@
 	brightness: 0.9;
 }
 
-.SmartRandomButton:hover
+.SmartRandomButton:not(.OnCooldown):hover
 {
-	saturation: 1.6;
-	brightness: 1.5;
+	saturation: 1.4;
+	brightness: 1.3;
+}
+
+.SmartRandomButton:not(.OnCooldown):active
+{
+	saturation: 1.3;
+	brightness: 1.1;
 }
 
 /* FIXME: Potential exploit */
