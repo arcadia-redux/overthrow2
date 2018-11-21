@@ -71,9 +71,9 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			goldDuration = LeaderKills - TeamsKills
 		end
 		goldDuration = goldDuration * 3
-		print(TeamsKills)
-		print(LeaderKills)
-		print(goldDuration)
+		--print(TeamsKills)
+		--print(LeaderKills)
+		--print(goldDuration)
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
 		
 		if goldDuration > 0 then
@@ -284,10 +284,10 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		local secondTeamScore = sortedTeams[2].score
 		local losingTeamScore = sortedTeams[#sortedTeams].score
 		local killedTeamScore = GetTeamHeroKills(killedTeam)
-		print(winningTeamScore)
-		print(losingTeamScore)
-		print(killedTeamScore)
-		DeepPrintTable(sortedTeams)
+		--print(winningTeamScore)
+		--print(losingTeamScore)
+		--print(killedTeamScore)
+		--DeepPrintTable(sortedTeams)
 
 		if winningTeamScore - losingTeamScore >= 3 then
 			if winningTeamScore - killedTeamScore >= 15 then
@@ -298,8 +298,10 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 				baseTime = 10
 			elseif killedTeamScore - secondTeamScore >= 10 then -- If this team is winning and 10 points above second place team, give 25 seconds respawn
 				baseTime = 25
-			else 
+			elseif killedTeamScore == winningTeamScore and killedTeamScore > 10  then 
 				baseTime = 20
+			else 
+				baseTime = 10
 			end
 		end
 	else
