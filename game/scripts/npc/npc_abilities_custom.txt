@@ -224,6 +224,28 @@
 			}
 		}
 	}
+	
+	"dota_ability_xp_core_global"
+	{
+		"BaseClass"							"ability_lua"
+		"ScriptFile"						"abilities/xp_global"
+		"AbilityName"						"dota_ability_xp_global"
+		"AbilityBehavior"					"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"aura_gold"					"4"
+			}
+			"02"
+			{
+				"var_type"					"FIELD_INTEGER"
+				"aura_xp"					"6"
+			}
+		}
+	}
 
 	"dota_ability_reveal_invis"
     {
