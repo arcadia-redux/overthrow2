@@ -653,19 +653,29 @@ function COverthrowGameMode:ModifyGoldFilter(filterTable)
 end
 
 function COverthrowGameMode:ModifyExperienceFilter(filterTable)
-	--Static XP gain from hero kills
+	--Static XP gain from hero kills 
 	if GetMapName() == "core_quartet" then
+		local sortedTeams = self:GetSortedTeams()
 		local experience = filterTable["experience"]
 	    local playerID = filterTable["player_id_const"]
+	    local teamID = PlayerResource:GetTeam( playerID )
 	    local reason = filterTable["reason_const"]
-	    	print(filterTable["experience"])
+
+	    local winningTeamScore = sortedTeams[1].score
+		local losingTeamScore = sortedTeams[#sortedTeams].score
+	    	--print(filterTable["experience"])
 	    -- Disable all hero kill experience
-	    if reason == DOTA_ModifyXP_HeroKill then
-	    	filterTable["experience"] = 0
-	    	print("fired1")
-	        return true
-	    end
-		print("something else")
+	    print(GetTeamHeroKills(teamID))
+	    print(sortedTeams[1].score)
+	    if winningTeamScore - GetTeamHeroKills(teamID) <= 5  then
+		    if reason == DOTA_ModifyXP_HeroKill then
+
+		    	filterTable["experience"] = 0
+		    	print("fired1") 
+		        return true
+		    end
+	   	end
+		--print("something else")
 	end
     return true
 end
