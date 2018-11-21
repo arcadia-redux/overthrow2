@@ -279,6 +279,29 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		if killedTeam == lastPlace then
 			baseTime = 5
 		end
+	elseif GetMapName() == "core_quartet" then
+		local winningTeamScore = sortedTeams[1].score
+		local secondTeamScore = sortedTeams[2].score
+		local losingTeamScore = sortedTeams[#sortedTeams].score
+		local killedTeamScore = GetTeamHeroKills(killedTeam)
+		print(winningTeamScore)
+		print(losingTeamScore)
+		print(killedTeamScore)
+		DeepPrintTable(sortedTeams)
+
+		if winningTeamScore - losingTeamScore >= 3 then
+			if winningTeamScore - killedTeamScore >= 15 then
+				baseTime = 3
+			elseif winningTeamScore - killedTeamScore >= 10 then
+				baseTime = 6
+			elseif winningTeamScore - killedTeamScore >= 5 then
+				baseTime = 10
+			elseif killedTeamScore - secondTeamScore >= 10 then -- If this team is winning and 10 points above second place team, give 25 seconds respawn
+				baseTime = 25
+			else 
+				baseTime = 20
+			end
+		end
 	else
 		if killedTeam == sortedTeams[1].team and sortedTeams[1].score ~= sortedTeams[2].score then
 			baseTime = 20
