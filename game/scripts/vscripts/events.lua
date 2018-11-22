@@ -373,7 +373,7 @@ function COverthrowGameMode:OnItemPickUp( event )
 		for _, spawner in ipairs(self.pumpkin_spawns) do
 			if spawner.itemIndex == event.ItemEntityIndex then
 				local now = GameRules:GetDOTATime(false, false)
-				spawner.nextSpawn = now + 60
+				spawner.nextSpawn = now + 45
 				spawner.itemIndex = nil
 				break
 			end
