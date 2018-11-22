@@ -70,6 +70,7 @@ function Precache( context )
        	PrecacheResource( "particle", "particles/custom/items/hand_of_midas_coin.vpcf", context )
        	PrecacheResource( "particle", "particles/custom/items/core_pumpkin_owner.vpcf", context )
        	PrecacheResource( "particle", "particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", context )
+       	PrecacheResource( "particle", "particles/in_particles/core_door_open.vpcf", context )
 
 	--Cache particles for traps
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_dragon_knight", context )
@@ -487,9 +488,18 @@ function COverthrowGameMode:OnThink()
 
 	if GetMapName() == "core_quartet" then
 		local timeOfDay = GameRules:IsDaytime() and "day" or "night"
+
 		for _, teamId in ipairs({ DOTA_TEAM_GOODGUYS, DOTA_TEAM_BADGUYS, DOTA_TEAM_CUSTOM_1, DOTA_TEAM_CUSTOM_2, DOTA_TEAM_CUSTOM_3, DOTA_TEAM_CUSTOM_4 }) do
 			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
 			AddFOWViewer(teamId, position, 500, 2, true)
+		end
+
+		if self.previousTimeOfDay ~= timeOfDay then
+			self.previousTimeOfDay = timeOfDay
+			for _, point in ipairs(Entities:FindAllByName("door_particle")) do
+				local particleId = ParticleManager:CreateParticle("particles/in_particles/core_door_open.vpcf", PATTACH_WORLDORIGIN, nil)
+				ParticleManager:SetParticleControl(particleId, 0, point:GetAbsOrigin())
+			end
 		end
 	end
 
