@@ -34,7 +34,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		elseif GetMapName() == "desert_octet" then
 			self.TEAM_KILLS_TO_WIN = 90
 		elseif GetMapName() == "core_quartet" then
-			self.TEAM_KILLS_TO_WIN = 70
+			self.TEAM_KILLS_TO_WIN = 60
 		else
 			self.TEAM_KILLS_TO_WIN = 30
 		end
@@ -61,7 +61,61 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	local spawnedUnit = EntIndexToHScript( event.entindex )
 	if not spawnedUnit:IsRealHero() then return end
 	if GetMapName() == "core_quartet" then
+		local sortedTeams = self:GetSortedTeams()
+		local teamNumber = spawnedUnit:GetTeam()
+		local TeamsKills = GetTeamHeroKills(teamNumber)
+		local LeaderKills = self.leadingTeamScore
+
+		local goldDuration = 0
+		if TeamsKills < LeaderKills then
+			goldDuration = LeaderKills - TeamsKills
+		end
+		goldDuration = goldDuration * 3
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
+		
+		if goldDuration > 0 then
+			local xpGranterAbility
+			for _, v in ipairs(Entities:FindAllByClassname("npc_dota_creature")) do
+				if v:GetUnitName():starts("npc_dota_xp_granter") then
+					xpGranterAbility = v:GetAbilityByIndex(0)
+					break
+				end
+			end
+			if xpGranterAbility then
+				spawnedUnit:AddNewModifier(spawnedUnit, xpGranterAbility, "modifier_get_xp", { duration = goldDuration })
+			end
+		end
+		local sortedTeams = self:GetSortedTeams()
+		if spawnedUnit:GetTeam() == sortedTeams[1].team or spawnedUnit:GetTeam() == sortedTeams[2].team then
+			local unit = spawnedUnit
+			if not unit:IsControllableByAnyPlayer() or unit:IsCourier() then return end
+
+			local teamId = unit:GetTeam()
+			local timeOfDay = GameRules:IsDaytime() and "day" or "night"
+			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
+			local triggerPosition = unit:GetAbsOrigin()
+
+			EmitSoundOnLocationWithCaster(triggerPosition, "Portal.Hero_Appear", unit)
+			local startParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_WORLDORIGIN, nil)
+			ParticleManager:SetParticleControl(startParticleId, 0, triggerPosition)
+
+			FindClearSpaceForUnit(unit, position, true)
+			unit:Stop()
+
+			unit:EmitSound("Portal.Hero_Appear")
+			local endParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_ABSORIGIN, unit)
+			ParticleManager:SetParticleControlEnt(endParticleId, 0, unit, PATTACH_ABSORIGIN, "attach_origin", unit:GetAbsOrigin(), true)
+
+			local playerId = unit:GetPlayerOwnerID()
+			local isMainHero = PlayerResource:GetSelectedHeroEntity(playerId) == unit
+			if isMainHero then
+				PlayerResource:SetCameraTarget(playerId, unit)
+				unit:SetContextThink("CoreTeleportUnlockCamera", function() return PlayerResource:SetCameraTarget(playerId, nil) end, 0.1)
+			end
+
+			unit:RemoveModifierByName("modifier_core_spawn_movespeed")
+			unit:AddNewModifier(unit, nil, "modifier_core_spawn_movespeed", { xp = isMainHero })
+		end
 	end
 
 	-- Destroys the last hit effects
@@ -204,7 +258,9 @@ function COverthrowGameMode:OnEntityKilled( event )
 					}
 				CustomGameEventManager:Send_ServerToAllClients( "kill_alert", kill_alert )
 			else
-				hero:AddExperience( 50, 0, false, false )
+				if GetMapName() ~= "core_quartet" then
+					hero:AddExperience( 50, 0, false, false )
+				end
 			end
 		end
 		--Granting XP to all heroes who assisted
@@ -247,6 +303,25 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		if killedTeam == lastPlace then
 			baseTime = 5
 		end
+	elseif GetMapName() == "core_quartet" then
+	    local killedTeamScore = GetTeamHeroKills(killedTeam)
+
+		if killedTeamScore == sortedTeams[6].score then
+			baseTime = 3
+		elseif killedTeamScore == sortedTeams[5].score then
+			baseTime = 6
+		elseif killedTeamScore == sortedTeams[4].score then
+			baseTime = 9
+		elseif killedTeamScore == sortedTeams[3].score then
+			baseTime = 12
+		elseif killedTeamScore == sortedTeams[2].score then
+			baseTime = 15
+		elseif killedTeamScore == sortedTeams[1].score then
+			baseTime = 18
+		else 
+			baseTime = 10
+		end
+
 	else
 		if killedTeam == sortedTeams[1].team and sortedTeams[1].score ~= sortedTeams[2].score then
 			baseTime = 20
@@ -285,7 +360,7 @@ function COverthrowGameMode:OnItemPickUp( event )
 		for _, spawner in ipairs(self.pumpkin_spawns) do
 			if spawner.itemIndex == event.ItemEntityIndex then
 				local now = GameRules:GetDOTATime(false, false)
-				spawner.nextSpawn = now + 60
+				spawner.nextSpawn = now + 45
 				spawner.itemIndex = nil
 				break
 			end

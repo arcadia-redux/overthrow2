@@ -7,6 +7,7 @@ _G.DISABLE_PAUSES = true
 TRUSTED_HOSTS = {
 	["76561198036748162"] = true,
 	["76561198003571172"] = true,
+	["76561198065780626"] = true, --https://www.twitch.tv/canko/
 }
 
 _G.DISCONNECT_TIMES = {}
