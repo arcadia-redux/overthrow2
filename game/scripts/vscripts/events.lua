@@ -34,7 +34,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		elseif GetMapName() == "desert_octet" then
 			self.TEAM_KILLS_TO_WIN = 90
 		elseif GetMapName() == "core_quartet" then
-			self.TEAM_KILLS_TO_WIN = 70
+			self.TEAM_KILLS_TO_WIN = 60
 		else
 			self.TEAM_KILLS_TO_WIN = 30
 		end
@@ -71,9 +71,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			goldDuration = LeaderKills - TeamsKills
 		end
 		goldDuration = goldDuration * 3
-		--print(TeamsKills)
-		--print(LeaderKills)
-		--print(goldDuration)
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
 		
 		if goldDuration > 0 then
@@ -252,9 +249,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 			if killedUnit:GetTeam() == self.leadingTeam and self.isGameTied == false then
 				local memberID = hero:GetPlayerID()
 				PlayerResource:ModifyGold( memberID, 500, true, 0 )
-				if GetMapName() ~= "core_quartet" then
-						hero:AddExperience( 100, 0, false, false )
-				end
+				hero:AddExperience( 100, 0, false, false )
 				local name = hero:GetClassname()
 				local victim = killedUnit:GetClassname()
 				local kill_alert =
@@ -275,9 +270,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 			for i = 0, killedUnit:GetNumAttackers() - 1 do
 				if attacker == killedUnit:GetAttacker( i ) then
 					--print("Granting assist xp")
-					if GetMapName() ~= "core_quartet" then
-						attacker:AddExperience( 25, 0, false, false )
-					end
+					attacker:AddExperience( 25, 0, false, false )
 				end
 			end
 		end
