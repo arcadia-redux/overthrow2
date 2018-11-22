@@ -88,6 +88,37 @@ function COverthrowGameMode:OnNPCSpawned( event )
 				spawnedUnit:AddNewModifier(spawnedUnit, xpGranterAbility, "modifier_get_xp", { duration = goldDuration })
 			end
 		end
+		local sortedTeams = self:GetSortedTeams()
+		if spawnedUnit:GetTeam() == sortedTeams[1].team or spawnedUnit:GetTeam() == sortedTeams[2].team then
+			local unit = spawnedUnit
+			if not unit:IsControllableByAnyPlayer() or unit:IsCourier() then return end
+
+			local teamId = unit:GetTeam()
+			local timeOfDay = GameRules:IsDaytime() and "day" or "night"
+			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
+			local triggerPosition = unit:GetAbsOrigin()
+
+			EmitSoundOnLocationWithCaster(triggerPosition, "Portal.Hero_Appear", unit)
+			local startParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_WORLDORIGIN, nil)
+			ParticleManager:SetParticleControl(startParticleId, 0, triggerPosition)
+
+			FindClearSpaceForUnit(unit, position, true)
+			unit:Stop()
+
+			unit:EmitSound("Portal.Hero_Appear")
+			local endParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_ABSORIGIN, unit)
+			ParticleManager:SetParticleControlEnt(endParticleId, 0, unit, PATTACH_ABSORIGIN, "attach_origin", unit:GetAbsOrigin(), true)
+
+			local playerId = unit:GetPlayerOwnerID()
+			local isMainHero = PlayerResource:GetSelectedHeroEntity(playerId) == unit
+			if isMainHero then
+				PlayerResource:SetCameraTarget(playerId, unit)
+				unit:SetContextThink("CoreTeleportUnlockCamera", function() return PlayerResource:SetCameraTarget(playerId, nil) end, 0.1)
+			end
+
+			unit:RemoveModifierByName("modifier_core_spawn_movespeed")
+			unit:AddNewModifier(unit, nil, "modifier_core_spawn_movespeed", { xp = isMainHero })
+		end
 	end
 
 	-- Destroys the last hit effects
