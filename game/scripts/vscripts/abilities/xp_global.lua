@@ -2,7 +2,7 @@ dota_ability_xp_global = {
 	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_global" end
 }
 dota_ability_xp_core_global = {
-	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_global" end
+	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_core_global" end
 }
 
 
@@ -26,11 +26,14 @@ function modifier_dota_ability_xp_global:CheckState()
 	}
 end
 
+LinkLuaModifier("modifier_dota_ability_xp_core_global", "abilities/xp_global", LUA_MODIFIER_MOTION_NONE)
+modifier_dota_ability_xp_core_global = class(modifier_dota_ability_xp_global)
+modifier_dota_ability_xp_core_global.GetModifierAura = function() return "modifier_get_xp_core_global" end
 
 LinkLuaModifier("modifier_get_xp_global", "abilities/xp_global", LUA_MODIFIER_MOTION_NONE)
 modifier_get_xp_global = {
 	IsDebuff = function() return false end,
-  GetTexture = function() return "alchemist_goblins_greed" end,
+	GetTexture = function() return "alchemist_goblins_greed" end,
 	GetEffectName = function() return "particles/econ/courier/courier_greevil_yellow/courier_greevil_yellow_ambient_3_b.vpcf" end,
 }
 
@@ -47,5 +50,16 @@ if IsServer() then
 		local gold = ability:GetSpecialValueFor("aura_gold")
 		parent:ModifyGold(gold, false, 0)
 		parent:AddExperience(xp, 0, false, false)
+	end
+end
+
+LinkLuaModifier("modifier_get_xp_core_global", "abilities/xp_global", LUA_MODIFIER_MOTION_NONE)
+modifier_get_xp_core_global = class(modifier_get_xp_global)
+function modifier_get_xp_core_global:IsHidden()
+	return self:GetParent():HasModifier("modifier_get_xp")
+end
+function modifier_get_xp_core_global:OnIntervalThink()
+	if not self:GetParent():HasModifier("modifier_get_xp") then
+		modifier_get_xp_global.OnIntervalThink(self)
 	end
 end
