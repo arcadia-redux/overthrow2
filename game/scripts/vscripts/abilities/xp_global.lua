@@ -56,10 +56,11 @@ end
 LinkLuaModifier("modifier_get_xp_core_global", "abilities/xp_global", LUA_MODIFIER_MOTION_NONE)
 modifier_get_xp_core_global = class(modifier_get_xp_global)
 function modifier_get_xp_core_global:IsHidden()
-	return self:GetParent():HasModifier("modifier_get_xp")
+	local parent = self:GetParent()
+	return parent:HasModifier("modifier_get_xp") or parent:HasModifier("modifier_get_xp_late_bonus")
 end
 function modifier_get_xp_core_global:OnIntervalThink()
-	if not self:GetParent():HasModifier("modifier_get_xp") then
+	if not self:IsHidden() then
 		modifier_get_xp_global.OnIntervalThink(self)
 	end
 end
