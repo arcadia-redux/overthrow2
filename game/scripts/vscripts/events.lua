@@ -85,8 +85,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 				spawnedUnit:AddNewModifier(spawnedUnit, xpGranterAbility, "modifier_get_xp", { duration = goldDuration })
 			end
 		end
-		local sortedTeams = self:GetSortedTeams()
-		if spawnedUnit:GetTeam() == sortedTeams[1].team or spawnedUnit:GetTeam() == sortedTeams[2].team then
+
+		if TeamsKills == sortedTeams[1].score or TeamsKills == sortedTeams[2].score then
 			local unit = spawnedUnit
 			if not unit:IsControllableByAnyPlayer() or unit:IsCourier() then return end
 
