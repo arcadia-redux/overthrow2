@@ -1,6 +1,9 @@
 dota_ability_xp_global = {
 	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_global" end
 }
+dota_ability_xp_core_global = {
+	GetIntrinsicModifierName = function() return "modifier_dota_ability_xp_global" end
+}
 
 
 LinkLuaModifier("modifier_dota_ability_xp_global", "abilities/xp_global", LUA_MODIFIER_MOTION_NONE)
