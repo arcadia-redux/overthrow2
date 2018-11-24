@@ -3,8 +3,7 @@ function OnStartTouch(args)
 	if not unit:IsControllableByAnyPlayer() or unit:IsCourier() then return end
 
 	local teamId = args.caller:GetName():gsub("gy_teleport_", "")
-	local timeOfDay = GameRules:IsDaytime() and "day" or "night"
-	local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
+	local position = COverthrowGameMode:GetCoreTeleportTarget(tonumber(teamId))
 	local triggerPosition = args.caller:GetAbsOrigin()
 
 	EmitSoundOnLocationWithCaster(triggerPosition, "Portal.Hero_Appear", unit)
