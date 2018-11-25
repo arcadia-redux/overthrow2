@@ -69,7 +69,7 @@
 	"custom_hud_error_no_coins"						"Ability Can't Be Used Without Coins"
 
 	"smart_random_button"							"SMART RANDOM"
-	"smart_random_tooltip_ready"					"随机选择一位最常用的英雄"
+	"smart_random_tooltip_ready"					"Randomly pick from one of your most used heroes"
 	"smart_random_tooltip_cooldown"					"You can use Smart Random only once per 24 hours. Support Overthrow 2.0 to remove the cooldown!"
 
 	"player_stats_title"							"Your statistics for {s:map_name}"
