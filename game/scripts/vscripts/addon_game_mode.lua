@@ -828,44 +828,47 @@ local allCoreTeams = {
 }
 
 function COverthrowGameMode:BuildCoreTeleportNightCombinations()
-	local allCombinations = {}
-	local function iter(arr)
-		local i = #arr + 1
-		if i > #allCoreTeams then
-			table.insert(allCombinations, arr)
+	local сombinations = {}
+	local function iter(combination)
+		if #combination + 1 <= #allCoreTeams then
+			for _, team in ipairs(allCoreTeams) do
+				if not table.includes(combination, team) then
+					local copy = {}
+					for i, v in ipairs(combination) do copy[i] = v end
+					table.insert(copy, team)
+					iter(copy)
+				end
+			end
 			return
 		end
-		for _, team in ipairs(allCoreTeams) do
-			if not table.includes(arr, team) then
-				local copy = {}
-				for i, v in ipairs(arr) do copy[i] = v end
-				table.insert(copy, team)
-				iter(copy)
+
+		local valid = true
+		for i, team in ipairs(combination) do
+			local teamBefore = combination[i == 1 and 6 or i - 1]
+			local teamAfter = combination[i == 6 and 1 or i + 1]
+
+			local idInTeams
+			for coreTeamId, coreTeam in ipairs(allCoreTeams) do
+				if coreTeam == team then
+					idInTeams = coreTeamId
+					break
+				end
 			end
-		end
-	end
-	iter({})
+			local originalTeamBefore = allCoreTeams[idInTeams == 1 and 6 or idInTeams - 1]
+			local originalTeamAfter = allCoreTeams[idInTeams == 6 and 1 or idInTeams + 1]
 
-	local validCombinations = {}
-
-	for _, combination in ipairs(allCombinations) do
-		local valid = false
-		for i = 1, 6 do
-			local before = i == 1 and 6 or i - 1
-			local after = i == 6 and 1 or i + 1
-			if combination[i] ~= allCoreTeams[before] and combination[i] ~= allCoreTeams[i] and combination[i] ~= allCoreTeams[after] then
-				valid = true
-			else
+			if teamBefore == originalTeamBefore or teamBefore == originalTeamAfter or teamAfter == originalTeamBefore or teamAfter == originalTeamAfter then
 				valid = false
 				break
 			end
 		end
 		if valid then
-			table.insert(validCombinations, combination)
+			table.insert(сombinations, combination)
 		end
 	end
+	iter({})
 
-	self.coreTeleportNightCombinations = validCombinations
+	self.coreTeleportNightCombinations = сombinations
 end
 
 function COverthrowGameMode:RearrangeCoreTeleportNightTargets()
