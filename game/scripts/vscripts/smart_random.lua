@@ -17,7 +17,7 @@ end
 
 local function pickRandomHeroFromList(playerId, list)
 	local player = PlayerResource:GetPlayer(playerId)
-	if not player then return end
+	if not player then return false end
 
 	local picked = false
 	for _,v in ipairs(ShuffledList(list)) do
@@ -28,9 +28,7 @@ local function pickRandomHeroFromList(playerId, list)
 		end
 	end
 
-	if not picked then
-		player:MakeRandomHeroSelection()
-	end
+	return picked
 end
 
 function SmartRandom:SmartRandomHero(event)
@@ -39,10 +37,13 @@ function SmartRandom:SmartRandomHero(event)
 	if PlayerResource:HasSelectedHero(playerId) then return end
 
 	SmartRandom.PickReasons[playerId] = "smart-random"
-	pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {})
 
 	EmitGlobalSound("custom.smart_random")
-	GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
+	if pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {}) then
+		GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
+	else
+		PlayerResource:GetPlayer(playerId):MakeRandomHeroSelection()
+	end
 end
 
 function SmartRandom:PrepareAutoPick()
@@ -71,8 +72,11 @@ function SmartRandom:AutoPick()
 		if PlayerResource:IsValidPlayerID(i) and not PlayerResource:HasSelectedHero(i) then
 			if PlayerResource:GetPlayer(i) then
 				SmartRandom.PickReasons[i] = "auto"
-				pickRandomHeroFromList(i, SmartRandom.AutoPickHeroes[i] or {})
-				GameRules:SendCustomMessage("%s1 has auto-picked " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(i)), i, -1)
+				if pickRandomHeroFromList(i, SmartRandom.AutoPickHeroes[i] or {}) then
+					GameRules:SendCustomMessage("%s1 has auto-picked " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(i)), i, -1)
+				else
+					PlayerResource:GetPlayer(i):MakeRandomHeroSelection()
+				end
 			end
 		end
 	end
