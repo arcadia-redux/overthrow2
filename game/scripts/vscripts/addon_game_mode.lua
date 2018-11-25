@@ -819,8 +819,8 @@ function COverthrowGameMode:EndMatch(winnerTeam)
 end
 
 local allCoreTeams = {
-	DOTA_TEAM_GOODGUYS,
 	DOTA_TEAM_BADGUYS,
+	DOTA_TEAM_GOODGUYS,
 	DOTA_TEAM_CUSTOM_1,
 	DOTA_TEAM_CUSTOM_2,
 	DOTA_TEAM_CUSTOM_3,
