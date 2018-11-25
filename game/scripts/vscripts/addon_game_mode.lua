@@ -71,6 +71,7 @@ function Precache( context )
 	   	PrecacheResource( "particle", "particles/custom/items/core_pumpkin_owner.vpcf", context )
 	   	PrecacheResource( "particle", "particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", context )
 	   	PrecacheResource( "particle", "particles/in_particles/core_door_open.vpcf", context )
+	   	PrecacheResource( "particle", "particles/world_environmental_fx/lamp_flame_braser.vpcf", context )
 
 	--Cache particles for traps
 		PrecacheResource( "particle_folder", "particles/units/heroes/hero_dragon_knight", context )
@@ -265,6 +266,10 @@ function COverthrowGameMode:InitGameMode()
 			nextSpawn = 0
 		})
 	end
+
+	self.core_torches_main = Entities:FindAllByName("torch_main_entrance")
+	self.core_torches_side = Entities:FindAllByName("torch_side_entrance")
+	self.core_torches_particles = {}
 
 	local firstPlayerLoaded
 	ListenToGameEvent("player_connect_full", function()
@@ -490,9 +495,13 @@ function COverthrowGameMode:OnThink()
 	if GetMapName() == "core_quartet" then
 		local timeOfDay = GameRules:IsDaytime() and "day" or "night"
 
+		local torches = GameRules:IsDaytime() and self.core_torches_main or self.core_torches_side
 		for _, teamId in ipairs({ DOTA_TEAM_GOODGUYS, DOTA_TEAM_BADGUYS, DOTA_TEAM_CUSTOM_1, DOTA_TEAM_CUSTOM_2, DOTA_TEAM_CUSTOM_3, DOTA_TEAM_CUSTOM_4 }) do
 			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
 			AddFOWViewer(teamId, position, 500, 2, true)
+			for _, v in pairs(torches) do
+				AddFOWViewer(teamId, v:GetAbsOrigin(), 800, 2, true)
+			end
 		end
 
 		if self.previousTimeOfDay ~= timeOfDay then
@@ -501,6 +510,15 @@ function COverthrowGameMode:OnThink()
 			for _, point in ipairs(Entities:FindAllByName("door_particle")) do
 				local particleId = ParticleManager:CreateParticle("particles/in_particles/core_door_open.vpcf", PATTACH_WORLDORIGIN, nil)
 				ParticleManager:SetParticleControl(particleId, 0, point:GetAbsOrigin())
+			end
+
+			for _, v in ipairs(self.core_torches_particles) do
+				ParticleManager:DestroyParticle(v, false)
+			end
+			for _, v in pairs(torches) do
+				local particleId = ParticleManager:CreateParticle("particles/world_environmental_fx/lamp_flame_braser.vpcf", PATTACH_WORLDORIGIN, nil)
+				ParticleManager:SetParticleControl(particleId, 0, v:GetAbsOrigin())
+				table.insert(self.core_torches_particles, particleId)
 			end
 
 			if timeOfDay == "night" then
