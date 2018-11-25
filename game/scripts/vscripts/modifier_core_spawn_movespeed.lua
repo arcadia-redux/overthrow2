@@ -28,9 +28,9 @@ if IsServer() then
 						break
 					end
 				end
-				if xpGranterAbility then
-					unit:AddNewModifier(unit, xpGranterAbility, "modifier_get_xp", { duration = 10 })
-				end
+				--if xpGranterAbility then
+					--unit:AddNewModifier(unit, xpGranterAbility, "modifier_get_xp", { duration = 10 })
+				--end
 			end
 		end
 	end
