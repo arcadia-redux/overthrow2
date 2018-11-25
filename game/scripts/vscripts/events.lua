@@ -86,7 +86,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		end
 
-		if TeamsKills == sortedTeams[1].score or TeamsKills == sortedTeams[2].score then
+		if not GameRules:IsDaytime() then
 			local unit = spawnedUnit
 			local position = COverthrowGameMode:GetCoreTeleportTarget(unit:GetTeamNumber())
 			local triggerPosition = unit:GetAbsOrigin()
