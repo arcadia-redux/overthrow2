@@ -140,3 +140,12 @@ end
 function string.starts(s, start)
 	return string.sub(s, 1, #start) == start
 end
+
+function table.includes(t, value)
+	for _, v in pairs(t) do
+		if v == value then
+			return true
+		end
+	end
+	return false
+end

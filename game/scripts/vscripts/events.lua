@@ -72,7 +72,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		end
 		goldDuration = goldDuration * 3
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
-		
+
 		if goldDuration > 0 then
 			local xpGranterAbility
 			for _, v in ipairs(Entities:FindAllByClassname("npc_dota_creature")) do
@@ -88,11 +88,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 		if TeamsKills == sortedTeams[1].score or TeamsKills == sortedTeams[2].score then
 			local unit = spawnedUnit
-			if not unit:IsControllableByAnyPlayer() or unit:IsCourier() then return end
-
-			local teamId = unit:GetTeam()
-			local timeOfDay = GameRules:IsDaytime() and "day" or "night"
-			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
+			local position = COverthrowGameMode:GetCoreTeleportTarget(unit:GetTeamNumber())
 			local triggerPosition = unit:GetAbsOrigin()
 
 			EmitSoundOnLocationWithCaster(triggerPosition, "Portal.Hero_Appear", unit)
@@ -318,7 +314,7 @@ function COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 			baseTime = 15
 		elseif killedTeamScore == sortedTeams[1].score then
 			baseTime = 18
-		else 
+		else
 			baseTime = 10
 		end
 
