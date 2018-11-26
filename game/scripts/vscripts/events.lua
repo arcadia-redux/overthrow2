@@ -73,6 +73,38 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		goldDuration = goldDuration * 3
 		spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_core_spawn_movespeed", nil)
 
+		print(nCOUNTDOWNTIMER)
+		print(sortedTeams[6].team)
+		print(teamNumber)
+
+		if self.countdownEnabled then
+			if nCOUNTDOWNTIMER < 960 then
+			   	self.sixloser = sortedTeams[6].team
+			end
+			if nCOUNTDOWNTIMER < 720 then
+			   	self.fiveloser = sortedTeams[5].team
+			   	self.sixloser = sortedTeams[6].team
+			end
+			if nCOUNTDOWNTIMER < 480 then
+			  	self.fourloser = sortedTeams[4].team
+			  	self.fiveloser = sortedTeams[5].team
+			   	self.sixloser = sortedTeams[6].team
+			end
+			if nCOUNTDOWNTIMER < 240 then
+				self.threeloser = sortedTeams[3].team
+				self.fourloser = sortedTeams[4].team
+			  	self.fiveloser = sortedTeams[5].team
+			   	self.sixloser = sortedTeams[6].team
+			end
+			if nCOUNTDOWNTIMER < 5 then
+				GameRules:SetGameWinner( sortedTeams[1].team )
+			end
+		end
+
+		
+
+
+
 		if goldDuration > 0 then
 			local xpGranterAbility
 			for _, v in ipairs(Entities:FindAllByClassname("npc_dota_creature")) do
@@ -86,7 +118,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		end
 
-		if not GameRules:IsDaytime() then
+		if not GameRules:IsDaytime() and self.sixloser ~= spawnedUnit:GetTeamNumber() and self.fiveloser ~= spawnedUnit:GetTeamNumber() and self.fourloser ~= spawnedUnit:GetTeamNumber() and self.threeloser ~= spawnedUnit:GetTeamNumber() then
+			DeepPrintTable(COverthrowGameMode.coreTeleportNightTarget)
 			local unit = spawnedUnit
 			local position = COverthrowGameMode:GetCoreTeleportTarget(unit:GetTeamNumber())
 			local triggerPosition = unit:GetAbsOrigin()
@@ -271,6 +304,11 @@ function COverthrowGameMode:OnEntityKilled( event )
 			end
 		end
 
+		if self.sixloser == killedUnit:GetTeamNumber() or self.fiveloser == killedUnit:GetTeamNumber() or self.fourloser == killedUnit:GetTeamNumber() or self.threeloser == killedUnit:GetTeamNumber() then
+			extraTime = 1200
+			GameRules:SetSafeToLeave(true)
+			killedUnit:SetBuybackCooldownTime(1200)
+		end
 		if not killedUnit:IsReincarnating() then
 			COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		end

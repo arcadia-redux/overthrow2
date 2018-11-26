@@ -151,6 +151,11 @@ function COverthrowGameMode:InitGameMode()
 	self.runnerupTeamScore = 0
 	self.isGameTied = true
 	self.countdownEnabled = false
+	self.sixloser = nil
+	self.fiveloser = nil
+	self.fourloser = nil
+	self.bannedteams = {}
+	self.twoloser = nil
 	self.itemSpawnIndex = 1
 	self.itemSpawnLocation = Entities:FindByName( nil, "greevil" )
 	self.heroSelectionStage = 0
@@ -394,6 +399,16 @@ function COverthrowGameMode:UpdateScoreboard()
 
 	local allHeroes = HeroList:GetAllHeroes()
 	for _,entity in pairs( allHeroes) do
+		if entity:IsAlive() == true then
+			if self.sixloser == entity:GetTeamNumber() or self.fiveloser == entity:GetTeamNumber() or self.fourloser == entity:GetTeamNumber() or self.threeloser == entity:GetTeamNumber() then 
+				print("destroy this hero")
+				--entity:AddNewModifier(entity, nil, "modifier_stunned", { duration = duration })
+				GameRules:SetSafeToLeave(true)
+				----if not entity:HasModifier("modifier_chen_test_of_faith_teleport") then
+				--	entity:AddNewModifier(entity, nil, "modifier_chen_test_of_faith_teleport", { duration = 5 })
+				--end
+			end
+		end
 		if entity:GetTeamNumber() == leader and sortedTeams[1].score ~= sortedTeams[2].score then
 			if entity:IsAlive() == true then
 				-- Attaching a particle to the leading team heroes
@@ -452,9 +467,96 @@ function COverthrowGameMode:OnThink()
 
 	if self.countdownEnabled then
 		CountdownTimer()
-		if nCOUNTDOWNTIMER == 30 then
-			CustomGameEventManager:Send_ServerToAllClients( "timer_alert", {} )
+	    if GetMapName() == "core_quartet" then
+			if nCOUNTDOWNTIMER == 30 then
+				CustomGameEventManager:Send_ServerToAllClients( "timer_alert", {} )
+			end
+			if nCOUNTDOWNTIMER == 1190 then --20
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 4 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 1140 then --19
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 3 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 1080 then --18
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 2 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 1020 then --17
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 1 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 990 then --16.5
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 30 seconds", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 960 then --16
+				GameRules:SendCustomMessage("Lowest scoring team is now permanently stunned", -1, -1)
+				GameRules:SetSafeToLeave(true)
+			end
+			if nCOUNTDOWNTIMER == 900 then --15
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 3 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 840 then --14
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 2 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 780 then --13
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 1 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 750 then --12.5
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 30 seconds", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 720 then --12
+				GameRules:SendCustomMessage("Lowest scoring team is now permanently stunned", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 660 then --11
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 3 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 600 then --10
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 2 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 540 then --9
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 1 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 510 then --8.5
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 30 seconds", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 480 then --8
+				GameRules:SendCustomMessage("Lowest scoring team is now permanently stunned", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 420 then --7
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 3 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 360 then --6
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 2 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 300 then --5
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 1 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 270 then --4.5
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 30 seconds", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 240 then --4
+				GameRules:SendCustomMessage("Lowest scoring team is now permanently stunned", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 180 then --3
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 3 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 120 then --2
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 2 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 60 then --1
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 1 minutes", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 30 then --0.5
+				GameRules:SendCustomMessage("Lowest scoring team will be kicked in 25 seconds", -1, -1)
+			end
+			if nCOUNTDOWNTIMER == 5 then --0
+				GameRules:SendCustomMessage("Lowest scoring team is now permanently stunned", -1, -1)
+			end
 		end
+
+		
+
+		
+
+		
 		if nCOUNTDOWNTIMER <= 0 then
 			--Check to see if there's a tie
 			if self.isGameTied == false then
