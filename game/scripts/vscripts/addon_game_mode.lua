@@ -162,7 +162,7 @@ function COverthrowGameMode:InitGameMode()
 	---------------------------------------------------------------------------
 
 	self:GatherAndRegisterValidTeams()
-	self:BuildCoreTeleportNightCombinations()
+	self:BuildCoreTeleportNightTargets()
 
 	GameRules:GetGameModeEntity().COverthrowGameMode = self
 
@@ -520,10 +520,6 @@ function COverthrowGameMode:OnThink()
 				ParticleManager:SetParticleControl(particleId, 0, v:GetAbsOrigin())
 				table.insert(self.core_torches_particles, particleId)
 			end
-
-			if timeOfDay == "night" then
-				COverthrowGameMode:RearrangeCoreTeleportNightTargets()
-			end
 		end
 	end
 
@@ -827,8 +823,9 @@ local allCoreTeams = {
 	DOTA_TEAM_CUSTOM_4,
 }
 
-function COverthrowGameMode:BuildCoreTeleportNightCombinations()
-	local сombinations = {}
+function COverthrowGameMode:BuildCoreTeleportNightTargets()
+	local combinations = {}
+
 	local function iter(combination)
 		if #combination + 1 <= #allCoreTeams then
 			for _, team in ipairs(allCoreTeams) do
@@ -863,16 +860,12 @@ function COverthrowGameMode:BuildCoreTeleportNightCombinations()
 			end
 		end
 		if valid then
-			table.insert(сombinations, combination)
+			table.insert(combinations, combination)
 		end
 	end
 	iter({})
 
-	self.coreTeleportNightCombinations = сombinations
-end
-
-function COverthrowGameMode:RearrangeCoreTeleportNightTargets()
-	self.coreTeleportNightTarget = self.coreTeleportNightCombinations[RandomInt(1, #self.coreTeleportNightCombinations)]
+	self.coreTeleportNightTarget = combinations[RandomInt(1, #combinations)]
 end
 
 function COverthrowGameMode:GetCoreTeleportTarget(teamId)
