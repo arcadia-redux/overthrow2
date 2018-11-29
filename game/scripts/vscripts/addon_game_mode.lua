@@ -3,7 +3,6 @@ Overthrow Game Mode
 ]]
 
 _G.nCOUNTDOWNTIMER = 901
-_G.DISABLE_PAUSES = true
 TRUSTED_HOSTS = {
 	["76561198036748162"] = true,
 	["76561198003571172"] = true,
@@ -224,6 +223,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
+	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
@@ -302,7 +302,7 @@ function COverthrowGameMode:InitGameMode()
 		local player = PlayerResource:GetPlayer(playerId)
 		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
 		if TRUSTED_HOSTS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
-			DISABLE_PAUSES = false
+			GameRules:GetGameModeEntity():SetPauseEnabled(true)
 			GameRules:LockCustomGameSetupTeamAssignment(false)
 			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
 		end
@@ -428,13 +428,6 @@ function COverthrowGameMode:OnThink()
 	end
 
 	self:UpdateScoreboard()
-	if GameRules:IsGamePaused() then
-		if DISABLE_PAUSES then
-			GameRules:SendCustomMessage("Pauses are disabled", -1, -1)
-			PauseGame(false)
-		end
-		return 1
-	end
 
 	local time = GameRules:GetDOTATime(false, true)
 	if self.heroSelectionStage == 1 and time > -2 then
