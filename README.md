@@ -1,4 +1,4 @@
-# overthrow_plus
+# overthrow 2.0
 Overthrow, but better.
 
 Patreon page: https://www.patreon.com/dota2unofficial
