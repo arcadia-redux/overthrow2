@@ -162,7 +162,7 @@ function UpdateTimer()
 				localStats.averageKills,
 				localStats.averageDeaths,
 				localStats.averageAssists,
-			].map(function(value) { return value.toFixed(2) }).join('/');
+			].map(Math.round).join('/');
 		}
 	});
 
