@@ -2,7 +2,7 @@
 "DOTAUnits"
 {
 	"Version"	"1"
-	
+
 	"npc_dota_xp_granter"
 	{
 		"BaseClass"					"npc_dota_creature"
@@ -26,7 +26,7 @@
 		"StatusHealth"				"5000"
 		"TeamName"					"DOTA_TEAM_NEUTRALS"
 	}
-	
+
 	"npc_dota_xp_granter3"
 	{
 		"BaseClass"					"npc_dota_creature"
@@ -100,6 +100,17 @@
 		"MinimapDisableTint"		"1"
 	}
 
+	"npc_torch_vision_revealer"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Model"						"models/development/invisiblebox.vmdl"
+		"Ability1"					"dota_ability_dummy"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
+		"VisionDaytimeRange"		"800"
+		"VisionNighttimeRange"		"800"
+	}
+
 	"npc_dota_xp_global"
 	{
 		"BaseClass"					"npc_dota_creature"
@@ -111,7 +122,7 @@
 		"StatusHealth"				"5000"
 		"TeamName"					"DOTA_TEAM_NEUTRALS"
 	}
-	
+
 	"npc_dota_xp_core_global"
 	{
 		"BaseClass"					"npc_dota_creature"
@@ -124,7 +135,7 @@
 		"TeamName"					"DOTA_TEAM_NEUTRALS"
 	}
 
-	//=================================================================================	
+	//=================================================================================
 	// Creature: Basic Zombie
 	//=================================================================================
 	"npc_dota_creature_basic_zombie"
@@ -137,7 +148,7 @@
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_undying.vsndevts"
 		"ModelScale"				"1"
 		"Level"						"1"
-				
+
 		// Abilities
 		//----------------------------------------------------------------
 		"Ability1"					""			// Ability 1.
@@ -176,7 +187,7 @@
 		//----------------------------------------------------------------
 		"RingRadius"				"70"
 		"HealthBarOffset"			"160"
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"	
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
 
 		// Movement
 		//----------------------------------------------------------------
@@ -197,22 +208,22 @@
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-		
+
 		// Vision
 		//----------------------------------------------------------------
 		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
 		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
-		
+
 		// Creature Data
 		//----------------------------------------------------------------------------------------------------------------------
 		"Creature"
 		{
 			"CanRespawn"				"0"
-			
+
 			//Basic AI State
 			//-----------------------------------------------------------------
 			"DefaultState"				"Invade"
-			
+
 			"States"
 			{
 				"Invade"
@@ -253,10 +264,10 @@
 		"ModelScale"				"1"
 		"Level"						"1"
 		"CanBeDominated"			"1"
-		
+
 		// Abilities
 		//----------------------------------------------------------------
-		
+
 		"Ability1"					""			// Ability 1
 		"Ability2"					""			// Ability 2.
 		"Ability3"					""			// Ability 3.
@@ -293,7 +304,7 @@
 		//----------------------------------------------------------------
 		"RingRadius"				"70"
 		"HealthBarOffset"			"160"
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"	
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
 
 		// Movement
 		//----------------------------------------------------------------
@@ -314,7 +325,7 @@
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_BASIC"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-		
+
 		// Vision
 		//----------------------------------------------------------------
 		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
@@ -356,7 +367,7 @@
 		}
 	}
 
-	//=================================================================================	
+	//=================================================================================
 	// Creature: Treasure Chest Courier
 	//=================================================================================
 	"npc_dota_treasure_courier"
@@ -409,7 +420,7 @@
 		//----------------------------------------------------------------
 		"RingRadius"				"70"
 		"HealthBarOffset"			"160"
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"	
+		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"
 
 		// Movement
 		//----------------------------------------------------------------
@@ -430,22 +441,22 @@
 		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
 		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
-		
+
 		// Vision
 		//----------------------------------------------------------------
 		"VisionDaytimeRange"		"1000"		// Range of vision during day light.
 		"VisionNighttimeRange"		"1000"		// Range of vision at night time.
-		
+
 		// Creature Data
 		//----------------------------------------------------------------------------------------------------------------------
 		"Creature"
 		{
 			"CanRespawn"				"0"
-			
+
 			//Basic AI State
 			//-----------------------------------------------------------------
 			"DefaultState"				"Invade"
-			
+
 			"States"
 			{
 				"Invade"
@@ -482,10 +493,10 @@
 		"Model"						"models/props/traps/barking_dog/barking_dog.vmdl"// Model.
 		"Level"						"1"
 		"VisbibleInPortraitOnly"	"1"
-		
+
 		// Abilities
 		//----------------------------------------------------------------
-		
+
 		"Ability1"					"breathe_fire"			// Ability 1.
 		"Ability2"					"trap_unselectable"			// Ability 2.
 		"Ability3"					""			// Ability 3.
@@ -508,7 +519,7 @@
 		// Team
 		//----------------------------------------------------------------
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
-	}	
+	}
 	"npc_dota_venom_trap_ward"
 	{
 		// General
@@ -517,10 +528,10 @@
 		"Model"						"models/props/traps/hooded_fang/hooded_fang.vmdl"// Model.
 		"Level"						"1"
 		"VisbibleInPortraitOnly"	"1"
-		
+
 		// Abilities
 		//----------------------------------------------------------------
-		
+
 		"Ability1"					"breathe_poison"			// Ability 1.
 		"Ability2"					"trap_unselectable"			// Ability 2.
 		"Ability3"					""			// Ability 3.
@@ -543,7 +554,7 @@
 		// Team
 		//----------------------------------------------------------------
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
-	}	
+	}
 	"npc_dota_spike_trap_ward"
 	{
 		// General
@@ -552,10 +563,10 @@
 		"Model"						"models/props/traps/spiketrap/spiketrap.vmdl"// Model.
 		"Level"						"1"
 		"VisbibleInPortraitOnly"	"1"
-		
+
 		// Abilities
 		//----------------------------------------------------------------
-		
+
 		"Ability1"					"spike_trap"			// Ability 1.
 		"Ability2"					"trap_unselectable"			// Ability 2.
 		"Ability3"					""			// Ability 3.
@@ -578,7 +589,7 @@
 		// Team
 		//----------------------------------------------------------------
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
-	}	
+	}
 	"npc_dota_pendulum_trap_ward"
 	{
 		// General
@@ -587,10 +598,10 @@
 		"Model"						"models/props/traps/pendulum/pendulum.vmdl"// Model.
 		"Level"						"1"
 		"VisbibleInPortraitOnly"	"1"
-		
+
 		// Abilities
 		//----------------------------------------------------------------
-		
+
 		"Ability1"					"pendulum_trap"			// Ability 1.
 		"Ability2"					"trap_unselectable"			// Ability 2.
 		"Ability3"					""			// Ability 3.
@@ -614,4 +625,4 @@
 		//----------------------------------------------------------------
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
 	}
-}	
+}

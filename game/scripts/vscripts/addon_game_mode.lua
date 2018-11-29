@@ -269,7 +269,6 @@ function COverthrowGameMode:InitGameMode()
 
 	self.core_torches_main = Entities:FindAllByName("torch_main_entrance")
 	self.core_torches_side = Entities:FindAllByName("torch_side_entrance")
-	self.core_torches_particles = {}
 
 	local firstPlayerLoaded
 	ListenToGameEvent("player_connect_full", function()
@@ -495,13 +494,9 @@ function COverthrowGameMode:OnThink()
 	if GetMapName() == "core_quartet" then
 		local timeOfDay = GameRules:IsDaytime() and "day" or "night"
 
-		local torches = GameRules:IsDaytime() and self.core_torches_main or self.core_torches_side
 		for _, teamId in ipairs({ DOTA_TEAM_GOODGUYS, DOTA_TEAM_BADGUYS, DOTA_TEAM_CUSTOM_1, DOTA_TEAM_CUSTOM_2, DOTA_TEAM_CUSTOM_3, DOTA_TEAM_CUSTOM_4 }) do
 			local position = Entities:FindByName(nil, "teleport_" .. teamId .. "_" .. timeOfDay):GetAbsOrigin()
 			AddFOWViewer(teamId, position, 500, 2, true)
-			for _, v in pairs(torches) do
-				AddFOWViewer(teamId, v:GetAbsOrigin(), 800, 2, true)
-			end
 		end
 
 		if self.previousTimeOfDay ~= timeOfDay then
@@ -512,9 +507,21 @@ function COverthrowGameMode:OnThink()
 				ParticleManager:SetParticleControl(particleId, 0, point:GetAbsOrigin())
 			end
 
-			for _, v in ipairs(self.core_torches_particles) do
+			for _, v in ipairs(self.core_torches_revealers or {}) do
+				UTIL_Remove(v)
+			end
+			self.core_torches_revealers = {}
+			local torches = GameRules:IsDaytime() and self.core_torches_main or self.core_torches_side
+			for _, teamId in ipairs({ DOTA_TEAM_GOODGUYS, DOTA_TEAM_BADGUYS, DOTA_TEAM_CUSTOM_1, DOTA_TEAM_CUSTOM_2, DOTA_TEAM_CUSTOM_3, DOTA_TEAM_CUSTOM_4 }) do
+				for _, v in pairs(torches) do
+					table.insert(self.core_torches_revealers, CreateUnitByName("npc_torch_vision_revealer", v:GetAbsOrigin(), true, nil, nil, teamId))
+				end
+			end
+
+			for _, v in ipairs(self.core_torches_particles or {}) do
 				ParticleManager:DestroyParticle(v, false)
 			end
+			self.core_torches_particles = {}
 			for _, v in pairs(torches) do
 				local particleId = ParticleManager:CreateParticle("particles/world_environmental_fx/lamp_flame_braser.vpcf", PATTACH_WORLDORIGIN, nil)
 				ParticleManager:SetParticleControl(particleId, 0, v:GetAbsOrigin())
