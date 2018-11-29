@@ -107,8 +107,8 @@
 		"Ability1"					"dota_ability_dummy"
 		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"
 		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"
-		"VisionDaytimeRange"		"800"
-		"VisionNighttimeRange"		"800"
+		"VisionDaytimeRange"		"550"
+		"VisionNighttimeRange"		"550"
 	}
 
 	"npc_dota_xp_global"
