@@ -36,6 +36,8 @@ function Patreons:GiveOnSpawnBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	if sameHeroDayHoursLeft == nil and Patreons:GetPlayerLevel(playerId) < 1 then return end
 
+	hero:AddNewModifier(hero, nil, "modifier_donator", {patron_level = Patreons:GetPlayerLevel(playerId)})
+
 	if hero:HasItemInInventory("item_boots") then
 		hero:ModifyGold(500, false, 0)
 	else

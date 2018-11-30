@@ -32,6 +32,7 @@ require("statcollection/init")
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_donator", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache

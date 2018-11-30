@@ -152,7 +152,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end, 0)
 		end, 0)
 
-
 		spawnedUnit.firstTimeSpawned = true
 		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			local playerId = spawnedUnit:GetPlayerID()

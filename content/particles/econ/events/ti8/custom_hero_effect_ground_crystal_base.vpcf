@@ -1,0 +1,126 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf13:version{10b35a8e-b1ee-4f14-87a6-a7b6aae37699} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 16
+	m_flConstantRadius = 40.0
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderSprites"
+			m_nSequenceCombineMode = "SEQUENCE_COMBINE_MODE_USE_SEQUENCE_0"
+			m_nOrientationType = 3
+			m_hTexture = resource:"materials/particle/charred/charred.vtex"
+			m_flAnimationRate = 0.0
+			m_bCannotBeRefracted = false
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_FadeOutSimple"
+			m_flFadeOutTime = 0.4
+		},
+		{
+			_class = "C_OP_FadeInSimple"
+			m_flFadeInTime = 0.2
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flEndScale = 0.0
+			m_flBias = 0.025
+		},
+		{
+			_class = "C_OP_PositionLock"
+			m_flStartTime_min = 0.25
+			m_flStartTime_max = 0.25
+			m_flEndTime_min = 0.35
+			m_flEndTime_max = 0.35
+		},
+		{
+			_class = "C_OP_RemapCPtoVector"
+			m_nCPInput = 9
+			m_nFieldOutput = "6"
+			m_vInputMax = [ 255.0, 255.0, 255.0 ]
+			m_vOutputMax = [ 1.0, 1.0, 1.0 ]
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_RandomLifeTime"
+			m_fLifetimeMax = 3.5
+			m_fLifetimeMin = 2.5
+		},
+		{
+			_class = "C_INIT_RandomColor"
+			m_ColorMin = [ 90, 244, 131, 255 ]
+			m_ColorMax = [ 29, 222, 19, 255 ]
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_INIT_RandomRotation"
+		},
+		{
+			_class = "C_INIT_RandomSequence"
+			m_nSequenceMax = 1
+		},
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMin = 60.0
+			m_flRadiusMax = 85.0
+			m_flRadiusRandExponent = 2.0
+		},
+		{
+			_class = "C_INIT_RingWave"
+			m_flInitialRadius = 50.0
+			m_bEvenDistribution = true
+		},
+		{
+			_class = "C_INIT_RandomAlpha"
+			m_nAlphaMin = 150
+			m_nAlphaMax = 200
+		},
+		{
+			_class = "C_INIT_PositionPlaceOnGround"
+			m_flOffset = 5.0
+			m_CollisionGroupName = "DEBRIS"
+			m_bIncludeWater = true
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_ContinuousEmitter"
+			m_flEmitRate = 10.0
+			m_nScaleControlPoint = 6
+		},
+	]
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/econ/events/ti8/custom_hero_effect_ground_crystal_model.vpcf"
+		},
+	]
+	m_PreEmissionOperators = 
+	[
+		{
+			_class = "C_OP_RemapSpeedtoCP"
+			m_nOutControlPointNumber = 6
+			m_flInputMin = 200.0
+			m_flInputMax = 250.0
+			m_flOutputMin = 0.25
+		},
+	]
+	m_nBehaviorVersion = 5
+	m_nFirstMultipleOverride_BackwardCompat = 7
+}
