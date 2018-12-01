@@ -1,6 +1,9 @@
 Patreons = Patreons or {}
 Patreons.playerLevels = Patreons.playerLevels or {}
 
+CustomGameEventManager:RegisterListener("update_emblem", Dynamic_Wrap(Patreons, "UpdateEmblem"))
+CustomGameEventManager:RegisterListener("toggle_emblem", Dynamic_Wrap(Patreons, "ToggleEmblem"))
+
 function Patreons:SetPlayerLevel(playerId, level)
 	Patreons.playerLevels[playerId] = level
 end
@@ -81,3 +84,23 @@ CustomGameEventManager:RegisterListener("set_patreon_bonus", function(_, data)
 		Patreons:TakeOnSpawnBonus(playerId)
 	end
 end)
+
+function Patreons:UpdateEmblem(args)
+	print("Update Emblem:", args.color)
+	local hero = PlayerResource:GetSelectedHeroEntity(args.ID)
+	local table = {}
+	table["Default (White)"] = Vector(255, 255, 255)
+	table["Red"] = Vector(200, 0, 0)
+	table["Green"] = Vector(0, 200, 0)
+	table["Blue"] = Vector(0, 0, 200)
+	table["Cyan"] = Vector(0, 200, 200)
+	table["Yellow"] = Vector(200, 200, 0)
+	table["Pink"] = Vector(200, 170, 185)
+
+	hero.patreon_emblem_color = table[args.color]
+end
+
+function Patreons:ToggleEmblem(args)
+	local hero = PlayerResource:GetSelectedHeroEntity(args.ID)
+	hero.patreon_emblem_enabled = args.bEmblem
+end

@@ -1,0 +1,10 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/patreon.css" />
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/patreon.js" />
+	</scripts>
+</root>

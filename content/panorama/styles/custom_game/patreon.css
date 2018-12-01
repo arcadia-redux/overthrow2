@@ -1,0 +1,301 @@
+.PatreonRoot
+{
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+
+#PatreonWindow
+{
+	width: 730px;
+	height: 770px;
+
+	border-style: solid;
+	border-width: 1px;
+	border-color: black;
+	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-size: 100%;
+
+	align: center center;
+	flow-children: down;
+}
+
+.SupporterEmblem {
+	width: 100%;
+	height: 100%;
+}
+
+.Divider {
+	width: 700px;
+	height: 7px;
+	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-size: 100%;
+	margin-top: 240px;
+	horizontal-align: center;
+	border-radius: 5px;
+}
+
+.FreeBoots {
+	width: 100%;
+	height: 100%;
+	margin-top: -790px;
+}
+
+.Divider2 {
+	width: 700px;
+	height: 7px;
+	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-size: 100%;
+	margin-top: 540px;
+	horizontal-align: center;
+	border-radius: 5px;
+}
+
+.RandomButton {
+	width: 100%;
+	height: 100%;
+	margin-top: -520px;
+}
+
+.PatreonHeader {
+	width: 100%;
+	height: 35px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f96854 ), to( #f96854 ) );
+	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+}
+
+.PatreonLabelPanel {
+	width: fit-children;
+	height: 40px;
+	vertical-align: top;
+	horizontal-align: center;
+	margin-bottom: 5px;
+}
+
+.PatreonLabel {
+	vertical-align: center;
+	horizontal-align: center;
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	margin-top: 0px;
+	text-overflow: clip;
+}
+
+.PatreonCloseButton {
+	vertical-align: middle;
+	horizontal-align: right;
+}
+
+.PatreonCloseButtonLabel {
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+}
+
+#SupporterEmblemImage {
+	box-shadow: #00000044 0px 0px 8px 0px;
+	border-radius: 8px;
+	border-color: gray;
+	border-style: solid;
+	border-width: 1px;
+	horizontal-align: left;
+	vertical-align: top;
+	margin-top: 30px;
+	margin-left: 5px;
+}
+
+.SupporterEmblemTitle {
+	color: gold;
+	horizontal-align: center;
+	font-size: 25px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	margin-top: -3px;
+	text-overflow: clip;
+	margin-top: 3px;
+}
+
+.SupporterEmblemLabel {
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+	margin-top: 45px;
+	margin-left: 250px;
+}
+
+.SupporterEmblemEnableDisableLabel {
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+	margin-top: 118px;
+	margin-left: 250px;
+}
+
+#EmblemEnableBox {
+	margin-top: 118px;
+	margin-left: 385px;
+}
+
+.ChooseColourLabel {
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+	margin-top: 167px;
+	margin-left: 250px;
+}
+
+#ChooseColourDropDown {
+	margin-top: 160px;
+	margin-left: 390px;
+	border-color: gray;
+}
+
+.FreeBootsEnableDisableLabel {
+	color: white;
+	font-size: 19px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+	margin-top: 405px;
+	margin-left: 250px;
+}
+
+.FreeBootsEnableBox {
+	margin-top: 404px;
+	margin-left: 385px;
+	border-color: gray;
+}
+
+#FreeBootsImage {
+	box-shadow: #00000044 0px 0px 8px 0px;
+	border-radius: 8px;
+	border-color: gray;
+	border-style: solid;
+	border-width: 1px;
+	horizontal-align: left;
+	vertical-align: top;
+	margin-top: 330px;
+	margin-left: 5px;
+}
+
+.FreeBootsTitle {
+	color: gold;
+	horizontal-align: center;
+	font-size: 25px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	margin-top: -3px;
+	text-overflow: clip;
+	margin-top: 305px;
+}
+
+.FreeBootsLabel {
+	color: white;
+	font-size: 20px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	margin-top: -3px;
+	text-overflow: clip;
+	margin-top: 345px;
+	margin-left: 250px;
+}
+
+#RandomButtonImage {
+	box-shadow: #00000044 0px 0px 8px 0px;
+	border-radius: 8px;
+	border-color: gray;
+	border-style: solid;
+	border-width: 1px;
+	horizontal-align: left;
+	vertical-align: top;
+	margin-top: 325px;
+	margin-left: 5px;
+}
+
+.RandomButtonTitle {
+	color: gold;
+	horizontal-align: center;
+	font-size: 25px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	margin-top: -3px;
+	text-overflow: clip;
+	margin-top: 300px;
+}
+
+.RandomButtonLabel {
+	color: white;
+	font-size: 24px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	margin-top: -3px;
+	text-overflow: clip;
+	margin-top: 375px;
+	margin-left: 250px;
+}
+
+.PatreonButtonRoot {
+	width: 240px;
+	height: 50px;
+	margin-top: 740px;
+	margin-left: 20px;
+	padding: 4px 12px 4px 12px;	
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f96854 ), to( #f96854 ) );
+	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+	background-size: 240px 50px;   
+	border-style: solid;
+	border-width: 1px;
+	border-color: #052d49;
+	border-radius: 5px;
+}
+
+#PatreonButton {
+	width: 100%;
+	height: 100%;
+}
+
+.PatreonButtonLabel {
+	color: white;
+	font-size: 26px;
+	text-transform: uppercase;
+	margin-top: 5px;
+	horizontal-align: center;
+}
+
+#SupporterEmblemDefault {
+	color: white;
+}
+
+#SupporterEmblemRed {
+	color: red;
+}
+
+#SupporterEmblemGreen {
+	color: green;
+}
+
+#SupporterEmblemBlue {
+	color: blue;
+}
+
+#SupporterEmblemCyan {
+	color: cyan;
+}
+
+#SupporterEmblemYellow {
+	color: yellow;
+}
+
+#SupporterEmblemPink {
+	color: pink;
+}

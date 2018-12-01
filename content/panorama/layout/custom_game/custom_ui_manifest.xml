@@ -46,80 +46,6 @@
 		GameUI.CustomUIConfig().team_icons[DOTATeam_t.DOTA_TEAM_CUSTOM_8] = "file://{images}/custom_game/team_icons/team_icon_horse_01.png";
 
 		// Credits: EarthSalamander #42
-		// Set vanilla topbar for 12v12
-		SetupTopBar();
-
-		function SetupTopBar() {
-			var topbar_width = "1800px";
-			var topbar_team_width = "815px";
-			var topbar_team_container_width = "737px";
-			var topbar_team_players_container_width = "755px";
-			var topbar_player_width;
-			var update_player_size = false;
-
-			if (Math.abs(Game.GetScreenWidth() / Game.GetScreenHeight() - 16/10) <= 0.1) {
-				topbar_width = "1650px";
-				topbar_team_width = "750px";
-				topbar_team_container_width = "737px";
-				topbar_team_players_container_width = "670px";
-				topbar_player_width = "60px";
-				update_player_size = true;
-			} else if (Math.abs(Game.GetScreenWidth() / Game.GetScreenHeight() - 4/3) <= 0.1) {
-				topbar_width = "1300px";
-				topbar_team_width = "600px";
-				topbar_team_container_width = "737px";
-				topbar_team_players_container_width = "490px";
-				topbar_player_width = "45px";
-				update_player_size = true;
-			}
-
-//			$.GetContextPanel().SetHasClass('TenVTen', true);
-			var topbar = FindDotaHudElement('topbar');
-			topbar.style.width = topbar_width;
-
-			// Top Bar Radiant
-			var TopBarRadiantTeam = FindDotaHudElement('TopBarRadiantTeam');
-			TopBarRadiantTeam.style.width = topbar_team_width;
-
-			var topbarRadiantPlayers = FindDotaHudElement('TopBarRadiantPlayers');
-			topbarRadiantPlayers.style.width = topbar_team_width;
-
-			var topbarRadiantPlayersContainer = FindDotaHudElement('TopBarRadiantPlayersContainer');
-			topbarRadiantPlayersContainer.style.width = topbar_team_players_container_width;
-			FillTopBarPlayer(topbarRadiantPlayersContainer);
-
-			var RadiantTeamContainer = FindDotaHudElement('RadiantTeamContainer');
-			RadiantTeamContainer.style.height = topbar_team_container_width;
-
-			// Top Bar Dire
-			var TopBarDireTeam = FindDotaHudElement('TopBarDireTeam');
-			TopBarDireTeam.style.width = topbar_team_width;
-
-			var topbarDirePlayers = FindDotaHudElement('TopBarDirePlayers');
-			topbarDirePlayers.style.width = topbar_team_width;
-
-			var topbarDirePlayersContainer = FindDotaHudElement('TopBarDirePlayersContainer');
-			topbarDirePlayersContainer.style.width = topbar_team_players_container_width;
-			FillTopBarPlayer(topbarDirePlayersContainer);
-
-			var DireTeamContainer = FindDotaHudElement('DireTeamContainer');
-			DireTeamContainer.style.height = topbar_team_container_width;
-
-			if (update_player_size == true) {
-				$.Msg(topbarRadiantPlayersContainer.GetChildCount())
-				for (var i = 0; i <= topbarRadiantPlayersContainer.GetChildCount(); i++) {
-					if (topbarRadiantPlayersContainer.GetChild(i) != null)
-						topbarRadiantPlayersContainer.GetChild(i).style.width = topbar_player_width;
-				}
-				$.Msg(topbarDirePlayersContainer.GetChildCount())
-				for (var i = 0; i <= topbarDirePlayersContainer.GetChildCount(); i++) {
-					if (topbarDirePlayersContainer.GetChild(i) != null)
-						topbarDirePlayersContainer.GetChild(i).style.width = topbar_player_width;
-				}
-			}
-		}
-
-		// Credits: EarthSalamander #42
 		// Hide vanilla pick screen in loading screen
 		HidePickScreen()
 
@@ -141,8 +67,8 @@
 		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
 		<CustomUIElement type="EndScreen" 			layoutfile="file://{resources}/layout/custom_game/multiteam_end_screen.xml" />
 		<CustomUIElement type="GameInfo" 			layoutfile="file://{resources}/layout/custom_game/overthrow_game_info.xml" />
-
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/statcollection.xml" />
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/patreon.xml"/>
 	</Panel>
 </root>
 

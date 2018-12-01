@@ -47,19 +47,33 @@ function modifier_donator:OnIntervalThink()
 end
 
 function modifier_donator:RefreshEffect()
-	if self.current_effect_name ~= self.effect_name then
+	if self.pfx and self:GetParent().patreon_emblem_enabled == 0 then
+		ParticleManager:DestroyParticle(self.pfx, false)
+		ParticleManager:ReleaseParticleIndex(self.pfx)
+		self.pfx = nil
+		return
+	end
+
+	if self.current_effect_name ~= self.effect_name or not self.pfx and self:GetParent().patreon_emblem_enabled == 1 then
 --		print("Old Effect:", self.current_effect_name)
 --		print("Effect:", self.effect_name)
 
 		if self.pfx then
 			ParticleManager:DestroyParticle(self.pfx, false)
 			ParticleManager:ReleaseParticleIndex(self.pfx)
+			self.pfx = nil
 		end
 
 		self.pfx = ParticleManager:CreateParticle(self.effect_name, PATTACH_ABSORIGIN_FOLLOW, self:GetParent())
-		-- TODO: temporary, need panorama menu to choose color
-		ParticleManager:SetParticleControl(self.pfx, 9, Vector(200, 0, 0))
 		self.current_effect_name = self.effect_name
+	end
+
+	if self.pfx then
+		if self:GetParent().patreon_emblem_color then
+			ParticleManager:SetParticleControl(self.pfx, 9, self:GetParent().patreon_emblem_color)
+		else
+			ParticleManager:SetParticleControl(self.pfx, 9, Vector(255, 255, 255))
+		end
 	end
 end
 
