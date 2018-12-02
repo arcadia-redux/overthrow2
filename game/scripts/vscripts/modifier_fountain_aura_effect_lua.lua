@@ -21,6 +21,10 @@ if IsServer() then
 	function modifier_fountain_aura_effect_lua:OnIntervalThink()
 		local parent = self:GetParent()
 		if not parent:IsRealHero() then return end
+		if GetMapName() == "desert_octet" then
+			parent:SetHealth(parent:GetMaxHealth())
+			parent:SetMana(parent:GetMaxMana())
+		end
 		local hasInvulnerability = parent:HasModifier("modifier_disconnect_invulnerable")
 		if not hasInvulnerability and (
 			DISCONNECT_TIMES[parent:GetPlayerID()] and
