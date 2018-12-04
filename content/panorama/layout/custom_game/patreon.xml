@@ -3,18 +3,16 @@
 		<include src="file://{resources}/styles/custom_game/patreon.css" />
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 	</styles>
-
-	<scripts>
+ 	<scripts>
 		<include src="file://{resources}/scripts/custom_game/patreon.js" />	
 	</scripts>
-
-	<Panel hittest="true" class="PatreonRoot">
+ 	<Panel hittest="true" class="PatreonRoot">
 		<Panel hittest="true" class="PatreonButtonRoot">
 			<Button id="PatreonButton" onactivate="OnPatreonButtonPressed()" />
 			<Label id="PatreonButtonLabel" class="PatreonButtonLabel" text="Patreon Perks"/>
 		</Panel>
-
-		<Panel hittest="true" id="PatreonWindow">
+ 		<Panel hittest="true" id="PatreonWindow">
+			<Panel hittest="true" class="VerticalScrollBar" />
 			<Panel hittest="true" class="PatreonHeader">
 					<Button id="PatreonCloseButton" onactivate="OnPatreonButtonPressed()" class="PatreonCloseButton">
 						<Label id="PatreonCloseButtonLabel" class="PatreonCloseButtonLabel" text="X"/>
@@ -22,7 +20,7 @@
 					<Label id="HeaderLabel" class="PatreonLabel" text="PATREON PERKS"/>
 			</Panel>
 			<Panel hittest="true" class="SupporterEmblem">
-				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="Supporter Emblem"/>
+				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text=" Supporter Emblem "/>
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="In-game particle effect that follows your player, available in multiple colours."/>
 				<Image id="SupporterEmblemImage" src="file://{images}/custom_game/patreon/emblem.png"/>
 				<Label id="SupporterEmblemEnableDisableLabel" class="SupporterEmblemEnableDisableLabel" text="Enable Emblem:"/>
@@ -40,7 +38,7 @@
 				<Panel hittest="true" class="Divider"/>
 			</Panel>
 			<Panel hittest="true" class="FreeBoots">
-				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="Free Boots"/>
+				<Label id="FreeBootsTitle" class="FreeBootsTitle" text=" Free Boots "/>
 				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="Start the game with free boots!"/>
 				<Image id="FreeBootsImage" src="file://{images}/custom_game/patreon/boots.png"/>
 				<Label id="FreeBootsEnableDisableLabel" class="FreeBootsEnableDisableLabel" text="Enable Boots:"/>
@@ -49,9 +47,14 @@
 			</Panel>
 			
 			<Panel hittest="true" class="RandomButton">
-				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="Unlimited Random"/>
-				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="You will have unlimited use of smart random button!"/>
+				<Label id="RandomButtonTitle" class="RandomButtonTitle" text=" Unlimited Random "/>
+				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="Unlock unlimited use of smart random button!"/>
 				<Image id="RandomButtonImage" src="file://{images}/custom_game/patreon/random_button.png"/>
+			</Panel>
+			<Panel hittest="true" class="PatreonFooter">	
+				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">
+					<Label id="BecomeAPatronButtonLabel" class="BecomeAPatronButtonLabel" text="Become a Patron" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial?');"/>  
+				</Button> 
 			</Panel>
 		</Panel>
 	</Panel>

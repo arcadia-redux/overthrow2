@@ -4,75 +4,68 @@
 	height: 100%;
 	z-index: -1;
 }
-
-#PatreonWindow
+ #PatreonWindow
 {
 	width: 730px;
-	height: 770px;
-
-	border-style: solid;
-	border-width: 1px;
-	border-color: black;
+	height: 765px;
+ 	border-style: solid;
+	border-width: 1.5px;
 	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-color: #263238;
 	background-size: 100%;
-
-	align: center center;
+	opacity: 1.2;
+ 	align: center center;
 	flow-children: down;
+	margin-top: -40px;
+	border-radius: 10px;
 }
-
-.SupporterEmblem {
+ .SupporterEmblem {
 	width: 100%;
 	height: 100%;
+	margin-top: -20px;
 }
-
-.Divider {
+ .Divider {
 	width: 700px;
-	height: 7px;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	height: 4px;
+	background-color: gray;
 	background-size: 100%;
 	margin-top: 240px;
 	horizontal-align: center;
 	border-radius: 5px;
 }
-
-.FreeBoots {
+ .FreeBoots {
 	width: 100%;
 	height: 100%;
-	margin-top: -790px;
+	margin-top: -785px;
 }
-
-.Divider2 {
+ .Divider2 {
 	width: 700px;
-	height: 7px;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	height: 4px;
+	background-color: gray;
 	background-size: 100%;
-	margin-top: 540px;
+	margin-top: 502px;
 	horizontal-align: center;
 	border-radius: 5px;
 }
-
-.RandomButton {
+ .RandomButton {
 	width: 100%;
 	height: 100%;
-	margin-top: -520px;
+	margin-top: -515px;
 }
-
-.PatreonHeader {
+ .PatreonHeader {
 	width: 100%;
 	height: 35px;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f96854 ), to( #f96854 ) );
 	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
 }
-
-.PatreonLabelPanel {
+ .PatreonLabelPanel {
 	width: fit-children;
 	height: 40px;
 	vertical-align: top;
 	horizontal-align: center;
 	margin-bottom: 5px;
 }
-
-.PatreonLabel {
+ .PatreonLabel {
 	vertical-align: center;
 	horizontal-align: center;
 	color: white;
@@ -82,21 +75,18 @@
 	margin-top: 0px;
 	text-overflow: clip;
 }
-
-.PatreonCloseButton {
+ .PatreonCloseButton {
 	vertical-align: middle;
 	horizontal-align: right;
 }
-
-.PatreonCloseButtonLabel {
+ .PatreonCloseButtonLabel {
 	color: white;
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
 	text-overflow: clip;
 }
-
-#SupporterEmblemImage {
+ #SupporterEmblemImage {
 	box-shadow: #00000044 0px 0px 8px 0px;
 	border-radius: 8px;
 	border-color: gray;
@@ -105,78 +95,79 @@
 	horizontal-align: left;
 	vertical-align: top;
 	margin-top: 30px;
-	margin-left: 5px;
+	margin-left: 15px;
 }
-
-.SupporterEmblemTitle {
+ .SupporterEmblemTitle {
 	color: gold;
-	horizontal-align: center;
+	horizontal-align: left;
 	font-size: 25px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
-	margin-top: -3px;
 	text-overflow: clip;
-	margin-top: 3px;
+	margin-top: 25px;
+	margin-left: 241px;
+	border-radius: 8px;
 }
-
-.SupporterEmblemLabel {
+ .SupporterEmblemLabel {
 	color: white;
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
-	font-weight: bold;
 	text-overflow: clip;
-	margin-top: 45px;
+	margin-top: 60px;
 	margin-left: 250px;
 }
-
-.SupporterEmblemEnableDisableLabel {
+ .SupporterEmblemEnableDisableLabel {
 	color: white;
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
-	font-weight: bold;
 	text-overflow: clip;
-	margin-top: 118px;
+	margin-top: 133px;
 	margin-left: 250px;
 }
 
-#EmblemEnableBox {
-	margin-top: 118px;
+ #EmblemEnableBox {
+	margin-top: 133px;
 	margin-left: 385px;
 }
 
-.ChooseColourLabel {
+ .ChooseColourLabel {
 	color: white;
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
-	font-weight: bold;
 	text-overflow: clip;
-	margin-top: 167px;
+	margin-top: 186px;
 	margin-left: 250px;
 }
 
-#ChooseColourDropDown {
-	margin-top: 160px;
+ #ChooseColourDropDown {
+	margin-top: 180px;
 	margin-left: 390px;
 	border-color: gray;
 }
 
-.FreeBootsEnableDisableLabel {
+ #SupporterEmblemDefault {
 	color: white;
-	font-size: 19px;
-	text-shadow: 2px 2px 2px black;
-	font-weight: bold;
-	text-overflow: clip;
-	margin-top: 405px;
-	margin-left: 250px;
+}
+ #SupporterEmblemRed {
+	color: red;
+}
+ #SupporterEmblemGreen {
+	color: green;
+}
+ #SupporterEmblemBlue {
+	color: blue;
+}
+ #SupporterEmblemCyan {
+	color: cyan;
+}
+ #SupporterEmblemYellow {
+	color: yellow;
+}
+ #SupporterEmblemPink {
+	color: pink;
 }
 
-.FreeBootsEnableBox {
-	margin-top: 404px;
-	margin-left: 385px;
-	border-color: gray;
-}
-
-#FreeBootsImage {
+ #FreeBootsImage {
 	box-shadow: #00000044 0px 0px 8px 0px;
 	border-radius: 8px;
 	border-color: gray;
@@ -184,67 +175,119 @@
 	border-width: 1px;
 	horizontal-align: left;
 	vertical-align: top;
-	margin-top: 330px;
-	margin-left: 5px;
+	margin-top: 290px;
+	margin-left: 15px;
 }
-
-.FreeBootsTitle {
+ .FreeBootsTitle {
 	color: gold;
-	horizontal-align: center;
+	horizontal-align: left;
 	font-size: 25px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
-	margin-top: -3px;
 	text-overflow: clip;
-	margin-top: 305px;
+	margin-top: 285px;
+	margin-left: 241px;
+	border-radius: 8px;
 }
-
-.FreeBootsLabel {
+ .FreeBootsLabel {
 	color: white;
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
+	margin-top: -3px;
+	text-overflow: clip;
+	margin-top: 335px;
+	margin-left: 250px;
+}
+
+ .FreeBootsEnableDisableLabel {
+	color: white;
+	font-size: 19px;
+	text-shadow: 2px 2px 2px black;
+	text-overflow: clip;
+	margin-top: 385px;
+	margin-left: 250px;
+}
+ .FreeBootsEnableBox {
+	margin-top: 384px;
+	margin-left: 385px;
+	border-color: gray;
+}
+
+ #RandomButtonImage {
+	width: 218px;
+	height: 199px;
+	box-shadow: #00000044 0px 0px 8px 0px;
+	border-radius: 8px;
+	border-color: gray;
+	border-style: solid;
+	border-width: 1px;
+	horizontal-align: left;
+	vertical-align: top;
+	margin-top: 266px;
+	margin-left: 15px;
+}
+ .RandomButtonTitle {
+	color: gold;
+	horizontal-align: left;
+	font-size: 25px;
+	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
+	text-overflow: clip;
+	margin-top: 265px;
+	margin-left: 241px;
+	border-radius: 8px;
+}
+ .RandomButtonLabel {
+	color: white;
+	font-size: 22px;
+	text-shadow: 2px 2px 2px black;
 	margin-top: -3px;
 	text-overflow: clip;
 	margin-top: 345px;
 	margin-left: 250px;
 }
 
-#RandomButtonImage {
-	box-shadow: #00000044 0px 0px 8px 0px;
-	border-radius: 8px;
-	border-color: gray;
+ .PatreonFooter {
+	width: 730px;
+	height: 60px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #4d4d4d ), to( #4d4d4d ) );
+	background-image: url("s2r://panorama/images/front_page/ti8_front_bar_psd.vtex");
+	background-repeat: no-repeat;
+	background-position: left 0px top 0px;
+	margin-top: -60px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+ .BecomeAPatronButton {
+	width: 218px;
+	height: 40px;
+	padding: 4px 12px 4px 12px;	
+	align: left center;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #558B2F ), to( #7CB342 ) );
+	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex"); 
 	border-style: solid;
-	border-width: 1px;
-	horizontal-align: left;
-	vertical-align: top;
-	margin-top: 325px;
-	margin-left: 5px;
+	border-width: 0.4px;
+	border-radius: 5px; 
+	margin-left: 15px;
 }
 
-.RandomButtonTitle {
-	color: gold;
-	horizontal-align: center;
-	font-size: 25px;
-	text-shadow: 2px 2px 2px black;
-	font-weight: bold;
-	margin-top: -3px;
-	text-overflow: clip;
-	margin-top: 300px;
+.BecomeAPatronButton:hover {
+  box-shadow: #000000ff 0px 0px 16px 0px;
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #689F38 ), to( #8BC34A ) );
 }
 
-.RandomButtonLabel {
+ .BecomeAPatronButtonLabel {
 	color: white;
-	font-size: 24px;
+	align: center center;
+	font-size: 26px;
+	margin-top: -1px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
-	margin-top: -3px;
 	text-overflow: clip;
-	margin-top: 375px;
-	margin-left: 250px;
 }
 
-.PatreonButtonRoot {
+ .PatreonButtonRoot {
 	width: 240px;
 	height: 50px;
 	margin-top: 740px;
@@ -259,43 +302,21 @@
 	border-radius: 5px;
 }
 
-#PatreonButton {
+ .PatreonButtonRoot:hover
+{
+  box-shadow: #000000ff 0px 0px 16px 0px;
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #052d49 ), to( #052d49 ) );
+}
+
+ #PatreonButton {
 	width: 100%;
 	height: 100%;
 }
 
-.PatreonButtonLabel {
+ .PatreonButtonLabel {
 	color: white;
 	font-size: 26px;
 	text-transform: uppercase;
 	margin-top: 5px;
 	horizontal-align: center;
-}
-
-#SupporterEmblemDefault {
-	color: white;
-}
-
-#SupporterEmblemRed {
-	color: red;
-}
-
-#SupporterEmblemGreen {
-	color: green;
-}
-
-#SupporterEmblemBlue {
-	color: blue;
-}
-
-#SupporterEmblemCyan {
-	color: cyan;
-}
-
-#SupporterEmblemYellow {
-	color: yellow;
-}
-
-#SupporterEmblemPink {
-	color: pink;
 }
