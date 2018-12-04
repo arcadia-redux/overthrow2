@@ -51,6 +51,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		self.countdownEnabled = true
 		CustomGameEventManager:Send_ServerToAllClients( "show_timer", {} )
 		DoEntFire( "center_experience_ring_particles", "Start", "0", 0, self, self  )
+		GameRules:SendCustomMessage("#increase_time", -1, 0)
 	end
 end
 

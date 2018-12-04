@@ -239,6 +239,7 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "entity_killed", Dynamic_Wrap( COverthrowGameMode, 'OnEntityKilled' ), self )
 	ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( COverthrowGameMode, "OnItemPickUp"), self )
 	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
+	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
 	Convars:RegisterCommand( "overthrow_force_gold_drop", function(...) self:ForceSpawnGold() end, "Force gold drop.", FCVAR_CHEAT )
@@ -259,6 +260,12 @@ function COverthrowGameMode:InitGameMode()
 			WaypointName = "camp"..i.."_path_wp1"
 		}
 	end
+
+	p3bonus = {}
+	for i = 0, PlayerResource:GetPlayerCount()-1 do
+		p3bonus[i] = false
+	end
+
 
 	self.pumpkin_spawns = {}
 	for _, entity in ipairs(Entities:FindAllByName("item_pumpkin_spawn")) do
@@ -878,6 +885,20 @@ function COverthrowGameMode:GetCoreTeleportTarget(teamId)
 		if oldTeam == teamId then
 			local mappedTeam = self.coreTeleportNightTarget[oldTeamIndex]
 			return Entities:FindByName(nil, "teleport_" .. mappedTeam .. "_day"):GetAbsOrigin()
+		end
+	end
+end
+
+function COverthrowGameMode:OnPlayerChat( keys)
+	local text = keys.text
+	local playerid = keys.playerid
+	if text == "-3" and GameRules:GetDOTATime(false,false) < 600 then	
+		if p3bonus[playerid] ~= true then
+			p3bonus[playerid] = true
+			_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 60
+			self.TEAM_KILLS_TO_WIN = self.TEAM_KILLS_TO_WIN + 3
+			CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
+			GameRules:SendCustomMessage("#time_extended", -1, 0)
 		end
 	end
 end
