@@ -24,6 +24,7 @@ if IsServer() then
 		if GetMapName() == "desert_octet" then
 			parent:SetHealth(parent:GetMaxHealth())
 			parent:SetMana(parent:GetMaxMana())
+			parent:AddNewModifier(parent, nil, "modifier_core_spawn_movespeed",{duration = 4})
 		end
 		local hasInvulnerability = parent:HasModifier("modifier_disconnect_invulnerable")
 		if not hasInvulnerability and (
