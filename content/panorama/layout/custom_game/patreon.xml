@@ -4,13 +4,10 @@
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 	</styles>
  	<scripts>
-		<include src="file://{resources}/scripts/custom_game/patreon.js" />	
+		<include src="file://{resources}/scripts/custom_game/patreon.js" />
 	</scripts>
  	<Panel hittest="true" class="PatreonRoot">
-		<Panel hittest="true" class="PatreonButtonRoot">
-			<Button id="PatreonButton" onactivate="OnPatreonButtonPressed()" />
-			<Label id="PatreonButtonLabel" class="PatreonButtonLabel" text="Patreon Perks"/>
-		</Panel>
+		<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="Patreon Perks" />
  		<Panel hittest="true" id="PatreonWindow">
 			<Panel hittest="true" class="VerticalScrollBar" />
 			<Panel hittest="true" class="PatreonHeader">
@@ -45,16 +42,16 @@
 				<ToggleButton text="" class="FreeBootsEnableBox" />
 				<Panel hittest="true" class="Divider2"/>
 			</Panel>
-			
+
 			<Panel hittest="true" class="RandomButton">
 				<Label id="RandomButtonTitle" class="RandomButtonTitle" text=" Unlimited Random "/>
 				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="Unlock unlimited use of smart random button!"/>
 				<Image id="RandomButtonImage" src="file://{images}/custom_game/patreon/random_button.png"/>
 			</Panel>
-			<Panel hittest="true" class="PatreonFooter">	
+			<Panel hittest="true" class="PatreonFooter">
 				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">
-					<Label id="BecomeAPatronButtonLabel" class="BecomeAPatronButtonLabel" text="Become a Patron" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial?');"/>  
-				</Button> 
+					<Label id="BecomeAPatronButtonLabel" class="BecomeAPatronButtonLabel" text="Become a Patron" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial?');"/>
+				</Button>
 			</Panel>
 		</Panel>
 	</Panel>
