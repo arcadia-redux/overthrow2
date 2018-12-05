@@ -18,6 +18,7 @@
 	flow-children: down;
 	margin-top: -40px;
 	border-radius: 10px;
+	visibility: collapse;
 }
  .SupporterEmblem {
 	width: 100%;
@@ -87,6 +88,8 @@
 	text-overflow: clip;
 }
  #SupporterEmblemImage {
+	width: 218px;
+	height: 199px;
 	box-shadow: #00000044 0px 0px 8px 0px;
 	border-radius: 8px;
 	border-color: gray;
@@ -98,14 +101,14 @@
 	margin-left: 15px;
 }
  .SupporterEmblemTitle {
-	color: gold;
+	color: white;
 	horizontal-align: left;
 	font-size: 25px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
 	text-overflow: clip;
 	margin-top: 25px;
-	margin-left: 241px;
+	margin-left: 242px;
 	border-radius: 8px;
 }
  .SupporterEmblemLabel {
@@ -125,9 +128,10 @@
 	margin-left: 250px;
 }
 
- #EmblemEnableBox {
-	margin-top: 133px;
+ #EmblemEnableDisableDropDown {
+	margin-top: 128px;
 	margin-left: 385px;
+	border-color: gray;
 }
 
  .ChooseColourLabel {
@@ -135,39 +139,198 @@
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
 	text-overflow: clip;
-	margin-top: 186px;
+	margin-top: 188px;
 	margin-left: 250px;
 }
-
- #ChooseColourDropDown {
-	margin-top: 180px;
+.SelectColourBackground {
+	width: 250px;
+	height: 50px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #292e2e ), to( #191e1e ) );
+	margin-top: 179px;
+	margin-left: 383px;
+	border-radius: 8px;
+	
+}
+#ColourMaroon {
+	width: 19px;
+	height: 19px;
+	background-color: #800000;
+	margin-top: 183px;
 	margin-left: 390px;
-	border-color: gray;
+	border-radius: 8px;
+ }
+#ColourBrown {
+	width: 19px;
+	height: 19px;
+	background-color: #9A6324;
+	margin-top: 183px;
+	margin-left: 412px;
+	border-radius: 8px;
+ }
+#ColourOlive {
+	width: 19px;
+	height: 19px;
+	background-color: #808000;
+	margin-top: 183px;
+	margin-left: 433px;
+	border-radius: 8px;
+ }
+#ColourTeal {
+	width: 19px;
+	height: 19px;
+	background-color: #469990;
+	margin-top: 183px;
+	margin-left: 455px;
+	border-radius: 8px;
+ }
+#ColourNavy {
+	width: 19px;
+	height: 19px;
+	background-color: #000075;
+	margin-top: 183px;
+	margin-left: 476px;
+	border-radius: 8px;
+ }
+#ColourBlack {
+	width: 19px;
+	height: 19px;
+	background-color: #000000;
+	margin-top: 183px;
+	margin-left: 498px;
+	border-radius: 8px;
+ }
+#ColourRed {
+	width: 18px;
+	height: 18px;
+	background-color: red;
+	margin-top: 183px;
+	margin-left: 521px;
+	border-radius: 8px;
 }
-
- #SupporterEmblemDefault {
-	color: white;
-}
- #SupporterEmblemRed {
-	color: red;
-}
- #SupporterEmblemGreen {
-	color: green;
-}
- #SupporterEmblemBlue {
-	color: blue;
-}
- #SupporterEmblemCyan {
-	color: cyan;
-}
- #SupporterEmblemYellow {
-	color: yellow;
-}
- #SupporterEmblemPink {
-	color: pink;
-}
-
+#ColourOrange {
+	width: 19px;
+	height: 19px;
+	background-color: #f58231;
+	margin-top: 183px;
+	margin-left: 543px;
+	border-radius: 8px;
+ }
+#ColourYellow {
+	width: 19px;
+	height: 19px;
+	background-color: #ffe119;
+	margin-top: 183px;
+	margin-left: 564px;
+	border-radius: 8px;
+ }
+#ColourLime {
+	width: 19px;
+	height: 19px;
+	background-color: #bfef45;
+	margin-top: 183px;
+	margin-left: 586px;
+	border-radius: 8px;
+ }
+#ColourGreen {
+	width: 19px;
+	height: 19px;
+	background-color: #3cb44b;
+	margin-top: 183px;
+	margin-left: 607px;
+	border-radius: 8px;
+ }
+#ColourCyan {
+	width: 19px;
+	height: 19px;
+	background-color: #42d4f4;
+	margin-top: 205px;
+	margin-left: 390px;
+	border-radius: 8px;
+ }
+#ColourBlue  {
+	width: 19px;
+	height: 19px;
+	background-color: #4363d8;
+	margin-top: 205px;
+	margin-left: 412px;
+	border-radius: 8px;
+ }
+#ColourPurple {
+	width: 19px;
+	height: 19px;
+	background-color: #911eb4;
+	margin-top: 205px;
+	margin-left: 433px;
+	border-radius: 8px;
+ }
+#ColourMagenta {
+	width: 19px;
+	height: 19px;
+	background-color: #f032e6;
+	margin-top: 205px;
+	margin-left: 455px;
+	border-radius: 8px;
+ }
+#ColourGrey {
+	width: 19px;
+	height: 19px;
+	background-color: #a9a9a9;
+	margin-top: 205px;
+	margin-left: 476px;
+	border-radius: 8px;
+ }
+#ColourPink {
+	width: 19px;
+	height: 19px;
+	background-color: #fabebe;
+	margin-top: 205px;
+	margin-left: 498px;
+	border-radius: 8px;
+ }
+#ColourApricot {
+	width: 19px;
+	height: 19px;
+	background-color: #ffd8b1;
+	margin-top: 205px;
+	margin-left: 521px;
+	border-radius: 8px;
+ }
+#ColourBeige {
+	width: 19px;
+	height: 19px;
+	background-color: #fffac8;
+	margin-top: 205px;
+	margin-left: 543px;
+	border-radius: 8px;
+ }
+#ColourMint {
+	width: 19px;
+	height: 19px;
+	background-color: #aaffc3;
+	margin-top: 205px;
+	margin-left: 564px;
+	border-radius: 8px;
+ }
+#ColourLavender {
+	width: 19px;
+	height: 19px;
+	background-color: #e6beff;
+	margin-top: 205px;
+	margin-left: 586px;
+	border-radius: 8px;
+ }
+#ColourWhite {
+	width: 19px;
+	height: 19px;
+	background-color: #ffffff;
+	margin-top: 205px;
+	margin-left: 607px;
+	border-radius: 8px;
+ }
+ 
  #FreeBootsImage {
+	width: 218px;
+	height: 199px;
 	box-shadow: #00000044 0px 0px 8px 0px;
 	border-radius: 8px;
 	border-color: gray;
@@ -179,7 +342,7 @@
 	margin-left: 15px;
 }
  .FreeBootsTitle {
-	color: gold;
+	color: white;
 	horizontal-align: left;
 	font-size: 25px;
 	text-shadow: 2px 2px 2px black;
@@ -207,8 +370,8 @@
 	margin-top: 385px;
 	margin-left: 250px;
 }
- .FreeBootsEnableBox {
-	margin-top: 384px;
+ #FreeBootsEnableDisableDropDown {
+	margin-top: 378px;
 	margin-left: 385px;
 	border-color: gray;
 }
@@ -227,7 +390,7 @@
 	margin-left: 15px;
 }
  .RandomButtonTitle {
-	color: gold;
+	color: white;
 	horizontal-align: left;
 	font-size: 25px;
 	text-shadow: 2px 2px 2px black;
@@ -262,13 +425,13 @@
  .BecomeAPatronButton {
 	width: 218px;
 	height: 40px;
-	padding: 4px 12px 4px 12px;
-	align: left center;
+	padding: 4px 12px 4px 12px;	
+	align: center center;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #558B2F ), to( #7CB342 ) );
-	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex"); 
 	border-style: solid;
 	border-width: 0.4px;
-	border-radius: 5px;
+	border-radius: 5px; 
 	margin-left: 15px;
 }
 
@@ -287,7 +450,7 @@
 	text-overflow: clip;
 }
 
-#PatreonButton {
+ #PatreonButton {
 	width: 244px;
 	margin-bottom: 244px;
 	height: 50px;
@@ -311,16 +474,46 @@
 	horizontal-align: right;
 }
 
-#PatreonButton:hover
+ #PatreonButton:hover
 {
   box-shadow: #000000ff 0px 0px 16px 0px;
   background-color: gradient( linear, 0% 0%, 0% 100%, from( #052d49 ), to( #052d49 ) );
 }
 
-#PatreonButton Label {
+ #PatreonButton Label {
 	color: white;
 	font-size: 26px;
 	text-transform: uppercase;
 	margin-top: 5px;
 	horizontal-align: center;
+}
+
+ #PatreonButtonSmaller {
+	width: 70px;
+	height: 60px;
+	margin-bottom: 244px;
+	margin-left: -5px;
+	align: left bottom;
+	padding: 4px 12px 4px 12px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #052d49 ), to( #052d49 ) );
+	background-size: 100%;
+	background-repeat: no-repeat;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #052d49;
+	border-radius: 5px;
+	visibility: collapse;
+}
+
+ #PatreonButtonSmaller:hover
+{
+  background-color: gradient( linear, 0% 0%, 0% 100%, from( #074570 ), to( #074570 ) );
+}
+
+.MinimapExtraLarge #PatreonButtonSmaller {
+	margin-bottom: 280px;
+}
+
+.HUDFlipped #PatreonButtonSmaller {
+	horizontal-align: right;
 }
