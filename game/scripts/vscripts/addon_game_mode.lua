@@ -28,6 +28,7 @@ require( "utility_functions" )
 require("patreons")
 require("smart_random")
 require("statcollection/init")
+require( "timers" )
 
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
@@ -83,6 +84,7 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_custom.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
+		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
 end
 
 function Activate()
@@ -893,7 +895,7 @@ end
 function COverthrowGameMode:OnPlayerChat(keys)
 	local text = keys.text
 	local playerid = keys.playerid
-	if text == "-2" and GameRules:GetDOTATime(false,false) < 600 then
+	if text == "-2" then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerid),"OffP3Button",{})
 		COverthrowGameMode:P3Act(playerid)
 	end
@@ -901,17 +903,18 @@ end
 
 function COverthrowGameMode:P3ButtonClick(keys)
 	local playerid = keys.playerid
-	if GameRules:GetDOTATime(false,false) < 600 then	
-		COverthrowGameMode:P3Act(playerid)
-	end
+	COverthrowGameMode:P3Act(playerid)
 end
 
 function COverthrowGameMode:P3Act(playerid)
-	if p3bonus[playerid] ~= true then
-		p3bonus[playerid] = true
-		_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
-		self.TEAM_KILLS_TO_WIN = self.TEAM_KILLS_TO_WIN + 2
-		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
-		GameRules:SendCustomMessage("#time_extended", -1, 0)
+	if GameRules:GetDOTATime(false,false) < 600 then
+		if p3bonus[playerid] ~= true then
+			p3bonus[playerid] = true
+			_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
+			self.TEAM_KILLS_TO_WIN = self.TEAM_KILLS_TO_WIN + 2
+			CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
+			GameRules:SendCustomMessage("#time_extended", -1, 0)
+			EmitGlobalSound("Hero_Sniper.Tutorial_Intro_c")
+		end
 	end
 end
