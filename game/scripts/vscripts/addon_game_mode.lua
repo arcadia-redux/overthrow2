@@ -907,7 +907,7 @@ function COverthrowGameMode:P3ButtonClick(keys)
 end
 
 function COverthrowGameMode:P3Act(playerid)
-	if GameRules:GetDOTATime(false,false) < 600 then
+	if GameRules:GetDOTATime(false,false) < 180 then
 		if p3bonus[playerid] ~= true then
 			p3bonus[playerid] = true
 			_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
