@@ -7,6 +7,9 @@
 		<include src="file://{resources}/scripts/custom_game/overthrow_scoreboard.js" />
 	</scripts>
 	<Panel class="ScoreboardLeft">
+		<Button id="P3Button" onactivate="P3Click(true);" >
+			<Label id="P3Label" text="+2" />
+		</Button>
 		<Panel class="VictoryPanel">
 			<Label id="Goal" text="#Goal" />
 			<Label id="VictoryPoints" text="999" />

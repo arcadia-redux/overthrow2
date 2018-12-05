@@ -54,6 +54,16 @@ function UpdateKillsToWin()
 	}
 }
 
+function P3Click( data )
+{
+	if (data == true)
+	{
+		GameEvents.SendCustomGameEventToServer( "P3ButtonClick", { playerid: Players.GetLocalPlayer()} );
+	}
+	$( "#P3Button" ).AddClass( "OffP3Button" );
+
+}
+
 (function()
 {
 	// We use a nettable to communicate victory conditions to make sure we get the value regardless of timing.
@@ -65,7 +75,8 @@ function UpdateKillsToWin()
     GameEvents.Subscribe( "countdown", UpdateTimer );
     GameEvents.Subscribe( "show_timer", ShowTimer );
     GameEvents.Subscribe( "timer_alert", AlertTimer );
-    GameEvents.Subscribe( "overtime_alert", HideTimer );
+	GameEvents.Subscribe( "overtime_alert", HideTimer );
+	GameEvents.Subscribe( "OffP3Button", P3Click );
 	//UpdateTimer();
 })();
 

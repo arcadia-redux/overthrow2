@@ -4,7 +4,7 @@
     margin-left: 6px;
     margin-top: 2px;
     margin-right: -40px;
-    flow-children: down;
+    //flow-children: down;
 }
 
 .VictoryPanel
@@ -17,6 +17,50 @@
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
 	background-size: 100% 100%;
+}
+
+#P3Button
+{
+	margin-top: 76px;
+	margin-left: 20px;
+	width: 60px;
+	height: 60px;
+
+	background-image: url("file://{images}/custom_game/goal_logo.psd");
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	background-size: 100% 100%;
+}
+
+#P3Label
+{
+	margin-top: 10px;
+    font-size: 32px;
+    font-weight: bold;
+    color: #3a3a3a;
+    text-align: center;
+	width: 100%;
+	text-transform: uppercase;
+    text-overflow: clip;
+}
+
+.OffP3Button
+{
+   transform: translate3d( 0px, -70px, 0px );
+   animation-name: OffAnim;
+   animation-duration: 0.4s;
+   animation-iteration-count: 1;
+}
+@keyframes 'OffAnim'
+{
+    0%
+    {
+       transform: translate3d( 0px, 0px, 0px );
+    }
+    100%
+    {
+       transform: translate3d( 0px, -70px, 0px );
+    }
 }
 
 #Goal
