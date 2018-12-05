@@ -21,7 +21,7 @@
 			<Panel hittest="true" class="SupporterEmblem">
 				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text=" Supporter Emblem "/>
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="In-game particle effect that follows your player, available in multiple colours."/>
-				<Movie id="SupporterEmblemImage" src="https://steamcdn-a.akamaihd.net/apps/dota2/videos/international2018/battlepass/immortals/a_emblem.webm" controls="full" repeat="true" autoplay="onload" />
+				<Movie id="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" controls="full" repeat="true" autoplay="onload" />
 				<Label id="SupporterEmblemEnableDisableLabel" class="SupporterEmblemEnableDisableLabel" text="Enable Emblem:"/>
 				<DropDown oninputsubmit="EnableDisableEmblem()" id="EmblemEnableDisableDropDown">
 					<Label text="Enable" id="EnableEmblem"/>
@@ -56,7 +56,7 @@
 			<Panel hittest="true" class="FreeBoots">
 				<Label id="FreeBootsTitle" class="FreeBootsTitle" text=" Free Boots "/>
 				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="Start the game with free boots!"/>
-				<Movie id="FreeBootsImage" src="http://s1.webmshare.com/d6e6d.webm" controls="full" repeat="true" autoplay="onload" />
+				<Movie id="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" controls="full" repeat="true" autoplay="onload" />
 				<Label id="FreeBootsEnableDisableLabel" class="FreeBootsEnableDisableLabel" text="Enable Boots:"/>
 				<DropDown oninputsubmit="EnableDisableFreeBoots()" id="FreeBootsEnableDisableDropDown">
 					<Label text="Enable" id="EnableBoots"/>
@@ -67,7 +67,7 @@
 			<Panel hittest="true" class="RandomButton">
 				<Label id="RandomButtonTitle" class="RandomButtonTitle" text=" Unlimited Random "/>
 				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="Unlock unlimited use of smart random button!"/>
-				<Movie id="RandomButtonImage" src="http://s1.webmshare.com/d6e6d.webm" controls="full" repeat="true" autoplay="onload" />
+				<Movie id="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" controls="full" repeat="true" autoplay="onload" />
 			</Panel>
 			<Panel hittest="true" class="PatreonFooter">	
 				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">
