@@ -58,6 +58,9 @@
 				FindDotaHudElement("PreGame").style.opacity = "1";				
 			}
 		}
+
+		if (Game.IsInToolsMode())
+			$.Msg(FindDotaHudElement("PatreonButton"))
 	</script>
 
 	<Panel>
@@ -71,5 +74,3 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/patreon.xml"/>
 	</Panel>
 </root>
-
-

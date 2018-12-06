@@ -7,7 +7,7 @@
 		<include src="file://{resources}/scripts/custom_game/patreon.js" />	
 	</scripts>
  	<Panel hittest="false" class="PatreonRoot">
-		<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="Patreon Perks" />
+		<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
 		<TextButton id="PatreonButtonSmaller" onactivate="OnPatreonButtonPressed()">
 			<Image src="file://{images}/custom_game/Patreon/patreon.png" />
 		</TextButton>
@@ -16,18 +16,18 @@
 					<Button id="PatreonCloseButton" onactivate="OnPatreonButtonPressed()" class="PatreonCloseButton">
 						<Label id="PatreonCloseButtonLabel" class="PatreonCloseButtonLabel" text="X"/>
 					</Button>
-					<Label id="HeaderLabel" class="PatreonLabel" text="PATREON PERKS"/>
+					<Label id="HeaderLabel" class="PatreonLabel" text="#patreon_perks"/>
 			</Panel>
 			<Panel hittest="true" class="SupporterEmblem">
-				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text=" Supporter Emblem "/>
-				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="In-game particle effect that follows your player, available in multiple colours."/>
+				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="#emblem_supporter"/>
+				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
 				<Movie id="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" controls="full" repeat="true" autoplay="onload" />
-				<Label id="SupporterEmblemEnableDisableLabel" class="SupporterEmblemEnableDisableLabel" text="Enable Emblem:"/>
+				<Label id="SupporterEmblemEnableDisableLabel" class="SupporterEmblemEnableDisableLabel" text="#emblem_enable"/>
 				<DropDown oninputsubmit="EnableDisableEmblem()" id="EmblemEnableDisableDropDown">
-					<Label text="Enable" id="EnableEmblem"/>
-					<Label text="Disable" id="DisableEmblem"/>
+					<Label text="Enable" id="#emblem_enable"/>
+					<Label text="Disable" id="#emblem_disable"/>
 				</DropDown>
-					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="Choose Colour:"/>
+					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
 					<Panel hittest="true" class="SelectColourBackground" />
 					<Button id="ColourMaroon" onactivate="OnColourMaroonPressed()"/>
 					<Button id="ColourBrown" onactivate="OnColourBrownPressed()"/>
@@ -54,24 +54,24 @@
 				<Panel hittest="true" class="Divider"/>
 			</Panel>
 			<Panel hittest="true" class="FreeBoots">
-				<Label id="FreeBootsTitle" class="FreeBootsTitle" text=" Free Boots "/>
-				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="Start the game with free boots!"/>
+				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="#boots_free"/>
+				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="#boots_free_description"/>
 				<Movie id="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" controls="full" repeat="true" autoplay="onload" />
-				<Label id="FreeBootsEnableDisableLabel" class="FreeBootsEnableDisableLabel" text="Enable Boots:"/>
+				<Label id="FreeBootsEnableDisableLabel" class="FreeBootsEnableDisableLabel" text="#boots_enable:"/>
 				<DropDown oninputsubmit="EnableDisableFreeBoots()" id="FreeBootsEnableDisableDropDown">
-					<Label text="Enable" id="EnableBoots"/>
-					<Label text="Disable" id="DisableBoots"/>
+					<Label text="Enable" id="#boots_enable"/>
+					<Label text="Disable" id="#boots_disable"/>
 				</DropDown>
 				<Panel hittest="true" class="Divider2"/>
 			</Panel>
 			<Panel hittest="true" class="RandomButton">
-				<Label id="RandomButtonTitle" class="RandomButtonTitle" text=" Unlimited Random "/>
-				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="Unlock unlimited use of smart random button!"/>
+				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="#random_unlimited"/>
+				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="#random_unlimited_description"/>
 				<Movie id="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" controls="full" repeat="true" autoplay="onload" />
 			</Panel>
 			<Panel hittest="true" class="PatreonFooter">	
 				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">
-					<Label id="BecomeAPatronButtonLabel" class="BecomeAPatronButtonLabel" text="Become a Patron" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial?');"/>  
+					<Label id="BecomeAPatronButtonLabel" class="BecomeAPatronButtonLabel" text="#patron_become" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial?');"/>
 				</Button> 
 			</Panel>
 		</Panel>
