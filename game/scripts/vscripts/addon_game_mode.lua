@@ -232,7 +232,7 @@ function COverthrowGameMode:InitGameMode()
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 	end
 	GameRules:LockCustomGameSetupTeamAssignment(true)
-	GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
 	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
 
@@ -314,6 +314,8 @@ function COverthrowGameMode:InitGameMode()
 		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
 		if TRUSTED_HOSTS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
 			GameRules:GetGameModeEntity():SetPauseEnabled(true)
+			GameRules:LockCustomGameSetupTeamAssignment(false)
+			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
 		end
 	end, nil)
 end

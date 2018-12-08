@@ -5,19 +5,13 @@
 ---------------------------------------------------------------------------
 function COverthrowGameMode:OnGameRulesStateChange()
 	local nNewState = GameRules:State_Get()
+	--print( "OnGameRulesStateChange: " .. nNewState )
 
-	if nNewState == DOTA_GAMERULES_STATE_CUSTOM_GAME_SETUP then
-		local playerId = 0
-		for team = DOTA_TEAM_FIRST, DOTA_TEAM_CUSTOM_MAX do
-			for i = 1, GameRules:GetCustomGameTeamMaxPlayers(team) do
-				PlayerResource:SetCustomTeamAssignment(playerId, team)
-				playerId = playerId + 1
-				if not PlayerResource:IsValidPlayerID(playerId) then return end
-			end
-		end
-	elseif nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
+	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		self.heroSelectionStage = 1
-	elseif nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
+	end
+
+	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		self.heroSelectionStage = 5
 		local numberOfPlayers = PlayerResource:GetPlayerCount()
 		if numberOfPlayers > 16 then
@@ -50,7 +44,9 @@ function COverthrowGameMode:OnGameRulesStateChange()
 
 		self._fPreGameStartTime = GameRules:GetGameTime()
 		Patreons:SendSameHeroDayMessage()
-	elseif nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+	end
+
+	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		--print( "OnGameRulesStateChange: Game In Progress" )
 		self.countdownEnabled = true
 		CustomGameEventManager:Send_ServerToAllClients( "show_timer", {} )
