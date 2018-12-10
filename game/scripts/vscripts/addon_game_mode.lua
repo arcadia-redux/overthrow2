@@ -315,7 +315,9 @@ function COverthrowGameMode:InitGameMode()
 		if TRUSTED_HOSTS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
 			GameRules:GetGameModeEntity():SetPauseEnabled(true)
 			GameRules:LockCustomGameSetupTeamAssignment(false)
-			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
+			if PlayerResource:GetSteamID(playerId) == "76561198036748162" then --No Bans for Admiral Bulldog
+				GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+			end
 		end
 	end, nil)
 end
