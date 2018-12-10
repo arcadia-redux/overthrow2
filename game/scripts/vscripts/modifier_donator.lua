@@ -2,7 +2,7 @@
 
 modifier_donator = class({})
 
-function modifier_donator:IsHidden() return not IsInToolsMode() end
+function modifier_donator:IsHidden() return false end
 function modifier_donator:IsPurgable() return false end
 function modifier_donator:IsPurgeException() return false end
 function modifier_donator:RemoveOnDeath() return false end
@@ -18,7 +18,7 @@ function modifier_donator:OnCreated(keys)
 		label_colors[1] = {249, 104, 84}
 		label_colors[2] = {5, 45, 73}
 
-		self:GetParent():SetCustomHealthLabel("#donator_label_" .. tostring(self:GetStackCount()), label_colors[self:GetStackCount()][1], label_colors[self:GetStackCount()][2], label_colors[self:GetStackCount()][3])
+--		self:GetParent():SetCustomHealthLabel("#donator_label_" .. tostring(self:GetStackCount()), label_colors[self:GetStackCount()][1], label_colors[self:GetStackCount()][2], label_colors[self:GetStackCount()][3])
 	end
 end
 

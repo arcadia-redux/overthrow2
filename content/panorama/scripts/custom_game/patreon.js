@@ -44,5 +44,6 @@ function UpdateEmblem() {
 }
 
 (function() {
-
+	if (Game.IsInToolsMode())
+		$.Msg("Hello there")
 })();

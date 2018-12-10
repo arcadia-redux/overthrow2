@@ -75,6 +75,7 @@
 	font-weight: bold;
 	margin-top: 0px;
 	text-overflow: clip;
+	text-transform: uppercase;
 }
  .PatreonCloseButton {
 	vertical-align: middle;
