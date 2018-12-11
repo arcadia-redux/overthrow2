@@ -318,7 +318,7 @@ function COverthrowGameMode:InitGameMode()
 			GameRules:LockCustomGameSetupTeamAssignment(false)
 			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
 			if steamId == "76561198036748162" then --No Bans for Admiral Bulldog
-				GameRules:SetDraftingBanningTimeOverride(0)
+				GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 			end
 		end
 	end, nil)
