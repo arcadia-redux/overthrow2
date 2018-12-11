@@ -312,11 +312,13 @@ function COverthrowGameMode:InitGameMode()
 		local playerId = data.PlayerID
 		local player = PlayerResource:GetPlayer(playerId)
 		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
-		if TRUSTED_HOSTS[tostring(PlayerResource:GetSteamID(playerId))] and isHost then
+		local steamId = tostring(PlayerResource:GetSteamID(playerId))
+		if TRUSTED_HOSTS[steamId] and isHost then
 			GameRules:GetGameModeEntity():SetPauseEnabled(true)
 			GameRules:LockCustomGameSetupTeamAssignment(false)
-			if PlayerResource:GetSteamID(playerId) == "76561198036748162" then --No Bans for Admiral Bulldog
-				GameRules:SetCustomGameSetupAutoLaunchDelay(0)
+			GameRules:SetCustomGameSetupAutoLaunchDelay(15)
+			if steamId == "76561198036748162" then --No Bans for Admiral Bulldog
+				GameRules:SetDraftingBanningTimeOverride(0)
 			end
 		end
 	end, nil)
