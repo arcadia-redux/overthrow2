@@ -7,5 +7,6 @@
 	"npc_dota_hero_doom_bringer"
 	{
 		"Ability1"	"doom_bringer_devour_custom"
+		"Ability15"	"special_bonus_gold_income_30"
 	}
 }

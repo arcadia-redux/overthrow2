@@ -82,6 +82,9 @@ if IsServer() then
 
 	function modifier_doom_bringer_devour_custom:OnIntervalThink()
 		local goldPerMinute = self:GetAbility():GetSpecialValueFor("bonus_gold_per_minute")
+		if self:GetCaster():FindAbilityByName("special_bonus_unique_doom_3"):GetLevel() > 0 then
+			goldPerMinute = goldPerMinute + 150
+		end
 		self.gold = self.gold + (goldPerMinute / 60) * interval
 
 		local integral, fractional = math.modf(self.gold, 1)
