@@ -2,6 +2,7 @@
 
 var isPatreon = false;
 var toggle = false;
+var nowselected = $("#ColourWhite");
 
 function OnPatreonButtonPressed() {
 	var panel = $("#PatreonWindow");
@@ -66,6 +67,12 @@ function OnColourPressed(text) {
 	if (isPatreon)
 	{
 		GameEvents.SendCustomGameEventToServer("update_emblem", {ID: Game.GetLocalPlayerID(),color: text});
+		if (nowselected != $("#Colour"+text))
+		{
+			nowselected.RemoveClass("SelecetedColor");
+			$("#Colour"+text).AddClass("SelecetedColor");
+			nowselected = $("#Colour"+text);
+		}
 	}
 	else
 	{

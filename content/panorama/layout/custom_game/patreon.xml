@@ -23,7 +23,7 @@
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
 				<!--<Movie id="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" controls="full" repeat="true" autoplay="onload" />-->
 				<Image id="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
-				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="Enable Emblem" onactivate="ToggleEmblem()" />
+				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#enable_emblem" onactivate="ToggleEmblem()" />
 					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
 					<Panel hittest="true" class="SelectColourBackground" />
 					<Button id="ColourMaroon" onactivate="OnColourPressed('Maroon')"/>
@@ -47,7 +47,7 @@
 					<Button id="ColourBeige" onactivate="OnColourPressed('Beige')"/>
 					<Button id="ColourMint" onactivate="OnColourPressed('Mint')"/>
 					<Button id="ColourLavender" onactivate="OnColourPressed('Lavender')"/>
-					<Button id="ColourWhite" onactivate="OnColourPressed('White')"/>
+					<Button id="ColourWhite" class="SelecetedColor" onactivate="OnColourPressed('White')"/>
 				<Panel hittest="true" class="Divider"/>
 			</Panel>
 			<Panel hittest="true" class="FreeBoots">

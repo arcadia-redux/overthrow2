@@ -326,6 +326,12 @@
 	border-radius: 8px;
  }
  
+ .SelecetedColor {
+	border-color: #292e2e;
+	border-style: solid;
+	border-width: 2px;
+}
+ 
  #FreeBootsImage {
 	width: 218px;
 	height: 199px;
