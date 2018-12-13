@@ -121,12 +121,9 @@
 	margin-left: 250px;
 }
  .SupporterEmblemEnableDisableLabel {
-	color: white;
-	font-size: 20px;
-	text-shadow: 2px 2px 2px black;
-	text-overflow: clip;
+	pre-transform-scale2d: 1.2;
 	margin-top: 133px;
-	margin-left: 250px;
+	margin-left: 255px;
 }
 
  #EmblemEnableDisableDropDown {
@@ -364,12 +361,9 @@
 }
 
  .FreeBootsEnableDisableLabel {
-	color: white;
-	font-size: 19px;
-	text-shadow: 2px 2px 2px black;
-	text-overflow: clip;
-	margin-top: 385px;
-	margin-left: 250px;
+	pre-transform-scale2d: 1.2;
+	margin-top: 380px;
+	margin-left: 255px;
 }
  #FreeBootsEnableDisableDropDown {
 	margin-top: 378px;
@@ -503,7 +497,6 @@
 	border-width: 1px;
 	border-color: #052d49;
 	border-radius: 5px;
-	visibility: collapse;
 }
 
  #PatreonButtonSmaller:hover

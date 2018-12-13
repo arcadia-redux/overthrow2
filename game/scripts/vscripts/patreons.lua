@@ -86,21 +86,38 @@ CustomGameEventManager:RegisterListener("set_patreon_bonus", function(_, data)
 end)
 
 function Patreons:UpdateEmblem(args)
-	print("Update Emblem:", args.color)
+	--print("Update Emblem:", args.color)
 	local hero = PlayerResource:GetSelectedHeroEntity(args.ID)
 	local table = {}
-	table["Default (White)"] = Vector(255, 255, 255)
+	table["White"] = Vector(255, 255, 255)
 	table["Red"] = Vector(200, 0, 0)
 	table["Green"] = Vector(0, 200, 0)
 	table["Blue"] = Vector(0, 0, 200)
 	table["Cyan"] = Vector(0, 200, 200)
 	table["Yellow"] = Vector(200, 200, 0)
 	table["Pink"] = Vector(200, 170, 185)
+	table["Maroon"] = Vector(128, 0, 0)
+	table["Brown"] = Vector(154, 99, 36)
+	table["Olive"] = Vector(0, 128, 128)
+	table["Teal"] = Vector(70, 153, 144)
+	table["Navy"] = Vector(0, 0, 117)
+	table["Black"] = Vector(0, 0, 0)
+	table["Orange"] = Vector(245, 130, 49)
+	table["Lime"] = Vector(191, 239, 69)
+	table["Purple"] = Vector(145, 30, 180)
+	table["Magenta"] = Vector(240, 50, 230)
+	table["Grey"] = Vector(169, 169, 169)
+	table["Apricot"] = Vector(255, 216, 177)
+	table["Beige"] = Vector(255, 250, 200)
+	table["Mint"] = Vector(170, 255, 195)
+	table["Lavender"] = Vector(230, 190, 255)
 
 	hero.patreon_emblem_color = table[args.color]
+	--save color
 end
 
 function Patreons:ToggleEmblem(args)
 	local hero = PlayerResource:GetSelectedHeroEntity(args.ID)
 	hero.patreon_emblem_enabled = args.bEmblem
+	--save enabled
 end

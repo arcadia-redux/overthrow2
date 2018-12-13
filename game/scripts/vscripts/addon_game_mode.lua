@@ -753,7 +753,7 @@ function COverthrowGameMode:BeforeMatch()
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			Patreons:SetPlayerLevel(playerId, player.patreonLevel)
 			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, player.smartRandomHeroesError)
-
+			
 			publicStats[playerId] = {
 				streak = player.streak,
 				bestStreak = player.bestStreak,
@@ -765,6 +765,7 @@ function COverthrowGameMode:BeforeMatch()
 				loses = player.loses,
 			}
 		end
+
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
 	end)
 

@@ -8,9 +8,9 @@
 	</scripts>
  	<Panel hittest="false" class="PatreonRoot">
 		<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
-		<TextButton id="PatreonButtonSmaller" onactivate="OnPatreonButtonPressed()">
+		<Button id="PatreonButtonSmaller" onactivate="OnPatreonButtonPressed()">
 			<Image src="file://{images}/custom_game/Patreon/patreon.png" />
-		</TextButton>
+		</Button>
  		<Panel hittest="true" id="PatreonWindow">
 			<Panel hittest="true" class="PatreonHeader">
 					<Button id="PatreonCloseButton" onactivate="OnPatreonButtonPressed()" class="PatreonCloseButton">
@@ -21,53 +21,48 @@
 			<Panel hittest="true" class="SupporterEmblem">
 				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="#emblem_supporter"/>
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
-				<Movie id="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" controls="full" repeat="true" autoplay="onload" />
-				<Label id="SupporterEmblemEnableDisableLabel" class="SupporterEmblemEnableDisableLabel" text="#emblem_enable"/>
-				<DropDown oninputsubmit="EnableDisableEmblem()" id="EmblemEnableDisableDropDown">
-					<Label text="Enable" id="#emblem_enable"/>
-					<Label text="Disable" id="#emblem_disable"/>
-				</DropDown>
+				<!--<Movie id="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" controls="full" repeat="true" autoplay="onload" />-->
+				<Image id="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
+				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="Enable Emblem" onactivate="ToggleEmblem()" />
 					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
 					<Panel hittest="true" class="SelectColourBackground" />
-					<Button id="ColourMaroon" onactivate="OnColourMaroonPressed()"/>
-					<Button id="ColourBrown" onactivate="OnColourBrownPressed()"/>
-					<Button id="ColourOlive" onactivate="OnColourOlivePressed()"/>
-					<Button id="ColourTeal" onactivate="OnColourTealPressed()"/>
-					<Button id="ColourNavy" onactivate="OnColourNavyPressed()"/>
-					<Button id="ColourBlack" onactivate="OnColourBlackPressed()"/>
-					<Button id="ColourRed" onactivate="OnColourRedPressed()"/>
-					<Button id="ColourOrange" onactivate="OnColourOrangePressed()"/>
-					<Button id="ColourYellow" onactivate="OnColourYellowPressed()"/>
-					<Button id="ColourLime" onactivate="OnColourLimePressed()"/>
-					<Button id="ColourGreen" onactivate="OnColourGreenPressed()"/>
-					<Button id="ColourCyan" onactivate="OnColourCyanPressed()"/>
-					<Button id="ColourBlue" onactivate="OnColourBluePressed()"/>
-					<Button id="ColourPurple" onactivate="OnColourPurplePressed()"/>
-					<Button id="ColourMagenta" onactivate="OnColourMagentaPressed()"/>
-					<Button id="ColourGrey" onactivate="OnColourGreyPressed()"/>
-					<Button id="ColourPink" onactivate="OnColourPinkPressed()"/>
-					<Button id="ColourApricot" onactivate="OnColourApricotPressed()"/>
-					<Button id="ColourBeige" onactivate="OnColourBeigePressed()"/>
-					<Button id="ColourMint" onactivate="OnColourMintPressed()"/>
-					<Button id="ColourLavender" onactivate="OnColourLavenderPressed()"/>
-					<Button id="ColourWhite" onactivate="OnColourWhitePressed()"/>
+					<Button id="ColourMaroon" onactivate="OnColourPressed('Maroon')"/>
+					<Button id="ColourBrown" onactivate="OnColourPressed('Brown')"/>
+					<Button id="ColourOlive" onactivate="OnColourPressed('Olive')"/>
+					<Button id="ColourTeal" onactivate="OnColourPressed('Teal')"/>
+					<Button id="ColourNavy" onactivate="OnColourPressed('Navy')"/>
+					<Button id="ColourBlack" onactivate="OnColourPressed('Black')"/>
+					<Button id="ColourRed" onactivate="OnColourPressed('Red')"/>
+					<Button id="ColourOrange" onactivate="OnColourPressed('Orange')"/>
+					<Button id="ColourYellow" onactivate="OnColourPressed('Yellow')"/>
+					<Button id="ColourLime" onactivate="OnColourPressed('Lime')"/>
+					<Button id="ColourGreen" onactivate="OnColourPressed('Green')"/>
+					<Button id="ColourCyan" onactivate="OnColourPressed('Cyan')"/>
+					<Button id="ColourBlue" onactivate="OnColourPressed('Blue')"/>
+					<Button id="ColourPurple" onactivate="OnColourPressed('Purple')"/>
+					<Button id="ColourMagenta" onactivate="OnColourPressed('Magenta')"/>
+					<Button id="ColourGrey" onactivate="OnColourPressed('Grey')"/>
+					<Button id="ColourPink" onactivate="OnColourPressed('Pink')"/>
+					<Button id="ColourApricot" onactivate="OnColourPressed('Apricot')"/>
+					<Button id="ColourBeige" onactivate="OnColourPressed('Beige')"/>
+					<Button id="ColourMint" onactivate="OnColourPressed('Mint')"/>
+					<Button id="ColourLavender" onactivate="OnColourPressed('Lavender')"/>
+					<Button id="ColourWhite" onactivate="OnColourPressed('White')"/>
 				<Panel hittest="true" class="Divider"/>
 			</Panel>
 			<Panel hittest="true" class="FreeBoots">
 				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="#boots_free"/>
 				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="#boots_free_description"/>
-				<Movie id="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" controls="full" repeat="true" autoplay="onload" />
-				<Label id="FreeBootsEnableDisableLabel" class="FreeBootsEnableDisableLabel" text="#boots_enable:"/>
-				<DropDown oninputsubmit="EnableDisableFreeBoots()" id="FreeBootsEnableDisableDropDown">
-					<Label text="Enable" id="#boots_enable"/>
-					<Label text="Disable" id="#boots_disable"/>
-				</DropDown>
+				<!--<Movie id="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" controls="full" repeat="true" autoplay="onload" />-->
+				<Image id="FreeBootsImage" src="file://{images}/custom_game/Patreon/boot.png" />
+				<ToggleButton id="FreeBootsEnableDisable" class="FreeBootsEnableDisableLabel" text="#boots_enable" onactivate="BootsEnableToggle()" />
 				<Panel hittest="true" class="Divider2"/>
 			</Panel>
 			<Panel hittest="true" class="RandomButton">
 				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="#random_unlimited"/>
 				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="#random_unlimited_description"/>
-				<Movie id="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" controls="full" repeat="true" autoplay="onload" />
+				<!--<Movie id="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" controls="full" repeat="true" autoplay="onload" />-->
+				<Image id="RandomButtonImage" src="file://{images}/custom_game/Patreon/random.png" />
 			</Panel>
 			<Panel hittest="true" class="PatreonFooter">	
 				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">

@@ -47,6 +47,10 @@ function modifier_donator:OnIntervalThink()
 end
 
 function modifier_donator:RefreshEffect()
+	if self:GetParent().patreon_emblem_enabled == nil then
+		self:GetParent().patreon_emblem_enabled = 0
+		return
+	end
 	if self.pfx and self:GetParent().patreon_emblem_enabled == 0 then
 		ParticleManager:DestroyParticle(self.pfx, false)
 		ParticleManager:ReleaseParticleIndex(self.pfx)
