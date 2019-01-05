@@ -51,11 +51,20 @@ function P3Click( data )
 	{
 		GameEvents.SendCustomGameEventToServer( "P3ButtonClick", {});
 	}
-	$( "#P3Button" ).AddClass( "OffP3Button" );
+}
+
+function ScheduleCheckMinimizeP3Button() {
+    if (Game.GetDOTATime(false, false) >= 180) {
+        $( "#P3Button" ).AddClass( "OffP3Button" );
+    } else {
+        $.Schedule(1, ScheduleCheckMinimizeP3Button);
+    }
 }
 
 (function()
 {
+    ScheduleCheckMinimizeP3Button();
+
 	// We use a nettable to communicate victory conditions to make sure we get the value regardless of timing.
 	SubscribeToNetTableKey("game_state", "victory_condition", function(data) {
         if (data) {
@@ -68,7 +77,7 @@ function P3Click( data )
 			var localPlayedAlreadyAddedToVictoryCondition = !!data[Game.GetLocalPlayerID()];
 
 			if (localPlayedAlreadyAddedToVictoryCondition) {
-                $( "#P3Button" ).visible = false;
+                $( "#P3Button" ).AddClass( "OffP3Button" );
 			}
 		}
 	});

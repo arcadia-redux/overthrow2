@@ -905,7 +905,6 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	local text = keys.text
 	local playerid = keys.playerid
 	if text == "-2" then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerid),"OffP3Button",{})
 		COverthrowGameMode:P3Act(playerid)
 	end
 end
