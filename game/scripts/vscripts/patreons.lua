@@ -1,8 +1,32 @@
 Patreons = Patreons or {}
 Patreons.playerLevels = Patreons.playerLevels or {}
 
-CustomGameEventManager:RegisterListener("update_emblem", Dynamic_Wrap(Patreons, "UpdateEmblem"))
-CustomGameEventManager:RegisterListener("toggle_emblem", Dynamic_Wrap(Patreons, "ToggleEmblem"))
+patreonBonsuses = patreonBonsuses or {}
+
+CustomGameEventManager:RegisterListener("patreon_update_emblem", Dynamic_Wrap(Patreons, "UpdateEmblem"))
+CustomGameEventManager:RegisterListener("patreon_toggle_emblem", Dynamic_Wrap(Patreons, "ToggleEmblem"))
+
+function GetPlayerPatreonBonuses(playerId)
+	local bonuses = patreonBonsuses[playerId]
+
+	if bonuses == nil then
+		bonuses = {
+			emblemColor = "White",
+			emblemEnabled = false,
+			bootsEnabled = Patreons:GetPlayerLevel(playerId) > 0
+		}
+
+		patreonBonsuses[playerId] = bonuses
+
+		UpdatePlayerBonuses()
+	end
+
+	return bonuses
+end
+
+function UpdatePlayerBonuses()
+	CustomNetTables:SetTableValue("game_state", "patreon_bonuses", patreonBonsuses)
+end
 
 function Patreons:SetPlayerLevel(playerId, level)
 	Patreons.playerLevels[playerId] = level
@@ -28,11 +52,6 @@ function Patreons:SendSameHeroDayMessage()
 	if Patreons.sameHeroDayHoursLeft then
 		GameRules:SendCustomMessage("Same Hero Saturday has " .. math.ceil(Patreons.sameHeroDayHoursLeft) .. " hours left. All Players have Patreon benefits today. Thanks for playing.", -1, -1)
 	end
-end
-
-function Patreons:GetPlayerBonusesEnabled(playerId)
-	local patreonBonuses = CustomNetTables:GetTableValue("game_state", "patreon_bonus") or {}
-	return patreonBonuses[playerId] ~= 0
 end
 
 function Patreons:GiveOnSpawnBonus(playerId)
@@ -65,18 +84,18 @@ function Patreons:TakeOnSpawnBonus(playerId)
 	end
 end
 
-CustomGameEventManager:RegisterListener("set_patreon_bonus", function(_, data)
+CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data)
 	local playerId = data.PlayerID
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	if not hero then return end
 
-	local enable = data.enable == 1
-	local patreonBonuses = CustomNetTables:GetTableValue("game_state", "patreon_bonus") or {}
-	local oldState = patreonBonuses[tostring(playerId)] ~= 0
-	if oldState == data.enable then return end
+	local enable = data.enabled == 1
+	local playerBonuses = GetPlayerPatreonBonuses(playerId)
+	if playerBonuses.bootsEnabled == enable then return end
 
-	patreonBonuses[tostring(playerId)] = enable
-	CustomNetTables:SetTableValue("game_state", "patreon_bonus", patreonBonuses)
+	playerBonuses.bootsEnabled = enable
+
+	UpdatePlayerBonuses()
 
 	if enable then
 		Patreons:GiveOnSpawnBonus(playerId)
@@ -87,7 +106,7 @@ end)
 
 function Patreons:UpdateEmblem(args)
 	--print("Update Emblem:", args.color)
-	local hero = PlayerResource:GetSelectedHeroEntity(args.ID)
+	local hero = PlayerResource:GetSelectedHeroEntity(args.PlayerID)
 	local table = {}
 	table["White"] = Vector(255, 255, 255)
 	table["Red"] = Vector(200, 0, 0)
@@ -113,11 +132,15 @@ function Patreons:UpdateEmblem(args)
 	table["Lavender"] = Vector(230, 190, 255)
 
 	hero.patreon_emblem_color = table[args.color]
-	--save color
+
+	GetPlayerPatreonBonuses(args.PlayerID).emblemColor = args.color
+	UpdatePlayerBonuses()
 end
 
 function Patreons:ToggleEmblem(args)
-	local hero = PlayerResource:GetSelectedHeroEntity(args.ID)
-	hero.patreon_emblem_enabled = args.bEmblem
-	--save enabled
+	local hero = PlayerResource:GetSelectedHeroEntity(args.PlayerID)
+	hero.patreon_emblem_enabled = args.enabled
+
+	GetPlayerPatreonBonuses(args.PlayerID).emblemEnabled = args.enabled
+	UpdatePlayerBonuses()
 end

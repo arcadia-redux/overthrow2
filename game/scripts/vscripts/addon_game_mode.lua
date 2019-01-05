@@ -751,13 +751,17 @@ function COverthrowGameMode:BeforeMatch()
 		local publicStats = {}
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
-			Patreons:SetPlayerLevel(playerId, player.patreonLevel)
+			local patreonLevel = player.patreonLevel
+
+			--if IsInToolsMode() then patreonLevel = 3 end
+
+			Patreons:SetPlayerLevel(playerId, patreonLevel)
 			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, player.smartRandomHeroesError)
-			
+
 			publicStats[playerId] = {
 				streak = player.streak,
 				bestStreak = player.bestStreak,
-				patreonLevel = player.patreonLevel,
+				patreonLevel = patreonLevel,
 				averageKills = player.averageKills,
 				averageDeaths = player.averageDeaths,
 				averageAssists = player.averageAssists,
@@ -907,8 +911,7 @@ function COverthrowGameMode:OnPlayerChat(keys)
 end
 
 function COverthrowGameMode:P3ButtonClick(keys)
-	local playerid = keys.playerid
-	COverthrowGameMode:P3Act(playerid)
+	COverthrowGameMode:P3Act(keys.PlayerID)
 end
 
 function COverthrowGameMode:P3Act(playerid)
@@ -918,6 +921,7 @@ function COverthrowGameMode:P3Act(playerid)
 			_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
 			self.TEAM_KILLS_TO_WIN = self.TEAM_KILLS_TO_WIN + 2
 			CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
+			CustomNetTables:SetTableValue( "game_state", "players_who_acted_on_victory_condition", p3bonus );
 			GameRules:SendCustomMessage("#time_extended", -1, 0)
 			EmitGlobalSound("Hero_Sniper.Tutorial_Intro_c")
 		end

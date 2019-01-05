@@ -4,7 +4,8 @@
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 	</styles>
  	<scripts>
-		<include src="file://{resources}/scripts/custom_game/patreon.js" />	
+		<include src="file://{resources}/scripts/custom_game/util.js" />
+		<include src="file://{resources}/scripts/custom_game/patreon.js" />
 	</scripts>
  	<Panel hittest="false" class="PatreonRoot">
 		<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
@@ -21,8 +22,8 @@
 			<Panel hittest="true" class="SupporterEmblem">
 				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="#emblem_supporter"/>
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
-				<!--<Movie id="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" controls="full" repeat="true" autoplay="onload" />-->
-				<Image id="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
+				<Image class="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
+				<MoviePanel class="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" repeat="true" autoplay="onload" />
 				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#enable_emblem" onactivate="ToggleEmblem()" />
 					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
 					<Panel hittest="true" class="SelectColourBackground" />
@@ -53,16 +54,16 @@
 			<Panel hittest="true" class="FreeBoots">
 				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="#boots_free"/>
 				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="#boots_free_description"/>
-				<!--<Movie id="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" controls="full" repeat="true" autoplay="onload" />-->
-				<Image id="FreeBootsImage" src="file://{images}/custom_game/Patreon/boot.png" />
+				<Image class="FreeBootsImage" src="file://{images}/custom_game/Patreon/boot.png" />
+				<MoviePanel class="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" repeat="true" autoplay="onload" />
 				<ToggleButton id="FreeBootsEnableDisable" class="FreeBootsEnableDisableLabel" text="#boots_enable" onactivate="BootsEnableToggle()" />
 				<Panel hittest="true" class="Divider2"/>
 			</Panel>
 			<Panel hittest="true" class="RandomButton">
 				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="#random_unlimited"/>
 				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="#random_unlimited_description"/>
-				<!--<Movie id="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" controls="full" repeat="true" autoplay="onload" />-->
-				<Image id="RandomButtonImage" src="file://{images}/custom_game/Patreon/random.png" />
+				<Image class="RandomButtonImage" src="file://{images}/custom_game/Patreon/random.png" />
+				<MoviePanel class="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" repeat="true" autoplay="onload" />
 			</Panel>
 			<Panel hittest="true" class="PatreonFooter">	
 				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">

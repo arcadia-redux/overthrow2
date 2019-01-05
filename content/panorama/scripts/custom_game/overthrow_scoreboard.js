@@ -45,31 +45,32 @@ function HideTimer( data )
 	$( "#Timer" ).AddClass( "timer_hidden" );
 }
 
-function UpdateKillsToWin()
-{
-	var victory_condition = CustomNetTables.GetTableValue( "game_state", "victory_condition" );
-	if ( victory_condition )
-	{
-		$("#VictoryPoints").text = victory_condition.kills_to_win;
-	}
-}
-
 function P3Click( data )
 {
 	if (data == true)
 	{
-		GameEvents.SendCustomGameEventToServer( "P3ButtonClick", { playerid: Players.GetLocalPlayer()} );
+		GameEvents.SendCustomGameEventToServer( "P3ButtonClick", {});
 	}
 	$( "#P3Button" ).AddClass( "OffP3Button" );
-
 }
 
 (function()
 {
 	// We use a nettable to communicate victory conditions to make sure we get the value regardless of timing.
-	UpdateKillsToWin();
-	CustomNetTables.SubscribeNetTableListener("game_state", function(_tableName, key) {
-		if (key === 'victory_condition') UpdateKillsToWin();
+	SubscribeToNetTableKey("game_state", "victory_condition", function(data) {
+        if (data) {
+            $("#VictoryPoints").text = data.kills_to_win;
+        }
+	});
+
+	SubscribeToNetTableKey("game_state", "players_who_acted_on_victory_condition", function(data) {
+		if (data) {
+			var localPlayedAlreadyAddedToVictoryCondition = !!data[Game.GetLocalPlayerID()];
+
+			if (localPlayedAlreadyAddedToVictoryCondition) {
+                $( "#P3Button" ).visible = false;
+			}
+		}
 	});
 
     GameEvents.Subscribe( "countdown", UpdateTimer );

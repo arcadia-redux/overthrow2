@@ -51,9 +51,6 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		self.countdownEnabled = true
 		CustomGameEventManager:Send_ServerToAllClients( "show_timer", {} )
 		DoEntFire( "center_experience_ring_particles", "Start", "0", 0, self, self  )
-		Timers:CreateTimer(60, function()
-			CustomGameEventManager:Send_ServerToAllClients( "MinimizePB", {} )
-		end)
 		Timers:CreateTimer(180, function()
 			CustomGameEventManager:Send_ServerToAllClients( "OffP3Button", {} )
 		end)
@@ -161,7 +158,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		spawnedUnit.firstTimeSpawned = true
 		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			local playerId = spawnedUnit:GetPlayerID()
-			if Patreons:GetPlayerBonusesEnabled(playerId) and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
+			if GetPlayerPatreonBonuses(playerId).bootsEnabled and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
 				Patreons:GiveOnSpawnBonus(playerId)
 			end
 		end, 2/30)

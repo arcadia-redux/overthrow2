@@ -88,7 +88,7 @@
 	font-weight: bold;
 	text-overflow: clip;
 }
- #SupporterEmblemImage {
+ .SupporterEmblemImage {
 	width: 218px;
 	height: 199px;
 	box-shadow: #00000044 0px 0px 8px 0px;
@@ -332,7 +332,7 @@
 	border-width: 2px;
 }
  
- #FreeBootsImage {
+ .FreeBootsImage {
 	width: 218px;
 	height: 199px;
 	box-shadow: #00000044 0px 0px 8px 0px;
@@ -377,7 +377,7 @@
 	border-color: gray;
 }
 
- #RandomButtonImage {
+ .RandomButtonImage {
 	width: 218px;
 	height: 199px;
 	box-shadow: #00000044 0px 0px 8px 0px;

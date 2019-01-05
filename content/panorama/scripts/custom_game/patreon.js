@@ -1,99 +1,88 @@
 //"use strict";
 
-var isPatreon = false;
-var toggle = false;
+var isPatron = false;
 var nowselected = $("#ColourWhite");
 
 function OnPatreonButtonPressed() {
-	var panel = $("#PatreonWindow");
+    var panel = $("#PatreonWindow");
 
-	if (toggle == false) {
-		toggle = true;
-		panel.visible = true;
-	}
-	else
-	{
-		panel.visible = false;
-		toggle = false;
-	}
+    panel.visible = !panel.visible;
 }
 
-//function ToggleEmblemDatabase() {
-//	$.AsyncWebRequest("db_url_endpoint", {
-//		type: "POST",
-//		data: {payload: JSON.stringify(payload)},
-//		success: function (data) {
-//			$.Msg("Reply: ", data)
-//			// change the stored value in db
-//			EnableEmblem();
-//		},
-//		error: function (data) {
-//			// check/uncheck the box again + send error message
-//		}
-//	});
-//}
-
 function ToggleEmblem() {
-	if ($('#SupporterEmblemEnableDisable').checked == true)
-	{
-		if (isPatreon)
-		{
-			GameEvents.SendCustomGameEventToServer("toggle_emblem", {ID: Game.GetLocalPlayerID(),bEmblem: $("#SupporterEmblemEnableDisable").checked});
-		}
-		else
-		{
-			$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
-			$('#SupporterEmblemEnableDisable').checked = false;
-		}
-	}
+    var isEnabled = !!$("#SupporterEmblemEnableDisable").checked;
+
+    if (isPatron) {
+        GameEvents.SendCustomGameEventToServer("patreon_toggle_emblem", {enabled: isEnabled});
+    } else if (isEnabled) {
+        $.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
+        $('#SupporterEmblemEnableDisable').checked = false;
+    }
 }
 
 function BootsEnableToggle() {
-	if ($('#FreeBootsEnableDisable').checked == true)
-	{
-		if (isPatreon)
-		{
-			//GameEvents.SendCustomGameEventToServer("toggle_emblem", {ID: Game.GetLocalPlayerID(),bEmblem: $("#FreeBootsEnableDisable").checked});
-		}
-		else
-		{
-			$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
-			$('#FreeBootsEnableDisable').checked = false;
-		}
-	}
+    var isEnabled = !!$("#FreeBootsEnableDisable").checked;
+
+    if (isPatron) {
+        GameEvents.SendCustomGameEventToServer("patreon_toggle_boots", { enabled: isEnabled });
+    } else if (isEnabled) {
+        $.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
+        $('#FreeBootsEnableDisable').checked = false;
+    }
+}
+
+function SelectColor(colorName) {
+    if (nowselected != $("#Colour" + colorName)) {
+        nowselected.RemoveClass("SelecetedColor");
+        $("#Colour" + colorName).AddClass("SelecetedColor");
+        nowselected = $("#Colour" + colorName);
+    }
 }
 
 function OnColourPressed(text) {
-	if (isPatreon)
-	{
-		GameEvents.SendCustomGameEventToServer("update_emblem", {ID: Game.GetLocalPlayerID(),color: text});
-		if (nowselected != $("#Colour"+text))
-		{
-			nowselected.RemoveClass("SelecetedColor");
-			$("#Colour"+text).AddClass("SelecetedColor");
-			nowselected = $("#Colour"+text);
-		}
-	}
-	else
-	{
-		$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
-	}
+    if (isPatron) {
+        GameEvents.SendCustomGameEventToServer("patreon_update_emblem", { color: text });
+
+        SelectColor(text);
+    } else {
+        $.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
+    }
 }
 
-(function() {
-	GameEvents.Subscribe("MinimizePB", function(){
-		$("#PatreonButton").visible = false;
-		$("#PatreonButtonSmaller").visible = true;
-	})
-	$("#PatreonWindow").visible = false;
-	$("#PatreonButtonSmaller").visible = false;
-	$("#PatreonButton").visible = true;
-	var patreonBonuses = CustomNetTables.GetTableValue("game_state", "player_stats");
-	var localStats = patreonBonuses[Game.GetLocalPlayerID()];
-	isPatreon = Boolean(localStats && localStats.patreonLevel);
+function ScheduleCheckMinimizePatreonButton() {
+    var buttonShouldBeMinimized = Game.GetDOTATime(false, false) > 60;
 
-	SubscribeToNetTableKey('game_state', 'player_stats', function(value) {
-		var localStats = value[Game.GetLocalPlayerID()];
-		isPatreon = Boolean(localStats && localStats.patreonLevel);
-	});
+    $("#PatreonButton").visible = !buttonShouldBeMinimized;
+    $("#PatreonButtonSmaller").visible = buttonShouldBeMinimized;
+
+    if (!buttonShouldBeMinimized) {
+        $.Schedule(1, ScheduleCheckMinimizePatreonButton);
+    }
+}
+
+(function () {
+    ScheduleCheckMinimizePatreonButton();
+
+    $("#PatreonWindow").visible = false;
+
+    SubscribeToNetTableKey("game_state", "player_stats", function (value) {
+        var localPlayerStats = value[Game.GetLocalPlayerID()];
+
+        isPatron = Optional.ofNullable(localPlayerStats)
+            .map(function(stats) { return stats.patreonLevel; })
+            .filter(function(level) { return level > 0; })
+            .isPresent();
+    });
+
+    SubscribeToNetTableKey("game_state", "patreon_bonuses", function (data) {
+        var playerBonuses = data[Game.GetLocalPlayerID()];
+
+        $.Msg(playerBonuses);
+
+        $('#FreeBootsEnableDisable').checked = !!playerBonuses.bootsEnabled;
+        $('#SupporterEmblemEnableDisable').checked = !!playerBonuses.emblemEnabled;
+
+
+        SelectColor(playerBonuses.emblemColor);
+    });
 })();
