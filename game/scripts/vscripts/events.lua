@@ -155,7 +155,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		spawnedUnit.firstTimeSpawned = true
 		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			local playerId = spawnedUnit:GetPlayerID()
-			if GetPlayerPatreonBonuses(playerId).bootsEnabled and spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
+			if spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
 				Patreons:GiveOnSpawnBonus(playerId)
 			end
 		end, 2/30)

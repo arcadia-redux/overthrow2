@@ -751,17 +751,12 @@ function COverthrowGameMode:BeforeMatch()
 		local publicStats = {}
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
-			local patreonLevel = player.patreonLevel
-
-			--if IsInToolsMode() then patreonLevel = 3 end
-
-			Patreons:SetPlayerLevel(playerId, patreonLevel)
+			Patreons:SetPlayerSettings(playerId, player.patreon)
 			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, player.smartRandomHeroesError)
 
 			publicStats[playerId] = {
 				streak = player.streak,
 				bestStreak = player.bestStreak,
-				patreonLevel = patreonLevel,
 				averageKills = player.averageKills,
 				averageDeaths = player.averageDeaths,
 				averageAssists = player.averageAssists,
@@ -810,6 +805,11 @@ function COverthrowGameMode:EndMatch(winnerTeam)
 				level = 0,
 				items = {},
 			}
+
+			local patreonSettings = Patreons:GetPlayerSettings(playerId)
+			if patreonSettings.level > 0 then
+				playerData.patreonUpdate = patreonSettings
+			end
 
 			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 			if IsValidEntity(hero) then

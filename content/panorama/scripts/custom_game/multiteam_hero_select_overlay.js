@@ -1,5 +1,6 @@
 "use strict";
 var playerStats = {};
+var playerPatreonSettings = {};
 
 function OnUpdateHeroSelection()
 {
@@ -75,10 +76,11 @@ function UpdatePlayer( teamPanel, playerId )
 	var hasStats = stats != null;
 	playerPanel.SetHasClass("has_stats", hasStats)
 	if (hasStats) {
-		playerPanel.SetHasClass('IsPatreon', stats.patreonLevel > 0);
 		var playerStreak = playerPanel.FindChildInLayoutFile( "PlayerStreak" );
 		playerStreak.text = 'Streak: ' + (stats.streak || 0) + '/' + (stats.bestStreak);
 	}
+	var patreonSettings = playerPatreonSettings[playerId];
+	playerPanel.SetHasClass('IsPatreon', Boolean(patreonSettings && patreonSettings.level >= 1));
 }
 
 function UpdateTimer()
@@ -154,16 +156,21 @@ function UpdateTimer()
 		playerStats = value;
 		OnUpdateHeroSelection();
 		var localStats = playerStats[Game.GetLocalPlayerID()];
-		root.SetHasClass('LocalPlayerPatreon', Boolean(localStats && localStats.patreonLevel));
+		if (!localStats) return;
+		$('#PlayerStatsAverageWinsLoses').text = localStats.wins + '/' + localStats.loses;
+		$('#PlayerStatsAverageKDA').text = [
+			localStats.averageKills,
+			localStats.averageDeaths,
+			localStats.averageAssists,
+		].map(Math.round).join('/');
+	});
 
-		if (localStats) {
-			$('#PlayerStatsAverageWinsLoses').text = localStats.wins + '/' + localStats.loses;
-			$('#PlayerStatsAverageKDA').text = [
-				localStats.averageKills,
-				localStats.averageDeaths,
-				localStats.averageAssists,
-			].map(Math.round).join('/');
-		}
+	SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(value) {
+		playerPatreonSettings = value;
+		OnUpdateHeroSelection();
+		var localStats = playerPatreonSettings[Game.GetLocalPlayerID()];
+		root.SetHasClass('LocalPlayerPatreon', Boolean(localStats && localStats.level));
+		$.Msg(Boolean(localStats && localStats.level))
 	});
 
 	SubscribeToNetTableKey('game_state', 'is_same_hero_day', function(value) {
@@ -187,7 +194,7 @@ function UpdateTimer()
 	inventoryStrategyControl.style.marginTop = (46 - 32) + 'px';
 
 	var patreonBonusButton = $.CreatePanel("Panel", startingItemsLeftColumn, "");
-	patreonBonusButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_patreon_bonus_button.xml", false, false)
+	patreonBonusButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_patreon_bonus_button.xml", false, true)
 	startingItemsLeftColumn.MoveChildAfter(patreonBonusButton, startingItemsLeftColumn.GetChild(0));
 })();
 

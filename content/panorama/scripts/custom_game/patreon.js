@@ -65,24 +65,15 @@ function ScheduleCheckMinimizePatreonButton() {
 
     $("#PatreonWindow").visible = false;
 
-    SubscribeToNetTableKey("game_state", "player_stats", function (value) {
-        var localPlayerStats = value[Game.GetLocalPlayerID()];
-
-        isPatron = Optional.ofNullable(localPlayerStats)
-            .map(function(stats) { return stats.patreonLevel; })
-            .filter(function(level) { return level > 0; })
-            .isPresent();
-    });
-
     SubscribeToNetTableKey("game_state", "patreon_bonuses", function (data) {
         var playerBonuses = data[Game.GetLocalPlayerID()];
+        if (!playerBonuses) return;
 
-        $.Msg(playerBonuses);
-
-        $('#FreeBootsEnableDisable').checked = !!playerBonuses.bootsEnabled;
-        $('#SupporterEmblemEnableDisable').checked = !!playerBonuses.emblemEnabled;
-
-
-        SelectColor(playerBonuses.emblemColor);
+        isPatron = playerBonuses.level > 0;
+        if (isPatron) {
+            $('#FreeBootsEnableDisable').checked = !!playerBonuses.bootsEnabled;
+            $('#SupporterEmblemEnableDisable').checked = !!playerBonuses.emblemEnabled;
+            SelectColor(playerBonuses.emblemColor);
+        }
     });
 })();

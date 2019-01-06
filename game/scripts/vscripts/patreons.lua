@@ -1,39 +1,45 @@
 Patreons = Patreons or {}
-Patreons.playerLevels = Patreons.playerLevels or {}
+Patreons.playerSettings = Patreons.playerSettings or {}
 
-patreonBonsuses = patreonBonsuses or {}
+local colorNames = {
+	White = Vector(255, 255, 255),
+	Red = Vector(200, 0, 0),
+	Green = Vector(0, 200, 0),
+	Blue = Vector(0, 0, 200),
+	Cyan = Vector(0, 200, 200),
+	Yellow = Vector(200, 200, 0),
+	Pink = Vector(200, 170, 185),
+	Maroon = Vector(128, 0, 0),
+	Brown = Vector(154, 99, 36),
+	Olive = Vector(0, 128, 128),
+	Teal = Vector(70, 153, 144),
+	Navy = Vector(0, 0, 117),
+	Black = Vector(0, 0, 0),
+	Orange = Vector(245, 130, 49),
+	Lime = Vector(191, 239, 69),
+	Purple = Vector(145, 30, 180),
+	Magenta = Vector(240, 50, 230),
+	Grey = Vector(169, 169, 169),
+	Apricot = Vector(255, 216, 177),
+	Beige = Vector(255, 250, 200),
+	Mint = Vector(170, 255, 195),
+	Lavender = Vector(230, 190, 255),
+}
 
 CustomGameEventManager:RegisterListener("patreon_update_emblem", Dynamic_Wrap(Patreons, "UpdateEmblem"))
 CustomGameEventManager:RegisterListener("patreon_toggle_emblem", Dynamic_Wrap(Patreons, "ToggleEmblem"))
 
-function GetPlayerPatreonBonuses(playerId)
-	local bonuses = patreonBonsuses[playerId]
-
-	if bonuses == nil then
-		bonuses = {
-			emblemColor = "White",
-			emblemEnabled = false,
-			bootsEnabled = Patreons:GetPlayerLevel(playerId) > 0
-		}
-
-		patreonBonsuses[playerId] = bonuses
-
-		UpdatePlayerBonuses()
-	end
-
-	return bonuses
+function Patreons:GetPlayerSettings(playerId)
+	return Patreons.playerSettings[playerId]
 end
 
-function UpdatePlayerBonuses()
-	CustomNetTables:SetTableValue("game_state", "patreon_bonuses", patreonBonsuses)
+function Patreons:GetPlayerEmblemColor(playerId)
+	return colorNames[Patreons:GetPlayerSettings(playerId).emblemColor]
 end
 
-function Patreons:SetPlayerLevel(playerId, level)
-	Patreons.playerLevels[playerId] = level
-end
-
-function Patreons:GetPlayerLevel(playerId, level)
-	return Patreons.playerLevels[playerId] or 0
+function Patreons:SetPlayerSettings(playerId, settings)
+	Patreons.playerSettings[playerId] = settings
+	CustomNetTables:SetTableValue("game_state", "patreon_bonuses", Patreons.playerSettings)
 end
 
 function Patreons:SetSameHeroDayHoursLeft(value)
@@ -56,20 +62,24 @@ end
 
 function Patreons:GiveOnSpawnBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if sameHeroDayHoursLeft == nil and Patreons:GetPlayerLevel(playerId) < 1 then return end
+	local patreonSettings = Patreons:GetPlayerSettings(playerId)
 
-	hero:AddNewModifier(hero, nil, "modifier_donator", {patron_level = Patreons:GetPlayerLevel(playerId)})
+	if patreonSettings.level >= 1 then
+		hero:AddNewModifier(hero, nil, "modifier_donator", { patron_level = patreonSettings.level })
+	end
 
-	if hero:HasItemInInventory("item_boots") then
-		hero:ModifyGold(500, false, 0)
-	else
-		hero:AddItemByName("item_boots")
+	if sameHeroDayHoursLeft or (patreonSettings.level >= 1 and patreonSettings.bootsEnabled) then
+		if hero:HasItemInInventory("item_boots") then
+			hero:ModifyGold(500, false, 0)
+		else
+			hero:AddItemByName("item_boots")
+		end
 	end
 end
 
 function Patreons:TakeOnSpawnBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if sameHeroDayHoursLeft == nil and Patreons:GetPlayerLevel(playerId) < 1 then return end
+	if Patreons:GetPlayerSettings(playerId).level < 1 then return end
 
 	if hero:HasItemInInventory("item_boots") then
 		for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
@@ -89,58 +99,37 @@ CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	if not hero then return end
 
-	local enable = data.enabled == 1
-	local playerBonuses = GetPlayerPatreonBonuses(playerId)
-	if playerBonuses.bootsEnabled == enable then return end
+	local enabled = data.enabled == 1
+	local playerBonuses = Patreons:GetPlayerSettings(playerId)
+	if playerBonuses.bootsEnabled == enabled then return end
 
-	playerBonuses.bootsEnabled = enable
+	playerBonuses.bootsEnabled = enabled
+	Patreons:SetPlayerSettings(playerId, playerBonuses)
 
-	UpdatePlayerBonuses()
-
-	if enable then
-		Patreons:GiveOnSpawnBonus(playerId)
-	else
-		Patreons:TakeOnSpawnBonus(playerId)
+	if GameRules:State_Get() < DOTA_GAMERULES_STATE_PRE_GAME then
+		if enabled then
+			Patreons:GiveOnSpawnBonus(playerId)
+		else
+			Patreons:TakeOnSpawnBonus(playerId)
+		end
 	end
 end)
 
 function Patreons:UpdateEmblem(args)
-	--print("Update Emblem:", args.color)
-	local hero = PlayerResource:GetSelectedHeroEntity(args.PlayerID)
-	local table = {}
-	table["White"] = Vector(255, 255, 255)
-	table["Red"] = Vector(200, 0, 0)
-	table["Green"] = Vector(0, 200, 0)
-	table["Blue"] = Vector(0, 0, 200)
-	table["Cyan"] = Vector(0, 200, 200)
-	table["Yellow"] = Vector(200, 200, 0)
-	table["Pink"] = Vector(200, 170, 185)
-	table["Maroon"] = Vector(128, 0, 0)
-	table["Brown"] = Vector(154, 99, 36)
-	table["Olive"] = Vector(0, 128, 128)
-	table["Teal"] = Vector(70, 153, 144)
-	table["Navy"] = Vector(0, 0, 117)
-	table["Black"] = Vector(0, 0, 0)
-	table["Orange"] = Vector(245, 130, 49)
-	table["Lime"] = Vector(191, 239, 69)
-	table["Purple"] = Vector(145, 30, 180)
-	table["Magenta"] = Vector(240, 50, 230)
-	table["Grey"] = Vector(169, 169, 169)
-	table["Apricot"] = Vector(255, 216, 177)
-	table["Beige"] = Vector(255, 250, 200)
-	table["Mint"] = Vector(170, 255, 195)
-	table["Lavender"] = Vector(230, 190, 255)
+	local playerId = args.PlayerID
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
+	if not colorNames[args.color] then return end
 
-	hero.patreon_emblem_color = table[args.color]
-
-	GetPlayerPatreonBonuses(args.PlayerID).emblemColor = args.color
-	UpdatePlayerBonuses()
+	local playerBonuses = Patreons:GetPlayerSettings(playerId)
+	playerBonuses.emblemColor = args.color
+	Patreons:SetPlayerSettings(playerId, playerBonuses)
 end
 
 function Patreons:ToggleEmblem(args)
-	local hero = PlayerResource:GetSelectedHeroEntity(args.PlayerID)
-	hero.patreon_emblem_enabled = args.enabled
+	local playerId = args.PlayerID
+	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 
-	GetPlayerPatreonBonuses(args.PlayerID).emblemEnabled = args.enabled
-	UpdatePlayerBonuses()
+	local playerBonuses = Patreons:GetPlayerSettings(playerId)
+	playerBonuses.emblemEnabled = args.enabled == 1
+	Patreons:SetPlayerSettings(playerId, playerBonuses)
 end

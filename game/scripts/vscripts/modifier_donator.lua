@@ -47,18 +47,17 @@ function modifier_donator:OnIntervalThink()
 end
 
 function modifier_donator:RefreshEffect()
-	if self:GetParent().patreon_emblem_enabled == nil then
-		self:GetParent().patreon_emblem_enabled = 0
-		return
-	end
-	if self.pfx and self:GetParent().patreon_emblem_enabled == 0 then
+	local parent = self:GetParent()
+	local playerId = parent:GetPlayerID()
+	local emblemEnabled = Patreons:GetPlayerSettings(playerId).emblemEnabled
+	if self.pfx and not emblemEnabled then
 		ParticleManager:DestroyParticle(self.pfx, false)
 		ParticleManager:ReleaseParticleIndex(self.pfx)
 		self.pfx = nil
 		return
 	end
 
-	if self.current_effect_name ~= self.effect_name or not self.pfx and self:GetParent().patreon_emblem_enabled == 1 then
+	if self.current_effect_name ~= self.effect_name or not self.pfx and emblemEnabled then
 --		print("Old Effect:", self.current_effect_name)
 --		print("Effect:", self.effect_name)
 
@@ -73,11 +72,8 @@ function modifier_donator:RefreshEffect()
 	end
 
 	if self.pfx then
-		if self:GetParent().patreon_emblem_color then
-			ParticleManager:SetParticleControl(self.pfx, 9, self:GetParent().patreon_emblem_color)
-		else
-			ParticleManager:SetParticleControl(self.pfx, 9, Vector(255, 255, 255))
-		end
+		local emblemColor = Patreons:GetPlayerEmblemColor(playerId)
+		ParticleManager:SetParticleControl(self.pfx, 9, emblemColor)
 	end
 end
 

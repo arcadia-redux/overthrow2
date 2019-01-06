@@ -17,8 +17,8 @@
 
 		function TogglePatreonBonusButton() {
 			if (!isPatreon && !isSameHeroDay) return;
-			var enable = $('#PatreonBonusButton').checked;
-			GameEvents.SendCustomGameEventToServer("set_patreon_bonus", { enable: enable } );
+			var enabled = $('#PatreonBonusButton').checked;
+			GameEvents.SendCustomGameEventToServer("patreon_toggle_boots", { enabled: enabled } );
 		}
 
 		function OnMouseOver() {
@@ -27,18 +27,21 @@
 		}
 
 		(function() {
-			var patreonBonuses = CustomNetTables.GetTableValue("game_state", "patreon_bonus");
-			$('#PatreonBonusButton').checked = !patreonBonuses || patreonBonuses[Game.GetLocalPlayerID()] !== 0;
-
 			function UpdateButtonState() {
 				if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
 				$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
 			}
 
-			SubscribeToNetTableKey('game_state', 'player_stats', function(value) {
-				var localStats = value[Game.GetLocalPlayerID()];
-				isPatreon = Boolean(localStats && localStats.patreonLevel);
+			var firstUpdate = true;
+			SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(value) {
+				var playerBonuses = value[Game.GetLocalPlayerID()];
+				if (!playerBonuses) return;
+				if (!firstUpdate) return;
+				firstUpdate = false;
+
+				isPatreon = playerBonuses.level > 0;
 				UpdateButtonState();
+				$('#PatreonBonusButton').checked = isPatreon && playerBonuses.bootsEnabled;
 			});
 
 			SubscribeToNetTableKey('game_state', 'is_same_hero_day', function(value) {
