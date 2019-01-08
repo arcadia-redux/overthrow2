@@ -26,9 +26,6 @@ local colorNames = {
 	Lavender = Vector(230, 190, 255),
 }
 
-CustomGameEventManager:RegisterListener("patreon_update_emblem", Dynamic_Wrap(Patreons, "UpdateEmblem"))
-CustomGameEventManager:RegisterListener("patreon_toggle_emblem", Dynamic_Wrap(Patreons, "ToggleEmblem"))
-
 function Patreons:GetPlayerSettings(playerId)
 	return Patreons.playerSettings[playerId]
 end
@@ -115,21 +112,18 @@ CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data
 	end
 end)
 
-function Patreons:UpdateEmblem(args)
+CustomGameEventManager:RegisterListener("patreon_update_emblem", function(_, args)
 	local playerId = args.PlayerID
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	if not colorNames[args.color] then return end
 
 	local playerBonuses = Patreons:GetPlayerSettings(playerId)
 	playerBonuses.emblemColor = args.color
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
-end
+end)
 
-function Patreons:ToggleEmblem(args)
+CustomGameEventManager:RegisterListener("patreon_toggle_emblem", function(_, args)
 	local playerId = args.PlayerID
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-
 	local playerBonuses = Patreons:GetPlayerSettings(playerId)
 	playerBonuses.emblemEnabled = args.enabled == 1
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
-end
+end)
