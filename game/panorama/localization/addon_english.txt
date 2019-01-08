@@ -76,7 +76,6 @@
 	"player_stats_wins_loses"						"Wins/Loses: "
 	"player_stats_average_kda"						"Average KDA: "
 
-	"patreon_become"								"Become a Patron"
 	"patreon_perks"									"Patreon Perks"
 	"emblem_supporter"								"Supporter Emblem"
 	"emblem_supporter_description"					"In-game particle effect that follows your player, available in multiple colours."
@@ -89,4 +88,5 @@
 	"boots_disable"									"Disable Boots"
 	"random_unlimited"								"Unlimited Random"
 	"random_unlimited_description"					"Unlock unlimited use of smart random button!"
+	"patron_become"					"Become a Patron"
 }

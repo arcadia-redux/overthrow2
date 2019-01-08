@@ -3,4 +3,18 @@
 	"smart_random_button"							"智能随机"
 	"smart_random_tooltip_ready"					"从你最常用的英雄中随机选择一个"
 	"smart_random_tooltip_cooldown"					"每24小时只能使用一次，向乱战先锋2.0捐助可以移除这个限制！"
+
+	"patreon_perks"									"Patreon Perks"
+	"emblem_supporter"								"Supporter Emblem"
+	"emblem_supporter_description"					"In-game particle effect that follows your player, available in multiple colours."
+	"emblem_enable"									"Enable Emblem:"
+	"emblem_disable"								"Disable Emblem:"
+	"color_choose"									"Choose Colour:"
+	"boots_free"									"Free Boots"
+	"boots_free_description"						"Start the game with free boots!"
+	"boots_enable"									"Enable Boots"
+	"boots_disable"									"Disable Boots"
+	"random_unlimited"								"Unlimited Random"
+	"random_unlimited_description"					"Unlock unlimited use of smart random button!"
+	"patron_become"					"Become a Patron"
 }
