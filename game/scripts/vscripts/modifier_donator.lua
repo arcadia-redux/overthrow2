@@ -2,7 +2,7 @@
 
 modifier_donator = class({})
 
-function modifier_donator:IsHidden() return false end
+function modifier_donator:IsHidden() return true end
 function modifier_donator:IsPurgable() return false end
 function modifier_donator:IsPurgeException() return false end
 function modifier_donator:RemoveOnDeath() return false end
