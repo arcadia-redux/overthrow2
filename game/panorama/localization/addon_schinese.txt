@@ -1,5 +1,8 @@
-""
+"addon"
 {
+	"Language" "schinese"
+	"Tokens"
+	{
 	"smart_random_button"							"智能随机"
 	"smart_random_tooltip_ready"					"从你最常用的英雄中随机选择一个"
 	"smart_random_tooltip_cooldown"					"每24小时只能使用一次，向乱战先锋2.0捐助可以移除这个限制！"
@@ -17,4 +20,5 @@
 	"random_unlimited"								"无限随机"
 	"random_unlimited_description"					"移除智能随机限制！"
 	"patron_become"					"成为赞助"
+	}
 }
