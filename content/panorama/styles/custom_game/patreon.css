@@ -147,7 +147,7 @@
 	margin-top: 179px;
 	margin-left: 383px;
 	border-radius: 8px;
-	
+
 }
 #ColourMaroon {
 	width: 19px;
@@ -325,13 +325,13 @@
 	margin-left: 607px;
 	border-radius: 8px;
  }
- 
+
  .SelecetedColor {
 	border-color: #292e2e;
 	border-style: solid;
 	border-width: 2px;
 }
- 
+
  .FreeBootsImage {
 	width: 218px;
 	height: 199px;
@@ -426,13 +426,13 @@
  .BecomeAPatronButton {
 	width: 218px;
 	height: 40px;
-	padding: 4px 12px 4px 12px;	
+	padding: 4px 12px 4px 12px;
 	align: center center;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #558B2F ), to( #7CB342 ) );
-	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex"); 
+	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
 	border-style: solid;
 	border-width: 0.4px;
-	border-radius: 5px; 
+	border-radius: 5px;
 	margin-left: 15px;
 }
 
@@ -487,6 +487,7 @@
 	text-transform: uppercase;
 	margin-top: 5px;
 	horizontal-align: center;
+	text-overflow: shrink;
 }
 
  #PatreonButtonSmaller {
