@@ -3,6 +3,9 @@
 	"Language" "russian"
 	"Tokens"
 	{
+	"smart_random_button"							"СЛУЧ. ИЗ ЛУЧШИХ"
+	"smart_random_tooltip_ready"					"Выбирает случайного героя из наиболее используемых вами"
+	"smart_random_tooltip_cooldown"					"Вы не можете использовать эту функцию чаще чем раз в 24 часа. Поддержите Overthrow 2.0 для того, чтобы снять это ограничение!"
 	"patreon_perks"									"Возможности для поддержавших"
 	"emblem_supporter"								"Эмблема поддержавшего"
 	"emblem_supporter_description"					"Внутриигровой эффект, который следует за вашим героем, доступный в нескольких цветах."
