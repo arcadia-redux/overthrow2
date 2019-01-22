@@ -74,23 +74,6 @@ function Patreons:GiveOnSpawnBonus(playerId)
 	end
 end
 
-function Patreons:TakeOnSpawnBonus(playerId)
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	if Patreons:GetPlayerSettings(playerId).level < 1 then return end
-
-	if hero:HasItemInInventory("item_boots") then
-		for i = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
-			local item = hero:GetItemInSlot(i)
-			if item and item:GetAbilityName() == "item_boots" then
-				UTIL_Remove(item)
-				break
-			end
-		end
-	else
-		hero:ModifyGold(-500, false, 0)
-	end
-end
-
 CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data)
 	local playerId = data.PlayerID
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
@@ -102,14 +85,6 @@ CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data
 
 	playerBonuses.bootsEnabled = enabled
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
-
-	if GameRules:State_Get() < DOTA_GAMERULES_STATE_PRE_GAME then
-		if enabled then
-			Patreons:GiveOnSpawnBonus(playerId)
-		else
-			Patreons:TakeOnSpawnBonus(playerId)
-		end
-	end
 end)
 
 CustomGameEventManager:RegisterListener("patreon_update_emblem", function(_, args)
