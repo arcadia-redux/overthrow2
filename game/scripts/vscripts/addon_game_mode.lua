@@ -943,8 +943,8 @@ function COverthrowGameMode:OnItemPurchased( keys )
 			local item = hero:GetItemInSlot(i)
 			if item ~= nil then
 				if item:GetName() == itemname then
-					hero:RemoveItem(item)
 					hero:AddItemByName(itemname)
+					hero:RemoveItem(item)
 					--print(i)
 					return
 				end
