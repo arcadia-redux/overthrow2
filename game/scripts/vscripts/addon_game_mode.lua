@@ -235,7 +235,10 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
 	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
-
+	
+	--shop hotfix
+	ListenToGameEvent('dota_item_purchased', Dynamic_Wrap(COverthrowGameMode, 'OnItemPurchased'), self)
+	
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
 	ListenToGameEvent( "dota_team_kill_credit", Dynamic_Wrap( COverthrowGameMode, 'OnTeamKillCredit' ), self )
@@ -923,6 +926,29 @@ function COverthrowGameMode:P3Act(playerid)
 			CustomNetTables:SetTableValue( "game_state", "players_who_acted_on_victory_condition", p3bonus );
 			GameRules:SendCustomMessage("#time_extended", -1, 0)
 			EmitGlobalSound("Hero_Sniper.Tutorial_Intro_c")
+		end
+	end
+end
+
+
+--shop hotfix
+function COverthrowGameMode:OnItemPurchased( keys )
+	local id = keys.PlayerID
+	if not id then return end
+	local hero = PlayerResource:GetSelectedHeroEntity(id)
+	local itemname = keys.itemname
+	--print(hero:HasAnyAvailableInventorySpace())
+	if hero:HasAnyAvailableInventorySpace() then
+		for i=9,15 do
+			local item = hero:GetItemInSlot(i)
+			if item ~= nil then
+				if item:GetName() == itemname then
+					hero:AddItemByName(itemname)
+					hero:RemoveItem(item)
+					--print(i)
+					return
+				end
+			end
 		end
 	end
 end
