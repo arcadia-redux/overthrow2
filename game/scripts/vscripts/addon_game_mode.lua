@@ -222,6 +222,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetFountainPercentageHealthRegen( 0 )
 	GameRules:GetGameModeEntity():SetFountainPercentageManaRegen( 0 )
 	GameRules:GetGameModeEntity():SetFountainConstantManaRegen( 0 )
+    GameRules:GetGameModeEntity():SetItemAddedToInventoryFilter( Dynamic_Wrap( COverthrowGameMode, "ItemAddedToInventoryFilter" ), self )
 	GameRules:GetGameModeEntity():SetExecuteOrderFilter( Dynamic_Wrap( COverthrowGameMode, "ExecuteOrderFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
@@ -925,4 +926,48 @@ function COverthrowGameMode:P3Act(playerid)
 			EmitGlobalSound("Hero_Sniper.Tutorial_Intro_c")
 		end
 	end
+end
+
+function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
+	if filterTable["item_entindex_const"] == nil then 
+		return true
+	end
+ 	if filterTable["inventory_parent_entindex_const"] == nil then
+		return true
+	end
+	local hInventoryParent = EntIndexToHScript( filterTable["inventory_parent_entindex_const"] )
+	local hItem = EntIndexToHScript( filterTable["item_entindex_const"] )
+		if hItem ~= nil and hInventoryParent ~= nil and hInventoryParent:IsRealHero() then
+		local plyID = hInventoryParent:GetPlayerID()
+		if not plyID then return true end
+		local itemName = hItem:GetName()
+		local pitems = {
+		--	"item_patreon_1",
+		--	"item_patreon_2",
+		--	"item_patreon_3",
+		--	"item_patreon_4",
+		--	"item_patreon_5",
+		--	"item_patreon_6",
+		--	"item_patreon_7",
+		--	"item_patreon_8",
+			"item_patreonbundle_1",
+			"item_patreonbundle_2"
+		}
+		local pitem = false
+		for i=1,#pitems do
+			if itemName == pitems[i] then
+				pitem = true
+				break
+			end
+		end
+		if pitem == true then
+			local psets = Patreons:GetPlayerSettings(plyID)
+			if psets.level < 1 then
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
+				UTIL_Remove(hItem)
+				return false
+			end
+		end
+	end
+	return true
 end
