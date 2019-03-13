@@ -459,4 +459,39 @@
             }
         }
     }
+    "item_banhammer"
+    {
+        "BaseClass"	"item_datadriven"
+        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityCastAnimation"			"ACT_INVALID"
+        "Model"	"models/props_gameplay/red_box.vmdl"
+        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+        "AbilityTextureName"	"custom/banhammer2"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE_STACKING"
+	    "CastFilterRejectCaster" 		"1"
+		"ItemStackable"					"1"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"1"
+		"ItemStockMax"					"2"
+		"ItemStockInitial"				"2"
+		"ItemStockTime"					"-1"
+		"IsTempestDoubleClonable"		"0"
+		"ShouldBeInitiallySuggested"	"1"
+        "ItemPurchasable"	"1"
+        "AbilityCastRange"	"999999"
+        "AbilityCastPoint"	"0"
+        "AbilityCooldown"	"0"
+        "AbilityManaCost"	"0"
+        "ItemCost"	"0"
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"	"item_patreon.lua"
+                "Function"	    "OnSpellStartBanHammer"
+            }
+        }
+    }
 }

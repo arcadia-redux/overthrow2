@@ -323,6 +323,15 @@ function COverthrowGameMode:InitGameMode()
 			end
 		end
 	end, nil)
+
+	_G.kicks = {
+		false,
+		false,
+		false,
+		false,
+		false
+	}
+	CustomGameEventManager:RegisterListener("GetKicks", Dynamic_Wrap(COverthrowGameMode, 'GetKicks'))
 end
 
 ---------------------------------------------------------------------------
@@ -968,6 +977,18 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				return false
 			end
 		end
+		if itemName == "item_banhammer" then
+			local psets = Patreons:GetPlayerSettings(plyID)
+			if psets.level < 2 then
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
+				UTIL_Remove(hItem)
+				return false
+			end
+		end
 	end
 	return true
+end
+
+function COverthrowGameMode:GetKicks( data )
+    CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.id), "setkicks", {kicks = _G.kicks})
 end
