@@ -637,9 +637,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	]]
 
 	local orderType = filterTable["order_type"]
-	if ( orderType ~= DOTA_UNIT_ORDER_PICKUP_ITEM or filterTable["issuer_player_id_const"] == -1 ) then
-		return true
-	else
+	if orderType == DOTA_UNIT_ORDER_PICKUP_ITEM and filterTable["issuer_player_id_const"] ~= -1 then
 		local item = EntIndexToHScript( filterTable["entindex_target"] )
 		local unit = EntIndexToHScript(filterTable.units["0"])
 		if not item then return true end
@@ -672,6 +670,21 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 				filterTable["position_z"] = position.z
 				filterTable["order_type"] = DOTA_UNIT_ORDER_MOVE_TO_POSITION
 				return true
+			end
+		end
+	end
+
+	
+	local playerId = filterTable.issuer_player_id_const
+	local ability = EntIndexToHScript(filterTable.entindex_ability)
+	local unit = EntIndexToHScript(filterTable.units["0"])
+
+	if unit:IsCourier() then
+		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
+			local purchaser = ability:GetPurchaser()
+			if purchaser and purchaser:GetPlayerID() ~= playerId then
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#hud_error_courier_cant_order_item" })
+				return false
 			end
 		end
 	end
