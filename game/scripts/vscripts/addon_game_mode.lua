@@ -674,10 +674,23 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		end
 	end
 
-	
+	local taget = nil
 	local playerId = filterTable.issuer_player_id_const
 	local ability = EntIndexToHScript(filterTable.entindex_ability)
 	local unit = EntIndexToHScript(filterTable.units["0"])
+
+	if filterTable.entindex_target and filterTable.entindex_target ~= 0 then
+		target = EntIndexToHScript(filterTable.entindex_target)
+	end
+
+	if ability then
+		if target then
+			if PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID()) and (ability:GetName() == "oracle_fates_edict" or ability:GetName() == "oracle_purifying_flames") then
+				DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
+				return false
+			end
+		end
+	end
 
 	if unit:IsCourier() then
 		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
