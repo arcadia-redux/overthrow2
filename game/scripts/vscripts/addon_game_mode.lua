@@ -979,43 +979,57 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 	end
 	local hInventoryParent = EntIndexToHScript( filterTable["inventory_parent_entindex_const"] )
 	local hItem = EntIndexToHScript( filterTable["item_entindex_const"] )
-		if hItem ~= nil and hInventoryParent ~= nil and hInventoryParent:IsRealHero() then
-		local plyID = hInventoryParent:GetPlayerID()
-		if not plyID then return true end
+	if hItem ~= nil and hInventoryParent ~= nil then
 		local itemName = hItem:GetName()
-		local pitems = {
-		--	"item_patreon_1",
-		--	"item_patreon_2",
-		--	"item_patreon_3",
-		--	"item_patreon_4",
-		--	"item_patreon_5",
-		--	"item_patreon_6",
-		--	"item_patreon_7",
-		--	"item_patreon_8",
-			"item_patreonbundle_1",
-			"item_patreonbundle_2"
-		}
-		local pitem = false
-		for i=1,#pitems do
-			if itemName == pitems[i] then
-				pitem = true
-				break
+		if hInventoryParent:IsRealHero() then
+			local plyID = hInventoryParent:GetPlayerID()
+			if not plyID then return true end
+			local pitems = {
+			--	"item_patreon_1",
+			--	"item_patreon_2",
+			--	"item_patreon_3",
+			--	"item_patreon_4",
+			--	"item_patreon_5",
+			--	"item_patreon_6",
+			--	"item_patreon_7",
+			--	"item_patreon_8",
+				"item_patreonbundle_1",
+				"item_patreonbundle_2"
+			}
+			local pitem = false
+			for i=1,#pitems do
+				if itemName == pitems[i] then
+					pitem = true
+					break
+				end
 			end
-		end
-		if pitem == true then
-			local psets = Patreons:GetPlayerSettings(plyID)
-			if psets.level < 1 then
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
-				UTIL_Remove(hItem)
-				return false
+			if pitem == true then
+				local psets = Patreons:GetPlayerSettings(plyID)
+				if psets.level < 1 then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
+					UTIL_Remove(hItem)
+					return false
+				end
 			end
-		end
-		if itemName == "item_banhammer" then
-			local psets = Patreons:GetPlayerSettings(plyID)
-			if psets.level < 2 then
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
-				UTIL_Remove(hItem)
-				return false
+			if itemName == "item_banhammer" then
+				local psets = Patreons:GetPlayerSettings(plyID)
+				if psets.level < 2 then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
+					UTIL_Remove(hItem)
+					return false
+				end
+			end
+		else
+			local pitems = {
+				"item_patreonbundle_1",
+				"item_patreonbundle_2",
+				"item_banhammer"
+			}
+			for i=1,#pitems do
+				if itemName == pitems[i] then
+					UTIL_Remove(hItem)
+					return false
+				end
 			end
 		end
 	end
