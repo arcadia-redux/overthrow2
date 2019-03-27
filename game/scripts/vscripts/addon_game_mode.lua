@@ -1027,8 +1027,46 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 			}
 			for i=1,#pitems do
 				if itemName == pitems[i] then
-					UTIL_Remove(hItem)
-					return false
+					local prsh = hItem:GetPurchaser()
+					if prsh ~= nil then
+						if prsh:IsRealHero() then
+							local prshID = prsh:GetPlayerID()
+							if not prshID then
+								UTIL_Remove(hItem)
+								return false
+							end
+							local psets = Patreons:GetPlayerSettings(prshID)
+							if not psets then
+								UTIL_Remove(hItem)
+								return false
+							end
+							if itemName == "item_banhammer" then
+								if psets.level < 2 then
+									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror2" })
+									UTIL_Remove(hItem)
+									return false
+								else
+									if GameRules:GetDOTATime(false,false) < 300 then
+										CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
+										UTIL_Remove(hItem)
+										return false
+									end
+								end
+							else
+								if psets.level < 1 then
+									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
+									UTIL_Remove(hItem)
+									return false
+								end
+							end
+						else
+							UTIL_Remove(hItem)
+							return false
+						end
+					else
+						UTIL_Remove(hItem)
+						return false
+					end
 				end
 			end
 		end

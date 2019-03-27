@@ -1,7 +1,7 @@
 function OnSpellStart( event )
     local caster = event.caster
     local abilityname = event.Ability
-    local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
+    --local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
     --if psets.level > 0 then
         local pa1 = caster:AddAbility(abilityname)
         pa1:SetLevel(1)
@@ -21,15 +21,17 @@ function OnSpellStartBundle( event )
     local item2 = event.Item2
     local item3 = event.Item3
     local item4 = event.Item4
-    local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
-    if psets.level > 0 then
-        ability:RemoveSelf()
-        caster:AddItemByName(item1)
-        caster:AddItemByName(item2)
-        caster:AddItemByName(item3)
-        caster:AddItemByName(item4)
-    else
-        CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(caster:GetPlayerID()), "display_custom_error", { message = "#nopatreonerror" })
+    if caster:IsRealHero() then
+        local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
+        if psets.level > 0 then
+            ability:RemoveSelf()
+            caster:AddItemByName(item1)
+            caster:AddItemByName(item2)
+            caster:AddItemByName(item3)
+            caster:AddItemByName(item4)
+        else
+            CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(caster:GetPlayerID()), "display_custom_error", { message = "#nopatreonerror" })
+        end
     end
 end
 
@@ -37,18 +39,20 @@ function OnSpellStartBanHammer( event )
     local target = event.target
     local caster = event.caster
     local ability = event.ability
-    local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
-    if psets.level > 1 then
-        if target:IsRealHero() then
-            if ability:GetCurrentCharges() > 1 then
-                ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
-            else
-                ability:RemoveSelf()
+    if caster:IsRealHero() then
+        local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
+        if psets.level > 1 then
+            if target:IsRealHero() then
+                if ability:GetCurrentCharges() > 1 then
+                    ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
+                else
+                    ability:RemoveSelf()
+                end
+                _G.kicks[target:GetPlayerID()+1] = true
+                CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(target:GetPlayerID()), "setkicks", {kicks = _G.kicks})
             end
-            _G.kicks[target:GetPlayerID()+1] = true
-            CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(target:GetPlayerID()), "setkicks", {kicks = _G.kicks})
+        else
+            CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(caster:GetPlayerID()), "display_custom_error", { message = "#nopatreonerror2" })
         end
-    else
-        CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(caster:GetPlayerID()), "display_custom_error", { message = "#nopatreonerror2" })
     end
 end
