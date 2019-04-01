@@ -60,6 +60,14 @@ end
 function COverthrowGameMode:OnNPCSpawned( event )
 	local spawnedUnit = EntIndexToHScript( event.entindex )
 	if not spawnedUnit:IsRealHero() then return end
+
+	Timers:CreateTimer(1, function()
+		if spawnedUnit:HasModifier("modifier_silencer_int_steal") then
+			spawnedUnit:RemoveModifierByName('modifier_silencer_int_steal')
+			spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_silencer_new_int_steal", {})
+		end
+	end)
+
 	if GetMapName() == "core_quartet" then
 		local sortedTeams = self:GetSortedTeams()
 		local teamNumber = spawnedUnit:GetTeam()
