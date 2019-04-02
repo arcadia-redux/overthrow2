@@ -38,7 +38,7 @@
 			<!--Settings-->
 			<Panel id="SettingsList" >
 				<Label id="SettingsListLabel" text="Balance OP heroes?" />
-				<DOTAHeroImage id="hero1" heroid="37" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:10px; margin-left:0px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>
+				<DOTAHeroImage id="hero1" heroid="37" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:10px; margin-left:0px;" onmouseover='DOTAShowTextTooltip(#warlock_balance_discr)' onmouseout='DOTAHideTextTooltip()'/>
 				<!--<DOTAHeroImage id="hero2" heroid="2" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:-54px; margin-left:121px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>
 				<DOTAHeroImage id="hero3" heroid="3" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:10px; margin-left:20px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>
 				<DOTAHeroImage id="hero4" heroid="4" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:-54px; margin-left:121px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>-->

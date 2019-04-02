@@ -234,9 +234,10 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
+	else
+		GameRules:LockCustomGameSetupTeamAssignment(true)
+		GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 	end
-	--GameRules:LockCustomGameSetupTeamAssignment(true)
-	--GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
 	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
 	CustomGameEventManager:RegisterListener("OPVote", Dynamic_Wrap(COverthrowGameMode, 'OPVote'))
