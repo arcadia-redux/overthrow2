@@ -68,6 +68,19 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		end
 	end)
 
+	if GetMapName() == "desert_octet" and spawnedUnit:GetName() == "npc_dota_hero_warlock" then
+		if spawnedUnit.firstspawn == nil then
+			spawnedUnit.firstspawn = false
+			local hMeteor = spawnedUnit:FindAbilityByName( "warlock_fatal_bonds" )
+			if hMeteor then
+				hMeteor:SetActivated( false )
+				local memberID = spawnedUnit:GetPlayerID()
+				PlayerResource:ModifyGold( memberID, 1500, true, 0 )
+				hMeteor:SetLevel( 4 )
+			end
+		end
+	end
+
 	if GetMapName() == "core_quartet" then
 		local sortedTeams = self:GetSortedTeams()
 		local teamNumber = spawnedUnit:GetTeam()
