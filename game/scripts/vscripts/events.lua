@@ -82,8 +82,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 				end
 			end
 			if yes > no then
-				spawnedUnit:RemoveAbility("warlock_fatal_bonds")
-				spawnedUnit:AddAbility("warlock_fatal_bonds_balanced")
+				print("nerf")
 			end
 		end
 	end
