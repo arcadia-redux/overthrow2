@@ -237,6 +237,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
 	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
+	CustomGameEventManager:RegisterListener("OnTimerClick", Dynamic_Wrap(COverthrowGameMode, 'OnTimerClick'))
 
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
@@ -1077,4 +1078,18 @@ end
 
 function COverthrowGameMode:GetKicks( data )
     CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.id), "setkicks", {kicks = _G.kicks})
+end
+
+msgtimer = {}
+function COverthrowGameMode:OnTimerClick(keys)
+	print(GameRules:GetGameTime())
+	if msgtimer[keys.id] ~= nil then
+		if GameRules:GetGameTime() - msgtimer[keys.id] > 3 then
+			Say(PlayerResource:GetPlayer(keys.id), keys.time, true)
+			msgtimer[keys.id] = GameRules:GetGameTime()
+		end
+	else
+		Say(PlayerResource:GetPlayer(keys.id), keys.time, true)
+		msgtimer[keys.id] = GameRules:GetGameTime()
+	end
 end

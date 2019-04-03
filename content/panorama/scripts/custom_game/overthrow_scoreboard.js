@@ -53,6 +53,14 @@ function P3Click( data )
 	}
 }
 
+function TimerClick()
+{
+	if (GameUI.IsAltDown())
+	{
+		GameEvents.SendCustomGameEventToServer( "OnTimerClick", {id: Game.GetLocalPlayerID(),time: $("#Timer").text});
+	}
+}
+
 function ScheduleCheckMinimizeP3Button() {
     if (Game.GetDOTATime(false, false) >= 180) {
         $( "#P3Button" ).AddClass( "OffP3Button" );

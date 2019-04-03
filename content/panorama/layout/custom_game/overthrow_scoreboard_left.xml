@@ -14,7 +14,7 @@
 		<Panel class="VictoryPanel">
 			<Label id="Goal" text="#Goal" />
 			<Label id="VictoryPoints" text="999" />
-			<Label id="Timer" text="--:--" />
+			<Label id="Timer" text="--:--" onactivate="TimerClick()"/>
 		</Panel>
 	</Panel>
 </root>
