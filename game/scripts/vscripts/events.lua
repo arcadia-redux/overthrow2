@@ -67,25 +67,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_silencer_new_int_steal", {})
 		end
 	end)
-	
-	if GetMapName() == "desert_octet" and spawnedUnit:GetName() == "npc_dota_hero_warlock" then
-		if spawnedUnit.firstspawn == nil then
-			spawnedUnit.firstspawn = false
-			local yes = 0
-			local no = 0
-			for i=0,PlayerResource:GetPlayerCount()-1 do
-				if _G.opvote[i] == 1 then
-					yes = yes + 1
-				end
-				if _G.opvote[i] == 0 or _G.opvote[i] == nil then
-					no = no + 1
-				end
-			end
-			if yes > no then
-				print("nerf")
-			end
-		end
-	end
 
 	if GetMapName() == "core_quartet" then
 		local sortedTeams = self:GetSortedTeams()

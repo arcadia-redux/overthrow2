@@ -3,9 +3,6 @@
 		<include src="file://{resources}/styles/dotastyles.css" />
 		<include src="file://{resources}/styles/custom_game/custom_loading_screen.css" />
 	</styles>
-    <scripts>
-		<include src="file://{resources}/scripts/custom_game/custom_loading_screen.js" />
-    </scripts>
 	<script>
 		function updateBackground() {
 			var mapName = Game.GetMapInfo().map_display_name;
@@ -34,22 +31,5 @@
 		<Panel id="TitlePanel">
 			<Label id="OverthrowTitle" text="#addon_game_name" style="" />
 		</Panel>
-		
-			<!--Settings-->
-			<Panel id="SettingsList" >
-				<Label id="SettingsListLabel" text="Balance OP heroes?" />
-				<DOTAHeroImage id="hero1" heroid="37" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:10px; margin-left:0px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>
-				<!--<DOTAHeroImage id="hero2" heroid="2" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:-54px; margin-left:121px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>
-				<DOTAHeroImage id="hero3" heroid="3" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:10px; margin-left:20px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>
-				<DOTAHeroImage id="hero4" heroid="4" heroimagestyle="landscape" style="height:54px;width:96px; margin-top:-54px; margin-left:121px;" onmouseover='DOTAShowTextTooltip(Test)' onmouseout='DOTAHideTextTooltip()'/>-->
-				<Button class="MyButton" onactivate='Vote(true)' style="height:28px;width:116px; margin-top:20px; margin-left:5px;">
-					<Label class="MyButtonLabel" text="Yes" />
-					<Label id="SchetYes" class="MyButtonSchet" text="-" />
-				</Button>
-				<Button class="MyButton" onactivate='Vote(false)' style="height:28px;width:116px; margin-top:-28px; margin-left:131px;">
-					<Label class="MyButtonLabel" text="No" />
-					<Label id="SchetNo" class="MyButtonSchet" text="-" />
-				</Button>
-			</Panel>
 	</Panel>
 </root>

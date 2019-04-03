@@ -11,8 +11,6 @@ TRUSTED_HOSTS = {
 
 _G.DISCONNECT_TIMES = {}
 
-_G.opvote = {}
-
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
 ---------------------------------------------------------------------------
@@ -235,11 +233,10 @@ function COverthrowGameMode:InitGameMode()
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 	end
-	--GameRules:LockCustomGameSetupTeamAssignment(true)
-	--GameRules:SetCustomGameSetupAutoLaunchDelay(1)
+	GameRules:LockCustomGameSetupTeamAssignment(true)
+	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
 	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
-	CustomGameEventManager:RegisterListener("OPVote", Dynamic_Wrap(COverthrowGameMode, 'OPVote'))
 
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
@@ -1080,19 +1077,4 @@ end
 
 function COverthrowGameMode:GetKicks( data )
     CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.id), "setkicks", {kicks = _G.kicks})
-end
-
-function COverthrowGameMode:OPVote(keys)
-	_G.opvote[keys.id] = keys.vote
-	local yes = 0
-	local no = 0
-	for i=0,PlayerResource:GetPlayerCount()-1 do
-		if _G.opvote[i] == 1 then
-			yes = yes + 1
-		end
-		if _G.opvote[i] == 0 then
-			no = no + 1
-		end
-	end
-    CustomGameEventManager:Send_ServerToAllClients("updatevote", {yes = yes,no = no})
 end
