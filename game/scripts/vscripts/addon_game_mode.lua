@@ -952,6 +952,16 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if text == "-2" then
 		COverthrowGameMode:P3Act(playerid)
 	end
+	if text == "-test" then
+		local hero = PlayerResource:GetSelectedHeroEntity(playerid)
+		if hero ~= nil then
+			local heroesvo = {}
+			heroesvo["npc_dota_hero_ancient_apparition"] = "ancient_apparition_appa"
+			heroesvo["npc_dota_hero_antimage"] = "antimage_anti"
+			heroesvo["npc_dota_hero_axe"] = "axe_axe"
+			EmitAnnouncerSound(heroesvo[hero:GetName()] .. "_thanks_01")
+		end
+	end
 end
 
 function COverthrowGameMode:P3ButtonClick(keys)
