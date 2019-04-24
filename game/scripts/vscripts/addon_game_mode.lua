@@ -952,14 +952,53 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if text == "-2" then
 		COverthrowGameMode:P3Act(playerid)
 	end
-	if text == "-test" then
+	if string.sub(text, 0,6) == "-test " then
+		local num = string.sub(text, 7)
+		print(num)
+		local selectedid = nil
+		local selectedstr = nil
+		if num == "1" then
+			selectedid = 1
+			selectedstr = "laugh"
+		end if num == "2" then
+			selectedid = 2
+			selectedstr = "thank"
+		end if num == "3" then
+			selectedid = 3
+			selectedstr = "deny"
+		end if num == "4" then
+			selectedid = 4
+			selectedstr = "1"
+		end if num == "5" then
+			selectedid = 5
+			selectedstr = "2"
+		end if num == "6" then
+			selectedid = 6
+			selectedstr = "3"
+		end if num == "7" then
+			selectedid = 7
+			selectedstr = "4"
+		end if num == "8" then
+			selectedid = 8
+			selectedstr = "5"
+		end
 		local hero = PlayerResource:GetSelectedHeroEntity(playerid)
-		if hero ~= nil then
-			local heroesvo = {}
-			heroesvo["npc_dota_hero_ancient_apparition"] = "ancient_apparition_appa"
-			heroesvo["npc_dota_hero_antimage"] = "antimage_anti"
-			heroesvo["npc_dota_hero_axe"] = "axe_axe"
-			EmitAnnouncerSound(heroesvo[hero:GetName()] .. "_thanks_01")
+		if hero ~= nil and selectedid ~= nil then
+			local heroesvo = {
+				{
+					"antimage_anti_laugh_01",
+					"antimage_anti_respawn_09",
+					"antimage_anti_deny_12",
+					"antimage_anti_magicuser_01",
+					"antimage_anti_ability_failure_02",
+					"antimage_anti_kill_08",
+					"antimage_anti_kill_13",
+					"antimage_anti_rare_02"
+				}
+			}
+			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
+			EmitAnnouncerSound(heroesvo[PlayerResource:GetSelectedHeroID(playerid)][selectedid])
+			Say(PlayerResource:GetPlayer(playerid), chat["dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr], true)
 		end
 	end
 end
