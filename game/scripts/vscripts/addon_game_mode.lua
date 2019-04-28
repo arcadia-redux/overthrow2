@@ -238,6 +238,7 @@ function COverthrowGameMode:InitGameMode()
 
 	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
 	CustomGameEventManager:RegisterListener("OnTimerClick", Dynamic_Wrap(COverthrowGameMode, 'OnTimerClick'))
+	CustomGameEventManager:RegisterListener("SelectVO", Dynamic_Wrap(COverthrowGameMode, 'SelectVO'))
 
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
@@ -1140,5 +1141,54 @@ function COverthrowGameMode:OnTimerClick(keys)
 	else
 		Say(PlayerResource:GetPlayer(keys.id), keys.time, true)
 		msgtimer[keys.id] = GameRules:GetGameTime()
+	end
+end
+
+function COverthrowGameMode:SelectVO(keys)
+	print(keys.num)
+	local selectedid = nil
+	local selectedstr = nil
+	if keys.num == 0 then
+		selectedid = 1
+		selectedstr = "laugh"
+	end if keys.num == 1 then
+		selectedid = 2
+		selectedstr = "thank"
+	end if keys.num == 2 then
+		selectedid = 3
+		selectedstr = "deny"
+	end if keys.num == 3 then
+		selectedid = 4
+		selectedstr = "1"
+	end if keys.num == 4 then
+		selectedid = 5
+		selectedstr = "2"
+	end if keys.num == 5 then
+		selectedid = 6
+		selectedstr = "3"
+	end if keys.num == 6 then
+		selectedid = 7
+		selectedstr = "4"
+	end if keys.num == 7 then
+		selectedid = 8
+		selectedstr = "5"
+	end
+	local hero = PlayerResource:GetSelectedHeroEntity(keys.id)
+	if hero ~= nil and selectedid ~= nil then
+		local heroesvo = {
+			{
+				"antimage_anti_laugh_01",
+				"antimage_anti_respawn_09",
+				"antimage_anti_deny_12",
+				"antimage_anti_magicuser_01",
+				"antimage_anti_ability_failure_02",
+				"antimage_anti_kill_08",
+				"antimage_anti_kill_13",
+				"antimage_anti_rare_02"
+			}
+		}
+		local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
+		EmitAnnouncerSound(heroesvo[PlayerResource:GetSelectedHeroID(keys.id)][selectedid])
+		Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr], true)
 	end
 end

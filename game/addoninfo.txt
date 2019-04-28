@@ -34,4 +34,13 @@
 	{
 					"MaxPlayers"                    "24"
 	}
+	"Default_Keys"
+	{
+		"01"
+		{
+			"Key"       "L"
+			"Command"   "+WheelButton"
+			"Name"      "CustomCommand"
+		}
+	}
 }
