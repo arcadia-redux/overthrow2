@@ -43,13 +43,16 @@ function OnSpellStartBanHammer( event )
         local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
         if psets.level > 1 then
             if target:IsRealHero() then
-                if ability:GetCurrentCharges() > 1 then
-                    ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
-                else
-                    ability:RemoveSelf()
+                local ptsets = Patreons:GetPlayerSettings(target:GetPlayerID())
+                if ptsets.level == 0 then
+                    if ability:GetCurrentCharges() > 1 then
+                        ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
+                    else
+                        ability:RemoveSelf()
+                    end
+                    _G.kicks[target:GetPlayerID()+1] = true
+                    CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(target:GetPlayerID()), "setkicks", {kicks = _G.kicks})
                 end
-                _G.kicks[target:GetPlayerID()+1] = true
-                CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(target:GetPlayerID()), "setkicks", {kicks = _G.kicks})
             end
         else
             CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(caster:GetPlayerID()), "display_custom_error", { message = "#nopatreonerror2" })
