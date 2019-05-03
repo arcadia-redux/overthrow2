@@ -24,7 +24,7 @@
 	</snippets>
 	
 	<!--<DOTAChatWheel class="Hidden" hittest="false" hittestchildren="false">-->
-	<Panel class="MyWheel">
+	<Panel hittest="false" class="MyWheel">
 			<Panel id="Wheel">
 				<Panel id="Arrow" class="Hidden" />
 				<Panel id="PointerContainer">
