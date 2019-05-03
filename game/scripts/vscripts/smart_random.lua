@@ -2,6 +2,7 @@ SmartRandom = SmartRandom or {}
 SmartRandom.SmartRandomHeroes = SmartRandom.SmartRandomHeroes or {}
 SmartRandom.AutoPickHeroes = SmartRandom.AutoPickHeroes or {}
 SmartRandom.PickReasons = SmartRandom.PickReasons or {}
+SmartRandom.BannedHeroesEventListeners = SmartRandom.BannedHeroesEventListeners or {}
 
 function SmartRandom:SetPlayerInfo(playerId, heroes, err)
 	local table = CustomNetTables:GetTableValue("game_state", "smart_random") or {}
@@ -15,20 +16,40 @@ local function getReadableHeroName(name)
 	return npc_heroes[name].workshop_guide_name or ""
 end
 
-local function pickRandomHeroFromList(playerId, list)
-	local player = PlayerResource:GetPlayer(playerId)
-	if not player then return false end
-
-	local picked = false
-	for _,v in ipairs(ShuffledList(list)) do
-		if not PlayerResource:IsHeroSelected(v) then
-			UTIL_Remove(CreateHeroForPlayer(v, player))
-			picked = true
-			break
+local function getBannedHeroes(callback)
+	-- Max safe networkable integer is 2^24
+	local eventId = RandomInt(-16777216, 16777216)
+	SmartRandom.BannedHeroesEventListeners[eventId] = callback
+	for playerId = 0, 23 do
+		local player = PlayerResource:GetPlayer(playerId)
+		if player then
+			CustomGameEventManager:Send_ServerToPlayer(player, "banned_heroes", { eventId = eventId })
 		end
 	end
+end
 
-	return picked
+local function pickRandomHeroFromList(playerId, list, callback)
+	local player = PlayerResource:GetPlayer(playerId)
+	if not player then return callback(false) end
+
+	getBannedHeroes(function(bannedHeroes)
+		for _, heroName in ipairs(ShuffledList(list)) do
+			if not PlayerResource:IsHeroSelected(heroName) and not bannedHeroes[heroName] then
+				UTIL_Remove(CreateHeroForPlayer(heroName, player))
+				return callback(true)
+			end
+		end
+
+		callback(false)
+	end)
+end
+
+function SmartRandom:ReceiveBannedHeroes(event)
+	local eventId = event.eventId
+	if SmartRandom.BannedHeroesEventListeners[eventId] then
+		SmartRandom.BannedHeroesEventListeners[eventId](event.result)
+		SmartRandom.BannedHeroesEventListeners[eventId] = nil
+	end
 end
 
 function SmartRandom:SmartRandomHero(event)
@@ -39,11 +60,13 @@ function SmartRandom:SmartRandomHero(event)
 	SmartRandom.PickReasons[playerId] = "smart-random"
 
 	EmitGlobalSound("custom.smart_random")
-	if pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {}) then
-		GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
-	else
-		PlayerResource:GetPlayer(playerId):MakeRandomHeroSelection()
-	end
+	pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {}, function(success)
+		if success then
+			GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
+		else
+			PlayerResource:GetPlayer(playerId):MakeRandomHeroSelection()
+		end
+	end)
 end
 
 function SmartRandom:PrepareAutoPick()
@@ -68,18 +91,21 @@ function SmartRandom:PrepareAutoPick()
 end
 
 function SmartRandom:AutoPick()
-	for i = 0, 23 do
-		if PlayerResource:IsValidPlayerID(i) and not PlayerResource:HasSelectedHero(i) then
-			if PlayerResource:GetPlayer(i) then
-				SmartRandom.PickReasons[i] = "auto"
-				if pickRandomHeroFromList(i, SmartRandom.AutoPickHeroes[i] or {}) then
-					GameRules:SendCustomMessage("%s1 has auto-picked " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(i)), i, -1)
-				else
-					PlayerResource:GetPlayer(i):MakeRandomHeroSelection()
-				end
+	for playerId = 0, 23 do
+		if PlayerResource:IsValidPlayerID(playerId) and not PlayerResource:HasSelectedHero(playerId) then
+			if PlayerResource:GetPlayer(playerId) then
+				SmartRandom.PickReasons[playerId] = "auto"
+				pickRandomHeroFromList(playerId, SmartRandom.AutoPickHeroes[playerId] or {}, function(success)
+					if success then
+						GameRules:SendCustomMessage("%s1 has auto-picked " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
+					else
+						PlayerResource:GetPlayer(playerId):MakeRandomHeroSelection()
+					end
+				end)
 			end
 		end
 	end
 end
 
 CustomGameEventManager:RegisterListener("smart_random_hero", Dynamic_Wrap(SmartRandom, "SmartRandomHero"))
+CustomGameEventManager:RegisterListener("banned_heroes", Dynamic_Wrap(SmartRandom, "ReceiveBannedHeroes"))

@@ -207,3 +207,25 @@ function UpdateTimer()
 	smartRandomButton = $.CreatePanel('Button', heroPickRightColumn, 'smartRandomButton');
 	smartRandomButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_smart_random.xml", false, false)
 })();
+
+function getBans() {
+	var gridCore = FindDotaHudElement("GridCore");
+	var result = {};
+	for (var child of gridCore.Children()) {
+		if (child.BHasClass("Banned")) {
+			var heroImage = child.FindChildTraverse("HeroImage");
+			if (heroImage) {
+				result['npc_dota_hero_' + heroImage.heroname] = true;
+			}
+		}
+	}
+
+	return result;
+}
+
+GameEvents.Subscribe("banned_heroes", function(event) {
+	GameEvents.SendCustomGameEventToServer("banned_heroes", {
+		eventId: event.eventId,
+		result: getBans(),
+	});
+});
