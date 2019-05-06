@@ -693,7 +693,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
 		if ability and target and unit then
-			if PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID()) and (ability:GetName() == "oracle_fates_edict" or ability:GetName() == "oracle_purifying_flames" or ability:GetName() == "wisp_tether") then
+			if PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID()) and (ability:GetName() == "oracle_fates_edict" or ability:GetName() == "oracle_purifying_flames" or ability:GetName() == "wisp_tether" or ability:GetName() == "earth_spirit_boulder_smash" or ability:GetName() == "earth_spirit_geomagnetic_grip" or ability:GetName() == "earth_spirit_petrify") then
 				DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
 				return false
 			end
