@@ -39,7 +39,7 @@
 			<Panel id="Bubble">
 				<DOTAHeroImage id="HeroImage" heroimagestyle="icon" />
 			</Panel>
-			<Panel id="PhrasesContainer">
+			<Panel hittest="false" id="PhrasesContainer">
 				<!-- Filled in dynamically with Phrase snippets -->
 			</Panel>
 	</Panel>

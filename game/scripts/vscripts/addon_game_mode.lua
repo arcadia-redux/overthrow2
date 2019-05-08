@@ -86,6 +86,12 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
+
+		
+		local heroeskv = LoadKeyValues("scripts/heroes.txt")
+		for hero, _ in pairs(heroeskv) do
+			PrecacheResource( "soundfile", "soundevents/voscripts/game_sounds_vo_"..string.sub(hero,15)..".vsndevts", context )
+		end
 end
 
 function Activate()
@@ -978,55 +984,6 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if text == "-2" then
 		COverthrowGameMode:P3Act(playerid)
 	end
-	if string.sub(text, 0,6) == "-test " then
-		local num = string.sub(text, 7)
-		print(num)
-		local selectedid = nil
-		local selectedstr = nil
-		if num == "1" then
-			selectedid = 1
-			selectedstr = "laugh"
-		end if num == "2" then
-			selectedid = 2
-			selectedstr = "thank"
-		end if num == "3" then
-			selectedid = 3
-			selectedstr = "deny"
-		end if num == "4" then
-			selectedid = 4
-			selectedstr = "1"
-		end if num == "5" then
-			selectedid = 5
-			selectedstr = "2"
-		end if num == "6" then
-			selectedid = 6
-			selectedstr = "3"
-		end if num == "7" then
-			selectedid = 7
-			selectedstr = "4"
-		end if num == "8" then
-			selectedid = 8
-			selectedstr = "5"
-		end
-		local hero = PlayerResource:GetSelectedHeroEntity(playerid)
-		if hero ~= nil and selectedid ~= nil then
-			local heroesvo = {
-				{
-					"antimage_anti_laugh_01",
-					"antimage_anti_respawn_09",
-					"antimage_anti_deny_12",
-					"antimage_anti_magicuser_01",
-					"antimage_anti_ability_failure_02",
-					"antimage_anti_kill_08",
-					"antimage_anti_kill_13",
-					"antimage_anti_rare_02"
-				}
-			}
-			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-			EmitAnnouncerSound(heroesvo[PlayerResource:GetSelectedHeroID(playerid)][selectedid])
-			Say(PlayerResource:GetPlayer(playerid), chat["dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr], true)
-		end
-	end
 end
 
 function COverthrowGameMode:P3ButtonClick(keys)
@@ -1171,36 +1128,225 @@ end
 
 function COverthrowGameMode:SelectVO(keys)
 	print(keys.num)
-	local selectedid = nil
+	local selectedid = 1
+	local selectedid2 = nil
 	local selectedstr = nil
-	if keys.num == 0 then
-		selectedid = 1
-		selectedstr = "laugh"
-	end if keys.num == 1 then
-		selectedid = 2
-		selectedstr = "thank"
-	end if keys.num == 2 then
-		selectedid = 3
-		selectedstr = "deny"
-	end if keys.num == 3 then
-		selectedid = 4
-		selectedstr = "1"
-	end if keys.num == 4 then
-		selectedid = 5
-		selectedstr = "2"
-	end if keys.num == 5 then
-		selectedid = 6
-		selectedstr = "3"
-	end if keys.num == 6 then
-		selectedid = 7
-		selectedstr = "4"
-	end if keys.num == 7 then
-		selectedid = 8
-		selectedstr = "5"
+	if keys.num >= 80 then
+		local heroeskv = LoadKeyValues("scripts/heroes.txt")
+		local heroes = {}
+		for hero, _ in pairs(heroeskv) do
+			table.insert(heroes, hero)
+		end
+		local locnum = keys.num - 80
+		local mesarrs = {
+			"_laugh",
+			"_thank",
+			"_deny",
+			"_1",
+			"_2",
+			"_3",
+			"_4",
+			"_5"
+		}
+		selectedstr = string.sub(heroes[math.floor(locnum/8)], 15)..mesarrs[math.fmod(locnum,8)+1]
+		selectedid = math.floor(locnum/8)+2
+		selectedid2 = math.fmod(locnum,8)+1
+	else
+		local mesarrs = {
+			--dp1
+			"Applause",
+			"Crash_and_Burn",
+			"Crickets",
+			"Party_Horn",
+			"Rimshot",
+			"Charge",
+			"Drum_Roll",
+			"Frog",
+			--dp2
+			"Headshake",
+			"Kiss",
+			"Ow",
+			"Snore",
+			"Bockbock",
+			"Crybaby",
+			"Trombone",
+			"Yahoo",
+			--misc
+			"",
+			"Sleighbells",
+			"Sparkling_Celebration",
+			"Greevil_Laughter",
+			"Frostivus_Magic",
+			"Ceremonial_Drums",
+			"Oink_Oink",
+			"Celebratory_Gong",
+			--en an
+			"patience",
+			"wow",
+			"all_dead",
+			"brutal",
+			"disastah",
+			"easiest_money",
+			"echo_slama_jama",
+			--en an2
+			"next_level",
+			"youre_a_hero",
+			"playing_to_win",
+			"that_was_questionable",
+			"what_just_happened",
+			"oy_oy_oy",
+			"ta_daaaa",
+			"oh_my_lord",
+			--ch an
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			--ch an2
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			"",
+			--ru an
+			"bozhe_ti_posmotri",
+			"zhil_do_konsta",
+			"ay_ay_ay",
+			"ehto_g_g",
+			"eto_prosto_netchto",
+			"krasavchik",
+			"bozhe_kak_eto_bolno",
+			--ru an2
+			"oy_oy_bezhat",
+			"eto_nenormalno",
+			"eto_sochno",
+			"",
+			"",
+			"",
+			"",
+			"",
+		}
+		selectedstr = mesarrs[keys.num]
+		selectedid2 = keys.num
 	end
-	local hero = PlayerResource:GetSelectedHeroEntity(keys.id)
-	if hero ~= nil and selectedid ~= nil then
+	if selectedstr ~= nil and selectedid2 ~= nil then
 		local heroesvo = {
+			{
+				--dp1
+				"soundboard.applause",
+				"soundboard.crash",
+				"soundboard.cricket",
+				"soundboard.party_horn",
+				"soundboard.rimshot",
+				"soundboard.charge",
+				"soundboard.drum_roll",
+				"soundboard.frog",
+				--dp2
+				"soundboard.headshake",
+				"soundboard.kiss",
+				"soundboard.ow",
+				"soundboard.snore",
+				"soundboard.bockbock",
+				"soundboard.crybaby",
+				"soundboard.sad_bone",
+				"soundboard.yahoo",
+				--misc
+				"",
+				"soundboard.sleighbells",
+				"soundboard.new_year_celebration",
+				"soundboard.greevil_laughs",
+				"soundboard.frostivus_magic",
+				"soundboard.new_year_drums",
+				"soundboard.new_year_pig",
+				"soundboard.new_year_gong",
+				--en an
+				"soundboard.patience",
+				"soundboard.wow",
+				"soundboard.all_dead",
+				"soundboard.brutal",
+				"soundboard.disastah",
+				"soundboard.easiest_money",
+				"soundboard.echo_slama_jama",
+				--en an2
+				"soundboard.next_level",
+				"soundboard.youre_a_hero",
+				"soundboard.playing_to_win",
+				"soundboard.that_was_questionable",
+				"soundboard.what_just_happened",
+				"soundboard.oy_oy_oy",
+				"soundboard.ta_daaaa",
+				"soundboard.oh_my_lord",
+				--ch an
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				--ch an2
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				--ru an
+				"soundboard.bozhe_ti_posmotri",
+				"soundboard.zhil_do_konsta",
+				"soundboard.ay_ay_ay",
+				"soundboard.ehto_g_g",
+				"soundboard.eto_prosto_netchto",
+				"soundboard.krasavchik",
+				"soundboard.bozhe_kak_eto_bolno",
+				--ru an2
+				"soundboard.oy_oy_bezhat",
+				"soundboard.eto_nenormalno",
+				"soundboard.eto_sochno",
+				"",
+				"",
+				"",
+				"",
+				"",
+			},
+			{
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				""
+			},
+			{
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				""
+			},
+			{
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				"",
+				""
+			},
 			{
 				"antimage_anti_laugh_01",
 				"antimage_anti_respawn_09",
@@ -1213,7 +1359,9 @@ function COverthrowGameMode:SelectVO(keys)
 			}
 		}
 		local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-		EmitAnnouncerSound(heroesvo[PlayerResource:GetSelectedHeroID(keys.id)][selectedid])
-		Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr], true)
+		EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+		--GameRules:SendCustomMessage("#dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr,-1,0)
+		--GameRules:SendCustomMessageToTeam("#dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr,hero:GetPlayerID(),hero:GetTeamNumber(),1)
+		Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], true)
 	end
 end
