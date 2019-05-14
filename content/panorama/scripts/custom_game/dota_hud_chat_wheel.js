@@ -1,4 +1,3 @@
-//Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)
 var heronames = new Array(
     new Array("Abaddon","Alchemist","Ancient Apparition","Anti-Mage","Arc Warden","Axe","Bane","Batrider"),
     new Array("Beastmaster","Bloodseeker","Bounty Hunter","Brewmaster","Bristleback","Broodmother","Centaur Warrunner","Chaos Knight"),
@@ -149,14 +148,14 @@ var herostartnum = 80;
 var herostartrings = 30;
 var rings = new Array(
     new Array(//0 start
-        new Array("#englishannouncer","#chineseannouncer","#russianannouncer","#more","#misc","#hero","#dotaplus2","#dotaplus"),
+        new Array("#englishannouncer","#chineseannouncer","#russianannouncer","#heroes","#misc","#hero","#dotaplus2","#dotaplus"),
         new Array(false,false,false,false,false,false,false,false),
         new Array(6,2,3,4,11,1,7,8)
     ),
     new Array(//1 hero
-        new Array("","","","","","","",""),
+        new Array("#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_laugh","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_thank","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_deny","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_1","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_2","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_3","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_4","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_5"),
         new Array(true,true,true,true,true,true,true,true),
-        new Array(0,0,0,0,0,0,0,0)
+        new Array(72,73,74,75,76,77,78,79)
     ),
     new Array(//2 chineseannouncer
         new Array("#chineseannouncer2","#","#","#","#","#","#","#"),
@@ -174,7 +173,7 @@ var rings = new Array(
         new Array(13,14,15,12,16,17,18,19)
     ),
     new Array(//5 englishannouncer2
-        new Array("#next_level","#","#","#","#","#","#","#"),
+        new Array("#next_level","#youre_a_hero","#playing_to_win","#that_was_questionable","#what_just_happened","#oy_oy_oy","#ta_daaaa","#oh_my_lord"),
         new Array(true,true,true,true,true,true,true,true),
         new Array(32,33,34,35,36,37,38,39)
     ),
@@ -209,7 +208,7 @@ var rings = new Array(
         new Array(17,18,19,20,21,22,23,24)
     ),
     new Array(//12 more2
-        new Array("#heros_m-n","#heros_n-p","#heros_p-r","#heros_w-z","#heros_s-s","#heros_s-t","#heros_t-u","#heros_u-w"),
+        new Array("#heros_m-n","#heros_n-p","#heros_p-r","#heros_s-s","#heros_s-t","#heros_t-u","#heros_u-w","#heros_w-z"),
         new Array(false,false,false,false,false,false,false,false),
         new Array(20,21,22,23,24,25,26,27)
     )
