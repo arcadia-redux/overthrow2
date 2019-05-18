@@ -144,18 +144,19 @@ var mesarrs = new Array(
     "_4",
     "_5"
  );
-var herostartnum = 80;
-var herostartrings = 30;
+var herostartnum = 110;
+var nowrings = 17;
+var herostartrings = nowrings + heronames.length + 1;
 var rings = new Array(
     new Array(//0 start
-        new Array("#englishannouncer","#chineseannouncer","#russianannouncer","#heroes","#misc","#hero","#dotaplus2","#dotaplus"),
+        new Array("#"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()),"#announcers","#sprays","#heroes","#misc","#battlepass2019","#dotaplus2","#dotaplus"),
         new Array(false,false,false,false,false,false,false,false),
-        new Array(6,2,3,4,11,1,7,8)
+        new Array(1,13,0,4,11,14,7,8)
     ),
     new Array(//1 hero
         new Array("#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_laugh","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_thank","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_deny","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_1","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_2","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_3","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_4","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_5"),
         new Array(true,true,true,true,true,true,true,true),
-        new Array(72,73,74,75,76,77,78,79)
+        new Array(herostartnum-8,herostartnum-7,herostartnum-6,herostartnum-5,herostartnum-4,herostartnum-3,herostartnum-2,herostartnum-1)
     ),
     new Array(//2 chineseannouncer
         new Array("#chineseannouncer2","#","#","#","#","#","#","#"),
@@ -170,15 +171,15 @@ var rings = new Array(
     new Array(//4 more1
         new Array("#heros_a-b","#heros_b-c","#heros_c-d","#more","#heros_d-e","#heros_e-i","#heros_j-l","#heros_l-m"),
         new Array(false,false,false,false,false,false,false,false),
-        new Array(13,14,15,12,16,17,18,19)
+        new Array(nowrings+1,nowrings+2,nowrings+3,12,nowrings+4,nowrings+5,nowrings+6,nowrings+7)
     ),
     new Array(//5 englishannouncer2
-        new Array("#next_level","#youre_a_hero","#playing_to_win","#that_was_questionable","#what_just_happened","#oy_oy_oy","#ta_daaaa","#oh_my_lord"),
+        new Array("#that_was_questionable","#playing_to_win","#what_just_happened","#looking_spicy","#no_chill","#ding_ding_ding","#absolutely_perfect","#lets_play"),
         new Array(true,true,true,true,true,true,true,true),
         new Array(32,33,34,35,36,37,38,39)
     ),
     new Array(//6 englishannouncer
-        new Array("#englishannouncer2","#patience","#wow","#all_dead","#brutal","#disastah","#easiest_money","#echo_slama_jama"),
+        new Array("#englishannouncer2","#patience","#wow","#all_dead","#brutal","#disastah","#oh_my_lord","#youre_a_hero"),
         new Array(false,true,true,true,true,true,true,true),
         new Array(5,25,26,27,28,29,30,31)
     ),
@@ -198,19 +199,44 @@ var rings = new Array(
         new Array(47,48,49,50,51,52,53,54)
     ),
     new Array(//10 russianannouncer2
-        new Array("#oy_oy_bezhat","#eto_nenormalno","#eto_sochno","","","","",""),
-        new Array(true,true,true,false,false,false,false,false),
+        new Array("#oy_oy_bezhat","#eto_nenormalno","#eto_sochno","#kreasa_kreasa","#kak_boyge_te_byechenya","#eto_ge_popayx_feeda","#da_da_da_nyet","#wot_eto_bru"),
+        new Array(false,true,true,true,true,true,true,true),
         new Array(62,63,64,65,66,67,68,69)
     ),
     new Array(//11 misc
-        new Array("#","#dota_chatwheel_message_Sleighbells","#dota_chatwheel_message_Sparkling_Celebration","#dota_chatwheel_message_Greevil_Laughter","#dota_chatwheel_message_Frostivus_Magic","#dota_chatwheel_message_Ceremonial_Drums","#dota_chatwheel_message_Oink_Oink","#dota_chatwheel_message_Celebratory_Gong"),
-        new Array(true,true,true,true,true,true,true,true),
-        new Array(17,18,19,20,21,22,23,24)
+        new Array("#dota_chatwheel_message_Celebratory_Gong","#dota_chatwheel_message_Sleighbells","#dota_chatwheel_message_Oink_Oink","#dota_chatwheel_message_Greevil_Laughter","#dota_chatwheel_message_Frostivus_Magic","#dota_chatwheel_message_Ceremonial_Drums","",""),//new Array("#","#dota_chatwheel_message_Sleighbells","#dota_chatwheel_message_Sparkling_Celebration","#dota_chatwheel_message_Greevil_Laughter","#dota_chatwheel_message_Frostivus_Magic","#dota_chatwheel_message_Ceremonial_Drums","#dota_chatwheel_message_Oink_Oink","#dota_chatwheel_message_Celebratory_Gong"),
+        new Array(true,true,true,true,true,true,false,false),
+        new Array(24,18,23,20,21,22,19,17)//new Array(17,18,19,20,21,22,23,24)
     ),
     new Array(//12 more2
         new Array("#heros_m-n","#heros_n-p","#heros_p-r","#heros_s-s","#heros_s-t","#heros_t-u","#heros_u-w","#heros_w-z"),
         new Array(false,false,false,false,false,false,false,false),
-        new Array(20,21,22,23,24,25,26,27)
+        new Array(nowrings+8,nowrings+9,nowrings+10,nowrings+11,nowrings+12,nowrings+13,nowrings+14,nowrings+15)
+    ),
+    new Array(//13 announcers
+        new Array("#englishannouncer","#chineseannouncer","#russianannouncer","","","","#epiccaster","#koreancaster"),
+        new Array(false,false,false,false,false,false,false,false),
+        new Array(6,2,3,0,0,0,15,17)
+    ),
+    new Array(//14 battlepass2019
+        new Array("#kooka_laugh","#monkey_biz","#orangutan_kiss","#skeeter","#crowd_groan","#head_bonk","#record_scratch","#ta_da"),
+        new Array(true,true,true,true,true,true,true,true),
+        new Array(70,71,72,73,74,75,76,77)
+    ),
+    new Array(//15 epiccaster
+        new Array("#epiccaster2","#easiest_money","#echo_slama_jama","#next_level","#oy_oy_oy","#ta_daaaa","#ceeb","#goodness_gracious"),
+        new Array(false,true,true,true,true,true,true,true),
+        new Array(16,78,79,80,81,82,83,84)
+    ),
+    new Array(//16 epiccaster2
+        new Array("#nakupuuu","#whats_cooking","#eughahaha","#glados_chat_21","#glados_chat_01","#glados_chat_07","#glados_chat_04",""),
+        new Array(true,true,true,true,true,true,true,false),
+        new Array(85,86,87,88,89,90,91,92)
+    ),
+    new Array(//17 koreancaster
+        new Array("#kor_yes_no","#kor_scan","#kor_immortality","#kor_roshan","#kor_yolo","#kor_million_dollar_house","",""),
+        new Array(true,true,true,true,true,true,false,false),
+        new Array(93,94,95,96,97,98,99,100)
     )
 );
 for ( var i = 0; i < heronames.length; i++ )
@@ -288,12 +314,15 @@ function OnMouseOver(num) {
             $( "#Wheel" ).RemoveClass( "ForWheel"+i );
     }
     $( "#Wheel" ).AddClass( "ForWheel"+num );
+    $("#WHTooltip").visible = rings[nowselect][1][num];
+    $("#WHTooltip").SetDialogVariableInt( "num", rings[nowselect][2][num]);
 }
 
 function OnMouseOut(num) {
     //$.Msg(num);
     $( "#WheelPointer" ).AddClass( "Hidden" );
     $( "#Arrow" ).AddClass( "Hidden" );
+    $("#WHTooltip").visible = false;
 }
 
 (function()
@@ -304,10 +333,6 @@ function OnMouseOut(num) {
     {
         $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")' />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
         $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
-        //if (i == 1 || i == 2 || i == 3)
-        //    $("#Phrase"+i).GetChild(2).AddClass("MyText1");
-        //if (i == 5 || i == 6 || i == 7)
-        //    $("#Phrase"+i).GetChild(2).AddClass("MyText2");
         $("#Phrase"+i).GetChild(0).visible = rings[0][1][i];
         $("#Phrase"+i).GetChild(2).text = $.Localize(rings[0][0][i]);
     }
@@ -316,4 +341,5 @@ function OnMouseOut(num) {
     $("#Wheel").visible = false;
     $("#Bubble").visible = false;
     $("#PhrasesContainer").visible = false;
+    $("#WHTooltip").visible = false;
 })();

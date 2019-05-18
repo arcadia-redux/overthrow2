@@ -42,6 +42,7 @@
 			<Panel hittest="false" id="PhrasesContainer">
 				<!-- Filled in dynamically with Phrase snippets -->
 			</Panel>
+			<Label id="WHTooltip" text="#whtooltip" class="MyTooltip"/>
 	</Panel>
 	<!--</DOTAChatWheel>-->
 </root>

@@ -1256,8 +1256,9 @@ function COverthrowGameMode:SelectVO(keys)
 	local selectedid = 1
 	local selectedid2 = nil
 	local selectedstr = nil
-	if keys.num >= 80 then
-		local locnum = keys.num - 80
+	local startheronums = 110
+	if keys.num >= startheronums then
+		local locnum = keys.num - startheronums
 		local mesarrs = {
 			"_laugh",
 			"_thank",
@@ -1274,7 +1275,7 @@ function COverthrowGameMode:SelectVO(keys)
 		selectedid = math.floor(locnum/8)+2
 		selectedid2 = math.fmod(locnum,8)+1
 	else
-		if keys.num < 72 then
+		if keys.num < (startheronums-8) then
 			local mesarrs = {
 				--dp1
 				"Applause",
@@ -1292,7 +1293,7 @@ function COverthrowGameMode:SelectVO(keys)
 				"Snore",
 				"Bockbock",
 				"Crybaby",
-				"Trombone",
+				"Sad_Trombone",
 				"Yahoo",
 				--misc
 				"",
@@ -1309,17 +1310,17 @@ function COverthrowGameMode:SelectVO(keys)
 				"all_dead",
 				"brutal",
 				"disastah",
-				"easiest_money",
-				"echo_slama_jama",
-				--en an2
-				"next_level",
-				"youre_a_hero",
-				"playing_to_win",
-				"that_was_questionable",
-				"what_just_happened",
-				"oy_oy_oy",
-				"ta_daaaa",
 				"oh_my_lord",
+				"youre_a_hero",
+				--en an2
+				"that_was_questionable",
+				"playing_to_win",
+				"what_just_happened",
+				"looking_spicy",
+				"no_chill",
+				"ding_ding_ding",
+				"absolutely_perfect",
+				"lets_play",
 				--ch an
 				"",
 				"",
@@ -1349,16 +1350,51 @@ function COverthrowGameMode:SelectVO(keys)
 				"oy_oy_bezhat",
 				"eto_nenormalno",
 				"eto_sochno",
+				"kreasa_kreasa",
+				"kak_boyge_te_byechenya",
+				"eto_ge_popayx_feeda",
+				"da_da_da_nyet",
+				"wot_eto_bru",
+				--bp19
+				"kooka_laugh",
+				"monkey_biz",
+				"orangutan_kiss",
+				"skeeter",
+				"crowd_groan",
+				"head_bonk",
+				"record_scratch",
+				"ta_da",
+				--epic
+				"easiest_money",
+				"echo_slama_jama",
+				"next_level",
+				"oy_oy_oy",
+				"ta_daaaa",
+				"ceeb",
+				"goodness_gracious",
+				--epic2
+				"nakupuuu",
+				"whats_cooking",
+				"eughahaha",
+				"glados_chat_21",
+				"glados_chat_01",
+				"glados_chat_07",
+				"glados_chat_04",
 				"",
-				"",
-				"",
+				--kor cas
+				"kor_yes_no",
+				"kor_scan",
+				"kor_immortality",
+				"kor_roshan",
+				"kor_yolo",
+				"kor_million_dollar_house",
 				"",
 				"",
 			}
 			selectedstr = mesarrs[keys.num]
 			selectedid2 = keys.num
 		else
-			local locnum = keys.num - 72
+			local locnum = keys.num - (startheronums-8)
 			local nowheroname = string.sub(PlayerResource:GetSelectedHeroEntity(keys.id):GetName(), 15)
 			local mesarrs = {
 				"_laugh",
@@ -1419,17 +1455,17 @@ function COverthrowGameMode:SelectVO(keys)
 				"soundboard.all_dead",
 				"soundboard.brutal",
 				"soundboard.disastah",
-				"soundboard.easiest_money",
-				"soundboard.echo_slama_jama",
-				--en an2
-				"soundboard.next_level",
-				"soundboard.youre_a_hero",
-				"soundboard.playing_to_win",
-				"soundboard.that_was_questionable",
-				"soundboard.what_just_happened",
-				"soundboard.oy_oy_oy",
-				"soundboard.ta_daaaa",
 				"soundboard.oh_my_lord",
+				"soundboard.youre_a_hero",
+				--en an2
+				"soundboard.that_was_questionable",
+				"soundboard.playing_to_win",
+				"soundboard.what_just_happened",
+				"soundboard.looking_spicy",
+				"soundboard.no_chill",
+				"soundboard.ding_ding_ding",--need fix
+				"soundboard.absolutely_perfect",
+				"soundboard.lets_play",--need fix
 				--ch an
 				"",
 				"",
@@ -1459,9 +1495,44 @@ function COverthrowGameMode:SelectVO(keys)
 				"soundboard.oy_oy_bezhat",
 				"soundboard.eto_nenormalno",
 				"soundboard.eto_sochno",
+				"soundboard.kreasa_kreasa",
+				"soundboard.kak_boyge_te_byechenya",
+				"soundboard.eto_ge_popayx_feeda",
+				"soundboard.da_da_da_nyet",
+				"soundboard.wot_eto_bru",
+				--bp19(need fix)
+				"soundboard.ti9_kooka_laugh",
+				"soundboard.ti9_monkey_biz",
+				"soundboard.ti9_orangutan_kiss",
+				"soundboard.ti9_skeeter",
+				"soundboard.ti9_crowd_groan",
+				"soundboard.ti9_head_bonk",
+				"soundboard.ti9_record_scratch",
+				"soundboard.ti9_ta_da",
+				--epic
+				"soundboard.easiest_money",
+				"soundboard.echo_slama_jama",
+				"soundboard.next_level",
+				"soundboard.oy_oy_oy",
+				"soundboard.ta_daaaa",
+				"soundboard.ceeb",--need fix
+				"soundboard.goodness_gracious",
+				--epic2
+				"soundboard.nakupuuu",
+				"soundboard.whats_cooking",
+				"soundboard.eughahaha",
+				"soundboard.glados_chat_21",--need fix
+				"soundboard.glados_chat_01",--need fix
+				"soundboard.glados_chat_07",--need fix
+				"soundboard.glados_chat_04",--need fix
 				"",
-				"",
-				"",
+				--kor cas(need fix)
+				"soundboard.kor_yes_no",
+				"soundboard.kor_scan",
+				"soundboard.kor_immortality",
+				"soundboard.kor_roshan",
+				"soundboard.kor_yolo",
+				"soundboard.kor_million_dollar_house",
 				"",
 				"",
 			},
@@ -2638,8 +2709,7 @@ function COverthrowGameMode:SelectVO(keys)
 		}
 		local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 		EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
-		--GameRules:SendCustomMessage("#dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr,-1,0)
-		--GameRules:SendCustomMessageToTeam("#dota_chatwheel_message_"..string.sub(hero:GetName(), 15).."_"..selectedstr,hero:GetPlayerID(),hero:GetTeamNumber(),1)
+		--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
 		Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], false)
 	end
 end

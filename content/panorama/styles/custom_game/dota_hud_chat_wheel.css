@@ -283,6 +283,17 @@
 	visibility: visible;
 }
 
+.MyTooltip
+{
+	horizontal-align: center;
+	vertical-align: middle;
+	font-size: 26px;
+	color: #FFFFFF;
+	font-size: 26px;
+	font-weight: bold;
+	margin-top: 400px;
+}
+
 .MyPhrases
 {
 	horizontal-align: center;
@@ -336,18 +347,6 @@
 {
 	margin-top: -59px;
 	margin-left: -200px;
-}
-
-.MyText1
-{
-	horizontal-align: left;
-	text-align: left;
-}
-
-.MyText2
-{
-	horizontal-align: right;
-	text-align: right;
 }
 
 .ForWheel0
