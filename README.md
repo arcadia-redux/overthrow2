@@ -1,6 +1,6 @@
 # overthrow 2.0
 Overthrow, but better.
-test
+
 Patreon page: https://www.patreon.com/dota2unofficial
 
 Differences from original Overthrow: https://steamcommunity.com/workshop/filedetails/discussion/1517661692/1732089092444956250/
