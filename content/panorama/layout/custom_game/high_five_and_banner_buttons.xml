@@ -1,0 +1,41 @@
+<root>
+	<styles>
+		<include src="file://{resources}/styles/custom_game/high_five_and_banner_buttons.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/high_five_and_banner_buttons.js" />
+	</scripts>
+
+	<Panel class="Hud">
+		<Button
+			id="HighFive" class="ButtonAbility"
+			onactivate="Activate( 'high_five' )"
+			onmouseover="ShowToolTip( 'high_five', 'HighFive' )"
+			onmouseout="HideToolTip( 'HighFive' )"
+		>
+
+			<Image id="Image" src="file://{images}/spellicons/consumables/high_five.png" >
+				<Panel id="Cooldown">
+					<Panel id="CooldownBackground" />
+					<Label id="CooldownText" text="0" />
+				</Panel>
+			</Image>
+		</Button>
+
+		<Button
+			id="Banner" class="ButtonAbility"
+			onactivate="Activate( 'seasonal_ti9_banner' )"
+			onmouseover="ShowToolTip( 'seasonal_ti9_banner', 'Banner' )"
+			onmouseout="HideToolTip( 'Banner' )"
+		>
+
+			<Image id="Image" src="file://{images}/spellicons/consumables/seasonal_ti9_banner.png" >
+				<Panel id="Cooldown">
+					<Panel id="CooldownBackground" />
+					<Label id="CooldownText" text="0" />
+				</Panel>
+			</Image>
+		</Button>
+	</Panel>
+</root>

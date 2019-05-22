@@ -73,5 +73,6 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/statcollection.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/patreon.xml"/>
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" /><!---->
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/high_five_and_banner.xml"/>
 	</Panel>
 </root>
