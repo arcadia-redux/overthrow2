@@ -21,9 +21,11 @@ if IsServer() then
 	function modifier_fountain_aura_effect_lua:OnIntervalThink()
 		local parent = self:GetParent()
 		if not parent:IsRealHero() then return end
-		if GetMapName() == "desert_octet" then
-			parent:SetHealth(parent:GetMaxHealth())
-			parent:SetMana(parent:GetMaxMana())
+		if GetMapName() == "desert_octet" then		
+			if parent:GetUnitName() ~= "npc_dota_hero_storm_spirit" then
+				parent:SetHealth(parent:GetMaxHealth())
+				parent:SetMana(parent:GetMaxMana())
+			end
 			parent:AddNewModifier(parent, nil, "modifier_core_spawn_movespeed",{duration = 4})
 		end
 		local hasInvulnerability = parent:HasModifier("modifier_disconnect_invulnerable")
