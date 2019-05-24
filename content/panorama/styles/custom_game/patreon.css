@@ -453,9 +453,8 @@
 
  #PatreonButton {
 	width: 244px;
-	margin-bottom: 244px;
 	height: 50px;
-	align: left bottom;
+	margin-top:60px;
 	padding: 4px 12px 4px 12px;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f96854 ), to( #f96854 ) );
 	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
@@ -468,11 +467,6 @@
 
 .MinimapExtraLarge #PatreonButton {
 	width: 280px;
-	margin-bottom: 280px;
-}
-
-.HUDFlipped #PatreonButton {
-	horizontal-align: right;
 }
 
  #PatreonButton:hover
@@ -490,12 +484,24 @@
 	text-overflow: shrink;
 }
 
- #PatreonButtonSmaller {
+ #PatreonButtonPanel {
+	margin-bottom: 244px;
+	align: left bottom;
+}
+
+.MinimapExtraLarge #PatreonButtonPanel {
+	margin-bottom: 280px;
+}
+
+.HUDFlipped #PatreonButtonPanel {
+	horizontal-align: right;
+}
+
+#PatreonButtonSmallerImage {
 	width: 70px;
 	height: 60px;
-	margin-bottom: 244px;
 	margin-left: -5px;
-	align: left bottom;
+	margin-top:60px;
 	padding: 4px 12px 4px 12px;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #052d49 ), to( #052d49 ) );
 	background-size: 100%;
@@ -506,15 +512,17 @@
 	border-radius: 5px;
 }
 
- #PatreonButtonSmaller:hover
+ #PatreonButtonSmallerImage:hover
 {
   background-color: gradient( linear, 0% 0%, 0% 100%, from( #074570 ), to( #074570 ) );
 }
 
-.MinimapExtraLarge #PatreonButtonSmaller {
-	margin-bottom: 280px;
+#VOIcon
+{
+	height:60px;
+	width:60px;
 }
 
-.HUDFlipped #PatreonButtonSmaller {
+.HUDFlipped #VOIcon {
 	horizontal-align: right;
 }

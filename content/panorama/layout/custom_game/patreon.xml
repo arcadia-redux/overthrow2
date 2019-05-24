@@ -8,10 +8,13 @@
 		<include src="file://{resources}/scripts/custom_game/patreon.js" />
 	</scripts>
  	<Panel hittest="false" class="PatreonRoot">
-		<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
-		<Button id="PatreonButtonSmaller" onactivate="OnPatreonButtonPressed()">
-			<Image src="file://{images}/custom_game/Patreon/patreon.png" />
-		</Button>
+ 		<Panel id="PatreonButtonPanel">
+			<Image id="VOIcon" src="file://{images}/custom_game/voicon.png" onmouseover='DOTAShowTextTooltip(#votooltip)' onmouseout='DOTAHideTextTooltip()'/>
+			<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
+			<Button id="PatreonButtonSmallerImage">
+				<Image src="file://{images}/custom_game/Patreon/patreon.png" onactivate="OnPatreonButtonPressed()"/>
+			</Button>
+		</Panel>
  		<Panel hittest="true" id="PatreonWindow">
 			<Panel hittest="true" class="PatreonHeader">
 					<Button id="PatreonCloseButton" onactivate="OnPatreonButtonPressed()" class="PatreonCloseButton">
