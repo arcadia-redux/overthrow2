@@ -144,14 +144,15 @@ var mesarrs = new Array(
     "_4",
     "_5"
  );
+var favourites = new Array();
 var herostartnum = 110;
-var nowrings = 17;
+var nowrings = 18;
 var herostartrings = nowrings + heronames.length + 1;
 var rings = new Array(
     new Array(//0 start
-        new Array("#"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()),"#announcers","#sprays","#heroes","#misc","#battlepass2019","#dotaplus2","#dotaplus"),
+        new Array("#"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()),"#announcers","#favourites","#heroes","#misc","#battlepass2019","#dotaplus2","#dotaplus"),
         new Array(false,false,false,false,false,false,false,false),
-        new Array(1,13,0,4,11,14,7,8)
+        new Array(1,13,18,4,11,14,7,8)
     ),
     new Array(//1 hero
         new Array("#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_laugh","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_thank","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_deny","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_1","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_2","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_3","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_4","#dota_chatwheel_label_"+Players.GetPlayerSelectedHero(Game.GetLocalPlayerID()).substring(14)+"_5"),
@@ -237,6 +238,11 @@ var rings = new Array(
         new Array("#kor_yes_no","#kor_scan","#kor_immortality","#kor_roshan","#kor_yolo","#kor_million_dollar_house","",""),
         new Array(true,true,true,true,true,true,false,false),
         new Array(93,94,95,96,97,98,99,100)
+    ),
+    new Array(//18 Favourites
+        new Array("","","","","","","",""),
+        new Array(false,false,false,false,false,false,false,false),
+        new Array(0,0,0,0,0,0,0,0)
     )
 );
 for ( var i = 0; i < heronames.length; i++ )
@@ -295,12 +301,72 @@ function OnSelect(num) {
         $("#PhrasesContainer").RemoveAndDeleteChildren();
         for ( var i = 0; i < 8; i++ )
         {
-            $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")' />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
+            var dopstr = "";
+            if (rings[newnum][1][i])
+            {
+                dopstr = " oncontextmenu='AddOnFavourites("+i+")'"
+            }
+            $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")'"+dopstr+" />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
             $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
             $("#Phrase"+i).GetChild(0).visible = rings[newnum][1][i];
             $("#Phrase"+i).GetChild(2).text = $.Localize(rings[newnum][0][i]);
         }
         nowselect = newnum;
+    }
+}
+
+function AddOnFavourites(num) {
+    if (nowselect != 18)
+    {
+        favourites.unshift(rings[nowselect][2][num]);
+        if (favourites.length > 8)
+            favourites[8] = null;
+        favourites = favourites.filter(function (el) {
+            return el != null;
+        });
+        UpdateFavourites();
+    }
+    else
+    {
+        favourites[num] = null;
+        UpdateFavourites();
+        nowselect = 0;
+        OnSelect(2);
+    }
+}
+
+function UpdateFavourites() {
+    var msg = new Array();
+    var numsb = new Array();
+    var numsi = new Array();
+    for ( var i = 0; i < 8; i++ )
+    {
+        if (favourites[i])
+        {
+            msg[i] = FindLabelByNum(favourites[i]);
+            numsi[i] = favourites[i];
+            numsb[i] = true;
+        }
+        else
+        {
+            msg[i] = "";
+            numsi[i] = 0;
+            numsb[i] = false;
+        }
+    }
+    rings[18] = new Array(msg,numsb,numsi);
+}
+
+function FindLabelByNum(num) {
+    for (var key in rings) {
+        var element = rings[key];
+        for ( var i = 0; i < 8; i++ )
+        {
+            if (element[1][i] == true && element[2][i] == num)
+            {
+                return element[0][i];
+            }
+        }
     }
 }
 
