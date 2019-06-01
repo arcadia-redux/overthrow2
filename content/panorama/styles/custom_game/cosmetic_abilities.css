@@ -1,0 +1,117 @@
+#BarOverAbilities {
+	vertical-align: bottom;
+	margin-left: 285px;
+	margin-bottom: 145px;
+	flow-children: right;
+}
+
+#BarOverAbilities.FiveAbilities {
+	margin-left: 283px;
+}
+
+.SlotOverAbility {
+	vertical-align: bottom;
+	width: 58px;
+	height: 58px;
+	margin-right: 7px;
+}
+
+.FiveAbilities .SlotOverAbility {
+	vertical-align: bottom;
+	width: 54px;
+	height: 54px;
+	margin-right: 4px;
+}
+
+#BarOverItems {
+	horizontal-align: right;
+	vertical-align: bottom;
+	margin-right: 59px;
+	margin-bottom: 145px;
+	flow-children: right;
+}
+
+.SlotOverItems {
+	vertical-align: bottom;
+	min-width: 60px;
+	min-height: 60px;
+	margin-left: 5px;
+}
+
+#Image {
+	horizontal-align: center;
+	vertical-align: bottom;
+}
+
+.SlotOverAbility #Image {
+	width: 58px;
+	height: 58px;
+}
+
+.SlotOverItems #Image {
+	width: 60px;
+	height: 60px;
+}
+
+#Cooldown {
+	width: 100%;
+	height: 100%;
+}
+
+#CooldownEffect {
+	width: 100%;
+	height: 100%;
+	background-color: rgba( 0, 0, 0, 0.85 );
+}
+
+#CooldownCountdown {
+	vertical-align: bottom;
+	padding: 0px 2px;
+	text-shadow: 2px 2px 4px 2 black;
+	font-size: 16px;
+	color: #999;
+}
+
+#Showcase {
+	horizontal-align: center;
+	vertical-align: bottom;
+	flow-children: down;
+	border-radius: 5px 5px 0px 0px;
+	width: 100%;
+	transition-property: max-height;
+	max-height: 31px;
+	transition-duration: 0.1s;
+	background-color: #263238;
+	background-image: url( "s2r://panorama/images/hud/reborn/ability_bg_psd.vtex" );
+	background-size: 500% 100%;
+}
+
+#Showcase.Open {
+	max-height: 100%;
+}
+
+#ShowcaseSignboard {
+	width: 100%;
+	height: 31px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f96854 ), to( #f96854 ) );
+	background-image: url( "s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex" );
+}
+
+#ShowcaseSignboardText {
+	color: rgb( 200, 200, 200 );
+	horizontal-align: center;
+	vertical-align: center;
+	font-size: 14px;
+}
+
+.SlotOverAbility #ImagePreview {
+	margin-top: 5px;
+	width: 65px;
+	height: 65px;
+}
+
+.SlotOverItems #ImagePreview {
+	margin-top: 5px;
+	width: 60px;
+	height: 60px;
+}
