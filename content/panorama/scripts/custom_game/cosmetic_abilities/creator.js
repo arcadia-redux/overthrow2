@@ -36,6 +36,8 @@ function HideAbilities() {
 
 		if ( COSMETIC_ABILITIES[ability_name] ) {
 			abilities[i].style.visibility = "collapse"
+		} else {
+			abilities[i].style.visibility = "visible"
 		}
 	}
 
