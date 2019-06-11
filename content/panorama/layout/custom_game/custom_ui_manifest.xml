@@ -60,6 +60,8 @@
 			}
 		}
 
+		FindDotaHudElement( "PreGame" ).FindChild( "Header" ).style.visibility = "collapse"
+
 		if (Game.IsInToolsMode())
 			$.Msg(FindDotaHudElement("PatreonButton"))
 	</script>
