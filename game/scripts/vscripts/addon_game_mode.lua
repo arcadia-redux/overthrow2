@@ -701,7 +701,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
 		if ability and target and unit then
-			if PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID()) and (ability:GetName() == "oracle_fates_edict" or ability:GetName() == "oracle_purifying_flames" or ability:GetName() == "wisp_tether" or ability:GetName() == "earth_spirit_boulder_smash" or ability:GetName() == "earth_spirit_geomagnetic_grip" or ability:GetName() == "earth_spirit_petrify") then
+			if PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID()) and (ability:GetName() == "oracle_fates_edict" or ability:GetName() == "oracle_purifying_flames" or ability:GetName() == "wisp_tether" or ability:GetName() == "earth_spirit_boulder_smash" or ability:GetName() == "earth_spirit_geomagnetic_grip" or ability:GetName() == "earth_spirit_petrify" or ability:GetName() == "troll_warlord_battle_trance") then
 				DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
 				return false
 			end
@@ -1134,6 +1134,7 @@ function COverthrowGameMode:OnTimerClick(keys)
 	end
 end
 
+votimer = {}
 function COverthrowGameMode:SelectVO(keys)
 	print(keys.num)
 	local heroes = {
@@ -1612,11 +1613,11 @@ function COverthrowGameMode:SelectVO(keys)
 				"batrider_bat_laugh_02",
 				"batrider_bat_kill_10",
 				"batrider_bat_cast_01",
-				"batrider_bat_ability_failure_03",
+				"batrider_bat_win_03",
 				"batrider_bat_battlebegins_02",
 				"batrider_bat_ability_napalm_06",
 				"batrider_bat_kill_04",
-				"batrider_bat_win_03",
+				"batrider_bat_ability_failure_03",
 				},
 				{
 				"beastmaster_beas_laugh_09",
@@ -1645,8 +1646,8 @@ function COverthrowGameMode:SelectVO(keys)
 				"bounty_hunter_bount_kill_14",
 				"bounty_hunter_bount_bottle_01",
 				"bounty_hunter_bount_ability_wind_attack_04",
-				"bounty_hunter_bount_level_09",
 				"bounty_hunter_bount_ability_track_02",
+				"bounty_hunter_bount_level_09",
 				},
 				{
 				"brewmaster_brew_laugh_07",
@@ -1665,8 +1666,8 @@ function COverthrowGameMode:SelectVO(keys)
 				"bristleback_bristle_happy_04",
 				"bristleback_bristle_deny_08",
 				"bristleback_bristle_attack_22",
-				"bristleback_bristle_spawn_03",
 				"bristleback_bristle_kill_03",
+				"bristleback_bristle_spawn_03",
 				},
 				{
 				"broodmother_broo_laugh_06",
@@ -1785,8 +1786,8 @@ function COverthrowGameMode:SelectVO(keys)
 				"disruptor_dis_respawn_10",
 				"disruptor_dis_kill_10",
 				"disruptor_dis_underattack_02",
-				"disruptor_dis_illus_02",
 				"disruptor_dis_rare_02",
+				"disruptor_dis_illus_02",
 				},
 				{
 				"doom_bringer_doom_laugh_10",
@@ -1855,8 +1856,8 @@ function COverthrowGameMode:SelectVO(keys)
 				"ember_spirit_embr_attack_06",
 				"ember_spirit_embr_kill_12",
 				"ember_spirit_embr_move_02",
-				"ember_spirit_embr_failure_02",
 				"ember_spirit_embr_rival_03",
+				"ember_spirit_embr_failure_02",
 				},
 				{
 				"enchantress_ench_laugh_05",
@@ -2071,9 +2072,9 @@ function COverthrowGameMode:SelectVO(keys)
 				{
 				"magnataur_magn_laugh_06",
 				"magnataur_magn_purch_04",
-				"magnataur_magn_failure_10",
-				"magnataur_magn_kill_01",
 				"magnataur_magn_failure_08",
+				"magnataur_magn_kill_01",
+				"magnataur_magn_failure_10",
 				"magnataur_magn_lasthit_02",
 				"magnataur_magn_failure_03",
 				"magnataur_magn_rare_05",
@@ -2122,11 +2123,11 @@ function COverthrowGameMode:SelectVO(keys)
 				"monkey_king_monkey_laugh_17",
 				"monkey_king_monkey_drop_common_01",
 				"monkey_king_monkey_regen_02",
-				"monkey_king_monkey_ability5_07",
+				"monkey_king_monkey_win_02",
 				"monkey_king_monkey_death_01",
 				"monkey_king_monkey_drop_medium_01",
 				"monkey_king_monkey_deny_brood_01",
-				"monkey_king_monkey_win_02",
+				"monkey_king_monkey_ability5_07",
 				},
 				{
 				"morphling_mrph_laugh_08",
@@ -2234,9 +2235,9 @@ function COverthrowGameMode:SelectVO(keys)
 				"pangolin_pangolin_levelup_11",
 				"pangolin_pangolin_kill_06",
 				"pangolin_pangolin_ability3_04",
-				"pangolin_pangolin_ally_09",
-				"pangolin_pangolin_doubledam_03",
 				"pangolin_pangolin_ability4_08",
+				"pangolin_pangolin_doubledam_03",
+				"pangolin_pangolin_ally_09",
 				},
 				{
 				"phantom_assassin_phass_laugh_07",
@@ -2380,8 +2381,8 @@ function COverthrowGameMode:SelectVO(keys)
 				},
 				{
 				"silencer_silen_laugh_13",
-				"silencer_silen_deny_11",
 				"silencer_silen_level_06",
+				"silencer_silen_deny_11",
 				"silencer_silen_ability_silence_05",
 				"silencer_silen_ability_failure_04",
 				"silencer_silen_ability_curse_02",
@@ -2395,8 +2396,8 @@ function COverthrowGameMode:SelectVO(keys)
 				"skywrath_mage_drag_failure_01",
 				"skywrath_mage_drag_fastres_01",
 				"skywrath_mage_drag_thanks_02",
-				"skywrath_mage_drag_cast_02",
 				"skywrath_mage_drag_inthebag_01",
+				"skywrath_mage_drag_cast_02",
 				},
 				{
 				"slardar_slar_laugh_05",
@@ -2411,12 +2412,12 @@ function COverthrowGameMode:SelectVO(keys)
 				{
 				"slark_slark_laugh_01",
 				"slark_slark_illus_02",
-				"slark_slark_happy_07",
+				"slark_slark_cast_03",
 				"slark_slark_rival_03",
 				"slark_slark_failure_05",
 				"slark_slark_kill_08",
 				"slark_slark_drop_rare_01",
-				"slark_slark_cast_03",
+				"slark_slark_happy_07",
 				},
 				{
 				"sniper_snip_laugh_08",
@@ -2444,9 +2445,9 @@ function COverthrowGameMode:SelectVO(keys)
 				"spirit_breaker_spir_ability_bash_03",
 				"spirit_breaker_spir_purch_03",
 				"spirit_breaker_spir_cast_01",
-				"spirit_breaker_spir_ability_failure_02",
-				"spirit_breaker_spir_lasthit_07",
 				"spirit_breaker_spir_lose_05",
+				"spirit_breaker_spir_lasthit_07",
+				"spirit_breaker_spir_ability_failure_02",
 				},
 				{
 				"stormspirit_ss_laugh_06",
@@ -2583,10 +2584,10 @@ function COverthrowGameMode:SelectVO(keys)
 				"undying_undying_thanks_04",
 				"undying_undying_kill_09",
 				"undying_undying_respawn_03",
-				"undying_undying_failure_02",
+				"undying_undying_gummy_vit_01",
 				"undying_undying_respawn_05",
 				"undying_undying_deny_14",
-				"undying_undying_gummy_vit_01",
+				"undying_undying_failure_02",
 				},
 				{
 				"ursa_ursa_laugh_20",
@@ -2635,8 +2636,8 @@ function COverthrowGameMode:SelectVO(keys)
 				"visage_visa_kill_13",
 				"visage_visa_failure_01",
 				"visage_visa_rival_02",
-				"visage_visa_happy_03",
 				"visage_visa_spawn_05",
+				"visage_visa_happy_03",
 				},
 				{
 				"warlock_warl_laugh_06",
@@ -2709,9 +2710,19 @@ function COverthrowGameMode:SelectVO(keys)
 				"zuus_zuus_rival_13",
 			}
 		}
-		local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-		EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
-		--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
-		Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], false)
+		if votimer[keys.id] ~= nil then
+			if GameRules:GetGameTime() - votimer[keys.id] > 5 then
+				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
+				EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
+				Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], false)
+				votimer[keys.id] = GameRules:GetGameTime()
+			end
+		else
+			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
+			EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+			Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], false)
+			votimer[keys.id] = GameRules:GetGameTime()
+		end
 	end
 end

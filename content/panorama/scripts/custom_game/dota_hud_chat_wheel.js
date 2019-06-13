@@ -201,7 +201,7 @@ var rings = new Array(
     ),
     new Array(//10 russianannouncer2
         new Array("#oy_oy_bezhat","#eto_nenormalno","#eto_sochno","#kreasa_kreasa","#kak_boyge_te_byechenya","#eto_ge_popayx_feeda","#da_da_da_nyet","#wot_eto_bru"),
-        new Array(false,true,true,true,true,true,true,true),
+        new Array(true,true,true,true,true,true,true,true),
         new Array(62,63,64,65,66,67,68,69)
     ),
     new Array(//11 misc
@@ -240,7 +240,7 @@ var rings = new Array(
         new Array(93,94,95,96,97,98,99,100)
     ),
     new Array(//18 Favourites
-        new Array("","","","","","","",""),
+        new Array("#whtooltipff","","","","","","",""),
         new Array(false,false,false,false,false,false,false,false),
         new Array(0,0,0,0,0,0,0,0)
     )
@@ -276,6 +276,7 @@ function StopWheel() {
     $("#Wheel").visible = false;
     $("#Bubble").visible = false;
     $("#PhrasesContainer").visible = false;
+    $("#WHTooltip").visible = false;
     if (nowselect != 0)
     {
         $("#PhrasesContainer").RemoveAndDeleteChildren();
@@ -380,6 +381,7 @@ function OnMouseOver(num) {
             $( "#Wheel" ).RemoveClass( "ForWheel"+i );
     }
     $( "#Wheel" ).AddClass( "ForWheel"+num );
+    $.Msg($.Localize("#whsoundtooltip"));
     $("#WHTooltip").visible = rings[nowselect][1][num];
     $("#WHTooltip").SetDialogVariableInt( "num", rings[nowselect][2][num]);
 }
