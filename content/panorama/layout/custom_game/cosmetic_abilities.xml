@@ -8,6 +8,20 @@
 	</scripts>
 
 	<Panel style="width: 100%; height: 100%;" hittest="false">
+		<Panel id="CosmeticMenu">
+			<Button id="CosmeticMenuButton" onactivate="ToggleCosmeticMenu()">
+				<Label id="CosmeticMenuButtonText" text="Cosmetic" />
+			</Button>
+			<Panel id="CosmeticMenuMain">
+				<Panel id="CosmeticContainer">
+					<Panel id="AnimationPanel">
+						<Panel id="AnimationContainer"></Panel>
+						<Panel id="BorderAnimation" />
+					</Panel>
+					<Panel id="CosmeticAbilitiesContainer"></Panel>
+				</Panel>
+			</Panel>
+		</Panel>
 		<Panel id="BarOverAbilities" hittest="false">
 		</Panel>
 		<Panel id="BarOverItems" hittest="false">

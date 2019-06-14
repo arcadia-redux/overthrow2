@@ -1,86 +1,61 @@
-var images = {
-	"high_five": "file://{images}/spellicons/consumables/high_five.png",
-	"seasonal_ti9_banner": "file://{images}/spellicons/consumables/seasonal_ti9_banner.png",
-	"seasonal_summon_cny_balloon": "file://{images}/spellicons/consumables/seasonal_summon_cny_balloon.png",
-	"seasonal_summon_dragon": "file://{images}/spellicons/consumables/seasonal_summon_dragon.png",
-	"seasonal_summon_cny_tree": "file://{images}/spellicons/consumables/seasonal_summon_cny_tree.png",
-	"seasonal_firecrackers": "file://{images}/spellicons/consumables/seasonal_firecrackers.png",
-}
+var IMAGES = {}
 var cosmeticAbilities = {
 	"high_five": true,
 	"seasonal_ti9_banner": true,
-
 	"seasonal_summon_cny_balloon": true,
 	"seasonal_summon_dragon": true,
 	"seasonal_summon_cny_tree": true,
-	"seasonal_firecrackers": true
+	"seasonal_firecrackers": true,
+	"seasonal_ti9_shovel": true,
+	"seasonal_ti9_instruments": true,
+	"seasonal_ti9_monkey": true,
+	"seasonal_summon_ti9_balloon": true,
+	"seasonal_throw_snowball": true,
+	"seasonal_festive_firework": true,
+	"seasonal_decorate_tree": true,
+	"seasonal_summon_snowman": true
 }
 var permanentAbilitySlots = {
 	"high_five": 4,
 	"seasonal_ti9_banner": 5
 }
-var abilitiesInShowcase = [
+var abilitiesToTake = [
 	"seasonal_summon_cny_balloon",
 	"seasonal_summon_dragon",
 	"seasonal_summon_cny_tree",
-	"seasonal_firecrackers"
+	"seasonal_firecrackers",
+	"seasonal_ti9_shovel",
+	"seasonal_ti9_instruments",
+	"seasonal_ti9_monkey",
+	"seasonal_summon_ti9_balloon",
+	"seasonal_throw_snowball",
+	"seasonal_festive_firework",
+	"seasonal_decorate_tree",
+	"seasonal_summon_snowman"
 ]
+var ABILITIES_CANT_BE_REMOVED = {
+	"high_five": true,
+	"seasonal_ti9_banner": true,
+}
 var showcaseAbilitiesSlot = 6
+
 var slots = []
 
 var currentUnit = null
 var currentAbilitiesCount = 0
+var animation = null
 
-function AbilityToTake( showcase, abilityName ) {
-	this.abilityName = abilityName
-
-	this.image = $.CreatePanel( "Image", showcase.showcase, "ImagePreview" )
-	this.image.SetImage( images[abilityName] )
-
-	this.image.SetPanelEvent( "onactivate", function() {
-		if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
-			GameEvents.SendCustomGameEventToServer( "cosmetic_abilities_take", { unit: currentUnit, ability: abilityName } )
-		}
-	} )
-
-	var panel = this.image
-
-	this.image.SetPanelEvent( "onmouseover", function() {
-		$.DispatchEvent( "DOTAShowAbilityTooltip", panel, abilityName )
-	} )
-	this.image.SetPanelEvent( "onmouseout", function() {
-		$.DispatchEvent( "DOTAHideAbilityTooltip", panel )
-	} )
-}
-
-function ShowcaseAbilities( slot ) {
-	this.showcase = $.CreatePanel( "Panel", slot.panel, "Showcase" )
-	this.showcaseSignboard = $.CreatePanel( "Button", this.showcase, "ShowcaseSignboard" )
-	this.showcaseSignboardText = $.CreatePanel( "Label", this.showcaseSignboard, "ShowcaseSignboardText" )
-	this.showcaseSignboardText.text = "Cosmetic"
-
-	var showcase = this.showcase 
-
-	this.showcaseSignboard.SetPanelEvent( "onactivate", function() {
-		showcase.ToggleClass( "Open" )
-	} )
-
-	this.abilities = []
-
-	for ( var i = 0; i < abilitiesInShowcase.length; i++ ) {
-		this.abilities[i] = new AbilityToTake( this, abilitiesInShowcase[i] )
-	}
-
-	this.Delete = function() {
-		this.showcase.DeleteAsync( 0 )
-	}
+function ToggleCosmeticMenu() {
+	$.GetContextPanel().ToggleClass( "Open" )
 }
 
 function Ability( slot, abilityName ) {
 	this.abilityName = abilityName
 
+	var image_path = IMAGES[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png"
+
 	this.image = $.CreatePanel( "Image", slot.panel, "Image" )
-	this.image.SetImage( images[abilityName] )
+	this.image.SetImage( image_path )
 
 	this.image.SetPanelEvent( "onactivate", function() {
 		if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
@@ -105,8 +80,18 @@ function Ability( slot, abilityName ) {
 
 	this.cooldown = $.CreatePanel( "Panel", this.image, "Cooldown" )
 	this.cooldownEffect = $.CreatePanel( "Panel", this.cooldown, "CooldownEffect" )
-	this.cooldownEffect.style["opacity-mask"] = "url( '" + images[abilityName] + "' )"
+	this.cooldownEffect.style["opacity-mask"] = "url( '" + image_path + "' )"
 	this.cooldownCountdown = $.CreatePanel( "Label", this.cooldown, "CooldownCountdown" )
+
+	if ( !ABILITIES_CANT_BE_REMOVED[abilityName] ) {
+		var deleteButton = $.CreatePanel( "Button", this.image, "DeleteButton" )
+
+		deleteButton.SetPanelEvent( "onactivate", function() {
+			if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
+				GameEvents.SendCustomGameEventToServer( "cosmetic_abilities_delete", { unit: currentUnit, ability: abilityName } )
+			}
+		} )
+	} 
 
 	this.Update = function() {
 		var ability = Entities.GetAbilityByName( currentUnit, this.abilityName )
@@ -187,9 +172,10 @@ function Reload() {
 		}
 	}
 
-	if ( Entities.IsRealHero( currentUnit ) && showcaseAbilitiesSlot ) {
-		var slot = slots[showcaseAbilitiesSlot]
-		slot.AddContent( new ShowcaseAbilities( slot ) )
+	if ( Entities.IsRealHero( currentUnit ) ) {
+		$( "#CosmeticMenu" ).style.visibility = "visible"
+	} else {
+		$( "#CosmeticMenu" ).style.visibility = "collapse"
 	}
 
 	if ( visible_abilities > 4 ) {
@@ -224,3 +210,45 @@ for ( var i = 0; i < 7; i++ ) {
 GameEvents.Subscribe( "cosmetic_abilities_reload_hud", Reload )
 
 Update()
+
+function CreateAbilityToTake( row, abilityName ) {
+	var image = $.CreatePanel( "Image", row, "ImagePreview" )
+	image.SetImage( IMAGES[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
+
+	image.SetPanelEvent( "onactivate", function() {
+		if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
+			GameEvents.SendCustomGameEventToServer( "cosmetic_abilities_take", { unit: currentUnit, ability: abilityName } )
+		}
+	} )
+
+	image.SetPanelEvent( "onmouseover", function() {
+		$.DispatchEvent( "DOTAShowAbilityTooltip", image, abilityName )
+
+		if ( animation ) animation.DeleteAsync( 0 )
+
+		animation = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
+		animation.BLoadLayoutFromString( '<root><Panel><MoviePanel src="http://s1.webmshare.com/0oEPK.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+	} )
+
+	image.SetPanelEvent( "onmouseout", function() {
+		$.DispatchEvent( "DOTAHideAbilityTooltip", image )
+
+		animation.DeleteAsync( 0 )
+		animation = null
+	} )
+}
+
+function CreateAbilitiesToTake() {
+	var abilities_row = null
+
+	for ( var i = 0; i < abilitiesToTake.length; i++ ) {
+		if ( i % 4 == 0 ) {
+			abilities_row = $.CreatePanel( "Panel", $( "#CosmeticAbilitiesContainer" ), "" )
+			abilities_row.AddClass( "AbilitiesRow" )
+		}
+
+		CreateAbilityToTake( abilities_row, abilitiesToTake[i] )
+	}
+}
+
+CreateAbilitiesToTake()

@@ -1,11 +1,18 @@
 var COSMETIC_ABILITIES = {
 	"high_five": true,
 	"seasonal_ti9_banner": true,
-
 	"seasonal_summon_cny_balloon": true,
 	"seasonal_summon_dragon": true,
 	"seasonal_summon_cny_tree": true,
-	"seasonal_firecrackers": true
+	"seasonal_firecrackers": true,
+	"seasonal_ti9_shovel": true,
+	"seasonal_ti9_instruments": true,
+	"seasonal_ti9_monkey": true,
+	"seasonal_summon_ti9_balloon": true,
+	"seasonal_throw_snowball": true,
+	"seasonal_festive_firework": true,
+	"seasonal_decorate_tree": true,
+	"seasonal_summon_snowman": true
 }
 
 var hud = $.GetContextPanel().GetParent().GetParent().GetParent()
@@ -41,7 +48,7 @@ function HideAbilities() {
 		}
 	}
 
-	$.Schedule( 1 / 1000, HideAbilities )
+	$.Schedule( 0.001, HideAbilities )
 }
 
 HideAbilities()
