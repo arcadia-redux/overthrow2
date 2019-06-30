@@ -10,15 +10,16 @@
 
 	<snippets>
 		<snippet name="Phrase">
-			<Panel class="Phrase">
-				<Panel class="ChatWheelSoundIcon" />
-				<Image class="ChatWheelSprayImage" id="ChatWheelSprayImage" />
-				<!--<Panel class="ChatWheelRequiredTierIcon PlusHeroBadgeIconSmall">
-					<Panel class="ChatWheelRequiredTierLockIconShadow" />
-					<Panel class="ChatWheelRequiredTierLockIcon" />
+			<Panel>
+				<Panel class="Phrase">
+					<Panel class="ChatWheelSoundIcon" />
+					<!--<Panel class="ChatWheelRequiredTierIcon PlusHeroBadgeIconSmall">
+						<Panel class="ChatWheelRequiredTierLockIconShadow" />
+						<Panel class="ChatWheelRequiredTierLockIcon" />
+					</Panel>
+					<Label class="ChatWheelAllPrefix" text="#dota_all_chat_label_prefix" />-->
+					<Label text="{s:phrase}" />
 				</Panel>
-				<Label class="ChatWheelAllPrefix" text="#dota_all_chat_label_prefix" />-->
-				<Label text="{s:phrase}" />
 			</Panel>
 		</snippet>
 	</snippets>

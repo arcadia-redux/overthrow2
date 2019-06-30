@@ -26,6 +26,8 @@
 
 .Phrase
 {
+	//horizontal-align: left;
+	vertical-align: middle;
 	flow-children: right;
 	pre-transform-scale2d: 1.0;
 	height: defaultPhraseHeight;
@@ -299,6 +301,7 @@
 	horizontal-align: center;
 	vertical-align: center;
 	height: 60px;
+	width: 600px;
 }
 
 #Phrase0
@@ -307,22 +310,27 @@
 	margin-left: 0px;
 }
 
+#Phrase0 > Panel
+{
+	horizontal-align: center;
+}
+
 #Phrase1
 {
 	margin-top: -59px;
-	margin-left: 460px;
+	margin-left: 790px;
 }
 
 #Phrase2
 {
 	margin-top: -1px;
-	margin-left: 490px;
+	margin-left: 820px;
 }
 
 #Phrase3
 {
 	margin-top: 115px;
-	margin-left: 460px;
+	margin-left: 790px;
 }
 
 #Phrase4
@@ -331,22 +339,42 @@
 	margin-left: 0px;
 }
 
+#Phrase4 > Panel
+{
+	horizontal-align: center;
+}
+
 #Phrase5
 {
 	margin-top: 115px;
-	margin-left: -200px;
+	margin-left: -400px;
+}
+
+#Phrase5 > Panel
+{
+	horizontal-align: right;
 }
 
 #Phrase6
 {
 	margin-top: -1px;
-	margin-left: -230px;
+	margin-left: -430px;
+}
+
+#Phrase6 > Panel
+{
+	horizontal-align: right;
 }
 
 #Phrase7
 {
 	margin-top: -59px;
-	margin-left: -200px;
+	margin-left: -400px;
+}
+
+#Phrase7 > Panel
+{
+	horizontal-align: right;
 }
 
 .ForWheel0

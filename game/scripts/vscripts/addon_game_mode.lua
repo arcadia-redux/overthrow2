@@ -88,6 +88,7 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
+		PrecacheResource( "soundfile", "soundevents/custom_soundboard_soundevents.vsndevts", context )
 
 		
 		local heroeskv = LoadKeyValues("scripts/heroes.txt")
@@ -1466,9 +1467,9 @@ function COverthrowGameMode:SelectVO(keys)
 				"soundboard.what_just_happened",
 				"soundboard.looking_spicy",
 				"soundboard.no_chill",
-				"soundboard.ding_ding_ding",--need fix
+				"custom_soundboard.ding_ding_ding",
 				"soundboard.absolutely_perfect",
-				"soundboard.lets_play",--need fix
+				"custom_soundboard.lets_play",
 				--ch an
 				"",
 				"",
@@ -1503,15 +1504,15 @@ function COverthrowGameMode:SelectVO(keys)
 				"soundboard.eto_ge_popayx_feeda",
 				"soundboard.da_da_da_nyet",
 				"soundboard.wot_eto_bru",
-				--bp19(need fix)
-				"soundboard.ti9_kooka_laugh",
-				"soundboard.ti9_monkey_biz",
-				"soundboard.ti9_orangutan_kiss",
-				"soundboard.ti9_skeeter",
-				"soundboard.ti9_crowd_groan",
-				"soundboard.ti9_head_bonk",
-				"soundboard.ti9_record_scratch",
-				"soundboard.ti9_ta_da",
+				--bp19
+				"custom_soundboard.ti9_kooka_laugh",
+				"custom_soundboard.ti9_monkey_biz",
+				"custom_soundboard.ti9_orangutan_kiss",
+				"custom_soundboard.ti9_skeeter",
+				"custom_soundboard.ti9_crowd_groan",
+				"custom_soundboard.ti9_head_bonk",
+				"custom_soundboard.ti9_record_scratch",
+				"custom_soundboard.ti9_ta_da",
 				--epic
 				"soundboard.easiest_money",
 				"soundboard.echo_slama_jama",
@@ -1524,18 +1525,18 @@ function COverthrowGameMode:SelectVO(keys)
 				"soundboard.nakupuuu",
 				"soundboard.whats_cooking",
 				"soundboard.eughahaha",
-				"soundboard.glados_chat_21",--need fix
-				"soundboard.glados_chat_01",--need fix
-				"soundboard.glados_chat_07",--need fix
-				"soundboard.glados_chat_04",--need fix
+				"custom_soundboard.glados_chat_21",
+				"custom_soundboard.glados_chat_01",
+				"custom_soundboard.glados_chat_07",
+				"custom_soundboard.glados_chat_04",
 				"",
-				--kor cas(need fix)
-				"soundboard.kor_yes_no",
-				"soundboard.kor_scan",
-				"soundboard.kor_immortality",
-				"soundboard.kor_roshan",
-				"soundboard.kor_yolo",
-				"soundboard.kor_million_dollar_house",
+				--kor cas
+				"custom_soundboard.kor_yes_no",
+				"custom_soundboard.kor_scan",
+				"custom_soundboard.kor_immortality",
+				"custom_soundboard.kor_roshan",
+				"custom_soundboard.kor_yolo",
+				"custom_soundboard.kor_million_dollar_house",
 				"",
 				"",
 			},

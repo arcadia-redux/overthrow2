@@ -284,8 +284,8 @@ function StopWheel() {
         {
             $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")' />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
             $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
-            $("#Phrase"+i).GetChild(0).visible = rings[0][1][i];
-            $("#Phrase"+i).GetChild(2).text = $.Localize(rings[0][0][i]);
+            $("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[0][1][i];
+            $("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[0][0][i]);
         }
         nowselect = 0;
     }
@@ -309,8 +309,8 @@ function OnSelect(num) {
             }
             $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")'"+dopstr+" />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
             $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
-            $("#Phrase"+i).GetChild(0).visible = rings[newnum][1][i];
-            $("#Phrase"+i).GetChild(2).text = $.Localize(rings[newnum][0][i]);
+            $("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[newnum][1][i];
+            $("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[newnum][0][i]);
         }
         nowselect = newnum;
     }
@@ -325,11 +325,15 @@ function AddOnFavourites(num) {
         favourites = favourites.filter(function (el) {
             return el != null;
         });
+        Game.EmitSound( "ui.crafting_gem_create" )
         UpdateFavourites();
     }
     else
     {
         favourites[num] = null;
+        favourites = favourites.filter(function (el) {
+            return el != null;
+        });
         UpdateFavourites();
         nowselect = 0;
         OnSelect(2);
@@ -401,8 +405,8 @@ function OnMouseOut(num) {
     {
         $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")' />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
         $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
-        $("#Phrase"+i).GetChild(0).visible = rings[0][1][i];
-        $("#Phrase"+i).GetChild(2).text = $.Localize(rings[0][0][i]);
+        $("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[0][1][i];
+        $("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[0][0][i]);
     }
     Game.AddCommand("+WheelButton", StartWheel, "", 0);
     Game.AddCommand("-WheelButton", StopWheel, "", 0);
