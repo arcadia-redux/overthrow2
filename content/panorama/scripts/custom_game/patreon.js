@@ -51,11 +51,13 @@ function OnColourPressed(text) {
 
 function ScheduleCheckMinimizePatreonButton() {
     var buttonShouldBeMinimized = Game.GetDOTATime(false, false) > 60;
+    var hideMiniButton = Game.GetDOTATime(false, false) > 120;
 
     $("#PatreonButton").visible = !buttonShouldBeMinimized;
-    $("#PatreonButtonSmallerImage").visible = buttonShouldBeMinimized;
+    $("#PatreonButtonSmallerImage").visible = !hideMiniButton && buttonShouldBeMinimized;
+    $("#VOIcon").visible = !hideMiniButton;
 
-    if (!buttonShouldBeMinimized) {
+    if (!buttonShouldBeMinimized || !hideMiniButton) {
         $.Schedule(1, ScheduleCheckMinimizePatreonButton);
     }
 }
