@@ -54,7 +54,7 @@ function ScheduleCheckMinimizePatreonButton() {
     var hideMiniButton = Game.GetDOTATime(false, false) > 120;
 
     $("#PatreonButton").visible = !buttonShouldBeMinimized;
-    $("#PatreonButtonSmallerImage").visible = !hideMiniButton && buttonShouldBeMinimized;
+    $("#PatreonButtonSmallerImage").visible = buttonShouldBeMinimized;
     $("#VOIcon").visible = !hideMiniButton;
 
     if (!buttonShouldBeMinimized || !hideMiniButton) {
