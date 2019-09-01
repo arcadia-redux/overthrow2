@@ -38,18 +38,18 @@ var ABILITIES_CANT_BE_REMOVED = {
 	"seasonal_ti9_banner": true,
 }
 var abillity_name_to_webm = {
-	"seasonal_summon_cny_balloon":"PxNRo",
-	"seasonal_summon_dragon":"0oEPK",
-	"seasonal_summon_cny_tree":"0oEPK",
-	"seasonal_firecrackers":"0oEPK",
-	"seasonal_ti9_shovel":"0oEPK",
-	"seasonal_ti9_instruments":"0oEPK",
-	"seasonal_ti9_monkey":"0oEPK",
-	"seasonal_summon_ti9_balloon":"0oEPK",
-	"seasonal_throw_snowball":"0oEPK",
-	"seasonal_festive_firework":"0oEPK",
-	"seasonal_decorate_tree":"0oEPK",
-	"seasonal_summon_snowman":"0oEPK"
+	"seasonal_summon_cny_balloon":"40XJ9",
+	"seasonal_summon_dragon":"Ry9Mv",
+	"seasonal_summon_cny_tree":"rVY9D",
+	"seasonal_firecrackers":"Lxe64",
+	"seasonal_ti9_shovel":"b1dNv",
+	"seasonal_ti9_instruments":"5d1Rr",
+	"seasonal_ti9_monkey":"XEjX7",
+	"seasonal_summon_ti9_balloon":"BAEq9",
+	"seasonal_throw_snowball":"8mBLL",
+	"seasonal_festive_firework":"voBa5",
+	"seasonal_decorate_tree":"Px17L",
+	"seasonal_summon_snowman":"na38r"
 }
 var showcaseAbilitiesSlot = 6
 
