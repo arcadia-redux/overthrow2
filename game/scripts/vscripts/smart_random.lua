@@ -44,31 +44,6 @@ local function pickRandomHeroFromList(playerId, list, callback)
 	end)
 end
 
-function SmartRandom:ReceiveBannedHeroes(event)
-	local eventId = event.eventId
-	if SmartRandom.BannedHeroesEventListeners[eventId] then
-		SmartRandom.BannedHeroesEventListeners[eventId](event.result)
-		SmartRandom.BannedHeroesEventListeners[eventId] = nil
-	end
-end
-
-function SmartRandom:SmartRandomHero(event)
-	local playerId = event.PlayerID
-	if GameRules:State_Get() > DOTA_GAMERULES_STATE_HERO_SELECTION then return end
-	if PlayerResource:HasSelectedHero(playerId) then return end
-
-	SmartRandom.PickReasons[playerId] = "smart-random"
-
-	EmitGlobalSound("custom.smart_random")
-	pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {}, function(success)
-		if success then
-			GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
-		else
-			PlayerResource:GetPlayer(playerId):MakeRandomHeroSelection()
-		end
-	end)
-end
-
 function SmartRandom:PrepareAutoPick()
 	local players = {}
 	local heroes = {}
@@ -107,5 +82,27 @@ function SmartRandom:AutoPick()
 	end
 end
 
-CustomGameEventManager:RegisterListener("smart_random_hero", Dynamic_Wrap(SmartRandom, "SmartRandomHero"))
-CustomGameEventManager:RegisterListener("banned_heroes", Dynamic_Wrap(SmartRandom, "ReceiveBannedHeroes"))
+RegisterCustomEventListener("smart_random_hero", function(event)
+	local playerId = event.PlayerID
+	if GameRules:State_Get() > DOTA_GAMERULES_STATE_HERO_SELECTION then return end
+	if PlayerResource:HasSelectedHero(playerId) then return end
+
+	SmartRandom.PickReasons[playerId] = "smart-random"
+
+	EmitGlobalSound("custom.smart_random")
+	pickRandomHeroFromList(playerId, SmartRandom.SmartRandomHeroes[playerId] or {}, function(success)
+		if success then
+			GameRules:SendCustomMessage("%s1 has smart-randomed " .. getReadableHeroName(PlayerResource:GetSelectedHeroName(playerId)), playerId, -1)
+		else
+			PlayerResource:GetPlayer(playerId):MakeRandomHeroSelection()
+		end
+	end)
+end)
+
+RegisterCustomEventListener("banned_heroes", function(event)
+	local eventId = event.eventId
+	if SmartRandom.BannedHeroesEventListeners[eventId] then
+		SmartRandom.BannedHeroesEventListeners[eventId](event.result)
+		SmartRandom.BannedHeroesEventListeners[eventId] = nil
+	end
+end)

@@ -87,18 +87,18 @@ local function CheckAbilityAndUnit( abilityName, npcIndex )
 	return true
 end
 
-CustomGameEventManager:RegisterListener( "cosmetic_abilities_try_activate", function( id, keys )
+RegisterCustomEventListener("cosmetic_abilities_try_activate", function(keys)
 	CheckAbilityAndUnit( keys.ability, keys.unit )
-end )
+end)
 
-CustomGameEventManager:RegisterListener( "cosmetic_abilities_take", function( id, keys )
+RegisterCustomEventListener("cosmetic_abilities_take", function(keys)
 	if CheckAbilityAndUnit( keys.ability, keys.unit ) then
 		AddAbilityIfNeed( EntIndexToHScript( keys.unit ), keys.ability, true )
 	end
-end )
+end)
 
-CustomGameEventManager:RegisterListener( "cosmetic_abilities_delete", function( id, keys )
+RegisterCustomEventListener("cosmetic_abilities_delete", function(keys)
 	if not PATREON_LEVEL_FOR_ABILITY[keys.ability] or ABILITIES_CANT_BE_REMOVED[keys.ability] then return end
 	EntIndexToHScript( keys.unit ):RemoveAbility( keys.ability )
 	CustomGameEventManager:Send_ServerToAllClients( "cosmetic_abilities_reload_hud", nil )
-end )
+end)

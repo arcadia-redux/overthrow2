@@ -74,7 +74,7 @@ function Patreons:GiveOnSpawnBonus(playerId)
 	end
 end
 
-CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data)
+RegisterCustomEventListener("patreon_toggle_boots", function(data)
 	local playerId = data.PlayerID
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	if not hero then return end
@@ -87,7 +87,7 @@ CustomGameEventManager:RegisterListener("patreon_toggle_boots", function(_, data
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
 end)
 
-CustomGameEventManager:RegisterListener("patreon_update_emblem", function(_, args)
+RegisterCustomEventListener("patreon_update_emblem", function(args)
 	local playerId = args.PlayerID
 	if not colorNames[args.color] then return end
 
@@ -96,7 +96,7 @@ CustomGameEventManager:RegisterListener("patreon_update_emblem", function(_, arg
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
 end)
 
-CustomGameEventManager:RegisterListener("patreon_toggle_emblem", function(_, args)
+RegisterCustomEventListener("patreon_toggle_emblem", function(args)
 	local playerId = args.PlayerID
 	local playerBonuses = Patreons:GetPlayerSettings(playerId)
 	playerBonuses.emblemEnabled = args.enabled == 1

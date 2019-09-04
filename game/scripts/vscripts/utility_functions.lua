@@ -149,3 +149,16 @@ function table.includes(t, value)
 	end
 	return false
 end
+
+for _, listenerId in ipairs(registeredEventListeners or {}) do
+	CustomGameEventManager:UnregisterListener(listenerId)
+end
+
+registeredEventListeners = {}
+function RegisterCustomEventListener(eventName, callback)
+	local listenerId = CustomGameEventManager:RegisterListener(eventName, function(_, args)
+		callback(args)
+	end)
+
+	table.insert(registeredEventListeners, listenerId)
+end

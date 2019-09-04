@@ -90,7 +90,7 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/custom_soundboard_soundevents.vsndevts", context )
 
-		
+
 		local heroeskv = LoadKeyValues("scripts/heroes.txt")
 		for hero, _ in pairs(heroeskv) do
 			PrecacheResource( "soundfile", "soundevents/voscripts/game_sounds_vo_"..string.sub(hero,15)..".vsndevts", context )
@@ -245,10 +245,6 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
 
-	CustomGameEventManager:RegisterListener("P3ButtonClick", Dynamic_Wrap(COverthrowGameMode, 'P3ButtonClick'))
-	CustomGameEventManager:RegisterListener("OnTimerClick", Dynamic_Wrap(COverthrowGameMode, 'OnTimerClick'))
-	CustomGameEventManager:RegisterListener("SelectVO", Dynamic_Wrap(COverthrowGameMode, 'SelectVO'))
-
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
 	ListenToGameEvent( "dota_team_kill_credit", Dynamic_Wrap( COverthrowGameMode, 'OnTeamKillCredit' ), self )
@@ -343,7 +339,6 @@ function COverthrowGameMode:InitGameMode()
 		false,
 		false
 	}
-	CustomGameEventManager:RegisterListener("GetKicks", Dynamic_Wrap(COverthrowGameMode, 'GetKicks'))
 end
 
 ---------------------------------------------------------------------------
@@ -771,7 +766,7 @@ function COverthrowGameMode:RuneSpawnFilter(filterTable)
 	return true
 end
 
-CustomGameEventManager:RegisterListener("set_disable_help", function(_, data)
+RegisterCustomEventListener("set_disable_help", function(data)
 	local to = data.to;
 	if PlayerResource:IsValidPlayerID(to) then
 		local playerId = data.PlayerID;
@@ -995,9 +990,9 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	end
 end
 
-function COverthrowGameMode:P3ButtonClick(keys)
+RegisterCustomEventListener("P3ButtonClick", function(keys)
 	COverthrowGameMode:P3Act(keys.PlayerID)
-end
+end)
 
 function COverthrowGameMode:P3Act(playerid)
 	if GameRules:GetDOTATime(false,false) < 180 then
@@ -1014,7 +1009,7 @@ function COverthrowGameMode:P3Act(playerid)
 end
 
 function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
-	if filterTable["item_entindex_const"] == nil then 
+	if filterTable["item_entindex_const"] == nil then
 		return true
 	end
  	if filterTable["inventory_parent_entindex_const"] == nil then
@@ -1117,12 +1112,12 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 	return true
 end
 
-function COverthrowGameMode:GetKicks( data )
-    CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.id), "setkicks", {kicks = _G.kicks})
-end
+RegisterCustomEventListener("GetKicks", function(data)
+	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.id), "setkicks", {kicks = _G.kicks})
+end)
 
 msgtimer = {}
-function COverthrowGameMode:OnTimerClick(keys)
+RegisterCustomEventListener("OnTimerClick", function(keys)
 	print(GameRules:GetGameTime())
 	if msgtimer[keys.id] ~= nil then
 		if GameRules:GetGameTime() - msgtimer[keys.id] > 3 then
@@ -1133,10 +1128,10 @@ function COverthrowGameMode:OnTimerClick(keys)
 		Say(PlayerResource:GetPlayer(keys.id), keys.time, true)
 		msgtimer[keys.id] = GameRules:GetGameTime()
 	end
-end
+end)
 
 votimer = {}
-function COverthrowGameMode:SelectVO(keys)
+RegisterCustomEventListener("SelectVO", function(keys)
 	print(keys.num)
 	local heroes = {
 		"abaddon",
@@ -2726,4 +2721,4 @@ function COverthrowGameMode:SelectVO(keys)
 			votimer[keys.id] = GameRules:GetGameTime()
 		end
 	end
-end
+end)
