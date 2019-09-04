@@ -27,7 +27,6 @@ require( "items" )
 require( "utility_functions" )
 require("patreons")
 require("smart_random")
-require("statcollection/init")
 require( "timers" )
 
 require( "cosmetic_abilities" )
