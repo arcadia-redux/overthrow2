@@ -797,7 +797,7 @@ function COverthrowGameMode:BeforeMatch()
 		end
 	end
 
-	SendWebApiRequest("before-match", { mapName = GetMapName(), players = players }, function(data)
+	SendWebApiRequest("overthrow/before-match", { mapName = GetMapName(), players = players }, function(data)
 		local publicStats = {}
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
@@ -843,7 +843,7 @@ function COverthrowGameMode:BeforeMatch()
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
 	end)
 
-	SendWebApiRequest("same-hero-day", nil, function(sameHeroDayHoursLeft)
+	SendWebApiRequest("overthrow/same-hero-day", nil, function(sameHeroDayHoursLeft)
 		Patreons:SetSameHeroDayHoursLeft(sameHeroDayHoursLeft)
 	end)
 end
@@ -905,7 +905,7 @@ function COverthrowGameMode:EndMatch(winnerTeam)
 		end
 	end
 	if WEB_API_TESTING or #requestBody.players >= 5 then
-		SendWebApiRequest("end-match", requestBody)
+		SendWebApiRequest("overthrow/end-match", requestBody)
 	end
 end
 

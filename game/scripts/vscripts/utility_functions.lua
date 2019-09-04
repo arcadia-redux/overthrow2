@@ -104,7 +104,7 @@ end
 WEB_API_TESTING = IsInToolsMode() and false
 local serverHost = WEB_API_TESTING and "http://127.0.0.1:5000" or "http://163.172.174.77:8000"
 function SendWebApiRequest(path, data, onSuccess, onError)
-	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/vscripts/" .. path)
+	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/" .. path)
 	if WEB_API_TESTING then
 		print("Request to " .. path)
 		DeepPrintTable(data)
