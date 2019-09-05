@@ -1,5 +1,65 @@
 @define BACKGROUND_COLOR: #000000;
 
+.HeroIcon {
+	width: 24px;
+	height: 24px;
+}
+
+.AspectRatio4x3 #KilledCount {
+	horizontal-align: right;
+	text-align: center;
+	padding: 0px 0px 0px 0px;
+	font-size: 10px;
+	background-color: #121A20;
+	vertical-align: bottom;
+}
+
+#KilledCount {
+	horizontal-align: right;
+	text-align: center;
+	padding: 0px 1px 0px 1px;
+	font-size: 12px;
+	background-color: #121A20;
+	vertical-align: bottom;
+}
+
+.AspectRatio4x3 .HeroIcon {
+	width: 20px;
+	height: 20px;
+}
+
+.KilledHeroNone {
+	opacity: 0.8;
+	wash-color: #444444;
+	contrast: 0.9;
+}
+
+.KilledHeroes {
+	horizontal-align: center;
+	vertical-align: center;
+	flow-children: right;
+}
+
+.NewStatHeader {
+	text-align: center;
+}
+
+.NewStatContainer {
+	background-color: BACKGROUND_COLOR;
+	margin-top: 1px;
+	margin-left: 1px;
+	height: 100%;
+	text-align: center;
+}
+
+.NewStatLabel {
+	horizontal-align: center;
+	vertical-align: center;
+	text-align: center;
+	font-size: 20px;
+	margin-top: 3px;
+}
+
 .EndScreenRoot
 {
 	width: 100%;

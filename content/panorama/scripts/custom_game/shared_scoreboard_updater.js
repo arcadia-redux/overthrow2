@@ -1,5 +1,141 @@
 "use strict";
 
+var isEndScreen = false
+
+var newStatsInEndScreen = [
+	{
+		name: "new_stat_gpm",
+		func: function( pId, cont ) {
+			CreateStandartValue( cont, Math.ceil( Players.GetGoldPerMin( pId ) ), null )
+		},
+		styles: {
+			"width": "60px"
+		}
+	},
+	{
+		name: "new_stat_total_damage",
+		func: function( pId, cont ) {
+			var table = CustomNetTables.GetTableValue( "custom_stats", pId.toString() )
+			var value = 0
+
+			if ( table ) {
+				value =  table.total_damage
+			}
+
+			CreateStandartValue( cont, value, null )
+		},
+		styles: {
+			"width": "60px"
+		}
+	},
+	{
+		name: "new_stat_total_healing",
+		func: function( pId, cont ) {
+			var table = CustomNetTables.GetTableValue( "custom_stats", pId.toString() )
+			var value = 0
+
+			if ( table ) {
+				value = table.total_healing
+			}
+
+			CreateStandartValue( cont, value, null )
+		},
+		styles: {
+			"width": "60px"
+		}
+	},
+	{
+		name: "new_stat_networth",
+		func: function( pId, cont ) {
+			var table = CustomNetTables.GetTableValue( "custom_stats", pId.toString() )
+			var value = 0
+
+			if ( table ) {
+				value = table.networth
+			}
+
+			CreateStandartValue( cont, value, null )
+		},
+		styles: {
+			"width": "100px"
+		}
+	},
+	{
+		name: "new_stat_wards",
+		func: function( pId, cont ) {
+			var table = CustomNetTables.GetTableValue( "custom_stats", pId.toString() )
+			var string = "/"
+
+			if ( table ) {
+				if ( table.sentries_count ) {
+					string = table.sentries_count + string
+				} else {
+					string = 0 + string
+				}
+
+				if ( table.observers_count ) {
+					string = string + table.observers_count
+				} else {
+					string = string + 0
+				}
+			} else {
+				string = "0/0"
+			}
+
+			CreateStandartValue( cont, string, null )
+		},
+		styles: {
+			"width": "80px"
+		}
+	},
+	{
+		name: "new_stat_killed_heroes",
+		func: function( pId, cont ) {
+			var table = CustomNetTables.GetTableValue( "custom_stats", pId.toString() )
+
+			var container = $.CreatePanel( "Panel", cont, "" )
+			container.AddClass( "KilledHeroes" )
+
+			var teamsList = []
+
+			for ( var teamId of Game.GetAllTeamIDs() ) {
+				for ( var playerId of Game.GetPlayerIDsOnTeam( teamId ) ) {
+					var playerInfo = Game.GetPlayerInfo( playerId )
+
+					if ( playerInfo ) {
+						var hero = playerInfo.player_selected_hero
+
+						if ( hero != -1 && hero != "" && typeof( hero ) == "string" ) {
+							if ( teamId != Players.GetTeam( pId ) ) {
+								var icon = $.CreatePanel( "Image", container, "" )
+								icon.SetImage( "file://{images}/heroes/icons/" + hero + ".png" )
+								icon.AddClass( "HeroIcon" )
+
+								if ( table && table.killed_hero && table.killed_hero[hero] ) {
+									var count = $.CreatePanel( "Label", icon, "KilledCount" )
+									count.text = "x" + table.killed_hero[hero]
+								} else {
+									icon.AddClass( "KilledHeroNone" )
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		styles: {
+			"width": "310px"
+		}
+	},
+]
+
+function CreateStandartValue( parent, value, style ) {
+	var label = $.CreatePanel( "Label", parent, "" )
+	label.text = value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")
+	label.AddClass( "NewStatLabel" )
+	label.AddClass( style || "" )
+}
+
 
 //=============================================================================
 //=============================================================================
@@ -26,6 +162,24 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		playerPanel = $.CreatePanel( "Panel", playersContainer, playerPanelName );
 		playerPanel.SetAttributeInt( "player_id", playerId );
 		playerPanel.BLoadLayout( scoreboardConfig.playerXmlName, false, false );
+
+		if ( isEndScreen ) {
+			var row_container = playerPanel.FindChildInLayoutFile( "PlayerRowContainer" )
+
+			for ( var i = 0; i < newStatsInEndScreen.length; i++ ) {
+				var new_stat = $.CreatePanel( "Panel", row_container, "NewStatContainer" + i )
+				new_stat.AddClass( "NewStatContainer" )
+				new_stat.AddClass( newStatsInEndScreen[i].containerClass || "" )
+
+				if ( newStatsInEndScreen[i].styles ) {
+					for ( var s in newStatsInEndScreen[i].styles ) {
+						new_stat.style[s] = newStatsInEndScreen[i].styles[s]
+					}
+				}
+
+				newStatsInEndScreen[i].func( playerId, new_stat )
+			} 
+		}
 	}
 
 	playerPanel.SetHasClass( "is_local_player", ( playerId == Game.GetLocalPlayerID() ) );
@@ -451,3 +605,22 @@ function ScoreboardUpdater_GetSortedTeamInfoList( scoreboardHandle )
 	return teamsList;
 }
 
+function AddNewStatsInHeader( header ) {
+	for ( var i = 0; i < newStatsInEndScreen.length; i++ ) {
+		var label = $.CreatePanel( "Label", header, "NewStatHeader" + i )
+		label.text = $.Localize( newStatsInEndScreen[i].name )
+		label.AddClass( "NewStatHeader" )
+		label.AddClass( "LegendPanel" )
+
+		if ( newStatsInEndScreen[i].styles ) {
+			for ( var s in newStatsInEndScreen[i].styles ) {
+				label.style[s] = newStatsInEndScreen[i].styles[s]
+			}
+		}
+	}
+}
+
+if ( $.GetContextPanel().GetParent().id == "CustomUIContainer_EndScreen" ) {
+	isEndScreen = true
+	AddNewStatsInHeader( $( "#Header" ) )
+}

@@ -7,6 +7,54 @@ function COverthrowGameMode:OnGameRulesStateChange()
 	local nNewState = GameRules:State_Get()
 	--print( "OnGameRulesStateChange: " .. nNewState )
 
+	if nNewState == DOTA_GAMERULES_STATE_POST_GAME then
+		local couriers = FindUnitsInRadius( 2, Vector( 0, 0, 0 ), nil, FIND_UNITS_EVERYWHERE, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_COURIER, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false )
+
+		for i = 0, 64 do
+			if PlayerResource:IsValidPlayer( i ) then
+				local networth = 0
+				local hero = PlayerResource:GetSelectedHeroEntity( i )
+
+				for _, cour in pairs( couriers ) do
+					if cour:GetTeam() == cour:GetTeam() then
+						for s = 0, 8 do
+							local item = cour:GetItemInSlot( s )
+
+							if item and item:GetOwner() == hero then
+								networth = networth + item:GetCost()
+							end
+						end
+					end
+				end
+
+				for s = 0, 8 do
+					local item = hero:GetItemInSlot( s )
+
+					if item then
+						networth = networth + item:GetCost()
+					end
+				end
+
+				networth = networth + PlayerResource:GetGold( i )
+
+				local stats = {
+					networth = networth,
+					total_damage = PlayerResource:GetRawPlayerDamage( i ),
+					total_healing = PlayerResource:GetHealing( i ),
+				}
+
+				if newStats and newStats[i] then
+					stats.tower_damage = newStats[i].tower_damage
+					stats.sentries_count = newStats[i].npc_dota_sentry_wards
+					stats.observers_count = newStats[i].npc_dota_observer_wards
+					stats.killed_hero = newStats[i].killed_hero
+				end
+
+				CustomNetTables:SetTableValue( "custom_stats", tostring( i ), stats )
+			end
+		end
+	end
+
 	if nNewState == DOTA_GAMERULES_STATE_HERO_SELECTION then
 		self.heroSelectionStage = 1
 	end
@@ -59,6 +107,23 @@ end
 --------------------------------------------------------------------------------
 function COverthrowGameMode:OnNPCSpawned( event )
 	local spawnedUnit = EntIndexToHScript( event.entindex )
+
+	local owner = spawnedUnit:GetOwner()
+	local name = spawnedUnit:GetUnitName()
+
+	if owner and owner.GetPlayerID and ( name == "npc_dota_sentry_wards" or name == "npc_dota_observer_wards" ) then
+		local player_id = owner:GetPlayerID()
+
+		newStats[player_id] = newStats[player_id] or {
+			npc_dota_sentry_wards = 0,
+			npc_dota_observer_wards = 0,
+			tower_damage = 0,
+			killed_hero = {}
+		}
+
+		newStats[player_id][name] = newStats[player_id][name] + 1
+	end
+
 	if not spawnedUnit:IsRealHero() then return end
 
 	Timers:CreateTimer(1, function()
@@ -240,6 +305,32 @@ function COverthrowGameMode:OnEntityKilled( event )
 	local hero = EntIndexToHScript( event.entindex_attacker )
 	local heroTeam = hero:GetTeam()
 	local extraTime = 0
+
+	if killedUnit:IsRealHero() and not killedUnit:IsReincarnating() then
+		local player_id = -1
+		if hero and hero:IsRealHero() and hero.GetPlayerID then
+			player_id = hero:GetPlayerID()
+		else 
+			if hero:GetPlayerOwnerID() ~= -1 then
+				player_id = hero:GetPlayerOwnerID()
+			end
+		end
+		if player_id ~= -1 then
+			local name = killedUnit:GetUnitName()
+
+			newStats[player_id] = newStats[player_id] or {
+				npc_dota_sentry_wards = 0,
+				npc_dota_observer_wards = 0,
+				tower_damage = 0,
+				killed_hero = {}
+			}
+
+			local kh = newStats[player_id].killed_hero
+
+			kh[name] = kh[name] and kh[name] + 1 or 1
+		end
+	end
+
 	if killedUnit:IsRealHero() then
 		self.allSpawned = true
 		--print("Hero has been killed")

@@ -3,6 +3,8 @@
 	custom_net_tables =
 	[
 		"game_state",
-		"disable_help"
+		"disable_help",
+
+		"custom_stats"
 	]
 }

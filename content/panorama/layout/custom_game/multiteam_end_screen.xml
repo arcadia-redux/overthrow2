@@ -15,7 +15,7 @@
 				<Panel id="WinningTeamLogo" />
 				<Label id="EndScreenVictory" text="#custom_end_screen_victory_message" />
 			</Panel>
-			<Panel class="Legend">
+			<Panel id="Header" class="Legend">
 				<Panel class="LegendPanel ScoreCol_TeamInfo" />
 				<Panel class="LegendPanel ScoreCol_Hero" />
 				<Panel class="LegendPanel ScoreCol_PlayerDetails" />
