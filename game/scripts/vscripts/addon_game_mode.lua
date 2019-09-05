@@ -802,31 +802,33 @@ function COverthrowGameMode:BeforeMatch()
 		local publicStats = {}
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
-			local colorNames = {
-				"White",
-				"Red",
-				"Green",
-				"Blue",
-				"Cyan",
-				"Yellow",
-				"Pink",
-				"Maroon",
-				"Brown",
-				"Olive",
-				"Teal",
-				"Navy",
-				"Black",
-				"Orange",
-				"Lime",
-				"Purple",
-				"Magenta",
-				"Grey",
-				"Apricot",
-				"Beige",
-				"Mint",
-				"Lavender",
-			}
-			player.patreon["emblemColor"] = colorNames[RandomInt(1, #colorNames)]
+			if player.patreon["emblemColor"] == nil then
+				local colorNames = {
+					"White",
+					"Red",
+					"Green",
+					"Blue",
+					"Cyan",
+					"Yellow",
+					"Pink",
+					"Maroon",
+					"Brown",
+					"Olive",
+					"Teal",
+					"Navy",
+					"Black",
+					"Orange",
+					"Lime",
+					"Purple",
+					"Magenta",
+					"Grey",
+					"Apricot",
+					"Beige",
+					"Mint",
+					"Lavender",
+				}
+				player.patreon["emblemColor"] = colorNames[RandomInt(1, #colorNames)]
+			end
 			Patreons:SetPlayerSettings(playerId, player.patreon)
 			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, player.smartRandomHeroesError)
 
