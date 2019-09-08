@@ -101,7 +101,8 @@ function GetPlayerIdBySteamId(id)
 	return -1
 end
 
-WEB_API_TESTING = IsInToolsMode() and false
+local dedicatedServerKey = GetDedicatedServerKeyV2("1")
+WEB_API_TESTING = IsInToolsMode()
 local serverHost = WEB_API_TESTING and "http://127.0.0.1:5000" or "http://163.172.174.77:8000"
 function SendWebApiRequest(path, data, onSuccess, onError)
 	local request = CreateHTTPRequestScriptVM("POST", serverHost .. "/api/" .. path)
@@ -109,6 +110,8 @@ function SendWebApiRequest(path, data, onSuccess, onError)
 		print("Request to " .. path)
 		DeepPrintTable(data)
 	end
+
+	request:SetHTTPRequestHeaderValue("Dedicated-Server-Key", dedicatedServerKey)
 	if data ~= nil then
 		request:SetHTTPRequestRawPostBody("application/json", json.encode(data))
 	end
