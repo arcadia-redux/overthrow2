@@ -1,3 +1,27 @@
+function setInterval(callback, interval) {
+	interval = interval / 1000;
+	$.Schedule(interval, function reschedule() {
+		$.Schedule(interval, reschedule);
+		callback();
+	});
+}
+
+function createEventRequestCreator(eventName) {
+	var idCounter = 0;
+	return function(data, callback) {
+		var id = ++idCounter;
+		data.id = id;
+		GameEvents.SendCustomGameEventToServer(eventName, data);
+		var listener = GameEvents.Subscribe(eventName, function(data) {
+			if (data.id !== id) return;
+			GameEvents.Unsubscribe(listener);
+			callback(data)
+		});
+
+		return listener;
+	}
+}
+
 function SubscribeToNetTableKey(tableName, key, callback) {
     var immediateValue = CustomNetTables.GetTableValue(tableName, key) || {};
     if (immediateValue != null) callback(immediateValue);

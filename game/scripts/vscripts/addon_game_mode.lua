@@ -24,14 +24,14 @@ end
 ---------------------------------------------------------------------------
 -- Required .lua files
 ---------------------------------------------------------------------------
-require( "events" )
-require( "items" )
-require( "utility_functions" )
+require("timers")
+require("utility_functions")
+require("events")
+require("items")
+require("match_events")
 require("patreons")
 require("smart_random")
-require( "timers" )
-
-require( "cosmetic_abilities" )
+require("cosmetic_abilities")
 
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)

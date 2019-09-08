@@ -1,0 +1,34 @@
+MatchEvents = MatchEvents or {}
+MatchEvents.DEFAULT_REQUEST_DELAY = 10
+MatchEvents.RequestDelay = MatchEvents.RequestDelay or MatchEvents.DEFAULT_REQUEST_DELAY
+
+function MatchEvents.ScheduleNextRequest()
+	MatchEvents.RequestTimer = Timers:CreateTimer(MatchEvents.RequestDelay, MatchEvents.SendRequest)
+end
+
+function MatchEvents.SendRequest()
+	MatchEvents.RequestTimer = nil
+	SendWebApiRequest(
+		"match/events",
+		{ matchId = tonumber(tostring(GameRules:GetMatchID())) },
+		function(responses)
+			MatchEvents.ScheduleNextRequest()
+			for _, response in ipairs(responses) do
+				MatchEvents.HandleResponse(response)
+			end
+		end,
+		function() MatchEvents.ScheduleNextRequest() end
+	)
+end
+
+MatchEvents.ResponseHandlers = MatchEvents.ResponseHandlers or {}
+function MatchEvents.HandleResponse(response)
+	local handler = MatchEvents.ResponseHandlers[response.kind]
+	if not handler then
+		error("No handler for " .. response.kind .. " response kind")
+	end
+
+	handler(response)
+end
+
+MatchEvents.ScheduleNextRequest()

@@ -7,18 +7,11 @@ function modifier_donator:IsPurgable() return false end
 function modifier_donator:IsPurgeException() return false end
 function modifier_donator:RemoveOnDeath() return false end
 
-function modifier_donator:OnCreated(keys)
+function modifier_donator:OnCreated()
 	if IsServer() then
-		print("Donator level:", keys.patron_level)
-		self:SetStackCount(keys.patron_level) -- TODO: get what tier the patron is
 		self:StartIntervalThink(0.1)
 		self.current_effect_name = ""
 		self.effect_name = ""
-		local label_colors = {}
-		label_colors[1] = {249, 104, 84}
-		label_colors[2] = {5, 45, 73}
-
---		self:GetParent():SetCustomHealthLabel("#donator_label_" .. tostring(self:GetStackCount()), label_colors[self:GetStackCount()][1], label_colors[self:GetStackCount()][2], label_colors[self:GetStackCount()][3])
 	end
 end
 

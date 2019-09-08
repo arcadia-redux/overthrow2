@@ -81,7 +81,7 @@
 	vertical-align: middle;
 	horizontal-align: right;
 }
- .PatreonCloseButtonLabel {
+ .PatreonCloseButton > Label {
 	color: white;
 	font-size: 20px;
 	text-shadow: 2px 2px 2px black;
@@ -411,7 +411,32 @@
 	margin-left: 250px;
 }
 
- .PatreonFooter {
+.PatreonFeatureLock {
+	width: 400px;
+	background-color: rgba(53, 48, 48, 0.9);
+}
+
+.IsPatreon .PatreonFeatureLock {
+	visibility: collapse;
+}
+
+.PatreonFeatureLock > Image {
+	align: center center;
+}
+
+.SupporterEmblem .PatreonFeatureLock {
+	margin-top: 125px;
+	margin-left: 240px;
+	height: 110px;
+}
+
+.FreeBoots .PatreonFeatureLock {
+	margin-top: 370px;
+	margin-left: 240px;
+	height: 50px;
+}
+
+#PatreonFooter {
 	width: 730px;
 	height: 60px;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #4d4d4d ), to( #4d4d4d ) );
@@ -423,11 +448,40 @@
 	border-bottom-left-radius: 10px;
 }
 
- .BecomeAPatronButton {
+#PatreonSupportButtons {
+	align: center center;
+	flow-children: right;
+}
+
+.IsPatreon #PatreonSupportButtons {
+	visibility: collapse;
+}
+
+/* TODO: :not doesn't work without root? */
+.PatreonRoot:not(.IsPatreon) #PatreonSupporterStatus {
+	visibility: collapse;
+}
+
+#PatreonSupporterStatus {
+	height: 100%;
+	flow-children: right;
+}
+
+#PatreonSupporterText {
+	margin-left: 6px;
+	vertical-align: center;
+	flow-children: down;
+}
+
+#PatreonSupporterText > Label {
+	font-size: 20px;
+	color: white;
+}
+
+.SupportButton {
 	width: 218px;
 	height: 40px;
 	padding: 4px 12px 4px 12px;
-	align: center center;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #558B2F ), to( #7CB342 ) );
 	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
 	border-style: solid;
@@ -436,19 +490,23 @@
 	margin-left: 15px;
 }
 
-.BecomeAPatronButton:hover {
-  box-shadow: #000000ff 0px 0px 16px 0px;
-  background-color: gradient( linear, 0% 0%, 0% 100%, from( #689F38 ), to( #8BC34A ) );
+.SupportButton:hover {
+	box-shadow: #000000ff 0px 0px 16px 0px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #689F38 ), to( #8BC34A ) );
 }
 
- .BecomeAPatronButtonLabel {
+.SupportButton:selected {
+	/* wash-color: #00FF0088; */
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #3E9E39 ), to( #68C24A ) );
+}
+
+.SupportButton > Label {
 	color: white;
 	align: center center;
-	font-size: 26px;
-	margin-top: -1px;
+	font-size: 24px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
-	text-overflow: clip;
+	text-overflow: shrink;
 }
 
  #PatreonButton {
@@ -525,4 +583,49 @@
 
 .HUDFlipped #VOIcon {
 	horizontal-align: right;
+}
+
+#PaymentWindow {
+	align: center center;
+	margin-bottom: 110px;
+	width: 450px;
+	flow-children: down;
+	background-color: #444;
+	border-radius: 3px;
+	padding-bottom: 10px;
+}
+
+#PaymentWindowBody,
+#PaymentWindowLoader,
+#PaymentWindowError {
+	width: 100%;
+	height: 500px;
+	margin-bottom: 15px;
+}
+
+#PaymentWindowBody > HTML {
+	width: 100%;
+	height: 100%;
+}
+
+#PaymentWindowLoader > Panel {
+	align: center center;
+}
+
+#PaymentWindowErrorMessage {
+	align: center center;
+	text-align: center;
+	color: white;
+	font-size: 24px;
+}
+
+#PaymentWindowPaymentKinds,
+#PaymentWindowProviders {
+	flow-children: right;
+	horizontal-align: center;
+}
+
+#PaymentWindowPaymentKinds > RadioButton,
+#PaymentWindowProviders > RadioButton {
+	margin: 0 5px;
 }

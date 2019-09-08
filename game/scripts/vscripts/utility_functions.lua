@@ -123,12 +123,25 @@ function SendWebApiRequest(path, data, onSuccess, onError)
 				print("Response from " .. path .. ":")
 				DeepPrintTable(data)
 			end
-			if onSuccess then onSuccess(data, response.StatusCode) end
+			if onSuccess then
+				onSuccess(data, response.StatusCode)
+			end
 		else
 			if WEB_API_TESTING then
 				print("Error from " .. path .. ": " .. response.StatusCode)
+				if response.Body then
+					local status, result = pcall(json.decode, response.Body)
+					if status then
+						DeepPrintTable(result)
+					else
+						print(response.Body)
+					end
+				end
 			end
-			if onError then onError(response.StatusCode, response.Body) end
+			if onError then
+				-- TODO: Is response.Body nullable?
+				onError(response.Body or "Unknown error (" .. response.StatusCode .. ")", response.StatusCode)
+			end
 		end
 	end)
 end
@@ -153,15 +166,23 @@ function table.includes(t, value)
 	return false
 end
 
-for _, listenerId in ipairs(registeredEventListeners or {}) do
+for _, listenerId in ipairs(registeredCustomEventListeners or {}) do
 	CustomGameEventManager:UnregisterListener(listenerId)
 end
-
-registeredEventListeners = {}
+registeredCustomEventListeners = {}
 function RegisterCustomEventListener(eventName, callback)
 	local listenerId = CustomGameEventManager:RegisterListener(eventName, function(_, args)
 		callback(args)
 	end)
 
+	table.insert(registeredCustomEventListeners, listenerId)
+end
+
+for _, listenerId in ipairs(registeredEventListeners or {}) do
+	StopListeningToGameEvent(listenerId)
+end
+registeredEventListeners = {}
+function RegisterEventListener(eventName, callback)
+	local listenerId = ListenToGameEvent(eventName, callback, nil)
 	table.insert(registeredEventListeners, listenerId)
 end

@@ -15,21 +15,24 @@
 				<Image src="file://{images}/custom_game/Patreon/patreon.png" onactivate="OnPatreonButtonPressed()"/>
 			</Button>
 		</Panel>
- 		<Panel hittest="true" id="PatreonWindow">
-			<Panel hittest="true" class="PatreonHeader">
-					<Button id="PatreonCloseButton" onactivate="OnPatreonButtonPressed()" class="PatreonCloseButton">
-						<Label id="PatreonCloseButtonLabel" class="PatreonCloseButtonLabel" text="X"/>
-					</Button>
-					<Label id="HeaderLabel" class="PatreonLabel" text="#patreon_perks"/>
+ 		<Panel hittest="true" hittestchildren="true" id="PatreonWindow">
+			<Panel class="PatreonHeader">
+				<TextButton
+					id="PatreonCloseButton"
+					onactivate="OnPatreonButtonPressed()"
+					class="PatreonCloseButton"
+					text="X"
+				/>
+				<Label id="HeaderLabel" class="PatreonLabel" text="#patreon_perks"/>
 			</Panel>
-			<Panel hittest="true" class="SupporterEmblem">
+			<Panel class="SupporterEmblem">
 				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="#emblem_supporter"/>
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
 				<Image class="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
 				<MoviePanel class="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" repeat="true" autoplay="onload" />
 				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#enable_emblem" onactivate="ToggleEmblem()" />
 					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
-					<Panel hittest="true" class="SelectColourBackground" />
+					<Panel class="SelectColourBackground" />
 					<Button id="ColourMaroon" onactivate="OnColourPressed('Maroon')"/>
 					<Button id="ColourBrown" onactivate="OnColourPressed('Brown')"/>
 					<Button id="ColourOlive" onactivate="OnColourPressed('Olive')"/>
@@ -52,26 +55,81 @@
 					<Button id="ColourMint" onactivate="OnColourPressed('Mint')"/>
 					<Button id="ColourLavender" onactivate="OnColourPressed('Lavender')"/>
 					<Button id="ColourWhite" class="SelecetedColor" onactivate="OnColourPressed('White')"/>
-				<Panel hittest="true" class="Divider"/>
+				<Panel class="PatreonFeatureLock" onactivate="">
+					<Image src="file://{images}/control_icons/lock_medium.png" />
+				</Panel>
+				<Panel class="Divider"/>
 			</Panel>
-			<Panel hittest="true" class="FreeBoots">
+			<Panel class="FreeBoots">
 				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="#boots_free"/>
 				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="#boots_free_description"/>
 				<Image class="FreeBootsImage" src="file://{images}/custom_game/Patreon/boot.png" />
 				<MoviePanel class="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" repeat="true" autoplay="onload" />
 				<ToggleButton id="FreeBootsEnableDisable" class="FreeBootsEnableDisableLabel" text="#boots_enable" onactivate="BootsEnableToggle()" />
-				<Panel hittest="true" class="Divider2"/>
+				<Panel class="PatreonFeatureLock" onactivate="">
+					<Image src="file://{images}/control_icons/lock_medium.png" />
+				</Panel>
+				<Panel class="Divider2"/>
 			</Panel>
-			<Panel hittest="true" class="RandomButton">
+			<Panel class="RandomButton">
 				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="#random_unlimited"/>
 				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="#random_unlimited_description"/>
 				<Image class="RandomButtonImage" src="file://{images}/custom_game/Patreon/random.png" />
 				<MoviePanel class="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" repeat="true" autoplay="onload" />
 			</Panel>
-			<Panel hittest="true" class="PatreonFooter">	
-				<Button id="BecomeAPatronButton" class="BecomeAPatronButton">
-					<Label id="BecomeAPatronButtonLabel" class="BecomeAPatronButtonLabel" text="#patron_become" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial?');"/>
-				</Button> 
+			<Panel id="PatreonFooter">
+				<Panel id="PatreonSupportButtons">
+					<TextButton
+						id="SupportButtonPatreon"
+						class="SupportButton"
+						text="#patreon_support_patreon"
+						onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial')"
+					/>
+					<TextButton
+						id="SupportButtonPayment"
+						class="SupportButton"
+						text="#patreon_support_payment"
+						onactivate="togglePaymentWindowVisible()"
+					/>
+				</Panel>
+
+				<Panel id="PatreonSupporterStatus">
+					<Panel id="PatreonSupporterText">
+						<Label text="Thank you for supporting us!" />
+						<Label text="Supporter status experies in {s:support_days_left} days ({s:support_end_date})" />
+					</Panel>
+					<TextButton
+						id="PatreonSupporterUpgrade"
+						class="ButtonBevel"
+						text="Upgrade to Advanced"
+						onactivate="openUpgradePaymentWindow()"
+					/>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel hittest="true" id="PaymentWindow">
+			<TextButton
+				onactivate="setPaymentWindowVisible(false)"
+				class="PatreonCloseButton"
+				text="X"
+			/>
+
+			<Panel id="PaymentWindowBody" />
+			<Panel id="PaymentWindowLoader">
+				<Panel class="Spinner" />
+			</Panel>
+			<Panel id="PaymentWindowError">
+				<Label id="PaymentWindowErrorMessage" />
+			</Panel>
+
+			<Panel id="PaymentWindowProviders">
+				<RadioButton group="Providers" selected="true" text="WeChat Pay" onactivate="currentPaymentWindowProvider = 'wechat';updatePaymentWindow()" />
+				<RadioButton group="Providers" text="Alipay" onactivate="currentPaymentWindowProvider = 'alipay';updatePaymentWindow()" />
+			</Panel>
+
+			<Panel id="PaymentWindowPaymentKinds">
+				<RadioButton group="PaymentKinds" selected="true" text="Basic ($5)" onactivate="currentPaymentWindowPaymentKind = 'purchase_1';updatePaymentWindow()" />
+				<RadioButton group="PaymentKinds" text="Advanced ($25)" onactivate="currentPaymentWindowPaymentKind = 'purchase_2';updatePaymentWindow()" />
 			</Panel>
 		</Panel>
 	</Panel>
