@@ -57,7 +57,7 @@ function SmartRandom:PrepareAutoPick()
 		end
 	end
 
-	SendWebApiRequest("overthrow/auto-pick", { mapName = GetMapName(), players = players, selectedHeroes = heroes }, function(data)
+	SendWebApiRequest("match/auto-pick", { mapName = GetMapName(), players = players, selectedHeroes = heroes }, function(data)
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			SmartRandom.AutoPickHeroes[playerId] = player.heroes
