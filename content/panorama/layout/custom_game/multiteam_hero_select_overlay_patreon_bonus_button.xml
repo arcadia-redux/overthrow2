@@ -8,48 +8,34 @@
 	</scripts>
 	<script>
 		var isPatreon = false;
-		var isSameHeroDay = false;
 
 		function GoToPatreonPage() {
-			if (isPatreon || isSameHeroDay) return;
+			if (isPatreon) return;
 			$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial')
 		}
 
 		function TogglePatreonBonusButton() {
-			if (!isPatreon && !isSameHeroDay) return;
+			if (!isPatreon) return;
 			var enabled = $('#PatreonBonusButton').checked;
 			GameEvents.SendCustomGameEventToServer("patreon_toggle_boots", { enabled: enabled } );
 		}
 
 		function OnMouseOver() {
-			if (isPatreon || isSameHeroDay) return;
+			if (isPatreon) return;
 			$.DispatchEvent('DOTAShowTextTooltip', '#patreon_bonus_button_tooltip')
 		}
 
-		(function() {
-			function UpdateButtonState() {
-				if (!isPatreon && !isSameHeroDay) $('#PatreonBonusButton').checked = false;
-				$('#PatreonBonusButton').enabled = isPatreon && !isSameHeroDay
-			}
+		var firstUpdate = true;
+		SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(value) {
+			var playerBonuses = value[Game.GetLocalPlayerID()];
+			if (!playerBonuses) return;
+			if (!firstUpdate) return;
+			firstUpdate = false;
 
-			var firstUpdate = true;
-			SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(value) {
-				var playerBonuses = value[Game.GetLocalPlayerID()];
-				if (!playerBonuses) return;
-				if (!firstUpdate) return;
-				firstUpdate = false;
-
-				isPatreon = playerBonuses.level > 0;
-				UpdateButtonState();
-				$('#PatreonBonusButton').checked = isPatreon && playerBonuses.bootsEnabled;
-			});
-
-			SubscribeToNetTableKey('game_state', 'is_same_hero_day', function(value) {
-				isSameHeroDay = Boolean(value.enable);
-				$('#PatreonBonusButton').SetHasClass("IsSameHeroDay", isSameHeroDay);
-				UpdateButtonState();
-			});
-		})();
+			isPatreon = playerBonuses.level > 0;
+			$('#PatreonBonusButton').enabled = isPatreon;
+			$('#PatreonBonusButton').checked = isPatreon && playerBonuses.bootsEnabled;
+		});
 	</script>
 	<Panel
 		class="PatreonBonusButtonContainer"

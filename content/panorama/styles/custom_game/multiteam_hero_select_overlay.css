@@ -212,13 +212,12 @@
 	pre-transform-scale2d: 1.02;
 }
 
-.LocalPlayerPatreon #PatreonButton,
-.IsSameHeroDay #PatreonButton
+.LocalPlayerPatreon #PatreonButton
 {
 	background-image: url('file://{images}/custom_game/patreon_active.png');
 }
 
-:not(.LocalPlayerPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > Label
+:not(.LocalPlayerPatreon) #PatreonBonusButton > Label
 {
 	animation-name: patreon-button-animation;
 	animation-duration: 4s;
@@ -233,7 +232,7 @@
 	90% { color: #333333; }
 }
 
-:not(.LocalPlayerPatreon) #PatreonBonusButton:not(.IsSameHeroDay) > .TickBox
+:not(.LocalPlayerPatreon) #PatreonBonusButton > .TickBox
 {
 	animation-name: patreon-button-tick-animation;
 	animation-duration: 4s;

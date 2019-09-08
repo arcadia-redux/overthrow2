@@ -170,11 +170,6 @@ function UpdateTimer()
 		OnUpdateHeroSelection();
 		var localStats = playerPatreonSettings[Game.GetLocalPlayerID()];
 		root.SetHasClass('LocalPlayerPatreon', Boolean(localStats && localStats.level));
-		$.Msg(Boolean(localStats && localStats.level))
-	});
-
-	SubscribeToNetTableKey('game_state', 'is_same_hero_day', function(value) {
-		root.SetHasClass('IsSameHeroDay', Boolean(value.enable));
 	});
 
 	GameEvents.Subscribe( "dota_player_hero_selection_dirty", OnUpdateHeroSelection );

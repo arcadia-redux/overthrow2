@@ -91,7 +91,6 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
 
 		self._fPreGameStartTime = GameRules:GetGameTime()
-		Patreons:SendSameHeroDayMessage()
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -310,7 +309,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 		local player_id = -1
 		if hero and hero:IsRealHero() and hero.GetPlayerID then
 			player_id = hero:GetPlayerID()
-		else 
+		else
 			if hero:GetPlayerOwnerID() ~= -1 then
 				player_id = hero:GetPlayerOwnerID()
 			end

@@ -845,10 +845,6 @@ function COverthrowGameMode:BeforeMatch()
 
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
 	end)
-
-	SendWebApiRequest("same-hero-day", nil, function(sameHeroDayHoursLeft)
-		Patreons:SetSameHeroDayHoursLeft(sameHeroDayHoursLeft)
-	end)
 end
 
 function COverthrowGameMode:EndMatch(winnerTeam)

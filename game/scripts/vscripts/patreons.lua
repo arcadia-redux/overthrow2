@@ -39,24 +39,6 @@ function Patreons:SetPlayerSettings(playerId, settings)
 	CustomNetTables:SetTableValue("game_state", "patreon_bonuses", Patreons.playerSettings)
 end
 
-function Patreons:SetSameHeroDayHoursLeft(value)
-	Patreons.sameHeroDayHoursLeft = value
-
-	CustomNetTables:SetTableValue(
-		"game_state",
-		"is_same_hero_day",
-		{ enable = value ~= nil }
-	)
-
-	GameRules:SetSameHeroSelectionEnabled(value ~= nil)
-end
-
-function Patreons:SendSameHeroDayMessage()
-	if Patreons.sameHeroDayHoursLeft then
-		GameRules:SendCustomMessage("Same Hero Saturday has " .. math.ceil(Patreons.sameHeroDayHoursLeft) .. " hours left. All Players have Patreon benefits today. Thanks for playing.", -1, -1)
-	end
-end
-
 function Patreons:GiveOnSpawnBonus(playerId)
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	local patreonSettings = Patreons:GetPlayerSettings(playerId)
@@ -65,7 +47,7 @@ function Patreons:GiveOnSpawnBonus(playerId)
 		hero:AddNewModifier(hero, nil, "modifier_donator", { patron_level = patreonSettings.level })
 	end
 
-	if sameHeroDayHoursLeft or (patreonSettings.level >= 1 and patreonSettings.bootsEnabled) then
+	if patreonSettings.level >= 1 and patreonSettings.bootsEnabled then
 		if hero:HasItemInInventory("item_boots") then
 			hero:ModifyGold(500, false, 0)
 		else
