@@ -10,6 +10,7 @@
     </scripts>
 
 	<Panel hittest="false" class="EndScreenRoot">
+		<Button id="TopCloseButton" onactivate="Game.FinishGame();" />
 		<Panel hittest="false" class="EndScreenWindow">
 			<Panel id="VictoryRow">
 				<Panel id="WinningTeamLogo" />

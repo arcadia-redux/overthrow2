@@ -60,6 +60,17 @@
 	margin-top: 3px;
 }
 
+#TopCloseButton {
+	width: 24px;
+	height: 24px;
+	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-size: 24px 24px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	margin: 10px;
+	horizontal-align: right;
+}
+
 .EndScreenRoot
 {
 	width: 100%;
@@ -125,7 +136,7 @@
 {
 	background-color: #121618;
 	border: 3px solid #4d5051;
-    margin-top: 50px;
+    margin-top: 18px;
     horizontal-align: right;
 	vertical-align: bottom;
 	width: 200px;
