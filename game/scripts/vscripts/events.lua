@@ -491,10 +491,11 @@ end
 function COverthrowGameMode:OnAbilityUsed( event )
 	print('OnAbilityUsed')
 	DeepPrintTable(event)
+    local caster = EntIndexToHScript(event.caster_entindex)
 
-	CustomGameEventManager:Send_ServerToAllClients( "help_view", nil )
+	DisplayError(caster:GetPlayerOwnerID(),"dis_help_msg")
+	CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "help_view", nil)
 
 	--local abilityname=  event.abilityname
-    --local caster = EntIndexToHScript(event.caster_entindex)
     
 end
