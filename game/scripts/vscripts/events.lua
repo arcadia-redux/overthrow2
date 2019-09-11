@@ -487,3 +487,14 @@ function COverthrowGameMode:OnNpcGoalReached( event )
 		COverthrowGameMode:TreasureDrop( npc )
 	end
 end
+
+function COverthrowGameMode:OnAbilityUsed( event )
+	print('OnAbilityUsed')
+	DeepPrintTable(event)
+
+	CustomGameEventManager:Send_ServerToAllClients( "help_view", nil )
+
+	--local abilityname=  event.abilityname
+    --local caster = EntIndexToHScript(event.caster_entindex)
+    
+end
