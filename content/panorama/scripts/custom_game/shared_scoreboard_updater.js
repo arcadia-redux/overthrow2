@@ -9,7 +9,7 @@ var newStatsInEndScreen = [
 			CreateStandartValue( cont, Math.ceil( Players.GetGoldPerMin( pId ) ), null )
 		},
 		styles: {
-			"width": "60px"
+			"width": "70px"
 		}
 	},
 	{
@@ -25,7 +25,7 @@ var newStatsInEndScreen = [
 			CreateStandartValue( cont, value, null )
 		},
 		styles: {
-			"width": "60px"
+			"width": "70px"
 		}
 	},
 	{
@@ -41,7 +41,7 @@ var newStatsInEndScreen = [
 			CreateStandartValue( cont, value, null )
 		},
 		styles: {
-			"width": "60px"
+			"width": "70px"
 		}
 	},
 	{
