@@ -57,7 +57,7 @@ function TimerClick()
 {
 	if (GameUI.IsAltDown())
 	{
-		GameEvents.SendCustomGameEventToServer( "OnTimerClick", {id: Game.GetLocalPlayerID(),time: $("#Timer").text});
+		GameEvents.SendCustomGameEventToServer( "OnTimerClick", {});
 	}
 }
 

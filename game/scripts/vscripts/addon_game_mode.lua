@@ -1118,16 +1118,17 @@ end)
 
 msgtimer = {}
 RegisterCustomEventListener("OnTimerClick", function(keys)
-	print(GameRules:GetGameTime())
-	if msgtimer[keys.id] ~= nil then
-		if GameRules:GetGameTime() - msgtimer[keys.id] > 3 then
-			Say(PlayerResource:GetPlayer(keys.id), keys.time, true)
-			msgtimer[keys.id] = GameRules:GetGameTime()
-		end
-	else
-		Say(PlayerResource:GetPlayer(keys.id), keys.time, true)
-		msgtimer[keys.id] = GameRules:GetGameTime()
+	if msgtimer[keys.PlayerID] and GameRules:GetGameTime() - msgtimer[keys.PlayerID] < 3 then
+		return
 	end
+    msgtimer[keys.PlayerID] = GameRules:GetGameTime()
+
+	local time = math.abs(math.floor(_G.nCOUNTDOWNTIMER))
+    local min = math.floor(time / 60)
+    local sec = time - min * 60
+    if min < 10 then min = "0" .. min end
+    if sec < 10 then sec = "0" .. sec end
+    Say(PlayerResource:GetPlayer(keys.PlayerID), min .. ":" .. sec, true)
 end)
 
 votimer = {}
@@ -1394,7 +1395,7 @@ RegisterCustomEventListener("SelectVO", function(keys)
 			selectedid2 = keys.num
 		else
 			local locnum = keys.num - (startheronums-8)
-			local nowheroname = string.sub(PlayerResource:GetSelectedHeroEntity(keys.id):GetName(), 15)
+			local nowheroname = string.sub(PlayerResource:GetSelectedHeroEntity(keys.PlayerID):GetName(), 15)
 			local mesarrs = {
 				"_laugh",
 				"_thank",
@@ -2706,19 +2707,19 @@ RegisterCustomEventListener("SelectVO", function(keys)
 				"zuus_zuus_rival_13",
 			}
 		}
-		if votimer[keys.id] ~= nil then
-			if GameRules:GetGameTime() - votimer[keys.id] > 5 then
+		if votimer[keys.PlayerID] ~= nil then
+			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 then
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 				EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
 				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
-				Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], false)
-				votimer[keys.id] = GameRules:GetGameTime()
+				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
+				votimer[keys.PlayerID] = GameRules:GetGameTime()
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 			EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
-			Say(PlayerResource:GetPlayer(keys.id), chat["dota_chatwheel_message_"..selectedstr], false)
-			votimer[keys.id] = GameRules:GetGameTime()
+			Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
+			votimer[keys.PlayerID] = GameRules:GetGameTime()
 		end
 	end
 end)

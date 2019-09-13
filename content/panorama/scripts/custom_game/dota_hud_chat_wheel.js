@@ -295,7 +295,7 @@ function OnSelect(num) {
     var newnum = rings[nowselect][2][num];
     if (rings[nowselect][1][num])
     {
-        GameEvents.SendCustomGameEventToServer("SelectVO", {id: Game.GetLocalPlayerID(),num: newnum});
+        GameEvents.SendCustomGameEventToServer("SelectVO", {num: newnum});
     }
     else
     {
