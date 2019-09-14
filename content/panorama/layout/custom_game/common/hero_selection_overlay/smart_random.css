@@ -1,0 +1,49 @@
+.SmartRandomButton
+{
+	vertical-align: bottom;
+	horizontal-align: right;
+	width: 93px;
+	margin-bottom: 70px;
+	background-color: #3A8D42;
+	border-top: 4px solid #44E153;
+	brightness: 0.9;
+}
+
+.SmartRandomButton:not(.OnCooldown):hover
+{
+	saturation: 1.4;
+	brightness: 1.3;
+}
+
+.SmartRandomButton:not(.OnCooldown):active
+{
+	saturation: 1.3;
+	brightness: 1.1;
+}
+
+/* FIXME: Potential exploit */
+#PreGame:not(.DOTA_GAMERULES_STATE_HERO_SELECTION) .SmartRandomButton,
+.IsInBanPhase .SmartRandomButton,
+.SmartRandomButton.NoStats
+{
+	visibility: collapse;
+}
+
+.SmartRandomButton.OnCooldown
+{
+	saturation: 0.4;
+	brightness: 0.2;
+}
+
+.SmartRandomButton Label
+{
+	color: white;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+}
+
+.HasSelectedHero .SmartRandomButton
+{
+	visibility: collapse;
+}

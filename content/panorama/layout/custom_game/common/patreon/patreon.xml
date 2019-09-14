@@ -1,11 +1,11 @@
 <root>
 	<styles>
-		<include src="file://{resources}/styles/custom_game/patreon.css" />
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/patreon/patreon.css" />
 	</styles>
  	<scripts>
-		<include src="file://{resources}/scripts/custom_game/util.js" />
-		<include src="file://{resources}/scripts/custom_game/patreon.js" />
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/patreon/patreon.js" />
 	</scripts>
  	<Panel hittest="false" class="PatreonRoot">
  		<Panel id="PatreonButtonPanel">
@@ -30,7 +30,7 @@
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
 				<Image class="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
 				<MoviePanel class="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" repeat="true" autoplay="onload" />
-				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#enable_emblem" onactivate="ToggleEmblem()" />
+				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#emblem_enable" onactivate="ToggleEmblem()" />
 					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
 					<Panel class="SelectColourBackground" />
 					<Button id="ColourMaroon" onactivate="OnColourPressed('Maroon')"/>
@@ -123,13 +123,13 @@
 			</Panel>
 
 			<Panel id="PaymentWindowProviders">
-				<RadioButton group="Providers" selected="true" text="WeChat Pay" onactivate="currentPaymentWindowProvider = 'wechat';updatePaymentWindow()" />
-				<RadioButton group="Providers" text="Alipay" onactivate="currentPaymentWindowProvider = 'alipay';updatePaymentWindow()" />
+				<RadioButton group="Providers" selected="true" text="WeChat Pay" onactivate="currentPaymentWindowProvider = 'WeChat';updatePaymentWindow()" />
+				<RadioButton group="Providers" text="Alipay" onactivate="currentPaymentWindowProvider = 'Alipay';updatePaymentWindow()" />
 			</Panel>
 
 			<Panel id="PaymentWindowPaymentKinds">
-				<RadioButton group="PaymentKinds" selected="true" text="Basic ($5)" onactivate="currentPaymentWindowPaymentKind = 'purchase_1';updatePaymentWindow()" />
-				<RadioButton group="PaymentKinds" text="Advanced ($25)" onactivate="currentPaymentWindowPaymentKind = 'purchase_2';updatePaymentWindow()" />
+				<RadioButton group="PaymentKinds" selected="true" text="Basic ($5)" onactivate="currentPaymentWindowPaymentKind = 'Purchase1';updatePaymentWindow()" />
+				<RadioButton group="PaymentKinds" text="Advanced ($25)" onactivate="currentPaymentWindowPaymentKind = 'Purchase2';updatePaymentWindow()" />
 			</Panel>
 		</Panel>
 	</Panel>

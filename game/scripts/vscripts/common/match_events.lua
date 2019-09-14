@@ -8,7 +8,7 @@ end
 
 function MatchEvents.SendRequest()
 	MatchEvents.RequestTimer = nil
-	SendWebApiRequest(
+	WebApi:Send(
 		"match/events",
 		{ matchId = tonumber(tostring(GameRules:GetMatchID())) },
 		function(responses)

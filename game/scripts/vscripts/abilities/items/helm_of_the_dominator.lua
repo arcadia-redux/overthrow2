@@ -62,7 +62,7 @@ if IsServer() then
 		else
 			local positionTarget = self:GetCursorPosition()
 			if not self.unitNames or #self.unitNames == 0 then
-				self.unitNames = ShuffledList(JUNGLE_UNITS)
+				self.unitNames = table.shuffled(JUNGLE_UNITS)
 			end
 			local unitName = table.remove(self.unitNames)
 			unit = CreateUnitByName(unitName, positionTarget, true, caster, caster, casterTeam)

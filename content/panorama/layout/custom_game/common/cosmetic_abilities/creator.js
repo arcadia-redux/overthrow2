@@ -30,7 +30,7 @@ buff_container.FindChild( "debuffs" ).style.transform = "translateY( -50px )"
 
 if ( !center_block.FindChild( "CosmeticAbilities" ) ) {
 	var newPanel = $.CreatePanel( "Panel", center_block, "CosmeticAbilities" )
-	newPanel.BLoadLayout( "file://{resources}/layout/custom_game/cosmetic_abilities.xml", false, false )
+	newPanel.BLoadLayout( "file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml", false, false )
 	center_block.MoveChildBefore( newPanel, center_block.FindChild( "center_bg" ) )
 }
 
@@ -38,20 +38,14 @@ center_block.FindChildrenWithClassTraverse( "TertiaryAbilityContainer" )[0].styl
 
 var abilities_panel = center_block.FindChild( "AbilitiesAndStatBranch" ).FindChildTraverse( "abilities" )
 
-function HideAbilities() {
-	var abilities = abilities_panel.Children()
-
-	for ( i in abilities ) {
-		var ability_name = abilities[i].FindChildTraverse( "AbilityImage" ).abilityname
+setInterval(function HideAbilities() {
+	for (var ability_panel of abilities_panel.Children()) {
+		var ability_name = ability_panel.FindChildTraverse( "AbilityImage" ).abilityname
 
 		if ( COSMETIC_ABILITIES[ability_name] ) {
-			abilities[i].style.visibility = "collapse"
+			ability_panel.style.visibility = "collapse"
 		} else {
-			abilities[i].style.visibility = "visible"
+			ability_panel.style.visibility = "visible"
 		}
 	}
-
-	$.Schedule( 0.001, HideAbilities )
-}
-
-HideAbilities()
+}, 0);

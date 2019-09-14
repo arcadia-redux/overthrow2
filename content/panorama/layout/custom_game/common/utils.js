@@ -1,3 +1,15 @@
+Object.values = function(object) {
+	return Object.keys(object).map(function(key) { return object[key] });
+}
+
+Array.prototype.includes = function(searchElement, fromIndex) {
+	return this.indexOf(searchElement, fromIndex) !== -1;
+}
+
+String.prototype.includes = function(searchString, position) {
+	return this.indexOf(searchString, position) !== -1
+}
+
 function setInterval(callback, interval) {
 	interval = interval / 1000;
 	$.Schedule(interval, function reschedule() {
@@ -31,29 +43,18 @@ function SubscribeToNetTableKey(tableName, key, callback) {
 }
 
 function GetDotaHud() {
-    var p = $.GetContextPanel();
-    while (p !== null && p.id !== 'Hud') {
-        p = p.GetParent();
-    }
-    if (p === null) {
-        throw new HudNotFoundException('Could not find Hud root as parent of panel with id: ' + $.GetContextPanel().id);
-    } else {
-        return p;
-    }
+    var panel = $.GetContextPanel();
+    while (panel && panel.id !== 'Hud') {
+        panel = panel.GetParent();
+	}
+
+    if (!panel) {
+        throw new Error('Could not find Hud root from panel with id: ' + $.GetContextPanel().id);
+	}
+
+	return panel;
 }
 
 function FindDotaHudElement(id) {
     return GetDotaHud().FindChildTraverse(id);
-}
-
-function FillTopBarPlayer(TeamContainer) {
-    // Fill players top bar in case on partial lobbies
-    var playerCount = TeamContainer.GetChildCount();
-    for (var i = playerCount + 1; i <= 12; i++) {
-        var newPlayer = $.CreatePanel('DOTATopBarPlayer', TeamContainer, 'RadiantPlayer-1');
-        if (newPlayer) {
-            newPlayer.FindChildTraverse('PlayerColor').style.backgroundColor = '#FFFFFFFF';
-        }
-        newPlayer.SetHasClass('EnemyTeam', true);
-    }
 }

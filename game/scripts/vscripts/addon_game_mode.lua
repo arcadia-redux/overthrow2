@@ -24,19 +24,16 @@ end
 ---------------------------------------------------------------------------
 -- Required .lua files
 ---------------------------------------------------------------------------
-require("timers")
+require("common/init")
 require("utility_functions")
 require("events")
 require("items")
-require("match_events")
-require("patreons")
-require("smart_random")
-require("cosmetic_abilities")
+
+WebApi.customGame = "Overthrow"
 
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_donator", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
@@ -292,12 +289,6 @@ function COverthrowGameMode:InitGameMode()
 	self.core_torches_main = Entities:FindAllByName("torch_main_entrance")
 	self.core_torches_side = Entities:FindAllByName("torch_side_entrance")
 
-	local firstPlayerLoaded
-	ListenToGameEvent("player_connect_full", function()
-		if firstPlayerLoaded then return end
-		firstPlayerLoaded = true
-		self:BeforeMatch()
-	end, nil)
 	ListenToGameEvent("player_chat", function(data)
 		if data.text == "-goblinsgreed" then
 			local playerId = data.playerid
@@ -381,7 +372,7 @@ function COverthrowGameMode:EndGame( victoryTeam )
 		end
 	end
 
-	COverthrowGameMode:EndMatch(victoryTeam)
+	WebApi:AfterMatch(victoryTeam)
 	GameRules:SetGameWinner( victoryTeam )
 end
 
@@ -588,7 +579,7 @@ function COverthrowGameMode:GatherAndRegisterValidTeams()
 
 	local maxPlayersPerValidTeam = math.floor( 10 / numTeams )
 
-	self.m_GatheredShuffledTeams = ShuffledList( foundTeamsList )
+	self.m_GatheredShuffledTeams = table.shuffled( foundTeamsList )
 
 	print( "Final shuffled team list:" )
 	for _, team in pairs( self.m_GatheredShuffledTeams ) do
@@ -635,22 +626,22 @@ function spawnunits(campname)
 	end
 end
 
---------------------------------------------------------------------------------
--- Event: Filter for inventory full
---------------------------------------------------------------------------------
 function COverthrowGameMode:ExecuteOrderFilter( filterTable )
-	--[[
-	for k, v in pairs( filterTable ) do
-		print("EO: " .. k .. " " .. tostring(v) )
+	local orderType = filterTable.order_type
+	local playerId = filterTable.issuer_player_id_const
+	local target = filterTable.entindex_target ~= 0 and EntIndexToHScript(filterTable.entindex_target) or nil
+	local ability = filterTable.entindex_ability ~= 0 and EntIndexToHScript(filterTable.entindex_ability) or nil
+	-- `entindex_ability` is item id in some orders without entity
+	if ability and not ability.GetAbilityName then ability = nil end
+	local unit
+	-- TODO: Are there orders without a unit?
+	if filterTable.units and filterTable.units["0"] then
+		unit = EntIndexToHScript(filterTable.units["0"])
 	end
-	]]
 
-	local orderType = filterTable["order_type"]
-	if orderType == DOTA_UNIT_ORDER_PICKUP_ITEM and filterTable["issuer_player_id_const"] ~= -1 then
-		local item = EntIndexToHScript( filterTable["entindex_target"] )
-		local unit = EntIndexToHScript(filterTable.units["0"])
-		if not item then return true end
-		local pickedItem = item:GetContainedItem()
+	if orderType == DOTA_UNIT_ORDER_PICKUP_ITEM and playerId ~= -1 then
+		if not target then return true end
+		local pickedItem = target:GetContainedItem()
 		if not pickedItem then return true end
 
 		local itemName = pickedItem:GetAbilityName()
@@ -659,7 +650,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 			itemName == "item_treasure_chest" or
 			itemName == "item_core_pumpkin"
 		) then
-			local position = item:GetAbsOrigin()
+			local position = target:GetAbsOrigin()
 			filterTable["position_x"] = position.x
 			filterTable["position_y"] = position.y
 			filterTable["position_z"] = position.z
@@ -668,12 +659,12 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		end
 
 		if itemName == "item_treasure_chest" then
-			local player = PlayerResource:GetPlayer(filterTable["issuer_player_id_const"])
+			local player = PlayerResource:GetPlayer(playerId)
 			local hero = player:GetAssignedHero()
 			if hero:GetNumItemsInInventory() <= DOTA_ITEM_SLOT_9 then
 				return true
 			else
-				local position = item:GetAbsOrigin()
+				local position = target:GetAbsOrigin()
 				filterTable["position_x"] = position.x
 				filterTable["position_y"] = position.y
 				filterTable["position_z"] = position.z
@@ -683,55 +674,28 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		end
 	end
 
-	local target = nil
-	local playerId = filterTable.issuer_player_id_const
-	local ability = EntIndexToHScript(filterTable.entindex_ability)
-	local unit = nil
-
-	if filterTable.units ~= nil then
-		if filterTable.units["0"] ~= nil then
-			unit = EntIndexToHScript(filterTable.units["0"])
-		end
-	end
-	if filterTable.entindex_target and filterTable.entindex_target ~= 0 then
-		target = EntIndexToHScript(filterTable.entindex_target)
+	local disableHelpResult = DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
+	if disableHelpResult == false then
+		return false
 	end
 
-	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
-		if ability and target and unit then
-			if PlayerResource:IsDisableHelpSetForPlayerID(target:GetPlayerOwnerID(), unit:GetPlayerOwnerID()) and (ability:GetName() == "oracle_fates_edict" or ability:GetName() == "oracle_purifying_flames" or ability:GetName() == "wisp_tether" or ability:GetName() == "earth_spirit_boulder_smash" or ability:GetName() == "earth_spirit_geomagnetic_grip" or ability:GetName() == "earth_spirit_petrify" or ability:GetName() == "troll_warlord_battle_trance") then
-				DisplayError(unit:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
+	if unit and unit:IsCourier()then
+		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
+			local purchaser = ability:GetPurchaser()
+			if purchaser and purchaser:GetPlayerID() ~= playerId then
+				-- CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#hud_error_courier_cant_order_item" })
 				return false
 			end
 		end
 	end
 
-	if unit then
-		if unit:IsCourier() then
-			if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and ability:IsItem() then
-				local purchaser = ability:GetPurchaser()
-				if purchaser and purchaser:GetPlayerID() ~= playerId then
-					--CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#hud_error_courier_cant_order_item" })
-					return false
-				end
-			end
-		end
-	end
 	return true
 end
 
 function COverthrowGameMode:ModifierGainedFilter(filterTable)
-	if filterTable.name_const == "modifier_tiny_toss" then
-		local parent = EntIndexToHScript(filterTable.entindex_parent_const)
-		local caster = EntIndexToHScript(filterTable.entindex_caster_const)
-		local ability = EntIndexToHScript(filterTable.entindex_ability_const)
-
-		if PlayerResource:IsDisableHelpSetForPlayerID(parent:GetPlayerOwnerID(), caster:GetPlayerOwnerID()) then
-			ability:EndCooldown()
-			ability:RefundManaCost()
-			DisplayError(caster:GetPlayerOwnerID(), "dota_hud_error_target_has_disable_help")
-			return false
-		end
+	local disableHelpResult = DisableHelp.ModifierGainedFilter(filterTable)
+	if disableHelpResult == false then
+		return false
 	end
 
 	return true
@@ -768,19 +732,6 @@ function COverthrowGameMode:RuneSpawnFilter(filterTable)
 	return true
 end
 
-RegisterCustomEventListener("set_disable_help", function(data)
-	local to = data.to;
-	if PlayerResource:IsValidPlayerID(to) then
-		local playerId = data.PlayerID;
-		local disable = data.disable == 1
-		PlayerResource:SetUnitShareMaskForPlayer(playerId, to, 4, disable)
-
-		local disableHelp = CustomNetTables:GetTableValue("disable_help", tostring(playerId)) or {}
-		disableHelp[tostring(to)] = disable
-		CustomNetTables:SetTableValue("disable_help", tostring(playerId), disableHelp)
-	end
-end)
-
 function COverthrowGameMode:GetSortedTeams()
 	local sortedTeams = {}
 	for _, team in pairs(self.m_GatheredShuffledTeams) do
@@ -789,124 +740,6 @@ function COverthrowGameMode:GetSortedTeams()
 
 	table.sort(sortedTeams, function(a, b) return a.score > b.score end)
 	return sortedTeams
-end
-
-function COverthrowGameMode:BeforeMatch()
-	local players = {}
-	for i = 0, 23 do
-		if PlayerResource:IsValidPlayerID(i) then
-			table.insert(players, tostring(PlayerResource:GetSteamID(i)))
-		end
-	end
-
-	SendWebApiRequest("match/before", { mapName = GetMapName(), players = players }, function(data)
-		local publicStats = {}
-		for _,player in ipairs(data.players) do
-			local playerId = GetPlayerIdBySteamId(player.steamId)
-			if player.patreon["emblemColor"] == nil then
-				local colorNames = {
-					"White",
-					"Red",
-					"Green",
-					"Blue",
-					"Cyan",
-					"Yellow",
-					"Pink",
-					"Maroon",
-					"Brown",
-					"Olive",
-					"Teal",
-					"Navy",
-					"Black",
-					"Orange",
-					"Lime",
-					"Purple",
-					"Magenta",
-					"Grey",
-					"Apricot",
-					"Beige",
-					"Mint",
-					"Lavender",
-				}
-				player.patreon["emblemColor"] = colorNames[RandomInt(1, #colorNames)]
-			end
-			Patreons:SetPlayerSettings(playerId, player.patreon)
-			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, player.smartRandomHeroesError)
-
-			publicStats[playerId] = {
-				streak = player.streak,
-				bestStreak = player.bestStreak,
-				averageKills = player.averageKills,
-				averageDeaths = player.averageDeaths,
-				averageAssists = player.averageAssists,
-				wins = player.wins,
-				loses = player.loses,
-			}
-		end
-
-		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
-	end)
-end
-
-function COverthrowGameMode:EndMatch(winnerTeam)
-	if not WEB_API_TESTING then
-		if GameRules:IsCheatMode() then return end
-		if GameRules:GetDOTATime(false, true) < 60 then return end
-	end
-	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
-	if winnerTeam == DOTA_TEAM_NEUTRALS or winnerTeam == DOTA_TEAM_NOTEAM then return end
-
-	local requestBody = {
-		matchId = WEB_API_TESTING and RandomInt(1, 10000000) or tonumber(tostring(GameRules:GetMatchID())),
-		duration = math.floor(GameRules:GetDOTATime(false, true)),
-		mapName = GetMapName(),
-		winner = winnerTeam,
-
-		players = {}
-	}
-
-	for playerId = 0, 23 do
-		if PlayerResource:IsValidTeamPlayerID(playerId) and not PlayerResource:IsFakeClient(playerId) then
-			local playerData = {
-				playerId = playerId,
-				steamId = tostring(PlayerResource:GetSteamID(playerId)),
-				team = PlayerResource:GetTeam(playerId),
-
-				hero = PlayerResource:GetSelectedHeroName(playerId),
-				pickReason = SmartRandom.PickReasons[playerId] or (PlayerResource:HasRandomed(playerId) and "random" or "pick"),
-				kills = PlayerResource:GetKills(playerId),
-				deaths = PlayerResource:GetDeaths(playerId),
-				assists = PlayerResource:GetAssists(playerId),
-				level = 0,
-				items = {},
-			}
-
-			local patreonSettings = Patreons:GetPlayerSettings(playerId)
-			if patreonSettings.level > 0 then
-				playerData.patreonUpdate = patreonSettings
-			end
-
-			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-			if IsValidEntity(hero) then
-				playerData.level = hero:GetLevel()
-				for slot = DOTA_ITEM_SLOT_1, DOTA_STASH_SLOT_6 do
-					local item = hero:GetItemInSlot(slot)
-					if item then
-						table.insert(playerData.items, {
-							slot = slot,
-							name = item:GetAbilityName(),
-							charges = item:GetCurrentCharges()
-						})
-					end
-				end
-			end
-
-			table.insert(requestBody.players, playerData)
-		end
-	end
-	if WEB_API_TESTING or #requestBody.players >= 5 then
-		SendWebApiRequest("match/after", requestBody)
-	end
 end
 
 local allCoreTeams = {
@@ -1121,14 +954,14 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 	if msgtimer[keys.PlayerID] and GameRules:GetGameTime() - msgtimer[keys.PlayerID] < 3 then
 		return
 	end
-    msgtimer[keys.PlayerID] = GameRules:GetGameTime()
+	msgtimer[keys.PlayerID] = GameRules:GetGameTime()
 
 	local time = math.abs(math.floor(_G.nCOUNTDOWNTIMER))
-    local min = math.floor(time / 60)
-    local sec = time - min * 60
-    if min < 10 then min = "0" .. min end
-    if sec < 10 then sec = "0" .. sec end
-    Say(PlayerResource:GetPlayer(keys.PlayerID), min .. ":" .. sec, true)
+	local min = math.floor(time / 60)
+	local sec = time - min * 60
+	if min < 10 then min = "0" .. min end
+	if sec < 10 then sec = "0" .. sec end
+	Say(PlayerResource:GetPlayer(keys.PlayerID), min .. ":" .. sec, true)
 end)
 
 votimer = {}

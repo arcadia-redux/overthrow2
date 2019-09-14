@@ -33,7 +33,7 @@ local function pickRandomHeroFromList(playerId, list, callback)
 	if not player then return callback(false) end
 
 	getBannedHeroes(function(bannedHeroes)
-		for _, heroName in ipairs(ShuffledList(list)) do
+		for _, heroName in ipairs(table.shuffled(list)) do
 			if not PlayerResource:IsHeroSelected(heroName) and not bannedHeroes[heroName] then
 				UTIL_Remove(CreateHeroForPlayer(heroName, player))
 				return callback(true)
@@ -57,7 +57,7 @@ function SmartRandom:PrepareAutoPick()
 		end
 	end
 
-	SendWebApiRequest("match/auto-pick", { mapName = GetMapName(), players = players, selectedHeroes = heroes }, function(data)
+	WebApi:Send("match/auto-pick", { mapName = GetMapName(), players = players, selectedHeroes = heroes }, function(data)
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			SmartRandom.AutoPickHeroes[playerId] = player.heroes

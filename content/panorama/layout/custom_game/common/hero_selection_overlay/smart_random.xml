@@ -1,0 +1,19 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/hero_selection_overlay/smart_random.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/hero_selection_overlay/smart_random.js" />
+	</scripts>
+
+	<Button
+		class="SmartRandomButton"
+		onactivate="Activate()"
+		onmouseover="OnMouseOver()"
+		onmouseout="OnMouseOut()"
+	>
+		<Label text="#smart_random_button" />
+	</Button>
+</root>

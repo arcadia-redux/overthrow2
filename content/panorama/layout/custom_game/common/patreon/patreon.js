@@ -48,8 +48,10 @@ function updatePatreonButton() {
 
 var createPaymentRequest = createEventRequestCreator('patreon:payments:create')
 
-var currentPaymentWindowProvider = 'wechat';
-var currentPaymentWindowPaymentKind = 'purchase_1';
+/** @type {'WeChat' | 'Alipay'} */
+var currentPaymentWindowProvider = 'WeChat';
+/** @type {'Purchase1' | 'Purchase2' | 'UpgradeTo2'} */
+var currentPaymentWindowPaymentKind = 'Purchase1';
 
 function setPaymentWindowVisible(visible) {
 	$('#PaymentWindow').visible = visible;
@@ -98,7 +100,7 @@ function updatePaymentWindow() {
 
 function openUpgradePaymentWindow() {
 	$('#PaymentWindowPaymentKinds').visible = false;
-	currentPaymentWindowPaymentKind = 'upgrade_to_2';
+	currentPaymentWindowPaymentKind = 'UpgradeTo2';
 	setPaymentWindowVisible(true);
 }
 

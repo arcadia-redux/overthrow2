@@ -101,13 +101,13 @@ local function onPlayerClosePaymentWindow(args)
 	end
 end
 
-RegisterEventListener("player_disconnect", onPlayerClosePaymentWindow)
+RegisterGameEventListener("player_disconnect", onPlayerClosePaymentWindow)
 RegisterCustomEventListener("patreon:payments:close", onPlayerClosePaymentWindow)
 
 RegisterCustomEventListener("patreon:payments:create", function(args)
 	local playerId = args.PlayerID
 	local steamId = tostring(PlayerResource:GetSteamID(playerId))
-	SendWebApiRequest(
+	WebApi:Send(
 		"payment/create",
 		{ steamId = steamId, paymentKind = args.paymentKind, provider = args.provider },
 		function(response)
@@ -142,7 +142,7 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 	end
 
 	if not response.error then
-		local patreonSettings = Patreons:GetPlayerSettings(playerId)
+		local patreonSettings = table.clone(Patreons:GetPlayerSettings(playerId))
 		local isUpgrade = patreonSettings.level > 0 and response.level > patreonSettings.level
 
 		patreonSettings.level = response.level

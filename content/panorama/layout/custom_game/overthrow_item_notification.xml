@@ -5,7 +5,6 @@
 	</styles>
 	<scripts>
 		<include src="file://{resources}/scripts/custom_game/overthrow_notification.js" />
-		<include src="file://{resources}/scripts/custom_game/display_error.js" />
 	</scripts>
 	<Panel hittest="false" class="OverthrowNotification">
 		<Panel hittest="false" class="OverthrowItemNotification">

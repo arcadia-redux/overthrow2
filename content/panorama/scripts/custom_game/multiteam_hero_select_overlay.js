@@ -151,76 +151,13 @@ function UpdateTimer()
 		teamPanel.AddClass(teamId === localPlayerTeamId ? "local_player_team" : "not_local_player_team");
 	}
 
-	var root = $.GetContextPanel().GetParent().GetParent().GetParent();
 	SubscribeToNetTableKey('game_state', 'player_stats', function(value) {
 		playerStats = value;
 		OnUpdateHeroSelection();
-		var localStats = playerStats[Game.GetLocalPlayerID()];
-		if (!localStats) return;
-		$('#PlayerStatsAverageWinsLoses').text = localStats.wins + '/' + localStats.loses;
-		$('#PlayerStatsAverageKDA').text = [
-			localStats.averageKills,
-			localStats.averageDeaths,
-			localStats.averageAssists,
-		].map(Math.round).join('/');
-	});
-
-	SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(value) {
-		playerPatreonSettings = value;
-		OnUpdateHeroSelection();
-		var localStats = playerPatreonSettings[Game.GetLocalPlayerID()];
-		root.SetHasClass('LocalPlayerPatreon', Boolean(localStats && localStats.level));
 	});
 
 	GameEvents.Subscribe( "dota_player_hero_selection_dirty", OnUpdateHeroSelection );
 	GameEvents.Subscribe( "dota_player_update_hero_selection", OnUpdateHeroSelection );
-  UpdateTimer();
-
-  $.GetContextPanel().SetDialogVariable('map_name', Game.GetMapInfo().map_display_name);
+	UpdateTimer();
 })();
 
-(function() {
-	var root = $.GetContextPanel().GetParent().GetParent().GetParent();
-	var startingItemsLeftColumn = root.FindChildTraverse("StartingItemsLeftColumn");
-	startingItemsLeftColumn.Children().forEach(function(child) {
-		if (child.BHasClass('PatreonBonusButtonContainer')) child.DeleteAsync(0);
-	})
-	var inventoryStrategyControl = root.FindChildTraverse("InventoryStrategyControl");
-	inventoryStrategyControl.style.marginTop = (46 - 32) + 'px';
-
-	var patreonBonusButton = $.CreatePanel("Panel", startingItemsLeftColumn, "");
-	patreonBonusButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_patreon_bonus_button.xml", false, true)
-	startingItemsLeftColumn.MoveChildAfter(patreonBonusButton, startingItemsLeftColumn.GetChild(0));
-})();
-
-(function() {
-	var root = $.GetContextPanel().GetParent().GetParent().GetParent();
-	var heroPickRightColumn = root.FindChildTraverse('HeroPickRightColumn');
-	var smartRandomButton = heroPickRightColumn.FindChildTraverse('smartRandomButton');
-	if (smartRandomButton != null) smartRandomButton.DeleteAsync(0);
-
-	smartRandomButton = $.CreatePanel('Button', heroPickRightColumn, 'smartRandomButton');
-	smartRandomButton.BLoadLayout("file://{resources}/layout/custom_game/multiteam_hero_select_overlay_smart_random.xml", false, false)
-})();
-
-function getBans() {
-	var gridCore = FindDotaHudElement("GridCore");
-	var result = {};
-	for (var child of gridCore.Children()) {
-		if (child.BHasClass("Banned")) {
-			var heroImage = child.FindChildTraverse("HeroImage");
-			if (heroImage) {
-				result['npc_dota_hero_' + heroImage.heroname] = true;
-			}
-		}
-	}
-
-	return result;
-}
-
-GameEvents.Subscribe("banned_heroes", function(event) {
-	GameEvents.SendCustomGameEventToServer("banned_heroes", {
-		eventId: event.eventId,
-		result: getBans(),
-	});
-});

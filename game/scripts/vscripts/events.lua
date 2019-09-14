@@ -281,7 +281,7 @@ function COverthrowGameMode:OnTeamKillCredit( event )
 
 	if nKillsRemaining <= 0 then
 		GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[nTeamID] )
-		COverthrowGameMode:EndMatch(nTeamID)
+		WebApi:AfterMatch(nTeamID)
 		GameRules:SetGameWinner( nTeamID )
 		broadcast_kill_event.victory = 1
 	elseif nKillsRemaining == 1 then
@@ -497,5 +497,5 @@ function COverthrowGameMode:OnAbilityUsed( event )
 	CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "help_view", nil)
 
 	--local abilityname=  event.abilityname
-    
+
 end

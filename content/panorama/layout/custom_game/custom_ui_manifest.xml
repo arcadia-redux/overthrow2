@@ -1,8 +1,9 @@
 <root>
 	<scripts>
-		<include src="file://{resources}/scripts/custom_game/util.js" />
-		<include src="file://{resources}/scripts/custom_game/cosmetic_abilities/creator.js" />
-		<include src="file://{resources}/scripts/custom_game/kicks.js" />
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/display_error.js" />
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/creator.js" />
+		<include src="file://{resources}/layout/custom_game/common/kicks.js" />
 	</scripts>
 
 	<script>
@@ -62,9 +63,6 @@
 		}
 
 		FindDotaHudElement( "PreGame" ).FindChild( "Header" ).style.visibility = "collapse"
-
-		if (Game.IsInToolsMode())
-			$.Msg(FindDotaHudElement("PatreonButton"))
 	</script>
 
 	<Panel>
@@ -72,9 +70,10 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/overthrow_item_notification.xml" />
 		<CustomUIElement type="FlyoutScoreboard"	layoutfile="file://{resources}/layout/custom_game/multiteam_flyout_scoreboard.xml" />
 		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/multiteam_hero_select_overlay.xml" />
+		<CustomUIElement type="HeroSelection" 		layoutfile="file://{resources}/layout/custom_game/common/hero_selection_overlay/hero_selection_overlay.xml" />
 		<CustomUIElement type="EndScreen" 			layoutfile="file://{resources}/layout/custom_game/multiteam_end_screen.xml" />
 		<CustomUIElement type="GameInfo" 			layoutfile="file://{resources}/layout/custom_game/overthrow_game_info.xml" />
-		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/patreon.xml"/>
-		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" /><!---->
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/patreon/patreon.xml"/>
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
 	</Panel>
 </root>

@@ -49,7 +49,7 @@ if IsServer() then
 		)
 
 		if not self.sets or #self.sets == 0 then
-			self.sets = ShuffledList(ABILITY_SETS)
+			self.sets = table.shuffled(ABILITY_SETS)
 		end
 		local abilitySet = table.remove(self.sets)
 		for i = 1, 2 do

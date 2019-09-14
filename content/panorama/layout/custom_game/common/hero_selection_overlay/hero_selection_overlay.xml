@@ -1,0 +1,27 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/hero_selection_overlay/hero_selection_overlay.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/hero_selection_overlay/hero_selection_overlay.js" />
+	</scripts>
+
+	<Panel class="HeroSelectionOverlayRoot" hittest="false">
+		<Image id="PatreonButton" onmouseactivate="ExternalBrowserGoToURL(https://www.patreon.com/dota2unofficial)" />
+
+		<Panel id="PlayerStats">
+			<Label id="PlayerStatsTitle" text="#player_stats_title" />
+			<Panel class="PlayerStatsLine">
+				<Label text="#player_stats_wins_loses" />
+				<Label id="PlayerStatsAverageWinsLoses" text="0/0" />
+			</Panel>
+			<Panel class="PlayerStatsLine">
+				<Label text="#player_stats_average_kda" />
+				<Label id="PlayerStatsAverageKDA" text="0/0/0" />
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

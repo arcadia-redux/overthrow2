@@ -5,41 +5,27 @@
 	</styles>
 
 	<scripts>
-		<include src="file://{resources}/scripts/custom_game/util.js" />
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/scripts/custom_game/multiteam_hero_select_overlay.js" />
 	</scripts>
 
-  <Panel class="HeroSelectOverlayRoot" hittest="false">
-	<Panel id="HeroSelectTeamsContainer">
-		<Panel>
-			<Panel class="EndSpacer" />
-			<Panel class="EndSpacer" />
+	<Panel class="HeroSelectOverlayRoot" hittest="false">
+		<Panel id="HeroSelectTeamsContainer">
+			<Panel>
+				<Panel class="EndSpacer" />
+				<Panel class="EndSpacer" />
+			</Panel>
+			<Panel>
+				<Panel class="EndSpacer" />
+				<Panel class="EndSpacer" />
+			</Panel>
 		</Panel>
-		<Panel>
-			<Panel class="EndSpacer" />
-			<Panel class="EndSpacer" />
+
+		<Panel id="TimerPanel">
+			<Image id="TimerBg" src="s2r://panorama/images/status_icons/timer_background_psd.vtex" />
+			<Image id="TimerRing" src="s2r://panorama/images/status_icons/timer_ring_psd.vtex" />
+			<Label id="Timer" text="#HeroSelectionTimer" />
+			<Label id="TimerLabel" />
 		</Panel>
 	</Panel>
-
-	<Panel id="TimerPanel">
-		<Image id="TimerBg" src="s2r://panorama/images/status_icons/timer_background_psd.vtex" />
-		<Image id="TimerRing" src="s2r://panorama/images/status_icons/timer_ring_psd.vtex" />
-		<Label id="Timer" text="#HeroSelectionTimer" />
-		<Label id="TimerLabel" />
-	</Panel>
-
-	<Image id="PatreonButton" onmouseactivate="ExternalBrowserGoToURL(https://www.patreon.com/dota2unofficial)" />
-
-	<Panel id="PlayerStats">
-		<Label id="PlayerStatsTitle" text="#player_stats_title" />
-		<Panel class="PlayerStatsLine">
-			<Label text="#player_stats_wins_loses" />
-			<Label id="PlayerStatsAverageWinsLoses" text="0/0" />
-		</Panel>
-		<Panel class="PlayerStatsLine">
-			<Label text="#player_stats_average_kda" />
-			<Label id="PlayerStatsAverageKDA" text="0/0/0" />
-		</Panel>
-	</Panel>
-  </Panel>
 </root>

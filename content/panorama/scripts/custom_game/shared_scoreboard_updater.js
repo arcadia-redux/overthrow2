@@ -146,7 +146,7 @@ function _ScoreboardUpdater_SetTextSafe( panel, childName, textValue )
 	var childPanel = panel.FindChildInLayoutFile( childName )
 	if ( childPanel === null )
 		return;
-	
+
 	childPanel.text = textValue;
 }
 
@@ -178,12 +178,12 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 				}
 
 				newStatsInEndScreen[i].func( playerId, new_stat )
-			} 
+			}
 		}
 	}
 
 	playerPanel.SetHasClass( "is_local_player", ( playerId == Game.GetLocalPlayerID() ) );
-	
+
 	var ultStateOrTime = PlayerUltimateStateOrTime_t.PLAYER_ULTIMATE_STATE_HIDDEN; // values > 0 mean on cooldown for that many seconds
 	var goldValue = -1;
 	var isTeammate = false;
@@ -197,7 +197,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 			ultStateOrTime = Game.GetPlayerUltimateStateOrTime( playerId );
 		}
 		goldValue = playerInfo.player_gold;
-		
+
 		playerPanel.SetHasClass( "player_dead", ( playerInfo.player_respawn_seconds >= 0 ) );
 		playerPanel.SetHasClass( "local_player_teammate", isTeammate && ( playerId != Game.GetLocalPlayerID() ) );
 
@@ -220,7 +220,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 				playerPortrait.SetImage( "file://{images}/custom_game/unassigned.png" );
 			}
 		}
-		
+
 		if ( playerInfo.player_selected_hero_id == -1 )
 		{
 			_ScoreboardUpdater_SetTextSafe( playerPanel, "HeroName", $.Localize( "#DOTA_Scoreboard_Picking_Hero" ) )
@@ -229,7 +229,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		{
 			_ScoreboardUpdater_SetTextSafe( playerPanel, "HeroName", $.Localize( "#"+playerInfo.player_selected_hero ) )
 		}
-		
+
 		var heroNameAndDescription = playerPanel.FindChildInLayoutFile( "HeroNameAndDescription" );
 		if ( heroNameAndDescription )
 		{
@@ -242,7 +242,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 				heroNameAndDescription.SetDialogVariable( "hero_name", $.Localize( "#"+playerInfo.player_selected_hero ) );
 			}
 			heroNameAndDescription.SetDialogVariableInt( "hero_level",  playerInfo.player_level );
-		}		
+		}
 
 		playerPanel.SetHasClass( "player_connection_abandoned", playerInfo.player_connection_state == DOTAConnectionState_t.DOTA_CONNECTION_STATE_ABANDONED );
 		playerPanel.SetHasClass( "player_connection_failed", playerInfo.player_connection_state == DOTAConnectionState_t.DOTA_CONNECTION_STATE_FAILED );
@@ -252,7 +252,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 		if ( playerAvatar )
 		{
 			playerAvatar.steamid = playerInfo.player_steamid;
-		}		
+		}
 
 		var playerColorBar = playerPanel.FindChildInLayoutFile( "PlayerColorBar" );
 		if ( playerColorBar !== null )
@@ -272,7 +272,7 @@ function _ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContaine
 			}
 		}
 	}
-	
+
 	var playerItemsContainer = playerPanel.FindChildInLayoutFile( "PlayerItemsContainer" );
 	if ( playerItemsContainer )
 	{
@@ -354,7 +354,7 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 			}
 		}
 	}
-	
+
 	var localPlayerTeamId = -1;
 	var localPlayer = Game.GetLocalPlayerInfo();
 	if ( localPlayer )
@@ -373,10 +373,10 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 			_ScoreboardUpdater_UpdatePlayerPanel( scoreboardConfig, playersContainer, playerId, localPlayerTeamId )
 		}
 	}
-	
+
 	teamPanel.SetHasClass( "no_players", (teamPlayers.length == 0) )
 	teamPanel.SetHasClass( "one_player", (teamPlayers.length == 1) )
-	
+
 	if ( teamsInfo.max_team_players < teamPlayers.length )
 	{
 		teamsInfo.max_team_players = teamPlayers.length;
@@ -384,19 +384,19 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 
 	_ScoreboardUpdater_SetTextSafe( teamPanel, "TeamScore", teamDetails.team_score )
 	_ScoreboardUpdater_SetTextSafe( teamPanel, "TeamName", $.Localize( teamDetails.team_name ) )
-	
+
 	if ( GameUI.CustomUIConfig().team_colors )
 	{
 		var teamColor = GameUI.CustomUIConfig().team_colors[ teamId ];
 		var teamColorPanel = teamPanel.FindChildInLayoutFile( "TeamColor" );
-		
+
 		teamColor = teamColor.replace( ";", "" );
 
 		if ( teamColorPanel )
 		{
 			teamNamePanel.style.backgroundColor = teamColor + ";";
 		}
-		
+
 		var teamColor_GradentFromTransparentLeft = teamPanel.FindChildInLayoutFile( "TeamColor_GradentFromTransparentLeft" );
 		if ( teamColor_GradentFromTransparentLeft )
 		{
@@ -405,7 +405,7 @@ function _ScoreboardUpdater_UpdateTeamPanel( scoreboardConfig, containerPanel, t
 			teamColor_GradentFromTransparentLeft.style.backgroundColor = gradientText;
 		}
 	}
-	
+
 	return teamPanel;
 }
 
@@ -420,7 +420,7 @@ function _ScoreboardUpdater_ReorderTeam( scoreboardConfig, teamsParent, teamPane
 		oldPlace = GameUI.CustomUIConfig().teamsPrevPlace[ teamId ];
 	}
 	GameUI.CustomUIConfig().teamsPrevPlace[ teamId ] = newPlace;
-	
+
 	if ( newPlace != oldPlace )
 	{
 //		$.Msg( "Team ", teamId, " : ", oldPlace, " --> ", newPlace );
@@ -463,17 +463,17 @@ function stableCompareFunc( a, b )
 	{
 		return unstableCompare;
 	}
-	
+
 	if ( GameUI.CustomUIConfig().teamsPrevPlace.length <= a.team_id )
 	{
 		return 0;
 	}
-	
+
 	if ( GameUI.CustomUIConfig().teamsPrevPlace.length <= b.team_id )
 	{
 		return 0;
 	}
-	
+
 //			$.Msg( GameUI.CustomUIConfig().teamsPrevPlace );
 
 	var a_prev = GameUI.CustomUIConfig().teamsPrevPlace[ a.team_id ];
@@ -497,7 +497,7 @@ function stableCompareFunc( a, b )
 function _ScoreboardUpdater_UpdateAllTeamsAndPlayers( scoreboardConfig, teamsContainer )
 {
 //	$.Msg( "_ScoreboardUpdater_UpdateAllTeamsAndPlayers: ", scoreboardConfig );
-	
+
 	var teamsList = [];
 	for ( var teamId of Game.GetAllTeamIDs() )
 	{
@@ -567,7 +567,7 @@ function ScoreboardUpdater_SetScoreboardActive( scoreboardHandle, isActive )
 	{
 		return;
 	}
-	
+
 	if ( isActive )
 	{
 		_ScoreboardUpdater_UpdateAllTeamsAndPlayers( scoreboardHandle.scoreboardConfig, scoreboardHandle.scoreboardPanel );
@@ -582,7 +582,7 @@ function ScoreboardUpdater_GetTeamPanel( scoreboardHandle, teamId )
 	{
 		return;
 	}
-	
+
 	var teamPanelName = "_dynamic_team_" + teamId;
 	return scoreboardHandle.scoreboardPanel.FindChild( teamPanelName );
 }
@@ -599,9 +599,9 @@ function ScoreboardUpdater_GetSortedTeamInfoList( scoreboardHandle )
 
 	if ( teamsList.length > 1 )
 	{
-		teamsList.sort( stableCompareFunc );		
+		teamsList.sort( stableCompareFunc );
 	}
-	
+
 	return teamsList;
 }
 
