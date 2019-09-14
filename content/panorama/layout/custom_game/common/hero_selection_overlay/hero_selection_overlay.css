@@ -4,33 +4,6 @@
 	height: 100%;
 }
 
-#PatreonButton
-{
-	vertical-align: bottom;
-	margin-left: 450px;
-	margin-bottom: 25px;
-	height: 48px;
-	width: 200px;
-
-	background-image: url('file://{images}/custom_game/patreon.png');
-	background-size: 100%;
-}
-
-#PatreonButton:hover
-{
-	pre-transform-scale2d: 0.98;
-}
-
-#PatreonButton:active
-{
-	pre-transform-scale2d: 1.02;
-}
-
-.LocalPlayerPatreon #PatreonButton
-{
-	background-image: url('file://{images}/custom_game/patreon_active.png');
-}
-
 #PlayerStats
 {
 	vertical-align: bottom;

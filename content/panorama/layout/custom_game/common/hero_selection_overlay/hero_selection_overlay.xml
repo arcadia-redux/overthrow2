@@ -10,8 +10,6 @@
 	</scripts>
 
 	<Panel class="HeroSelectionOverlayRoot" hittest="false">
-		<Image id="PatreonButton" onmouseactivate="ExternalBrowserGoToURL(https://www.patreon.com/dota2unofficial)" />
-
 		<Panel id="PlayerStats">
 			<Label id="PlayerStatsTitle" text="#player_stats_title" />
 			<Panel class="PlayerStatsLine">
