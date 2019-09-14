@@ -28,8 +28,7 @@
 			<Panel class="SupporterEmblem">
 				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="#emblem_supporter"/>
 				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
-				<Image class="SupporterEmblemImage" src="file://{images}/custom_game/Patreon/emb.png" />
-				<MoviePanel class="SupporterEmblemImage" src="http://s1.webmshare.com/D4VWQ.webm" repeat="true" autoplay="onload" />
+				<MoviePanel id="SupporterEmblemImage" src="s2r://panorama/videos/emblem.webm" repeat="true" autoplay="onload" />
 				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#emblem_enable" onactivate="ToggleEmblem()" />
 					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
 					<Panel class="SelectColourBackground" />
@@ -63,8 +62,7 @@
 			<Panel class="FreeBoots">
 				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="#boots_free"/>
 				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="#boots_free_description"/>
-				<Image class="FreeBootsImage" src="file://{images}/custom_game/Patreon/boot.png" />
-				<MoviePanel class="FreeBootsImage" src="http://s1.webmshare.com/KA6Jm.webm" repeat="true" autoplay="onload" />
+				<MoviePanel id="FreeBootsImage" src="s2r://panorama/videos/boots.webm" repeat="true" autoplay="onload" />
 				<ToggleButton id="FreeBootsEnableDisable" class="FreeBootsEnableDisableLabel" text="#boots_enable" onactivate="BootsEnableToggle()" />
 				<Panel class="PatreonFeatureLock" onactivate="">
 					<Image src="file://{images}/control_icons/lock_medium.png" />
@@ -74,8 +72,7 @@
 			<Panel class="RandomButton">
 				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="#random_unlimited"/>
 				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="#random_unlimited_description"/>
-				<Image class="RandomButtonImage" src="file://{images}/custom_game/Patreon/random.png" />
-				<MoviePanel class="RandomButtonImage" src="http://s1.webmshare.com/w7Rde.webm" repeat="true" autoplay="onload" />
+				<MoviePanel id="RandomButtonImage" src="s2r://panorama/videos/smart_random.webm" repeat="true" autoplay="onload" />
 			</Panel>
 			<Panel id="PatreonFooter">
 				<Panel id="PatreonSupportButtons">
