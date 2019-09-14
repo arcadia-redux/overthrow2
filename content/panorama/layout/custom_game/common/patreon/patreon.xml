@@ -9,10 +9,10 @@
 	</scripts>
  	<Panel hittest="false" class="PatreonRoot">
  		<Panel id="PatreonButtonPanel">
-			<Image id="VOIcon" src="file://{images}/custom_game/voicon.png" onmouseover='DOTAShowTextTooltip(#votooltip)' onmouseout='DOTAHideTextTooltip()'/>
+			<Image id="VOIcon" src="file://{resources}/layout/custom_game/common/patreon/voicon.png" onmouseover='DOTAShowTextTooltip(#votooltip)' onmouseout='DOTAHideTextTooltip()'/>
 			<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
 			<Button id="PatreonButtonSmallerImage">
-				<Image src="file://{images}/custom_game/Patreon/patreon.png" onactivate="OnPatreonButtonPressed()"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/small_button.png" onactivate="OnPatreonButtonPressed()"/>
 			</Button>
 		</Panel>
  		<Panel hittest="true" hittestchildren="true" id="PatreonWindow">
