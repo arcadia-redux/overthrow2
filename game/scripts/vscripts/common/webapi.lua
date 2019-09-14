@@ -1,7 +1,7 @@
 WebApi = WebApi or {}
 
-local isTesting = IsInToolsMode()
-local serverHost = isTesting and "http://127.0.0.1:5000" or "http://163.172.174.77:8000"
+local isTesting = IsInToolsMode() and false
+local serverHost = IsInToolsMode() and "http://127.0.0.1:5000" or "http://163.172.174.77:8000"
 local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 
 function WebApi:Send(path, data, onSuccess, onError)
