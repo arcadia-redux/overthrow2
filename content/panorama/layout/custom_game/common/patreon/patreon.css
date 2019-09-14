@@ -467,13 +467,13 @@
 	flow-children: right;
 }
 
-#PatreonSupporterText {
+#PatreonSupporterMessages {
 	margin-left: 6px;
 	vertical-align: center;
 	flow-children: down;
 }
 
-#PatreonSupporterText > Label {
+#PatreonSupporterMessages > Label {
 	font-size: 20px;
 	color: white;
 }

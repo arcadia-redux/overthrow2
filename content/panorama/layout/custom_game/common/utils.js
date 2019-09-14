@@ -56,5 +56,13 @@ function GetDotaHud() {
 }
 
 function FindDotaHudElement(id) {
-    return GetDotaHud().FindChildTraverse(id);
+	return GetDotaHud().FindChildTraverse(id);
+}
+
+var useChineseDateFormat = $.Language() === 'schinese' || $.Language() === 'tchinese';
+/** @param {Date} date */
+function formatDate(date) {
+	return useChineseDateFormat
+		? date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
+		: date.getMonth() + '/' + date.getDate() + '/' + date.getFullYear();
 }

@@ -122,11 +122,16 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 
 	isPatron = status.level > 0;
 	$.GetContextPanel().SetHasClass('IsPatron', isPatron);
-	var endDate = new Date(status.endDate);
-	var daysLeft = Math.ceil((endDate - Date.now()) / 1000 / 60 / 60 / 24);
-	$('#PatreonSupporterStatus').SetDialogVariable('support_days_left', daysLeft);
-	$('#PatreonSupporterStatus').SetDialogVariable('support_end_date', endDate.toDateString());
-	$('#PatreonSupporterUpgrade').visible = status.level < 2;
+
+	var isAutoControlled = status.endDate != null;
+	$('#PatreonSupporterUpgrade').visible = isAutoControlled && status.level < 2;
+	$('#PatreonSupporterStatusExpiriesIn').visible = isAutoControlled;
+	if (isAutoControlled) {
+		var endDate = new Date(status.endDate);
+		var daysLeft = Math.ceil((endDate - Date.now()) / 1000 / 60 / 60 / 24);
+		$('#PatreonSupporterStatus').SetDialogVariable('support_days_left', daysLeft);
+		$('#PatreonSupporterStatus').SetDialogVariable('support_end_date', formatDate(endDate));
+	}
 
 	$('#FreeBootsEnableDisable').checked = !!status.bootsEnabled;
 	$('#SupporterEmblemEnableDisable').checked = !!status.emblemEnabled;

@@ -91,9 +91,9 @@
 				</Panel>
 
 				<Panel id="PatreonSupporterStatus">
-					<Panel id="PatreonSupporterText">
+					<Panel id="PatreonSupporterMessages">
 						<Label text="Thank you for supporting us!" />
-						<Label text="Supporter status experies in {s:support_days_left} days ({s:support_end_date})" />
+						<Label id="PatreonSupporterStatusExpiriesIn" text="Supporter status experies in {s:support_days_left} days ({s:support_end_date})" />
 					</Panel>
 					<TextButton
 						id="PatreonSupporterUpgrade"
@@ -125,8 +125,8 @@
 			</Panel>
 
 			<Panel id="PaymentWindowPaymentKinds">
-				<RadioButton group="PaymentKinds" selected="true" text="Basic ($5)" onactivate="currentPaymentWindowPaymentKind = 'Purchase1';updatePaymentWindow()" />
-				<RadioButton group="PaymentKinds" text="Advanced ($25)" onactivate="currentPaymentWindowPaymentKind = 'Purchase2';updatePaymentWindow()" />
+				<RadioButton group="PaymentKinds" text="Basic (¥50)" onactivate="currentPaymentWindowPaymentKind = 'Purchase1';updatePaymentWindow()" selected="true" />
+				<RadioButton group="PaymentKinds" text="Advanced (¥200)" onactivate="currentPaymentWindowPaymentKind = 'Purchase2';updatePaymentWindow()" />
 			</Panel>
 		</Panel>
 	</Panel>
