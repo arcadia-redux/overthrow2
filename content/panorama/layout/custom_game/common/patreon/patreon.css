@@ -416,7 +416,7 @@
 	background-color: rgba(53, 48, 48, 0.9);
 }
 
-.IsPatreon .PatreonFeatureLock {
+.IsPatron .PatreonFeatureLock {
 	visibility: collapse;
 }
 
@@ -453,12 +453,12 @@
 	flow-children: right;
 }
 
-.IsPatreon #PatreonSupportButtons {
+.IsPatron #PatreonSupportButtons {
 	visibility: collapse;
 }
 
 /* TODO: :not doesn't work without root? */
-.PatreonRoot:not(.IsPatreon) #PatreonSupporterStatus {
+.PatreonRoot:not(.IsPatron) #PatreonSupporterStatus {
 	visibility: collapse;
 }
 
