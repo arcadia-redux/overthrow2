@@ -120,8 +120,12 @@
 			</Panel>
 
 			<Panel id="PaymentWindowProviders">
-				<RadioButton group="Providers" selected="true" text="WeChat Pay" onactivate="currentPaymentWindowProvider = 'WeChat';updatePaymentWindow()" />
-				<RadioButton group="Providers" text="Alipay" onactivate="currentPaymentWindowProvider = 'Alipay';updatePaymentWindow()" />
+				<RadioButton group="Providers" onactivate="currentPaymentWindowProvider = 'WeChat';updatePaymentWindow()" selected="true">
+					<Image src="file://{resources}/layout/custom_game/common/patreon/wechat.png" />
+				</RadioButton>
+				<RadioButton group="Providers" onactivate="currentPaymentWindowProvider = 'Alipay';updatePaymentWindow()">
+					<Image src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
+				</RadioButton>
 			</Panel>
 
 			<Panel id="PaymentWindowPaymentKinds">

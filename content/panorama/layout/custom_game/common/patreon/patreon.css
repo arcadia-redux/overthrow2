@@ -629,3 +629,20 @@
 #PaymentWindowProviders > RadioButton {
 	margin: 0 5px;
 }
+
+#PaymentWindowProviders > RadioButton > .RadioBox {
+	visibility: collapse;
+}
+
+#PaymentWindowProviders > RadioButton > Image {
+	height: 60px;
+	width: 157px;
+	padding: 4px;
+	background-color: white;
+	border-radius: 8px;
+	border: 3px solid transparent;
+}
+
+#PaymentWindowProviders > RadioButton:selected > Image {
+	border: 3px solid rgb(0, 217, 255);
+}
