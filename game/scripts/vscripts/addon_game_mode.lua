@@ -250,7 +250,6 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( COverthrowGameMode, "OnItemPickUp"), self )
 	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
-	ListenToGameEvent( "dota_player_used_ability", Dynamic_Wrap(COverthrowGameMode, "OnAbilityUsed"), self)
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
 	Convars:RegisterCommand( "overthrow_force_gold_drop", function(...) self:ForceSpawnGold() end, "Force gold drop.", FCVAR_CHEAT )
