@@ -1,5 +1,5 @@
 MatchEvents = MatchEvents or {}
-MatchEvents.DEFAULT_REQUEST_DELAY = 10
+MatchEvents.DEFAULT_REQUEST_DELAY = 20
 MatchEvents.RequestDelay = MatchEvents.RequestDelay or MatchEvents.DEFAULT_REQUEST_DELAY
 
 function MatchEvents.ScheduleNextRequest()

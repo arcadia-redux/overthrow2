@@ -49,6 +49,7 @@ function updatePatreonButton() {
 }
 
 function setPaymentWindowVisible(visible) {
+	GameEvents.SendCustomGameEventToServer('patreon:payments:window', { visible: visible });
 	$('#PaymentWindow').visible = visible;
 	$('#SupportButtonPayment').checked = visible;
 	if (visible) {

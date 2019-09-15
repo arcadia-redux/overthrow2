@@ -87,22 +87,24 @@ RegisterCustomEventListener("patreon_toggle_emblem", function(args)
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
 end)
 
-RegisterCustomEventListener("patreon:payments:open", function(args)
+local function onPaymentWindowOpenStatusChange(args)
 	local playerId = args.PlayerID
-	Patreons.openPaymentWindows[playerId] = true
-	MatchEvents.RequestDelay = 3
-end)
-
-local function onPlayerClosePaymentWindow(args)
-	local playerId = args.PlayerID
-	Patreons.openPaymentWindows[playerId] = nil
-	if not next(Patreons.openPaymentWindows) then
-		MatchEvents.RequestDelay = MatchEvents.DEFAULT_REQUEST_DELAY
+	if args.visible == 1 then
+		Patreons.openPaymentWindows[playerId] = true
+		MatchEvents.RequestDelay = 5
+	else
+		Patreons.openPaymentWindows[playerId] = nil
+		if not next(Patreons.openPaymentWindows) then
+			MatchEvents.RequestDelay = MatchEvents.DEFAULT_REQUEST_DELAY
+		end
 	end
 end
 
-RegisterGameEventListener("player_disconnect", onPlayerClosePaymentWindow)
-RegisterCustomEventListener("patreon:payments:close", onPlayerClosePaymentWindow)
+RegisterCustomEventListener("patreon:payments:window", onPaymentWindowOpenStatusChange)
+RegisterGameEventListener("player_disconnect", function(args)
+	args.visible = 0
+	onPaymentWindowOpenStatusChange(args)
+end)
 
 RegisterCustomEventListener("patreon:payments:create", function(args)
 	local playerId = args.PlayerID
