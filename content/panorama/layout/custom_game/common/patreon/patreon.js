@@ -38,20 +38,15 @@ function SelectColor(colorName) {
 }
 
 function updatePatreonButton() {
-	var minimizePatreonButton = Game.GetDOTATime(false, false) > 60;
-	var hideVoIcon = Game.GetDOTATime(false, false) > 120;
+	// TODO: Either remove full button, or revert this change
+	var minimizePatreonButton = true;
 
-	$('#PatreonButton').visible = hasPatreonStatus && !minimizePatreonButton;
-	$('#PatreonButtonSmallerImage').visible = hasPatreonStatus && minimizePatreonButton;
-	$('#VOIcon').visible = hasPatreonStatus && !hideVoIcon;
+	$('#PatreonButtonPanel').visible = hasPatreonStatus;
+	$('#PatreonButton').visible = !minimizePatreonButton;
+	$('#PatreonButtonSmallerImage').visible = minimizePatreonButton;
+	$('#VOIcon').visible = Game.GetDOTATime(false, false) <= 120;
+	$('#NewMethodsAnnouncement').visible = !isPatron && $.Language() !== 'russian';
 }
-
-var createPaymentRequest = createEventRequestCreator('patreon:payments:create')
-
-/** @type {'WeChat' | 'Alipay'} */
-var currentPaymentWindowProvider = 'WeChat';
-/** @type {'Purchase1' | 'Purchase2' | 'UpgradeTo2'} */
-var currentPaymentWindowPaymentKind = 'Purchase1';
 
 function setPaymentWindowVisible(visible) {
 	$('#PaymentWindow').visible = visible;
@@ -76,6 +71,8 @@ function togglePaymentWindowVisible() {
 	setPaymentWindowVisible(!$('#PaymentWindow').visible);
 }
 
+var createPaymentRequest = createEventRequestCreator('patreon:payments:create');
+
 var paymentWindowUpdateListener
 function updatePaymentWindow() {
 	if (paymentWindowUpdateListener != null) {
@@ -87,7 +84,22 @@ function updatePaymentWindow() {
 	var htmlPanel = $('#PaymentWindowBody').GetChild(0);
 
 	setPaymentWindowStatus('loading');
-	var requestData = { provider: currentPaymentWindowProvider, paymentKind: currentPaymentWindowPaymentKind };
+
+	var provider;
+	for (var child of $('#PaymentWindowProviders').Children()) {
+		if (child.checked) {
+			provider = child.GetAttributeString("value", undefined);
+		}
+	}
+
+	var paymentKind;
+	for (var child of $('#PaymentWindowPaymentKinds').Children()) {
+		if (child.checked) {
+			paymentKind = child.GetAttributeString("value", undefined);
+		}
+	}
+
+	var requestData = { provider: provider, paymentKind: paymentKind };
 	paymentWindowUpdateListener = createPaymentRequest(requestData, function(response) {
 		if (response.url != null) {
 			setPaymentWindowStatus('success');
@@ -100,7 +112,17 @@ function updatePaymentWindow() {
 
 function openUpgradePaymentWindow() {
 	$('#PaymentWindowPaymentKinds').visible = false;
-	currentPaymentWindowPaymentKind = 'UpgradeTo2';
+	$('#PaymentWindowPaymentKindsUpgradeTo2').checked = true;
+	setPaymentWindowVisible(true);
+}
+
+function openPurchasePaymentWindow(value) {
+	for (var child of $('#PaymentWindowProviders').Children()) {
+		if (child.GetAttributeString("value", undefined) === value) {
+			child.checked = true;
+		}
+	}
+
 	setPaymentWindowVisible(true);
 }
 
@@ -118,10 +140,9 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	if (!status) return;
 
 	hasPatreonStatus = true;
-	updatePatreonButton();
-
 	isPatron = status.level > 0;
 	$.GetContextPanel().SetHasClass('IsPatron', isPatron);
+	updatePatreonButton();
 
 	var isAutoControlled = status.endDate != null;
 	$('#PatreonSupporterUpgrade').visible = isAutoControlled && status.level < 2;

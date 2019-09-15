@@ -14,6 +14,16 @@
 			<Button id="PatreonButtonSmallerImage">
 				<Image src="file://{resources}/layout/custom_game/common/patreon/small_button.png" onactivate="OnPatreonButtonPressed()"/>
 			</Button>
+			<Panel id="NewMethodsAnnouncement" hittest="false">
+				<AnimatedImageStrip src="file://{resources}/layout/custom_game/common/patreon/new_methods_announcement.png" frametime="500ms" />
+				<Panel id="NewMethodsAnnouncementText">
+					<Label html="true" text="#patreon_new_methods_announcement" />
+					<Panel id="NewMethodsAnnouncementImages">
+						<Image onactivate="openPurchasePaymentWindow('WeChat')" src="file://{resources}/layout/custom_game/common/patreon/wechat.png" />
+						<Image onactivate="openPurchasePaymentWindow('Alipay')" src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
+					</Panel>
+				</Panel>
+			</Panel>
 		</Panel>
  		<Panel hittest="true" hittestchildren="true" id="PatreonWindow">
 			<Panel class="PatreonHeader">
@@ -120,17 +130,38 @@
 			</Panel>
 
 			<Panel id="PaymentWindowProviders">
-				<RadioButton group="Providers" onactivate="currentPaymentWindowProvider = 'WeChat';updatePaymentWindow()" selected="true">
+				<RadioButton group="Providers" value="WeChat" onactivate="updatePaymentWindow()" selected="true">
 					<Image src="file://{resources}/layout/custom_game/common/patreon/wechat.png" />
 				</RadioButton>
-				<RadioButton group="Providers" onactivate="currentPaymentWindowProvider = 'Alipay';updatePaymentWindow()">
+				<RadioButton group="Providers" value="Alipay" onactivate="updatePaymentWindow()">
 					<Image src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
 				</RadioButton>
 			</Panel>
 
 			<Panel id="PaymentWindowPaymentKinds">
-				<RadioButton group="PaymentKinds" text="Basic (¥50)" onactivate="currentPaymentWindowPaymentKind = 'Purchase1';updatePaymentWindow()" selected="true" />
-				<RadioButton group="PaymentKinds" text="Advanced (¥200)" onactivate="currentPaymentWindowPaymentKind = 'Purchase2';updatePaymentWindow()" />
+				<RadioButton
+					group="PaymentKinds"
+					value="UpgradeTo2"
+					style="visibility: collapse;"
+					id="PaymentWindowPaymentKindsUpgradeTo2"
+				/>
+				<RadioButton
+					group="PaymentKinds"
+					value="Purchase1"
+					text="#patreon_support_tier_1"
+					onmouseover="DOTAShowTextTooltip(#patreon_support_tier_1_tooltip)"
+					onmouseout="DOTAHideTextTooltip()"
+					onactivate="updatePaymentWindow()"
+					selected="true"
+				/>
+				<RadioButton
+					group="PaymentKinds"
+					value="Purchase2"
+					text="#patreon_support_tier_2"
+					onmouseover="DOTAShowTextTooltip(#patreon_support_tier_2_tooltip)"
+					onmouseout="DOTAHideTextTooltip()"
+					onactivate="updatePaymentWindow()"
+				/>
 			</Panel>
 		</Panel>
 	</Panel>

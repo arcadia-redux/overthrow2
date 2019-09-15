@@ -24,6 +24,20 @@
 	"random_unlimited_description"					"Unlock unlimited use of smart random button!"
 	"patreon_support_patreon"						"Support on Patreon"
 	"patreon_support_payment"						"Support with WeChat Pay or Alipay"
+	"patreon_new_methods_announcement"				"Now you can support us with"
+	"patreon_support_tier_1"						"Basic (¥50)"
+	"patreon_support_tier_1_tooltip"				"- Our Thanks and Appreciation<br>
+- Free Boots! Start every match with free Boots of Speed.<br>
+- Unlimited Use of Smart Random<br>
+- Frosthaven and New Bloom 2019 Consumables Bundles! Gain access to 8 cosmetic  in-game  items, such as Fireworks, Snowman and Year of the Pig Ballon<br>
+- Immunity to Kick Troll Item"
+	"patreon_support_tier_2"						"Advanced (¥200)"
+	"patreon_support_tier_2_tooltip"				"- Our Thanks and Appreciation<br>
+- Free Boots! Start every match with free Boots of Speed.<br>
+- Unlimited Use of Smart Random<br>
+- Frosthaven and New Bloom 2019 Consumables Bundles! Gain access to 8 cosmetic  in-game  items, such as Fireworks, Snowman and Year of the Pig Ballon<br>
+- Immunity to Kick Troll Item<br>
+- Kick Trolls from the game! Have access to an item that can be used to kick allied players that are trolling (WARNING: This perk will be removed from supporters that are found to be abusing it)"
 	// Common end
 
 	"custom_hud_error_no_coins"						"Ability Can't Be Used Without Coins"
