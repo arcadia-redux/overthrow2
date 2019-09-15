@@ -37,6 +37,12 @@ function SelectColor(colorName) {
     }
 }
 
+var showNewPaymentMethods = Game.IsInToolsMode();
+Game.AddCommand("dota_2_unofficial_new_payment_methods", function() {
+	showNewPaymentMethods = true;
+	updatePatreonButton();
+}, "", 0);
+
 function updatePatreonButton() {
 	// TODO: Either remove full button, or revert this change
 	var minimizePatreonButton = true;
@@ -45,13 +51,14 @@ function updatePatreonButton() {
 	$('#PatreonButton').visible = !minimizePatreonButton;
 	$('#PatreonButtonSmallerImage').visible = minimizePatreonButton;
 	$('#VOIcon').visible = Game.GetDOTATime(false, false) <= 120;
-	$('#NewMethodsAnnouncement').visible = !isPatron && $.Language() !== 'russian';
+	$('#NewMethodsAnnouncement').visible = showNewPaymentMethods && !isPatron && $.Language() !== 'russian';
+	$('#SupportButtonPaymentWindow').visible = showNewPaymentMethods;
 }
 
 function setPaymentWindowVisible(visible) {
 	GameEvents.SendCustomGameEventToServer('patreon:payments:window', { visible: visible });
 	$('#PaymentWindow').visible = visible;
-	$('#SupportButtonPayment').checked = visible;
+	$('#SupportButtonPaymentWindow').checked = visible;
 	if (visible) {
 		updatePaymentWindow();
 	}

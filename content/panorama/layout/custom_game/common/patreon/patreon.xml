@@ -93,7 +93,7 @@
 						onactivate="ExternalBrowserGoToURL('https://www.patreon.com/join/dota2unofficial')"
 					/>
 					<TextButton
-						id="SupportButtonPayment"
+						id="SupportButtonPaymentWindow"
 						class="SupportButton"
 						text="#patreon_support_payment"
 						onactivate="togglePaymentWindowVisible()"
