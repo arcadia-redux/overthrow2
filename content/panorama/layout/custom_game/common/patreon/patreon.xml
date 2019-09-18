@@ -121,7 +121,7 @@
 				text="X"
 			/>
 
-			<Panel id="PaymentWindowBody" />
+			<HTML id="PaymentWindowBody" acceptsinput="true" />
 			<Panel id="PaymentWindowLoader">
 				<Panel class="Spinner" />
 			</Panel>

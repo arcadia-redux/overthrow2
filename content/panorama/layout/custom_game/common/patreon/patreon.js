@@ -74,15 +74,16 @@ function togglePaymentWindowVisible() {
 
 var createPaymentRequest = createEventRequestCreator('patreon:payments:create');
 
-var paymentWindowUpdateListener
+var paymentWindowUpdateListener;
+var paymentWindowPostUpdateTimer;
 function updatePaymentWindow() {
 	if (paymentWindowUpdateListener != null) {
 		GameEvents.Unsubscribe(paymentWindowUpdateListener);
 	}
 
-	$('#PaymentWindowBody').RemoveAndDeleteChildren()
-	$('#PaymentWindowBody').BCreateChildren('<HTML acceptsinput="true" />');
-	var htmlPanel = $('#PaymentWindowBody').GetChild(0);
+	if (paymentWindowPostUpdateTimer != null) {
+		$.CancelScheduled(paymentWindowPostUpdateTimer);
+	}
 
 	setPaymentWindowStatus('loading');
 
@@ -103,8 +104,11 @@ function updatePaymentWindow() {
 	var requestData = { provider: provider, paymentKind: paymentKind };
 	paymentWindowUpdateListener = createPaymentRequest(requestData, function(response) {
 		if (response.url != null) {
-			setPaymentWindowStatus('success');
-			htmlPanel.SetURL(response.url);
+			$('#PaymentWindowBody').SetURL(response.url);
+			paymentWindowPostUpdateTimer = $.Schedule(1, function() {
+				paymentWindowPostUpdateTimer = undefined;
+				setPaymentWindowStatus('success');
+			});
 		} else {
 			setPaymentWindowStatus({ error: response.error || 'Unknown error' });
 		}
