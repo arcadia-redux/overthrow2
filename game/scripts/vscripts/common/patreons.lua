@@ -109,9 +109,10 @@ end)
 RegisterCustomEventListener("patreon:payments:create", function(args)
 	local playerId = args.PlayerID
 	local steamId = tostring(PlayerResource:GetSteamID(playerId))
+	local matchId = tonumber(tostring(GameRules:GetMatchID()))
 	WebApi:Send(
 		"payment/create",
-		{ steamId = steamId, paymentKind = args.paymentKind, provider = args.provider },
+		{ steamId = steamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
 		function(response)
 			local player = PlayerResource:GetPlayer(playerId)
 			if not player then return end
