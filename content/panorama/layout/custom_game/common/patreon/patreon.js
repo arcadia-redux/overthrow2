@@ -88,7 +88,7 @@ function updatePaymentWindow() {
 	}
 
 	$('#PaymentWindowBody').RemoveAndDeleteChildren()
-	$('#PaymentWindowBody').BCreateChildren('<HTML acceptsinput="' + Game.IsInToolsMode() + '" />');
+	$('#PaymentWindowBody').BCreateChildren('<HTML acceptsinput="true" />');
 	var htmlPanel = $('#PaymentWindowBody').GetChild(0);
 
 	setPaymentWindowStatus('loading');
