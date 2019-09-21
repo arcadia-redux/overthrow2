@@ -399,6 +399,8 @@ function OnMouseOut(num) {
 
 (function()
 {
+	GameUI.CustomUIConfig().chatWheelLoaded = true;
+
     //var hero = Players.GetPlayerSelectedHero(Game.GetLocalPlayerID());
     //$("#HeroImage").heroname = hero;
     for ( var i = 0; i < 8; i++ )

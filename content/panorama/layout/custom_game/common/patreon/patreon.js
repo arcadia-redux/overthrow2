@@ -50,7 +50,8 @@ function updatePatreonButton() {
 	$('#PatreonButtonPanel').visible = hasPatreonStatus;
 	$('#PatreonButton').visible = !minimizePatreonButton;
 	$('#PatreonButtonSmallerImage').visible = minimizePatreonButton;
-	$('#VOIcon').visible = Game.GetDOTATime(false, false) <= 120;
+	// Show icon only when chat wheel is loaded as it's not a common module yet
+	$('#VOIcon').visible = GameUI.CustomUIConfig().chatWheelLoaded && Game.GetDOTATime(false, false) <= 120;
 	$('#NewMethodsAnnouncement').visible = !shouldHideNewMethodsAnnouncement && !isPatron && $.Language() !== 'russian';
 }
 
