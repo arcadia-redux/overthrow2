@@ -96,6 +96,7 @@ function Precache( context )
 end
 
 function Activate()
+	Cosmetics:Init()
 	-- Create our game mode and initialize it
 	COverthrowGameMode:InitGameMode()
 	-- Custom Spawn
