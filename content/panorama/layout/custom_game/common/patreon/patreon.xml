@@ -23,15 +23,19 @@
 						<Image onactivate="openPurchasePaymentWindow('Alipay')" src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
 					</Panel>
 				</Panel>
+				<TextButton
+					class="PatreonCloseButton"
+					text="✖"
+					onactivate="hideNewMethodsAnnouncement()"
+				/>
 			</Panel>
 		</Panel>
  		<Panel hittest="true" hittestchildren="true" id="PatreonWindow">
 			<Panel class="PatreonHeader">
 				<TextButton
-					id="PatreonCloseButton"
-					onactivate="OnPatreonButtonPressed()"
 					class="PatreonCloseButton"
-					text="X"
+					text="✖"
+					onactivate="OnPatreonButtonPressed()"
 				/>
 				<Label id="HeaderLabel" class="PatreonLabel" text="#patreon_perks"/>
 			</Panel>
@@ -116,9 +120,9 @@
 		</Panel>
 		<Panel hittest="true" id="PaymentWindow">
 			<TextButton
-				onactivate="setPaymentWindowVisible(false)"
 				class="PatreonCloseButton"
-				text="X"
+				text="✖"
+				onactivate="setPaymentWindowVisible(false)"
 			/>
 
 			<HTML id="PaymentWindowBody" acceptsinput="true" />

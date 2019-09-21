@@ -37,6 +37,12 @@ function SelectColor(colorName) {
     }
 }
 
+var shouldHideNewMethodsAnnouncement = false;
+function hideNewMethodsAnnouncement() {
+	shouldHideNewMethodsAnnouncement = true;
+	updatePatreonButton();
+}
+
 function updatePatreonButton() {
 	// TODO: Either remove full button, or revert this change
 	var minimizePatreonButton = true;
@@ -45,7 +51,7 @@ function updatePatreonButton() {
 	$('#PatreonButton').visible = !minimizePatreonButton;
 	$('#PatreonButtonSmallerImage').visible = minimizePatreonButton;
 	$('#VOIcon').visible = Game.GetDOTATime(false, false) <= 120;
-	$('#NewMethodsAnnouncement').visible = !isPatron && $.Language() !== 'russian';
+	$('#NewMethodsAnnouncement').visible = !shouldHideNewMethodsAnnouncement && !isPatron && $.Language() !== 'russian';
 }
 
 function setPaymentWindowVisible(visible) {

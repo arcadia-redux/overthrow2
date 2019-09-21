@@ -77,16 +77,17 @@
 	text-overflow: clip;
 	text-transform: uppercase;
 }
- .PatreonCloseButton {
-	vertical-align: middle;
-	horizontal-align: right;
-}
- .PatreonCloseButton > Label {
+.PatreonCloseButton > Label {
 	color: white;
-	font-size: 20px;
+	font-size: 24px;
 	text-shadow: 2px 2px 2px black;
 	font-weight: bold;
 	text-overflow: clip;
+}
+.PatreonHeader > .PatreonCloseButton,
+#PaymentWindow > .PatreonCloseButton {
+	vertical-align: middle;
+	horizontal-align: right;
 }
 #SupporterEmblemImage {
 	width: 218px;
@@ -667,6 +668,11 @@
 	height: 90px;
 	margin-left: -15px;
 	margin-right: -10px;
+}
+
+#NewMethodsAnnouncement > .PatreonCloseButton {
+	margin-top: 28px;
+	margin-left: -10px;
 }
 
 #NewMethodsAnnouncementText {
