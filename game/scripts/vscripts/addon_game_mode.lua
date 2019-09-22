@@ -12,7 +12,7 @@ TRUSTED_HOSTS = {
 _G.DISCONNECT_TIMES = {}
 
 _G.newStats = newStats or {}
-
+_G.stopFeedOnTower = {}
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
 ---------------------------------------------------------------------------
@@ -235,6 +235,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
+ 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
@@ -332,7 +333,41 @@ function COverthrowGameMode:InitGameMode()
 		false
 	}
 end
+---------------------------------------------------------------------------
+-- Fix feed on tower
+---------------------------------------------------------------------------
+function COverthrowGameMode:OnEntityKilled(event)
+	local killer = EntIndexToHScript(event.entindex_attacker)
+	local death_unit = EntIndexToHScript(event.entindex_killed)
+	local unicKey = event.entindex_attacker + event.entindex_killed
 
+	if not _G.stopFeedOnTower[unicKey] then
+		if killer:GetClassname() == "ent_dota_fountain" then
+			_G.stopFeedOnTower[unicKey] = 1
+		end
+		if killer:GetClassname() == "ent_dota_tower" then
+			_G.stopFeedOnTower[unicKey] = 1
+		end
+	end
+end
+
+
+function COverthrowGameMode:DamageFilter(event)
+	local killer = EntIndexToHScript(event.entindex_attacker_const)
+	local death_unit = EntIndexToHScript(event.entindex_victim_const)
+	local unicKey = event.entindex_attacker_const + event.entindex_victim_const
+
+	if _G.stopFeedOnTower[unicKey] then
+		if death_unit:GetHealth() <= event.damage then
+			death_unit:Kill(nil, death_unit)
+		end
+		if _G.stopFeedOnTower[unicKey] == 1 then
+			GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+			_G.stopFeedOnTower[unicKey] = 0
+		end
+	end
+	return true
+end
 ---------------------------------------------------------------------------
 -- Set up fountain regen
 ---------------------------------------------------------------------------
@@ -817,8 +852,8 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if string.sub(text, 0,4) == "-ch " then
 		local data = {}
 		data.num = tonumber(string.sub(text, 5))
-		data.PlayerID = playerid
-		SelectVO(data)
+		data.id = playerid
+		COverthrowGameMode:SelectVO(data)
 	end
 end
 
@@ -964,7 +999,7 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 end)
 
 votimer = {}
-SelectVO = function(keys)
+RegisterCustomEventListener("SelectVO", function(keys)
 	print(keys.num)
 	local heroes = {
 		"abaddon",
@@ -2554,5 +2589,4 @@ SelectVO = function(keys)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
 		end
 	end
-end
-RegisterCustomEventListener("SelectVO", SelectVO)
+end)
