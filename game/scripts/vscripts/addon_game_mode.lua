@@ -12,7 +12,7 @@ TRUSTED_HOSTS = {
 _G.DISCONNECT_TIMES = {}
 
 _G.newStats = newStats or {}
-
+_G.stopFeedOnTower = {}
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
 ---------------------------------------------------------------------------
@@ -235,6 +235,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
+ 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
@@ -332,7 +333,32 @@ function COverthrowGameMode:InitGameMode()
 		false
 	}
 end
+---------------------------------------------------------------------------
+-- Fix feed on tower
+---------------------------------------------------------------------------
+function COverthrowGameMode:OnEntityKilled(event)
+	local killer = EntIndexToHScript(event.entindex_attacker)
+	local death_unit = EntIndexToHScript(event.entindex_killed)
+	local unicKey = event.entindex_attacker + event.entindex_killed
 
+	if not _G.stopFeedOnTower[unicKey] and (killer:GetClassname() == "ent_dota_fountain" or killer:GetClassname() == "ent_dota_tower") then
+		_G.stopFeedOnTower[unicKey] = death_unit
+	end
+end
+
+
+function COverthrowGameMode:DamageFilter(event)
+	local killer = EntIndexToHScript(event.entindex_attacker_const)
+	local death_unit = EntIndexToHScript(event.entindex_victim_const)
+	local unicKey = event.entindex_attacker_const + event.entindex_victim_const
+
+	if _G.stopFeedOnTower[unicKey] then
+		if death_unit:GetHealth() <= event.damage then
+			death_unit:Kill(nil, death_unit)
+		end
+	end
+	return true
+end
 ---------------------------------------------------------------------------
 -- Set up fountain regen
 ---------------------------------------------------------------------------
