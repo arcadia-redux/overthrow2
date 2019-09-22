@@ -13,7 +13,7 @@ _G.DISCONNECT_TIMES = {}
 
 _G.newStats = newStats or {}
 
-_G.stopFeedOnTower = {}
+_G.pairKillCounts = {}
 LOCK_ANTI_FEED_TIME_SEC = 60
 
 ---------------------------------------------------------------------------
@@ -349,27 +349,28 @@ function COverthrowGameMode:OnEntityKilled(event)
 	-- If yor kill enemy, you get reward enemy team after death on fountain (maybe need remove this modifier after death?
 	killer:AddNewModifier(killer, nil, "lock_anti_feed_system", { duration = LOCK_ANTI_FEED_TIME_SEC })
 
-	if _G.stopFeedOnTower[uniqueKey] == 1 then
-		GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
-		_G.stopFeedOnTower[uniqueKey] = 0
+	if death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) then
+		if killer:GetClassname() == "ent_dota_fountain" or killer:GetClassname() == "ent_dota_tower" then
+			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey] or 0) + 1
+			if _G.pairKillCounts[uniqueKey] == 2 then
+				GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+			end
+		end
 	end
 
-	if not _G.stopFeedOnTower[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) then
-		if killer:GetClassname() == "ent_dota_fountain" then
-			_G.stopFeedOnTower[uniqueKey] = 1
-		end
-		if killer:GetClassname() == "ent_dota_tower" then
-			_G.stopFeedOnTower[uniqueKey] = 1
-		end
-	end
 end
 
 function COverthrowGameMode:DamageFilter(event)
 	local killer = EntIndexToHScript(event.entindex_attacker_const)
 	local death_unit = EntIndexToHScript(event.entindex_victim_const)
-	local uniqueKey = event.entindex_attacker_const + event.entindex_victim_const
+	local uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
 
-	if _G.stopFeedOnTower[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and (not (death_unit:HasModifier("lock_anti_feed_system"))) then
+	print(_G.pairKillCounts[uniqueKey])
+	print(death_unit:IsRealHero())
+	print(PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit)
+	print(not (death_unit:HasModifier("lock_anti_feed_system")))
+
+	if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and (not (death_unit:HasModifier("lock_anti_feed_system"))) then
 		if death_unit:GetHealth() <= event.damage then
 			death_unit:Kill(nil, death_unit)
 		end
