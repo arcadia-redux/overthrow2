@@ -87,6 +87,26 @@ RegisterCustomEventListener("patreon_toggle_emblem", function(args)
 	Patreons:SetPlayerSettings(playerId, playerBonuses)
 end)
 
+-- TODO: It's not really related to patreon, it'd be better to extract player options to a different module
+RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(args)
+	local playerId = args.PlayerID
+	local favorites = {}
+	for key, value in pairs(args.favorites) do
+		if type(key) ~= "string" then error("favorites contains a non-string key") end
+		if type(value) ~= "number" then error("favorites contains a non-number value") end
+
+		local index = tonumber(key) + 1
+		if type(index) ~= "number" then error("favorites contains a non-number index") end
+		if index ~= index or index < 1 or index > 8 then error("favorites contains an index out of range") end
+
+		favorites[index] = value
+	end
+
+	local playerBonuses = Patreons:GetPlayerSettings(playerId)
+	playerBonuses.chatWheelFavorites = favorites
+	Patreons:SetPlayerSettings(playerId, playerBonuses)
+end)
+
 local function onPaymentWindowOpenStatusChange(args)
 	local playerId = args.PlayerID
 	if args.visible == 1 then

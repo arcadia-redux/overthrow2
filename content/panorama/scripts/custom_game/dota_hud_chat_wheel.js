@@ -338,6 +338,8 @@ function AddOnFavourites(num) {
         nowselect = 0;
         OnSelect(2);
     }
+
+	GameEvents.SendCustomGameEventToServer("patreon_update_chat_wheel_favorites", { favorites: favourites });
 }
 
 function UpdateFavourites() {
@@ -397,9 +399,16 @@ function OnMouseOut(num) {
     $("#WHTooltip").visible = false;
 }
 
-(function()
-{
+(function() {
 	GameUI.CustomUIConfig().chatWheelLoaded = true;
+
+	SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
+		var localStats = patreonBonuses[Game.GetLocalPlayerID()];
+		if (!localStats) return;
+
+		favourites = Object.values(localStats.chatWheelFavorites || {});
+		UpdateFavourites();
+	});
 
     //var hero = Players.GetPlayerSelectedHero(Game.GetLocalPlayerID());
     //$("#HeroImage").heroname = hero;

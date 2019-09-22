@@ -145,9 +145,8 @@ function WebApi:AfterMatch(winnerTeam)
 			}
 
 			local patreonSettings = Patreons:GetPlayerSettings(playerId)
-			if patreonSettings.level > 0 then
-				playerData.patreonUpdate = patreonSettings
-			end
+			-- Always add an update, because chat wheel favorites is a public feature
+			playerData.patreonUpdate = patreonSettings
 
 			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 			if IsValidEntity(hero) then

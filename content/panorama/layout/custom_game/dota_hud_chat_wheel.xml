@@ -5,6 +5,7 @@
 		<include src="file://{resources}/styles/custom_game/dota_hud_chat_wheel.css" />
 	</styles>
 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/scripts/custom_game/dota_hud_chat_wheel.js" />
 		<include src="file://{resources}/layout/custom_game/common/kicks.js" />
 	</scripts>
