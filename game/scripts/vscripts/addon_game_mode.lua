@@ -14,7 +14,8 @@ _G.DISCONNECT_TIMES = {}
 _G.newStats = newStats or {}
 
 _G.pairKillCounts = {}
-LOCK_ANTI_FEED_TIME_SEC = 60
+LOCK_ANTI_FEED_TIME_SEC = 7
+_G.timesOfTheLastKillings = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -38,7 +39,6 @@ LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifiers/lock_anti_feed_system", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -346,8 +346,9 @@ function COverthrowGameMode:OnEntityKilled(event)
 	local death_unit = EntIndexToHScript(event.entindex_killed)
 	local uniqueKey = event.entindex_attacker .. "_" .. event.entindex_killed
 
-	-- If yor kill enemy, you get reward enemy team after death on fountain (maybe need remove this modifier after death?
-	killer:AddNewModifier(killer, nil, "lock_anti_feed_system", { duration = LOCK_ANTI_FEED_TIME_SEC })
+	if (not (killer == death_unit)) and death_unit:IsRealHero() then
+		_G.timesOfTheLastKillings[killer] = GameRules:GetGameTime()
+	end
 
 	if death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) then
 		local killerClassname = killer:GetClassname()
@@ -362,7 +363,15 @@ function COverthrowGameMode:DamageFilter(event)
 	local death_unit = EntIndexToHScript(event.entindex_victim_const)
 	local uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
 
-	if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and (not (death_unit:HasModifier("lock_anti_feed_system"))) then
+	local checkLastKill = true
+
+	local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
+
+	if deathUnitHasKill then
+		checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
+	end
+
+	if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
 		if death_unit:GetHealth() <= event.damage then
 			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
 			death_unit:Kill(nil, death_unit)
