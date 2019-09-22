@@ -14,6 +14,7 @@ _G.DISCONNECT_TIMES = {}
 _G.newStats = newStats or {}
 
 _G.stopFeedOnTower = {}
+LOCK_ANTI_FEED_TIME_SEC = 60
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -37,6 +38,7 @@ LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifiers/lock_anti_feed_system", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -342,33 +344,37 @@ end
 function COverthrowGameMode:OnEntityKilled(event)
 	local killer = EntIndexToHScript(event.entindex_attacker)
 	local death_unit = EntIndexToHScript(event.entindex_killed)
-	local unicKey = event.entindex_attacker + event.entindex_killed
+	local uniqueKey = event.entindex_attacker .. "_" .. event.entindex_killed
 
-	if not _G.stopFeedOnTower[unicKey] then
+	-- If yor kill enemy, you get reward enemy team after death on fountain (maybe need remove this modifier after death?
+	killer:AddNewModifier(killer, nil, "lock_anti_feed_system", { duration = LOCK_ANTI_FEED_TIME_SEC })
+
+	if _G.stopFeedOnTower[uniqueKey] == 1 then
+		GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+		_G.stopFeedOnTower[uniqueKey] = 0
+	end
+
+	if not _G.stopFeedOnTower[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) then
 		if killer:GetClassname() == "ent_dota_fountain" then
-			_G.stopFeedOnTower[unicKey] = 1
+			_G.stopFeedOnTower[uniqueKey] = 1
 		end
 		if killer:GetClassname() == "ent_dota_tower" then
-			_G.stopFeedOnTower[unicKey] = 1
+			_G.stopFeedOnTower[uniqueKey] = 1
 		end
 	end
 end
 
-
 function COverthrowGameMode:DamageFilter(event)
 	local killer = EntIndexToHScript(event.entindex_attacker_const)
 	local death_unit = EntIndexToHScript(event.entindex_victim_const)
-	local unicKey = event.entindex_attacker_const + event.entindex_victim_const
+	local uniqueKey = event.entindex_attacker_const + event.entindex_victim_const
 
-	if _G.stopFeedOnTower[unicKey] then
+	if _G.stopFeedOnTower[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and (not (death_unit:HasModifier("lock_anti_feed_system"))) then
 		if death_unit:GetHealth() <= event.damage then
 			death_unit:Kill(nil, death_unit)
 		end
-		if _G.stopFeedOnTower[unicKey] == 1 then
-			GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
-			_G.stopFeedOnTower[unicKey] = 0
-		end
 	end
+
 	return true
 end
 
