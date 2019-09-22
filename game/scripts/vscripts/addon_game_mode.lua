@@ -341,8 +341,13 @@ function COverthrowGameMode:OnEntityKilled(event)
 	local death_unit = EntIndexToHScript(event.entindex_killed)
 	local unicKey = event.entindex_attacker + event.entindex_killed
 
-	if not _G.stopFeedOnTower[unicKey] and (killer:GetClassname() == "ent_dota_fountain" or killer:GetClassname() == "ent_dota_tower") then
-		_G.stopFeedOnTower[unicKey] = death_unit
+	if not _G.stopFeedOnTower[unicKey] then
+		if killer:GetClassname() == "ent_dota_fountain" then
+			_G.stopFeedOnTower[unicKey] = 1
+		end
+		if killer:GetClassname() == "ent_dota_tower" then
+			_G.stopFeedOnTower[unicKey] = 1
+		end
 	end
 end
 
@@ -355,6 +360,10 @@ function COverthrowGameMode:DamageFilter(event)
 	if _G.stopFeedOnTower[unicKey] then
 		if death_unit:GetHealth() <= event.damage then
 			death_unit:Kill(nil, death_unit)
+		end
+		if _G.stopFeedOnTower[unicKey] == 1 then
+			GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+			_G.stopFeedOnTower[unicKey] = 0
 		end
 	end
 	return true
