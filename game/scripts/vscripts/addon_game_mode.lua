@@ -12,7 +12,7 @@ TRUSTED_HOSTS = {
 _G.DISCONNECT_TIMES = {}
 
 _G.newStats = newStats or {}
-_G.stopFeedOnTower = {}
+
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
 ---------------------------------------------------------------------------
@@ -235,7 +235,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
- 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
+	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
@@ -333,6 +333,7 @@ function COverthrowGameMode:InitGameMode()
 		false
 	}
 end
+
 ---------------------------------------------------------------------------
 -- Fix feed on tower
 ---------------------------------------------------------------------------
@@ -368,6 +369,7 @@ function COverthrowGameMode:DamageFilter(event)
 	end
 	return true
 end
+
 ---------------------------------------------------------------------------
 -- Set up fountain regen
 ---------------------------------------------------------------------------
@@ -852,8 +854,8 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if string.sub(text, 0,4) == "-ch " then
 		local data = {}
 		data.num = tonumber(string.sub(text, 5))
-		data.id = playerid
-		COverthrowGameMode:SelectVO(data)
+		data.PlayerID = playerid
+		SelectVO(data)
 	end
 end
 
@@ -999,7 +1001,7 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 end)
 
 votimer = {}
-RegisterCustomEventListener("SelectVO", function(keys)
+SelectVO = function(keys)
 	print(keys.num)
 	local heroes = {
 		"abaddon",
@@ -2589,4 +2591,5 @@ RegisterCustomEventListener("SelectVO", function(keys)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
 		end
 	end
-end)
+end
+RegisterCustomEventListener("SelectVO", SelectVO)
