@@ -14,7 +14,7 @@ _G.DISCONNECT_TIMES = {}
 _G.newStats = newStats or {}
 
 _G.pairKillCounts = {}
-LOCK_ANTI_FEED_TIME_SEC = 7
+LOCK_ANTI_FEED_TIME_SEC = 120
 _G.timesOfTheLastKillings = {}
 
 ---------------------------------------------------------------------------
