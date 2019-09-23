@@ -13,6 +13,10 @@ _G.DISCONNECT_TIMES = {}
 
 _G.newStats = newStats or {}
 
+_G.pairKillCounts = {}
+LOCK_ANTI_FEED_TIME_SEC = 120
+_G.timesOfTheLastKillings = {}
+
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
 ---------------------------------------------------------------------------
@@ -235,6 +239,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifierGainedFilter( Dynamic_Wrap( COverthrowGameMode, "ModifierGainedFilter" ), self )
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
+	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
@@ -331,6 +336,52 @@ function COverthrowGameMode:InitGameMode()
 		false,
 		false
 	}
+end
+
+---------------------------------------------------------------------------
+-- Fix feed on tower
+---------------------------------------------------------------------------
+function COverthrowGameMode:OnEntityKilled(event)
+	local killer = EntIndexToHScript(event.entindex_attacker)
+	local death_unit = EntIndexToHScript(event.entindex_killed)
+	local uniqueKey = event.entindex_attacker .. "_" .. event.entindex_killed
+
+	if (not (killer == death_unit)) and death_unit:IsRealHero() then
+		_G.timesOfTheLastKillings[killer] = GameRules:GetGameTime()
+	end
+
+	if death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) then
+		local killerClassname = killer:GetClassname()
+		if killerClassname == "ent_dota_fountain" or killerClassname == "ent_dota_tower" then
+			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey] or 0) + 1
+		end
+	end
+end
+
+function COverthrowGameMode:DamageFilter(event)
+	local killer = EntIndexToHScript(event.entindex_attacker_const)
+	local death_unit = EntIndexToHScript(event.entindex_victim_const)
+	local uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
+
+	local checkLastKill = true
+
+	local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
+
+	if deathUnitHasKill then
+		checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
+	end
+
+	if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
+		if death_unit:GetHealth() <= event.damage then
+			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
+			death_unit:Kill(nil, death_unit)
+			if _G.pairKillCounts[uniqueKey] == 2 then
+				GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+			end
+		end
+	end
+
+	return true
 end
 
 ---------------------------------------------------------------------------
