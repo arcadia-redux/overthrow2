@@ -52,7 +52,7 @@ function updatePatreonButton() {
 	$('#PatreonButtonSmallerImage').visible = minimizePatreonButton;
 	// Show icon only when chat wheel is loaded as it's not a common module yet
 	$('#VOIcon').visible = Boolean(GameUI.CustomUIConfig().chatWheelLoaded) && Game.GetDOTATime(false, false) <= 120;
-	$('#NewMethodsAnnouncement').visible = !shouldHideNewMethodsAnnouncement && !isPatron && $.Language() !== 'russian';
+	$('#NewMethodsAnnouncement').visible = !shouldHideNewMethodsAnnouncement && !isPatron && $.Language() !== 'russian' && Game.GetDOTATime(false, false) <= 120;
 }
 
 function setPaymentWindowVisible(visible) {
