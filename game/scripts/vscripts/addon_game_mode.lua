@@ -341,23 +341,6 @@ end
 ---------------------------------------------------------------------------
 -- Fix feed on tower
 ---------------------------------------------------------------------------
-function COverthrowGameMode:OnEntityKilled(event)
-	local killer = EntIndexToHScript(event.entindex_attacker)
-	local death_unit = EntIndexToHScript(event.entindex_killed)
-	local uniqueKey = event.entindex_attacker .. "_" .. event.entindex_killed
-
-	if (not (killer == death_unit)) and death_unit:IsRealHero() then
-		_G.timesOfTheLastKillings[killer] = GameRules:GetGameTime()
-	end
-
-	if death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) then
-		local killerClassname = killer:GetClassname()
-		if killerClassname == "ent_dota_fountain" or killerClassname == "ent_dota_tower" then
-			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey] or 0) + 1
-		end
-	end
-end
-
 function COverthrowGameMode:DamageFilter(event)
 	local killer = EntIndexToHScript(event.entindex_attacker_const)
 	local death_unit = EntIndexToHScript(event.entindex_victim_const)

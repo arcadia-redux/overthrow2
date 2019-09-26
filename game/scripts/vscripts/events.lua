@@ -305,6 +305,19 @@ function COverthrowGameMode:OnEntityKilled( event )
 	local heroTeam = hero:GetTeam()
 	local extraTime = 0
 
+	local uniqueKey = event.entindex_attacker .. "_" .. event.entindex_killed
+
+	if (not (hero == killedUnit)) and killedUnit:IsRealHero() then
+		_G.timesOfTheLastKillings[hero] = GameRules:GetGameTime()
+	end
+
+	if killedUnit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(killedUnit:GetPlayerID()) == killedUnit) then
+		local killerClassname = hero:GetClassname()
+		if killerClassname == "ent_dota_fountain" or killerClassname == "ent_dota_tower" then
+			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey] or 0) + 1
+		end
+	end
+
 	if killedUnit:IsRealHero() and not killedUnit:IsReincarnating() then
 		local player_id = -1
 		if hero and hero:IsRealHero() and hero.GetPlayerID then
