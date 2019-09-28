@@ -1,18 +1,18 @@
-LinkLuaModifier ("modifier_devour_taskmaster_speed_aura", "abilities/heroes/doom_bringer/devour_taskmaster_speed_aura", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier ("modifier_devour_taskmaster_speed_aura_buff", "abilities/heroes/doom_bringer/devour_taskmaster_speed_aura", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier ("modifier_devour_speed_aura", "abilities/heroes/doom_bringer/devour_speed_aura", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier ("modifier_devour_speed_aura_buff", "abilities/heroes/doom_bringer/devour_speed_aura", LUA_MODIFIER_MOTION_NONE)
 
-if devour_taskmaster_speed_aura == nil then
-    devour_taskmaster_speed_aura = class({})
+if devour_speed_aura == nil then
+    devour_speed_aura = class({})
 end
 
-function devour_taskmaster_speed_aura:GetIntrinsicModifierName()
-    return "modifier_devour_taskmaster_speed_aura"
+function devour_speed_aura:GetIntrinsicModifierName()
+    return "modifier_devour_speed_aura"
 end
 
 
 ------------------------------------------------------------------------------
 
-modifier_devour_taskmaster_speed_aura = modifier_devour_taskmaster_speed_aura or class({
+modifier_devour_speed_aura = modifier_devour_speed_aura or class({
 	IsHidden 				= function(self) return true end,
 	IsPurgable 				= function(self) return false end,
 	IsDebuff 				= function(self) return false end,
@@ -24,32 +24,32 @@ modifier_devour_taskmaster_speed_aura = modifier_devour_taskmaster_speed_aura or
 })
 
 
-function modifier_devour_taskmaster_speed_aura:GetModifierAura()
-    return "modifier_devour_taskmaster_speed_aura_buff"
+function modifier_devour_speed_aura:GetModifierAura()
+    return "modifier_devour_speed_aura_buff"
 end
 
-function modifier_devour_taskmaster_speed_aura:GetAuraRadius()
+function modifier_devour_speed_aura:GetAuraRadius()
     return self:GetAbility():GetSpecialValueFor("radius")
 end
 
-function modifier_devour_taskmaster_speed_aura:GetTexture()
+function modifier_devour_speed_aura:GetTexture()
     return "kobold_taskmaster_speed_aura"
 end
 
-function modifier_devour_taskmaster_speed_aura:GetAuraSearchTeam()
+function modifier_devour_speed_aura:GetAuraSearchTeam()
     return DOTA_UNIT_TARGET_TEAM_FRIENDLY
 end
 
-function modifier_devour_taskmaster_speed_aura:GetAuraSearchType()
+function modifier_devour_speed_aura:GetAuraSearchType()
     return DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC
 end
 
-function modifier_devour_taskmaster_speed_aura:GetAuraDuration()
-    return 0.3
+function modifier_devour_speed_aura:GetAuraDuration()
+    return 0.5
 end
 ------------------------------------------------------------------------------
 
-modifier_devour_taskmaster_speed_aura_buff = modifier_devour_taskmaster_speed_aura_buff or class({
+modifier_devour_speed_aura_buff = modifier_devour_speed_aura_buff or class({
 	IsHidden 				= function(self) return false end,
 	IsPurgable 				= function(self) return false end,
 	IsDebuff 				= function(self) return false end,
@@ -59,7 +59,11 @@ modifier_devour_taskmaster_speed_aura_buff = modifier_devour_taskmaster_speed_au
 	IsPermanent             = function(self) return false end,
 })
 
-function modifier_devour_taskmaster_speed_aura_buff:DeclareFunctions()
+function modifier_devour_speed_aura_buff:GetTexture()
+    return "kobold_taskmaster_speed_aura"
+end
+
+function modifier_devour_speed_aura_buff:DeclareFunctions()
 	local funcs = 
 	{
 		MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE, 
@@ -67,6 +71,6 @@ function modifier_devour_taskmaster_speed_aura_buff:DeclareFunctions()
 	return funcs
 end
 
-function modifier_devour_taskmaster_speed_aura_buff:GetModifierMoveSpeedBonus_Percentage()
+function modifier_devour_speed_aura_buff:GetModifierMoveSpeedBonus_Percentage()
 	return self:GetAbility():GetSpecialValueFor("bonus_movement_speed")
 end

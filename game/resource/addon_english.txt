@@ -97,20 +97,82 @@
 		"DOTA_Tooltip_ability_item_hand_of_midas_custom_Note0"					"Experience gained by using Transmute is not shared."
 		"DOTA_Tooltip_ability_item_hand_of_midas_custom_bonus_attack_speed"		"+$attack"
 
+		//////////////////////////////////////////////////////////////////
+		////////////////////////doom_bringer////////////////////////////
+		//////////////////////////////////////////////////////////////////
+
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom"						"Devour"
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_Description"			"Consumes an enemy or neutral creep, acquiring any special abilities that it possessed.\n\n<font color='#70EA72'>In Overthrow, this is an instant cast ability and will give a random neutral creep's ability/abilities, it will also give passive gold income and health regeneration.</font>"
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_Lore"					"Lucifer's appetite and greed are never sated."
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_bonus_gold_per_minute"	"BONUS GOLD PER MINUTE:"
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_health_regen"			"REGENERATION RATE:"
 
-		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura"							"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura"
-		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_Description"				"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura_Description"
-		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_bonus_movement_speed"			"%MOVE SPEED:"
-		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_radius"							"RADIUS:"
 
-		"DOTA_Tooltip_modifier_devour_taskmaster_speed_aura_buff"				"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_taskmaster_speed_aura_buff_Description"	"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus_Description"
+		"DOTA_Tooltip_ability_devour_speed_aura"							"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura"
+		"DOTA_Tooltip_ability_devour_speed_aura_Description"				"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura_Description"
+		"DOTA_Tooltip_ability_devour_speed_aura_bonus_movement_speed"			"%MOVE SPEED:"
+		"DOTA_Tooltip_ability_devour_speed_aura_radius"							"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_speed_aura_buff"				"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_speed_aura_buff_Description"	"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus_Description"
 	
+
+		"DOTA_Tooltip_ability_devour_cloak_aura"							"#DOTA_Tooltip_ability_mudgolem_cloak_aura"
+		"DOTA_Tooltip_ability_devour_cloak_aura_Description"				"#DOTA_Tooltip_ability_mudgolem_cloak_aura_Description"
+		"DOTA_Tooltip_ability_devour_cloak_aura_bonus_magical_armor"		"%MAGIC RESISTANCE:"
+		"DOTA_Tooltip_ability_devour_cloak_aura_radius"						"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_cloak_aura_buff"					"#DOTA_Tooltip_modifier_mudgolem_cloak_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_cloak_aura_buff_Description"		"#DOTA_Tooltip_modifier_mudgolem_cloak_aura_bonus_Description"
+	
+
+		"DOTA_Tooltip_ability_devour_endurance_aura"							"#DOTA_Tooltip_ability_centaur_khan_endurance_aura"
+		"DOTA_Tooltip_ability_devour_endurance_aura_Description"				"#DOTA_Tooltip_ability_centaur_khan_endurance_aura_Description"
+		"DOTA_Tooltip_ability_devour_endurance_aura_bonus_attack_speed"			"ATTACK SPEED:"
+		"DOTA_Tooltip_ability_devour_endurance_aura_radius"						"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_endurance_aura_buff"				"#DOTA_Tooltip_modifier_centaur_khan_endurance_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_endurance_aura_buff_Description"	"#DOTA_Tooltip_modifier_centaur_khan_endurance_aura_bonus_Description"
+	
+
+		"DOTA_Tooltip_ability_devour_command_aura"							"#DOTA_Tooltip_ability_alpha_wolf_command_aura"
+		"DOTA_Tooltip_ability_devour_command_aura_Description"				"#DOTA_Tooltip_ability_alpha_wolf_command_aura_Description"
+		"DOTA_Tooltip_ability_devour_command_aura_bonus_damage_pct"			"%BONUS DAMAGE:"
+		"DOTA_Tooltip_ability_devour_command_aura_radius"					"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_command_aura_buff"				"#DOTA_Tooltip_modifier_alpha_wolf_command_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_command_aura_buff_Description"	"#DOTA_Tooltip_modifier_alpha_wolf_command_aura_bonus_Description"
+	
+
+		"DOTA_Tooltip_ability_devour_toughness_aura"						"#DOTA_Tooltip_ability_enraged_wildkin_toughness_aura"
+		"DOTA_Tooltip_ability_devour_toughness_aura_Description"			"#DOTA_Tooltip_ability_enraged_wildkin_toughness_aura_Description"
+		"DOTA_Tooltip_ability_devour_toughness_aura_bonus_armor"			"BONUS ARMOR:"
+		"DOTA_Tooltip_ability_devour_toughness_aura_radius"					"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_toughness_aura_buff"				"#DOTA_Tooltip_modifier_enraged_wildkin_toughness_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_toughness_aura_buff_Description"	"#DOTA_Tooltip_modifier_enraged_wildkin_toughness_aura_bonus_Description"
+	
+
+		"DOTA_Tooltip_ability_devour_unholy_aura"							"#DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura"
+		"DOTA_Tooltip_ability_devour_unholy_aura_Description"				"#DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura_Description"
+		"DOTA_Tooltip_ability_devour_unholy_aura_health_regen"				"HEALTH REGEN:"
+		"DOTA_Tooltip_ability_devour_unholy_aura_radius"					"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_unholy_aura_buff"				"#DOTA_Tooltip_modifier_satyr_hellcaller_unholy_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_unholy_aura_buff_Description"	"#DOTA_Tooltip_modifier_satyr_hellcaller_unholy_aura_bonus_Description"
+	
+
+		"DOTA_Tooltip_ability_devour_mana_aura"							"#DOTA_Tooltip_ability_forest_troll_high_priest_mana_aura"
+		"DOTA_Tooltip_ability_devour_mana_aura_Description"				"#DOTA_Tooltip_ability_forest_troll_high_priest_mana_aura_Description"
+		"DOTA_Tooltip_ability_devour_mana_aura_mana_regen"				"MANA REGEN:"
+		"DOTA_Tooltip_ability_devour_mana_aura_radius"					"RADIUS:"
+
+		"DOTA_Tooltip_modifier_devour_mana_aura_buff"				"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus_Description"
+	
+
+		//////////////////////////////////////////////////////////////////
+
 
 		"donator_label_1"			"Patron"
 		"donator_label_2"			"Team Member"
