@@ -434,13 +434,13 @@ end
 ---------------------------------------------------------------------------
 function COverthrowGameMode:UpdateScoreboard()
 	local sortedTeams = self:GetSortedTeams()
-	for _, t in ipairs(sortedTeams) do
-		-- Scaleform UI Scoreboard
-		FireGameEvent("score_board", {
-			team_id = t.team,
-			team_score = t.score
-		})
-	end
+	-- for _, t in ipairs(sortedTeams) do
+	-- 	-- Scaleform UI Scoreboard
+	-- 	FireGameEvent("score_board", {
+	-- 		team_id = t.team,
+	-- 		team_score = t.score
+	-- 	})
+	-- end
 	-- Leader effects (moved from OnTeamKillCredit)
 	local leader = sortedTeams[1].team
 	self.leadingTeam = leader
