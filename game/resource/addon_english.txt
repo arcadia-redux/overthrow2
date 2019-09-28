@@ -103,13 +103,13 @@
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_bonus_gold_per_minute"	"BONUS GOLD PER MINUTE:"
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_health_regen"			"REGENERATION RATE:"
 
-		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura"									"Speed Aura"
-		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_Description"						"The Kobold Foreman's cruel efficiency increases his movement speed and the movement speed of all nearby allies."
+		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura"							"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura"
+		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_Description"				"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura_Description"
 		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_bonus_movement_speed"			"%MOVE SPEED:"
 		"DOTA_Tooltip_ability_devour_taskmaster_speed_aura_radius"							"RADIUS:"
 
-		"DOTA_Tooltip_modifier_devour_taskmaster_speed_aura_buff"							"Speed Aura"
-		"DOTA_Tooltip_modifier_devour_taskmaster_speed_aura_buff_Description"				"Movement speed increased by %dMODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE%%%."
+		"DOTA_Tooltip_modifier_devour_taskmaster_speed_aura_buff"				"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus"
+		"DOTA_Tooltip_modifier_devour_taskmaster_speed_aura_buff_Description"	"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus_Description"
 	
 
 		"donator_label_1"			"Patron"
