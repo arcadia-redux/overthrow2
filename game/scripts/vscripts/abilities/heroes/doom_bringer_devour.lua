@@ -1,5 +1,5 @@
 local ABILITY_SETS = {
-	{ "kobold_taskmaster_speed_aura" },
+	{ "devour_taskmaster_speed_aura" },
 	{ "mudgolem_cloak_aura" },
 	{ "centaur_khan_war_stomp" },
 	{ "polar_furbolg_ursa_warrior_thunder_clap", "centaur_khan_endurance_aura" },
