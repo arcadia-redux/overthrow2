@@ -110,11 +110,11 @@
 
 		"DOTA_Tooltip_ability_devour_speed_aura"							"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura"
 		"DOTA_Tooltip_ability_devour_speed_aura_Description"				"#DOTA_Tooltip_ability_kobold_taskmaster_speed_aura_Description"
-		"DOTA_Tooltip_ability_devour_speed_aura_bonus_movement_speed"			"%MOVE SPEED:"
-		"DOTA_Tooltip_ability_devour_speed_aura_radius"							"RADIUS:"
+		"DOTA_Tooltip_ability_devour_speed_aura_bonus_movement_speed"		"%MOVE SPEED:"
+		"DOTA_Tooltip_ability_devour_speed_aura_radius"						"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_speed_aura_buff"				"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_speed_aura_buff_Description"	"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_speed_aura_buff_Description"	"Movement speed increased."
 	
 
 		"DOTA_Tooltip_ability_devour_cloak_aura"							"#DOTA_Tooltip_ability_mudgolem_cloak_aura"
@@ -123,7 +123,7 @@
 		"DOTA_Tooltip_ability_devour_cloak_aura_radius"						"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_cloak_aura_buff"					"#DOTA_Tooltip_modifier_mudgolem_cloak_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_cloak_aura_buff_Description"		"#DOTA_Tooltip_modifier_mudgolem_cloak_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_cloak_aura_buff_Description"		"Magic resistance increased."
 	
 
 		"DOTA_Tooltip_ability_devour_endurance_aura"							"#DOTA_Tooltip_ability_centaur_khan_endurance_aura"
@@ -132,7 +132,7 @@
 		"DOTA_Tooltip_ability_devour_endurance_aura_radius"						"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_endurance_aura_buff"				"#DOTA_Tooltip_modifier_centaur_khan_endurance_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_endurance_aura_buff_Description"	"#DOTA_Tooltip_modifier_centaur_khan_endurance_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_endurance_aura_buff_Description"	"Attack speed increased."
 	
 
 		"DOTA_Tooltip_ability_devour_command_aura"							"#DOTA_Tooltip_ability_alpha_wolf_command_aura"
@@ -141,7 +141,7 @@
 		"DOTA_Tooltip_ability_devour_command_aura_radius"					"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_command_aura_buff"				"#DOTA_Tooltip_modifier_alpha_wolf_command_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_command_aura_buff_Description"	"#DOTA_Tooltip_modifier_alpha_wolf_command_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_command_aura_buff_Description"	"Damage increased."
 	
 
 		"DOTA_Tooltip_ability_devour_toughness_aura"						"#DOTA_Tooltip_ability_enraged_wildkin_toughness_aura"
@@ -150,7 +150,7 @@
 		"DOTA_Tooltip_ability_devour_toughness_aura_radius"					"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_toughness_aura_buff"				"#DOTA_Tooltip_modifier_enraged_wildkin_toughness_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_toughness_aura_buff_Description"	"#DOTA_Tooltip_modifier_enraged_wildkin_toughness_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_toughness_aura_buff_Description"	"Armor increased."
 	
 
 		"DOTA_Tooltip_ability_devour_unholy_aura"							"#DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura"
@@ -159,7 +159,7 @@
 		"DOTA_Tooltip_ability_devour_unholy_aura_radius"					"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_unholy_aura_buff"				"#DOTA_Tooltip_modifier_satyr_hellcaller_unholy_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_unholy_aura_buff_Description"	"#DOTA_Tooltip_modifier_satyr_hellcaller_unholy_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_unholy_aura_buff_Description"	"Health regeneration increased."
 	
 
 		"DOTA_Tooltip_ability_devour_mana_aura"							"#DOTA_Tooltip_ability_forest_troll_high_priest_mana_aura"
@@ -168,7 +168,7 @@
 		"DOTA_Tooltip_ability_devour_mana_aura_radius"					"RADIUS:"
 
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff"				"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus"
-		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus_Description"
+		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"Mana Regeneration increased."
 	
 
 		//////////////////////////////////////////////////////////////////

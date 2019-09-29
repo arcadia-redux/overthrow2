@@ -45,8 +45,9 @@ function modifier_devour_mana_aura:GetAuraSearchType()
 end
 
 function modifier_devour_mana_aura:GetAuraDuration()
-    return 0.5
+    return 0.3
 end
+
 ------------------------------------------------------------------------------
 
 modifier_devour_mana_aura_buff = modifier_devour_mana_aura_buff or class({
@@ -72,5 +73,9 @@ function modifier_devour_mana_aura_buff:DeclareFunctions()
 end
 
 function modifier_devour_mana_aura_buff:GetModifierConstantManaRegen()
-	return self:GetAbility():GetSpecialValueFor("mana_regen")
+	if self:GetAbility() then
+		return self:GetAbility():GetSpecialValueFor("mana_regen")
+	else 
+		return 0
+	end		
 end
