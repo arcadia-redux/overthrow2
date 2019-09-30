@@ -342,24 +342,26 @@ end
 -- Fix feed on tower
 ---------------------------------------------------------------------------
 function COverthrowGameMode:DamageFilter(event)
-	local killer = EntIndexToHScript(event.entindex_attacker_const)
 	local death_unit = EntIndexToHScript(event.entindex_victim_const)
-	local uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
+	local uniqueKey
+	if event.entindex_attacker_const and event.entindex_victim_const then
+		uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
 
-	local checkLastKill = true
+		local checkLastKill = true
 
-	local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
+		local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
 
-	if deathUnitHasKill then
-		checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
-	end
+		if deathUnitHasKill then
+			checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
+		end
 
-	if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
-		if death_unit:GetHealth() <= event.damage then
-			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
-			death_unit:Kill(nil, death_unit)
-			if _G.pairKillCounts[uniqueKey] == 2 then
-				GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+		if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
+			if death_unit:GetHealth() <= event.damage then
+				_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
+				death_unit:Kill(nil, death_unit)
+				if _G.pairKillCounts[uniqueKey] == 2 then
+					GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+				end
 			end
 		end
 	end
