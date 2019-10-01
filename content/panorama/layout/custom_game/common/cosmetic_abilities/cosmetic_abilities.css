@@ -89,14 +89,13 @@
 }
 
 #CosmeticContainer {
-	flow-children: right;
 	horizontal-align: center;
-	vertical-align: center;
-	height: 100%;
+	vertical-align: bottom;
+	height: 288px;
+	flow-children: right;
 }
 
 #AnimationPanel {
-	visibility: visible;
 	width: 185px;
 	height: 280px;
 }
@@ -111,11 +110,26 @@
 	background-color: rgba( 8, 8, 8, 0.9 );
 }
 
+.Animation {
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: linear;
+}
+
 #BorderAnimation {
 	width: 100%;
 	height: 100%;
 	background-image: url( "s2r://panorama/images/hud/passive_ability_border_png.vtex" );
 	background-size: 100% 100%;
+}
+
+.Pets #Cosmetics {
+	width: 900px;
+}
+
+#Cosmetics {
+	height: 100%;
+	width: 360px;
 }
 
 #AbilitiesContainer {
@@ -234,9 +248,38 @@
 	flow-children: down;
 }
 
+#EffectOwner {
+	flow-children: right;
+}
+
+#EffectOwner Label {
+	font-size: 18px;
+}
+
+.hero #HeroOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.pet #PetOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.courier #CourierOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.wards #WardsOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
 .SelectedRow {
 	margin-top: 8px;
 	flow-children: right;
+	height: 20px;
 }
 
 .HeroEffects #HeroEffects {
@@ -269,13 +312,18 @@
 	text-shadow: 0px 0px 8px #5d7070;
 }
 
+.HeroEffectDelete {
+	vertical-align: bottom;
+	margin-bottom: 1px;
+}
+
 .HeroEffectDelete Label {
 	color: #990000;
 	font-size: 14px;
 	text-shadow: 0px 0px 1px 1.1 black;
 	text-transform: lowercase;
 	font-family: Radiance;
-	vertical-align: center;
+	vertical-align: bottom;
 	transition-property: color;
 	transition-duration: 0.1s;
 	transition-timing-function: linear;
@@ -296,7 +344,7 @@
 }
 
 #HeroEffectsContainer {
-	height: 170px;
+	height: 150px;
 	width: 310px;
 	overflow: squish scroll;
 }
@@ -352,6 +400,8 @@
 }
 
 #Pets {
+	horizontal-align: center;
+	vertical-align: center;
 	visibility: collapse;
 	flow-children: down;
 }
@@ -361,6 +411,7 @@
 }
 
 #SelectedPet {
+	height: 44px;
 	margin-top: 2px;
 	margin-bottom: 4px;
 }
@@ -368,6 +419,7 @@
 #CurrentPetImage {
 	width: 60px;
 	height: 45px;
+	box-shadow: black 0px 0px 8px 0px;
 }
 
 #Pets .CurrentText {
@@ -375,7 +427,8 @@
 }
 
 #DeletePet {
-	vertical-align: center;
+	margin-left: 4px;
+	vertical-align: bottom;
 }
 
 #VerticalScrollBar {

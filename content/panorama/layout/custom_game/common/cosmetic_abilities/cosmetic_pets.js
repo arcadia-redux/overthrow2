@@ -1069,6 +1069,7 @@ function CreatePet( parent, data ) {
 
 function CreatePets() {
 	var container = $( "#PetsContainer" )
+	container.RemoveAndDeleteChildren()
 
 	for ( var data of petsData ) {
 		CreatePet( container, data )
@@ -1090,7 +1091,7 @@ function UpdateCurrentPet( index ) {
 		$( "#PetNone" ).style.visibility = "collapse"
 		$( "#DeletePet" ).style.visibility = "visible"
 	} else {
-		$( "#PetNone" ).style.visibility = "collapse"
+		$( "#PetNone" ).style.visibility = "visible"
 		$( "#CurrentPetImage" ).style.visibility = "collapse"
 		$( "#DeletePet" ).style.visibility = "collapse"
 	}

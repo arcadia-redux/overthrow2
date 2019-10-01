@@ -23,7 +23,7 @@
 					</Button>
 					<Label class="HeaderText" text=" / " />
 					<Button id="HeroEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'HeroEffects' )">
-						<Label class="HeaderText" text="Hero effects" />
+						<Label class="HeaderText" text="Effects" />
 					</Button>
 					<Label class="HeaderText" text=" / " />
 					<Button id="KillEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'KillEffects' )">
@@ -39,46 +39,65 @@
 						<Panel id="AnimationContainer"></Panel>
 						<Panel id="BorderAnimation" />
 					</Panel>
-					<Panel id="AbilitiesContainer"></Panel>
-					<Panel id="HeroEffects">
-						<Panel id="SelectedHeroEffect" class="SelectedRow">
-							<Label class="CurrentText" text="Effect: " />
-							<Label id="CurrentEffect" class="None" text="none" />
-							<Button id="DeleteEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteEffect()">
-								<Label text="Delete" />
-							</Button>
-						</Panel>
-						<Panel id="HeroEffectsContainer"></Panel>
+					<Panel id="Cosmetics">
+						<Panel id="AbilitiesContainer"></Panel>
+						<Panel id="HeroEffects">
+							<Panel id="EffectOwner">
+								<Button id="HeroOwnButton" class="MenuButton" onactivate="SetEffectType( 'hero' )">
+									<Label class="HeaderText" text="Hero" />
+								</Button>
+								<Label class="HeaderText" text=" / " />
+								<Button id="PetOwnButton" class="MenuButton" onactivate="SetEffectType( 'pet' )">
+									<Label class="HeaderText" text="Pet" />
+								</Button>
+								<Label class="HeaderText" text=" / " />
+								<Button id="CourierOwnButton" class="MenuButton" onactivate="SetEffectType( 'courier' )">
+									<Label class="HeaderText" text="Courier" />
+								</Button>
+								<Label class="HeaderText" text=" / " />
+								<Button id="WardsOwnButton" class="MenuButton" onactivate="SetEffectType( 'wards' )">
+									<Label class="HeaderText" text="Wards" />
+								</Button>
+							</Panel>
+							<Panel id="SelectedHeroEffect" class="SelectedRow">
+								<Label class="CurrentText" text="Effect: " />
+								<Label id="CurrentEffect" class="None" text="none" />
+								<Button id="DeleteEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteEffect()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="HeroEffectsContainer"></Panel>
 
-						<Panel id="SelectedEffectColor" class="SelectedRow">
-							<Label class="CurrentText" text="Color: " />
-							<Label id="CurrentColor" class="None" text="none" />
-							<Button id="DeleteColor" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteColor()">
-								<Label text="Delete" />
-							</Button>
+							<Panel id="SelectedEffectColor" class="SelectedRow">
+								<Label class="CurrentText" text="Color: " />
+								<Label id="CurrentColor" class="None" text="none" />
+								<Button id="DeleteColor" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteColor()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="EffectColorsContainer"></Panel>
 						</Panel>
-						<Panel id="EffectColorsContainer"></Panel>
-					</Panel>
-					<Panel id="KillEffects">
-						<Panel id="SelectedKillEffect" class="SelectedRow">
-							<Label class="CurrentText" text="Kill effect: " />
-							<Label id="CurrentKillEffect" class="None" text="none" />
-							<Button id="DeleteKillEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteKillEffect()">
-								<Label text="Delete" />
-							</Button>
+						<Panel id="KillEffects">
+							<Panel id="SelectedKillEffect" class="SelectedRow">
+								<Label class="CurrentText" text="Kill effect: " />
+								<Label id="CurrentKillEffect" class="None" text="none" />
+								<Button id="DeleteKillEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteKillEffect()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="KillEffectsContainer"></Panel>
 						</Panel>
-						<Panel id="KillEffectsContainer"></Panel>
-					</Panel>
-					<Panel id="Pets">
-						<Panel id="SelectedPet" class="SelectedRow">
-							<Label class="CurrentText" text="Pet: " />
-							<Label id="PetNone" class="None" text="none" />
-							<Image id="CurrentPetImage" />
-							<Button id="DeletePet" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeletePet()">
-								<Label text="Delete" />
-							</Button>
+						<Panel id="Pets">
+							<Panel id="SelectedPet" class="SelectedRow">
+								<Label class="CurrentText" text="Pet: " />
+								<Label id="PetNone" class="None" text="none" />
+								<Image id="CurrentPetImage" style="visibility: collapse;" />
+								<Button id="DeletePet" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeletePet()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="PetsContainer"></Panel>
 						</Panel>
-						<Panel id="PetsContainer"></Panel>
 					</Panel>
 				</Panel>
 			</Panel>

@@ -1,18 +1,18 @@
 local abilitiyPatreonLevel = {
 	["high_five"] = 0,
 	["seasonal_ti9_banner"] = 1,
-	["seasonal_summon_cny_balloon"] = 0,
-	["seasonal_summon_dragon"] = 0,
-	["seasonal_summon_cny_tree"] = 0,
-	["seasonal_firecrackers"] = 0,
-	["seasonal_ti9_shovel"] = 0,
-	["seasonal_ti9_instruments"] = 0,
-	["seasonal_ti9_monkey"] = 0,
-	["seasonal_summon_ti9_balloon"] = 0,
-	["seasonal_throw_snowball"] = 0,
-	["seasonal_festive_firework"] = 0,
-	["seasonal_decorate_tree"] = 0,
-	["seasonal_summon_snowman"] = 0,
+	["seasonal_summon_cny_balloon"] = 1,
+	["seasonal_summon_dragon"] = 1,
+	["seasonal_summon_cny_tree"] = 1,
+	["seasonal_firecrackers"] = 1,
+	["seasonal_ti9_shovel"] = 1,
+	["seasonal_ti9_instruments"] = 1,
+	["seasonal_ti9_monkey"] = 1,
+	["seasonal_summon_ti9_balloon"] = 1,
+	["seasonal_throw_snowball"] = 1,
+	["seasonal_festive_firework"] = 1,
+	["seasonal_decorate_tree"] = 1,
+	["seasonal_summon_snowman"] = 1,
 }
 
 local abilitiesCantBeRemoved = {
@@ -29,17 +29,44 @@ local MAX_COSMETIC_ABILITIES = 6
 
 Cosmetics = Cosmetics or {
 	playerHeroEffects = {},
-	playerEffectColors = {},
+	playerPetEffects = {},
+	playerWardEffects = {},
+
+	playerHeroColors = {},
+	playerPetColors = {},
+	teamCourierColors = {},
+	playerWardColors = {},
+
 	playerKillEffects = {},
 	playerPets = {},
 }
 
 function Cosmetics:Precache( context )
+	print( "Cosmetics precache start" )
+
 	for _, effect in pairs( self.heroEffects ) do
 		if effect.resource then
 			PrecacheResource( "particle_folder", effect.resource, context )
 		end
 	end
+
+	for _, c in pairs( self.petsData.couriers ) do
+		PrecacheModel( c.ground_radiant.model, context )
+
+		for _, v in pairs( c ) do
+			if type( v ) == "table" then
+				for _, p in pairs( v.particles ) do
+					if type( p ) == "number" then
+						PrecacheResource( "particle", self.petsData.particles[p].particle, context )
+					else
+						PrecacheResource( "particle", p, context )
+					end
+				end
+			end
+		end
+	end
+
+	print( "Cosmetics precache end" )
 end
 
 function Cosmetics:Init()
@@ -59,29 +86,103 @@ function Cosmetics:Init()
 	RegisterCustomEventListener( "cosmetics_remove_kill_effect", Dynamic_Wrap( self, "RemoveKillEffect" ) )
 	RegisterCustomEventListener( "cosmetics_select_pet", Dynamic_Wrap( self, "SelectPet" ) )
 	RegisterCustomEventListener( "cosmetics_remove_pet", Dynamic_Wrap( self, "DeletePet" ) )
+	RegisterCustomEventListener( "cosmetics_save", Dynamic_Wrap( self, "Save" ) )
 
 	GameRules:GetGameModeEntity():SetContextThink( "cosmetics_think", function()
 		self:OnThink()
 
-		return  0.12
+		return  0.1
 	end, 0.4 )
 end
 
+local function HidePet( pet, time )
+	pet:AddNoDraw()
+	pet.isHidden = true
+	pet.unhideTime = GameRules:GetDOTATime( false, false ) + time
+
+	local particle = ParticleManager:CreateParticle( "particles/units/heroes/hero_monkey_king/monkey_king_disguise_smoke_top.vpcf", PATTACH_WORLDORIGIN, nil )
+	ParticleManager:SetParticleControl( particle, 0, pet:GetAbsOrigin() )
+	ParticleManager:ReleaseParticleIndex( particle )
+end
+
+local function UnhidePet( pet )
+	pet:RemoveNoDraw()
+	pet.isHidden = false
+
+	local particle = ParticleManager:CreateParticle( "particles/units/heroes/hero_monkey_king/monkey_king_disguise_smoke_top.vpcf", PATTACH_WORLDORIGIN, nil )
+	ParticleManager:SetParticleControl( particle, 0, pet:GetAbsOrigin() )
+	ParticleManager:ReleaseParticleIndex( particle )
+end
+
+local function CreateEffect( unit, effect, color )
+	local attaches = {
+		renderorigin_follow = PATTACH_RENDERORIGIN_FOLLOW,
+		absorigin_follow = PATTACH_ABSORIGIN_FOLLOW,
+		customorigin = PATTACH_CUSTOMORIGIN,
+		point_follow = PATTACH_POINT_FOLLOW
+	}
+
+	local p = ParticleManager:CreateParticle( effect.system, attaches[effect.attach_type], unit )
+
+	for _, cp in pairs( effect.control_points or {} ) do
+		ParticleManager:SetParticleControlEnt( p, cp.control_point_index, unit, attaches[cp.attach_type], cp.attachment, unit:GetAbsOrigin(), true )
+	end
+
+	local c = effect.default_color
+
+	if c then
+		ParticleManager:SetParticleControl( p, 15, color or Vector( c.r, c.g, c.b ) )
+		ParticleManager:SetParticleControl( p, 16, Vector( 1, 0, 0 ) )
+	end
+
+	return p
+end
+
 function Cosmetics:OnThink()
-	for _, pet in pairs( self.playerPets ) do
+	local now = GameRules:GetDOTATime( false, false )
+
+	for _, petData in pairs( self.playerPets ) do
+		local pet = petData.unit
 		local owner = pet:GetOwner()
 		local owner_pos = owner:GetAbsOrigin()
 		local pet_pos = pet:GetAbsOrigin()
 		local distance = ( owner_pos - pet_pos ):Length2D()
 		local owner_dir = owner:GetForwardVector()
 		local spawn_ability = pet:FindAbilityByName( "cosmetic_pet_spawn_anim" )
-		local dir = owner_dir * RandomInt( 70, 150 )
+		local dir = owner_dir * RandomInt( 110, 140 )
 
-		if spawn_ability:IsInAbilityPhase() then
-			goto skip_pet
+		if owner:IsInvisible() and not pet:HasModifier( "modifier_cosmetic_pet_invisible" ) then
+			pet:AddNewModifier( pet, nil, "modifier_cosmetic_pet_invisible", {} )
+		elseif not owner:IsInvisible() and pet:HasModifier( "modifier_cosmetic_pet_invisible" ) then
+			pet:RemoveModifierByName( "modifier_cosmetic_pet_invisible" )
+		end
+
+		if pet.isHidden and pet.unhideTime <= now then
+			UnhidePet( pet )
+		end
+
+		local enemy_dis
+		local near = FindUnitsInRadius(
+			owner:GetTeam(),
+			pet:GetAbsOrigin(),
+			nil,
+			300,
+			DOTA_UNIT_TARGET_TEAM_ENEMY,
+			DOTA_UNIT_TARGET_HERO,
+			DOTA_UNIT_TARGET_FLAG_NO_INVIS,
+			FIND_CLOSEST,
+			false
+		)[1]
+
+		if near and ( near:GetAbsOrigin() - pet_pos ):Length2D() < 70 then
+			HidePet( pet, 100 )
 		end
 
 		if distance > 900 then
+			if not pet.isHidden then
+				HidePet( pet, 0.35 )
+			end
+
 			local a = RandomInt( 60, 120 )
 
 			if RandomInt( 1, 2 ) == 1 then
@@ -92,28 +193,87 @@ function Cosmetics:OnThink()
 
 			pet:SetAbsOrigin( owner_pos + r )
 			pet:SetForwardVector( owner_dir )
-			pet:CastAbilityNoTarget( spawn_ability, -1 )
-		elseif distance > 240 then
-			local right = RotatePosition( Vector( 0, 0, 0 ), QAngle( 0, RandomInt( 60, 120 ) * -1, 0 ), dir ) + owner_pos
-			local left = RotatePosition( Vector( 0, 0, 0 ), QAngle( 0, RandomInt( 60, 120 ), 0 ), dir ) + owner_pos
+		elseif distance > 150 then
+			local right = RotatePosition( Vector( 0, 0, 0 ), QAngle( 0, RandomInt( 70, 110 ) * -1, 0 ), dir ) + owner_pos
+			local left = RotatePosition( Vector( 0, 0, 0 ), QAngle( 0, RandomInt( 70, 110 ), 0 ), dir ) + owner_pos
 
-			if ( pet_pos - right ):Length2D() > ( pet_pos - left ):Length2D() then
-				pet:MoveToPosition( left )
+			if enemy_dis and enemy_dis < 300 and distance < 400 then
+				pet:Stop()
 			else
-				pet:MoveToPosition( right )
+				if ( pet_pos - right ):Length2D() > ( pet_pos - left ):Length2D() then
+					pet:MoveToPosition( left )
+				else
+					pet:MoveToPosition( right )
+				end
 			end
-		elseif distance < 70 then
-			pet:MoveToPosition( ( pet_pos - owner_pos ):Normalized() * RandomInt( 70, 150 ) )
+		elseif distance < 90 then
+			pet:MoveToPosition( owner_pos + ( pet_pos - owner_pos ):Normalized() * RandomInt( 110, 140 ) )
+		elseif near and ( near:GetAbsOrigin() - pet_pos ):Length2D() < 110 then
+			pet:MoveToPosition( pet_pos + ( pet_pos - near:GetAbsOrigin() ):Normalized() * RandomInt( 100, 150 ) )
 		end
-
-		::skip_pet::
 	end
 end
 
 function Cosmetics:OnNPCSpawned( keys )
 	local unit = EntIndexToHScript( keys.entindex )
+	local n = unit:GetUnitName()
 
-	if unit:IsRealHero() then
+	if unit:IsRealHero() and not unit.cosmeticsLoaded then
+		local id = unit:GetPlayerID()
+		--[[
+		WebApi:Send(
+			"path", -- ???
+			data,
+			function( keys )
+				for _, ability in pairs( keys.abilities ) do
+					if not unit:FindAbilityByName( ability_name ) then
+						local ability = unit:AddAbility( ability_name )
+
+						ability:SetLevel( 1 )
+						ability:SetHidden( false )
+
+						local patreon = Patreons:GetPlayerSettings( id )
+
+						if patreon and patreon.level < abilitiyPatreonLevel[ability_name] then
+							ability:SetActivated( false )
+						end
+					else
+						break
+					end
+				end
+
+				if keys.hero_effect ~= -1 then
+					self.SetHeroEffect( { PlayerID = id, index = keys.hero_effect, type = "hero" } )
+				end
+				if keys.pet_effect ~= -1 then
+					self.SetHeroEffect( { PlayerID = id, index = keys.pet_effect, type = "pet" } )
+				end
+				if keys.wards_effect ~= -1 then
+					self.SetHeroEffect( { PlayerID = id, index = keys.wards_effect, type = "wards" } )
+				end
+
+				if keys.hero_color ~= -1 then
+					self.SetEffectColor( { PlayerID = id, index = keys.hero_color, type = "hero" } )
+				end
+				if keys.pet_color ~= -1 then
+					self.SetEffectColor( { PlayerID = id, index = keys.pet_color, type = "pet" } )
+				end
+				if keys.wards_color ~= -1 then
+					self.SetEffectColor( { PlayerID = id, index = keys.wards_color, type = "wards" } )
+				end
+
+				if keys.kill_effect ~= -1 then
+					self.SetKillEffect( { PlayerID = id, index = keys.kill_effect } )
+				end
+
+				if keys.pet ~= -1 then
+					self.SelectPet( { PlayerID = id, index = keys.pet } )
+				end
+			end,
+			function() end
+		)
+		]]
+
 		for _, ability_name in pairs( startingAbilities ) do
 			if not unit:FindAbilityByName( ability_name ) then
 				local ability = unit:AddAbility( ability_name )
@@ -121,7 +281,7 @@ function Cosmetics:OnNPCSpawned( keys )
 				ability:SetLevel( 1 )
 				ability:SetHidden( false )
 
-				local patreon = Patreons:GetPlayerSettings( unit:GetPlayerID() )
+				local patreon = Patreons:GetPlayerSettings( id )
 
 				if patreon and patreon.level < abilitiyPatreonLevel[ability_name] then
 					ability:SetActivated( false )
@@ -129,6 +289,23 @@ function Cosmetics:OnNPCSpawned( keys )
 			else
 				break
 			end
+		end
+
+		unit.cosmeticsLoaded = true
+	elseif n == "npc_dota_observer_wards" or n == "npc_dota_sentry_wards" then
+		local id = unit:GetOwner():GetPlayerID()
+
+		if self.playerWardEffects[id] then
+			if self.playerWardEffects[id].effect then
+				local c = self.playerWardColors[id]
+				unit.cosmeticEffect = CreateEffect( unit, self.playerWardEffects[id].effect, c and c.color or nil )
+			end
+
+			table.insert( self.playerWardEffects[id].wards, unit )
+		else
+			self.playerWardEffects[id] = {
+				wards = { unit }
+			}
 		end
 	end
 end
@@ -141,7 +318,7 @@ function Cosmetics:OnEntityKilled( keys )
 		local id = killer:GetPlayerOwnerID()
 
 		if Cosmetics.playerKillEffects[id] then
-			Cosmetics.playerKillEffects[id]( killer, victim )
+			Cosmetics.playerKillEffects[id].effect( killer, victim )
 		end
 	end
 end
@@ -156,7 +333,7 @@ function Cosmetics.AddAbility( keys )
 		return
 	elseif unit:FindAbilityByName( keys.ability ) then
 		return
-	elseif patreon.level < abilitiyPatreonLevel[keys.ability] then
+	elseif not IsInToolsMode() and patreon.level < abilitiyPatreonLevel[keys.ability] then
 		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
 		return
 	end
@@ -208,52 +385,102 @@ end
 
 function Cosmetics.SetHeroEffect( keys )
 	local id = keys.PlayerID
-	local data = Cosmetics.playerHeroEffects[id]
-	local effect = Cosmetics.heroEffects[tonumber( keys.index )]
+	local index = tonumber( keys.index )
+	local effect = Cosmetics.heroEffects[index]
+	local patreon = Patreons:GetPlayerSettings( id )
 
-	if data and data.index == keys.index then
+	if not effect then
 		return
-	elseif not effect then
+	elseif not IsInToolsMode() and patreon.level < 1 then
+		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
 		return
 	end
 
-	if data then
-		ParticleManager:DestroyParticle( data.particle, true )
-		ParticleManager:ReleaseParticleIndex( data.particle )
+	if keys.type == "hero" then
+		local data = Cosmetics.playerHeroEffects[id]
+
+		if data and data.index == index then
+			return
+		end
+
+		if data then
+			ParticleManager:DestroyParticle( data.particle, true )
+			ParticleManager:ReleaseParticleIndex( data.particle )
+		end
+
+		local hero = PlayerResource:GetPlayer( id ):GetAssignedHero()
+		local c = Cosmetics.playerHeroColors[id]
+
+		Cosmetics.playerHeroEffects[id] = {
+			particle = CreateEffect( hero, effect, c and c.color or nil ),
+			index = index
+		}
+	elseif keys.type == "pet" then
+		local pet = Cosmetics.playerPets[id].unit
+		local pet_effect = Cosmetics.playerPetEffects[id]
+
+		if pet_effect then
+			ParticleManager:DestroyParticle( pet_effect.particle, true )
+			ParticleManager:ReleaseParticleIndex( pet_effect.particle )
+		end
+
+		if pet then
+			local c = Cosmetics.playerPetColors[id]
+
+			Cosmetics.playerPetEffects[id] = {
+				particle = CreateEffect( pet, effect, c and c.color or nil ),
+				index = index
+			}
+		end
+	elseif keys.type == "courier" then
+		local team = PlayerResource:GetTeam( id )
+
+		for i = 0, PlayerResource:GetNumCouriersForTeam( team ) - 1 do
+			local courier = PlayerResource:GetNthCourierForTeam( i, team )
+
+			if courier.cosmeticEffect then
+				ParticleManager:DestroyParticle( courier.cosmeticEffect, true )
+				ParticleManager:ReleaseParticleIndex( courier.cosmeticEffect )
+			end
+
+			local c = Cosmetics.teamCourierColors[team]
+			courier.cosmeticEffect = CreateEffect( courier, effect, c and c.color or nil )
+		end
+
+		local t = CustomNetTables:GetTableValue( "cosmetics", "team_" .. tostring( team ) ) or {}
+		t[keys.type .. "_effect"] = index
+		CustomNetTables:SetTableValue( "cosmetics", "team_" .. tostring( team ), t )
+	elseif keys.type == "wards" then
+		if Cosmetics.playerWardEffects[id] then
+			for _, ward in pairs( Cosmetics.playerWardEffects[id].wards ) do
+				if ward.cosmeticEffect then
+					ParticleManager:DestroyParticle( ward.cosmeticEffect, true )
+					ParticleManager:ReleaseParticleIndex( ward.cosmeticEffect )
+				end
+
+				local c = Cosmetics.playerWardColors[id]
+				ward.cosmeticEffect = CreateEffect( ward, effect, c and c.color or nil )
+			end
+
+			Cosmetics.playerWardEffects[id].index = index
+			Cosmetics.playerWardEffects[id].effect = effect
+		else
+			Cosmetics.playerWardEffects[id] = {
+				wards = {},
+				index = index,
+				effect = effect
+			}
+		end
+	else
+		return
 	end
 
-	local attaches = {
-		renderorigin_follow = PATTACH_RENDERORIGIN_FOLLOW,
-		absorigin_follow = PATTACH_ABSORIGIN_FOLLOW,
-		customorigin = PATTACH_CUSTOMORIGIN,
-		point_follow = PATTACH_POINT_FOLLOW
-	}
-
-	local hero = PlayerResource:GetPlayer( id ):GetAssignedHero()
-
-	local p = ParticleManager:CreateParticle( effect.system, attaches[effect.attach_type], hero )
-
-	for _, cp in pairs( effect.control_points or {} ) do
-		ParticleManager:SetParticleControlEnt( p, cp.control_point_index, hero, attaches[cp.attach_type], cp.attachment, hero:GetAbsOrigin(), true )
+	if keys.type ~= "courier" then
+		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
+		t[keys.type .. "_effect"] = index
+		t.saved = false
+		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
-
-	if Cosmetics.playerEffectColors[id] then
-		ParticleManager:SetParticleControl( p, 15, Cosmetics.playerEffectColors[id] )
-		ParticleManager:SetParticleControl( p, 16, Vector( 1, 0, 0 ) )
-	elseif effect.default_color then
-		local c = effect.default_color
-		ParticleManager:SetParticleControl( p, 15, Vector( c.r, c.g, c.b ) )
-		ParticleManager:SetParticleControl( p, 16, Vector( 1, 0, 0 ) )
-	end
-
-	Cosmetics.playerHeroEffects[id] = {
-		particle = p,
-		index = keys.index
-	}
-
-	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-	t["hero_effects"] = keys.index
-	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
 function Cosmetics.RemoveHeroEffect( keys )
@@ -267,69 +494,232 @@ function Cosmetics.RemoveHeroEffect( keys )
 		Cosmetics.playerHeroEffects[id] = nil
 
 		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-		t["hero_effects"] = nil
+		t.hero_effects = nil
+		t.saved = false
+		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
+	end
+
+	if keys.type == "hero" then
+		local data = Cosmetics.playerHeroEffects[id]
+
+		if data then
+			ParticleManager:DestroyParticle( data.particle, true )
+			ParticleManager:ReleaseParticleIndex( data.particle )
+
+			Cosmetics.playerHeroEffects[id] = nil
+		end
+	elseif keys.type == "pet" then
+		local pet_effect = Cosmetics.playerPetEffects[id]
+
+		if pet_effect then
+			ParticleManager:DestroyParticle( pet_effect.particle, true )
+			ParticleManager:ReleaseParticleIndex( pet_effect.particle )
+		end
+
+		Cosmetics.playerPetEffects[id] = nil
+	elseif keys.type == "courier" then
+		local team = PlayerResource:GetTeam( id )
+
+		for i = 0, PlayerResource:GetNumCouriersForTeam( team ) - 1 do
+			local courier = PlayerResource:GetNthCourierForTeam( i, team )
+
+			if courier.cosmeticEffect then
+				ParticleManager:DestroyParticle( courier.cosmeticEffect, true )
+				ParticleManager:ReleaseParticleIndex( courier.cosmeticEffect )
+			end
+		end
+
+		local t = CustomNetTables:GetTableValue( "cosmetics", "team_" .. tostring( team ) ) or {}
+		t[keys.type .. "_effect"] = nil
+		CustomNetTables:SetTableValue( "cosmetics", "team_" .. tostring( team ), t )
+	elseif keys.type == "wards" then
+		if Cosmetics.playerWardEffects[id] then
+			for _, ward in pairs( Cosmetics.playerWardEffects[id].wards ) do
+				if ward.cosmeticEffect then
+					ParticleManager:DestroyParticle( ward.cosmeticEffect, true )
+					ParticleManager:ReleaseParticleIndex( ward.cosmeticEffect )
+				end
+			end
+		end
+
+		Cosmetics.playerWardEffects[id].index = nil
+		Cosmetics.playerWardEffects[id].effect = nil
+	end
+
+	if keys.type ~= "courier" then
+		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
+		t[keys.type .. "_effect"] = nil
+		t.saved = false
 		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
 end
 
 function Cosmetics.SetEffectColor( keys )
 	local id = keys.PlayerID
-	local color = Cosmetics.prismaticColors[tonumber( keys.index )]
+	local index = tonumber( keys.index )
+	local color = Cosmetics.prismaticColors[index]
+	local patreon = Patreons:GetPlayerSettings( id )
 
-	if color == Cosmetics.playerEffectColors[id] then
+	if not color then
+		return
+	elseif not IsInToolsMode() and patreon.level < 1 then
+		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
 		return
 	end
 
-	Cosmetics.playerEffectColors[id] = color
+	if keys.type == "hero" then
+		local data = Cosmetics.playerHeroEffects[id]
 
-	local effect = Cosmetics.playerHeroEffects[id]
+		if data then
+			ParticleManager:SetParticleControl( data.particle, 15, color )
+			ParticleManager:SetParticleControl( data.particle, 16, Vector( 1, 0, 0 ) )
+		end
 
-	if effect then
-		ParticleManager:SetParticleControl( effect.particle, 15, color )
-		ParticleManager:SetParticleControl( effect.particle, 16, Vector( 1, 0, 0 ) )
+		Cosmetics.playerHeroColors[id] = {
+			color = color,
+			index = index
+		}
+	elseif keys.type == "pet" then
+		local data = Cosmetics.playerPetEffects[id]
+
+		if data then
+			ParticleManager:SetParticleControl( data.particle, 15, color )
+			ParticleManager:SetParticleControl( data.particle, 16, Vector( 1, 0, 0 ) )
+		end
+
+		Cosmetics.playerPetColors[id] = {
+			color = color,
+			index = index
+		}
+	elseif keys.type == "courier" then
+		local team = PlayerResource:GetTeam( id )
+
+		for i = 0, PlayerResource:GetNumCouriersForTeam( team ) - 1 do
+			local courier = PlayerResource:GetNthCourierForTeam( i, team )
+
+			if courier.cosmeticEffect then
+				ParticleManager:SetParticleControl( courier.cosmeticEffect, 15, color )
+				ParticleManager:SetParticleControl( courier.cosmeticEffect, 16, Vector( 1, 0, 0 ) )
+			end
+		end
+
+		Cosmetics.teamCourierColors[team] = {
+			index = index,
+			color = color
+		}
+
+		local t = CustomNetTables:GetTableValue( "cosmetics", "team_" .. tostring( team ) ) or {}
+		t.courier_color = index
+		CustomNetTables:SetTableValue( "cosmetics", "team_" .. tostring( team ), t )
+	elseif keys.type == "wards" then
+		if Cosmetics.playerWardEffects[id] then
+			for _, ward in pairs( Cosmetics.playerWardEffects[id].wards ) do
+				if ward.cosmeticEffect then
+					ParticleManager:SetParticleControl( ward.cosmeticEffect, 15, color )
+					ParticleManager:SetParticleControl( ward.cosmeticEffect, 16, Vector( 1, 0, 0 ) )
+				end
+			end
+		end
+
+		Cosmetics.playerWardColors[id] = {
+			index = index,
+			color = color
+		}
+	else
+		return
 	end
 
-	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-	t["effect_colors"] = keys.index
-	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
+	if keys.type ~= "courier" then
+		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
+		t[keys.type .. "_color"] = index
+		t.saved = false
+		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
+	end
 end
 
 function Cosmetics.RemoveEffectColor( keys )
 	local id = keys.PlayerID
-	local color = Cosmetics.playerEffectColors[id]
 
-	if not color then
+	if keys.type == "hero" then
+		local data = Cosmetics.playerHeroEffects[id]
+
+		if data then
+			ParticleManager:SetParticleControl( data.particle, 15, Vector( 255, 255, 255 ) )
+			ParticleManager:SetParticleControl( data.particle, 16, Vector( 0, 0, 0 ) )
+		end
+
+		Cosmetics.playerHeroColors[id] = nil
+	elseif keys.type == "pet" then
+		local data = Cosmetics.playerPetEffects[id]
+
+		if data then
+			ParticleManager:SetParticleControl( data.particle, 15, Vector( 255, 255, 255 ) )
+			ParticleManager:SetParticleControl( data.particle, 16, Vector( 0, 0, 0 ) )
+		end
+
+		Cosmetics.playerPetColors[id] = nil
+	elseif keys.type == "courier" then
+		local team = PlayerResource:GetTeam( id )
+
+		for i = 0, PlayerResource:GetNumCouriersForTeam( team ) - 1 do
+			local courier = PlayerResource:GetNthCourierForTeam( i, team )
+
+			if courier.cosmeticEffect then
+				ParticleManager:SetParticleControl( courier.cosmeticEffect, 15, Vector( 255, 255, 255 ) )
+				ParticleManager:SetParticleControl( courier.cosmeticEffect, 16, Vector( 0, 0, 0 ) )
+			end
+		end
+
+		Cosmetics.teamCourierColors[team] = nil
+
+		local t = CustomNetTables:GetTableValue( "cosmetics", "team_" .. tostring( team ) ) or {}
+		t.courier_color = nil
+		CustomNetTables:SetTableValue( "cosmetics", "team_" .. tostring( team ), t )
+	elseif keys.type == "wards" then
+		if Cosmetics.playerWardEffects[id] then
+			for _, ward in pairs( Cosmetics.playerWardEffects[id].wards ) do
+				if ward.cosmeticEffect then
+					ParticleManager:SetParticleControl( ward.cosmeticEffect, 15, Vector( 255, 255, 255 ) )
+					ParticleManager:SetParticleControl( ward.cosmeticEffect, 16, Vector( 0, 0, 0 ) )
+				end
+			end
+		end
+
+		Cosmetics.playerWardColors[id] = nil
+	else
 		return
 	end
 
-	 Cosmetics.playerEffectColors[id] = nil
-
-	local effect = Cosmetics.playerHeroEffects[id]
-
-	if effect then
-		ParticleManager:SetParticleControl( effect.particle, 15, Vector( 255, 255, 255 ) )
-		ParticleManager:SetParticleControl( effect.particle, 16, Vector( 0, 0, 0 ) )
+	if keys.type ~= "courier" then
+		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
+		t[keys.type .. "_color"] = nil
+		t.saved = false
+		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
-
-	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-	t["effect_colors"] = nil
-	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
 function Cosmetics.SetKillEffect( keys )
 	local id = keys.PlayerID
 	local effect = Cosmetics["kill_effect_" .. keys.effect_name]
+	local patreon = Patreons:GetPlayerSettings( id )
 
 	if not effect then
 		return
 	elseif effect == Cosmetics.playerKillEffects[id] then
 		return
+	elseif not IsInToolsMode() and patreon.level < 1 then
+		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
+		return
 	end
 
-	Cosmetics.playerKillEffects[id] = effect
+	Cosmetics.playerKillEffects[id] = {
+		effect = effect,
+		name = keys.effect_name
+	}
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-	t["kill_effects"] = keys.effect_name
+	t.kill_effects = keys.effect_name
+	t.saved = false
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -343,7 +733,8 @@ function Cosmetics.RemoveKillEffect( keys )
 	Cosmetics.playerKillEffects[id] = nil
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-	t["kill_effects"] = nil
+	t.kill_effects = nil
+	t.saved = false
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -354,25 +745,27 @@ function Cosmetics.SelectPet( keys )
 	local old_pet_dir
 	local hero = PlayerResource:GetPlayer( id ):GetAssignedHero()
 	local pet_data = Cosmetics.petsData.couriers[keys.index]
+	local patreon = Patreons:GetPlayerSettings( id )
 
 	if not pet_data then
+		return
+	elseif not IsInToolsMode() and patreon.level < 2 then
+		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
 		return
 	end
 
 	if old_pet then
-		old_pet_pos = old_pet:GetAbsOrigin()
-		old_pet_dir = old_pet:GetForwardVector()
+		old_pet_pos = old_pet.unit:GetAbsOrigin()
+		old_pet_dir = old_pet.unit:GetForwardVector()
 
-		old_pet:Destroy()
+		old_pet.unit:Destroy()
 	end
 
 	local pet = CreateUnitByName( "npc_cosmetic_pet", old_pet_pos or hero:GetAbsOrigin() + RandomVector( RandomInt( 75, 150 ) ), true, hero, hero, hero:GetTeam() )
 
-	if old_pet_dir then
-		pet:SetForwardVector( old_pet_dir )
-	end
-
+	pet:SetForwardVector( old_pet_dir or hero:GetAbsOrigin() )
 	pet:AddNewModifier( pet, nil, "modifier_cosmetic_pet", {} )
+	UnhidePet( pet )
 
 	local m = pet_data.ground_radiant
 
@@ -405,12 +798,21 @@ function Cosmetics.SelectPet( keys )
 			ParticleManager:CreateParticle( p, PATTACH_POINT_FOLLOW, pet )
 		end
 	end
+
+	local e = Cosmetics.playerPetEffects[id]
+	local c = Cosmetics.playerPetColors[id]
 	
+	if e then
+		e.particle = CreateEffect( pet, Cosmetics.heroEffects[e.index], c and c.color or nil )
+	end
 
-	Cosmetics.playerPets[id] = pet
-
+	Cosmetics.playerPets[id] = {
+		unit = pet,
+		index =  keys.index
+	}
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.pet = keys.index
+	t.saved = false
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -421,12 +823,59 @@ function Cosmetics.DeletePet( keys )
 		return
 	end
 
-	Cosmetics.playerPets[id]:Destroy()
-	Cosmetics.playerPets[id] = nil
+	HidePet( Cosmetics.playerPets[id].unit )
+
+	Cosmetics.playerPets[id].unit:Destroy()
+	Cosmetics.playerPets[id].unit = nil
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.pet = nil
+	t.saved = false
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
+end
+
+function Cosmetics.Save( keys )
+	local id = keys.PlayerID
+	local player = PlayerResource:GetPlayer( id )
+	local hero = player:GetAssignedHero()
+
+	local data = {
+		steam_id = PlayerResource:GetSteamID( id ),
+		pet = Cosmetics.playerPets[id].index or -1,
+
+		hero_effect = Cosmetics.playerHeroEffects[id].index or -1,
+		hero_color = Cosmetics.playerEffectColors[id].index or -1,
+
+		pet_effect = Cosmetics.playerPetEffects[id].index or -1,
+		pet_color = Cosmetics.playerPetColors[id].index or -1,
+
+		wards_effect = Cosmetics.playerWardEffects[id].index or -1,
+		wards_color = Cosmetics.playerWardColors[id].index or -1,
+
+		kill_effect = Cosmetics.playerKillEffects[id].index or -1,
+		abilities = {},
+	}
+
+	for i = 0, hero:GetAbilityCount() - 1 do
+		local ability = hero:GetAbilityByIndex( i )
+
+		if ability and abilitiyPatreonLevel[ability:GetAbilityName()] then
+			table.insert( data.abilities, ability:GetAbilityName() )
+		end
+	end
+
+	--[[
+	WebApi:Send(
+		"path", -- ???
+		data,
+		function()
+			local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
+			t.saved = true
+			CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
+		end,
+		function() end
+	)
+	]]
 end
 
 function Cosmetics.kill_effect_firework( killer, victim )
@@ -438,6 +887,20 @@ function Cosmetics.kill_effect_firework( killer, victim )
 
 	ParticleManager:SetParticleControl( particle, 3, victim:GetAbsOrigin() )
 	EmitSoundOnLocationWithCaster( victim:GetAbsOrigin(), "FrostivusConsumable.Fireworks.Explode", killer )
+end
+
+function Cosmetics.kill_effect_tombstone( killer, victim )
+	local tombs = {
+		"models/heroes/phantom_assassin/arcana_tombstone.vmdl",
+		"models/heroes/phantom_assassin/arcana_tombstone2.vmdl",
+		"models/heroes/phantom_assassin/arcana_tombstone3.vmdl"
+	}
+
+	local pos = victim:GetAbsOrigin()
+	pos.z = GetGroundHeight( victim:GetAbsOrigin(), victim )
+
+	local tomb = SpawnEntityFromTableSynchronous( "prop_dynamic", { origin = pos, model = tombs[RandomInt( 1, #tombs )] } )
+	tomb:SetForwardVector( Vector( 0, RandomInt( 250, 290 ), 0 ) )
 end
 
 Cosmetics.heroEffects = {

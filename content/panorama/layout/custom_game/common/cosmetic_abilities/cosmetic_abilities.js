@@ -218,27 +218,23 @@ function CreateAbilityToTake( row, abilityName ) {
 	image.SetImage( cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
 
 	abilityAnimations[abilityName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-	abilityAnimations[abilityName].BLoadLayoutFromString( '<root><Panel><MoviePanel src="http://s1.webmshare.com/' + abilityWebm[abilityName] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
-	abilityAnimations[abilityName].visible = false
+	abilityAnimations[abilityName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="http://s1.webmshare.com/' + abilityWebm[abilityName] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+	abilityAnimations[abilityName].style.opacity = "0"
 
 	image.SetPanelEvent( "onactivate", function() {
-		if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
-
-		}
-
 		GameEvents.SendCustomGameEventToServer( "cosmetics_add_ability", { unit: currentUnit, ability: abilityName } )
 	} )
 
 	image.SetPanelEvent( "onmouseover", function() {
 		$.DispatchEvent( "DOTAShowAbilityTooltip", image, abilityName )
 
-		abilityAnimations[abilityName].visible = true
+		abilityAnimations[abilityName].style.opacity = "1"
 	} )
 
 	image.SetPanelEvent( "onmouseout", function() {
 		$.DispatchEvent( "DOTAHideAbilityTooltip", image )
 
-		abilityAnimations[abilityName].visible = false
+		abilityAnimations[abilityName].style.opacity = "0"
 	} )
 }
 

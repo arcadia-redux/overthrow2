@@ -1,5 +1,4 @@
 var heroEffects = []
-
 heroEffects[1] = "#Attrib_Particle156"
 heroEffects[2] = "#Attrib_Particle155"
 heroEffects[3] = "#Attrib_Particle109"
@@ -20,6 +19,28 @@ heroEffects[18] = "#Attrib_Particle157"
 heroEffects[20] = "#Attrib_Particle46"
 heroEffects[21] = "#Attrib_Particle74"
 heroEffects[22] = "#Attrib_Particle158"
+
+var heroEffectsWebms = []
+heroEffectsWebms[1] = "http://s1.webmshare.com/KxeYA.webm" //Spirit of Ember
+heroEffectsWebms[2] = "http://s1.webmshare.com/MxaAW.webm" //Diretide Blight
+heroEffectsWebms[3] = "http://s1.webmshare.com/1ZVLV.webm" //Champion's Aura 2013
+heroEffectsWebms[4] = "http://s1.webmshare.com/gLVQL.webm" //
+heroEffectsWebms[5] = "http://s1.webmshare.com/Ry1YJ.webm" //
+heroEffectsWebms[7] = "http://s1.webmshare.com/LxaJB.webm" //
+heroEffectsWebms[8] = "http://s1.webmshare.com/rVgGQ.webm" //
+heroEffectsWebms[9] = "http://s1.webmshare.com/Pxazg.webm" //
+heroEffectsWebms[10] = "http://s1.webmshare.com/5do4Y.webm" //
+heroEffectsWebms[11] = "http://s1.webmshare.com/vo98W.webm" //
+//heroEffectsWebms[12] = "http://s1.webmshare.com/XEx53.webm" //Champion aura 2012
+heroEffectsWebms[13] = "http://s1.webmshare.com/403WQ.webm" //
+heroEffectsWebms[14] = "http://s1.webmshare.com/b16Ke.webm" //
+heroEffectsWebms[15] = "http://s1.webmshare.com/BAvq1.webm" //
+heroEffectsWebms[16] = "http://s1.webmshare.com/8mnLV.webm" //
+heroEffectsWebms[17] = "http://s1.webmshare.com/naY8d.webm" //
+heroEffectsWebms[18] = "http://s1.webmshare.com/yj9Qo.webm" //
+heroEffectsWebms[20] = "http://s1.webmshare.com/z09V3.webm" //
+heroEffectsWebms[21] = "http://s1.webmshare.com/93vWP.webm" //
+heroEffectsWebms[22] = "http://s1.webmshare.com/NxYrm.webm" //
 
 var prismaticColors = []
 prismaticColors[1] = { name: "#UnusualShips", r: 25, g: 25, b: 112 }
@@ -65,13 +86,30 @@ prismaticColors[40] = { name: "#UnusualSwine", r: 255, g: 175, b: 0 }
 prismaticColors[41] = { name: "#UnusualDiretideOrange", r: 247, g: 157, b: 0 }
 prismaticColors[42] = { name: "#UnusualRubiline", r: 209, g: 31, b: 161 }
 
+var heroEffectAnimations = []
+var selectedEffectType = null
+var currentEffects = {}
+var currentColors = {}
+
 function DeleteEffect() {
-	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_hero_effect", {} )
+	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_hero_effect", { type: selectedEffectType } )
 }
 
 function DeleteColor() {
-	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_effect_color", {} )
+	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_effect_color", { type: selectedEffectType } )
 }
+
+function SetEffectType( type ) {
+	if ( selectedEffectType != type ) {
+		$( "#EffectOwner" ).RemoveClass( selectedEffectType )
+		$( "#EffectOwner" ).AddClass( type )
+		selectedEffectType = type
+		UpdateCurrentHeroEffect( currentEffects[type] )
+		UpdateCurrentEffectColor( currentColors[type] )
+	}
+}
+
+SetEffectType( "hero" )
 
 function CreateHeroEffect( parent, heroEffectName, heroEffectIndex ) {
 	var hero_effect = $.CreatePanel( "Button", parent, "" )
@@ -79,9 +117,24 @@ function CreateHeroEffect( parent, heroEffectName, heroEffectIndex ) {
 
 	hero_effect.SetPanelEvent( "onactivate", function() {
 		GameEvents.SendCustomGameEventToServer( "cosmetics_set_hero_effect", {
-			index: heroEffectIndex
+			index: heroEffectIndex,
+			type: selectedEffectType
 		} )
 	} )
+
+	if ( heroEffectsWebms[heroEffectIndex] ) {
+		heroEffectAnimations[heroEffectIndex] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
+		heroEffectAnimations[heroEffectIndex].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="' + heroEffectsWebms[heroEffectIndex] + '" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+		heroEffectAnimations[heroEffectIndex].style.opacity = "0"
+
+		hero_effect.SetPanelEvent( "onmouseover", function() {
+			heroEffectAnimations[heroEffectIndex].style.opacity = "1"
+		} )
+
+		hero_effect.SetPanelEvent( "onmouseout", function() {
+			heroEffectAnimations[heroEffectIndex].style.opacity = "0"
+		} )
+	}
 
 	$.CreatePanel( "Label", hero_effect, "" ).text = $.Localize( heroEffectName )
 }
@@ -96,7 +149,8 @@ function CreateEffectColor( parent, index ) {
 
 	hero_effect.SetPanelEvent( "onactivate", function() {
 		GameEvents.SendCustomGameEventToServer( "cosmetics_set_effect_color", {
-			index: index
+			index: index,
+			type: selectedEffectType
 		} )
 	} )
 }

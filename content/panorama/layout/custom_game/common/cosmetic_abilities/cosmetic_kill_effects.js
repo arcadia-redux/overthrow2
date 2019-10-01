@@ -1,5 +1,6 @@
 var killEffects = [
-	"firework"
+	"firework",
+	"tombstone",
 ]
 
 function DeleteKillEffect() {
@@ -31,7 +32,7 @@ function UpdateCurrentKillEffect( effectName ) {
 	if ( effectName ) {
 		var current = $( "#CurrentKillEffect" )
 
-		current.text = $.Localize( effectName )
+		current.text = $.Localize( "cosmetics_kill_effect_" + effectName )
 		current.AddClass( "CurrentEffect" )
 		current.RemoveClass( "None" )
 		$( "#DeleteKillEffect" ).style.visibility = "visible"

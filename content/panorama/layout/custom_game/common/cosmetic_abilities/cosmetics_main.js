@@ -26,9 +26,25 @@ function Load() {
 		var t = CustomNetTables.GetTableValue( "cosmetics", id.toString() )
 
 		if ( t ) {
-			UpdateCurrentHeroEffect( t.hero_effects )
-			UpdateCurrentEffectColor( t.effect_colors )
+			currentEffects.hero = t.hero_effect
+			currentEffects.pet = t.pet_effect
+			currentEffects.wards = t.wards_effect
+			UpdateCurrentHeroEffect( currentEffects[selectedEffectType] )
+			currentColors.hero = t.hero_color
+			currentColors.pet = t.pet_color
+			currentColors.wards = t.wards_color
+			UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 			UpdateCurrentKillEffect( t.kill_effects )
+			UpdateCurrentPet( t.pet )
+		}
+
+		var tt = CustomNetTables.GetTableValue( "cosmetics", "team_" + Players.GetTeam( id ) )
+
+		if ( tt ) {
+			currentEffects.courier = tt.courier_effect
+			currentColors.courier = tt.courier_color
+			UpdateCurrentHeroEffect( currentEffects[selectedEffectType] )
+			UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 		}
 	}
 }
@@ -38,8 +54,20 @@ Load()
 CustomNetTables.SubscribeNetTableListener( "cosmetics", function( _, k, v ) {
 	if ( k == Players.GetLocalPlayer().toString() ) {
 		UpdateCurrentHeroEffect( v.hero_effects )
-		UpdateCurrentEffectColor( v.effect_colors )
+		currentEffects.hero = v.hero_effect
+		currentEffects.pet = v.pet_effect
+		currentEffects.wards = v.wards_effect
+		UpdateCurrentHeroEffect( currentEffects[selectedEffectType] )
+		currentColors.hero = v.hero_color
+		currentColors.pet = v.pet_color
+		currentColors.wards = v.wards_color
+		UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 		UpdateCurrentKillEffect( v.kill_effects )
 		UpdateCurrentPet( v.pet )
+	} else if ( k == "team_" + Players.GetTeam( Players.GetLocalPlayer() ) ) {
+		currentEffects.courier = v.courier_effect
+		currentColors.courier = v.courier_color
+		UpdateCurrentHeroEffect( currentEffects[selectedEffectType] )
+		UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 	}
 } )
