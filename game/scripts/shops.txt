@@ -15,8 +15,6 @@
 		"item"		"item_dust"
 		"item"		"item_courier"
 		"item"		"item_bottle"
-		"item"		"item_patreonbundle_1"
-		"item"		"item_patreonbundle_2"
 		"item"		"item_banhammer"
 	}
 

@@ -1,7 +1,9 @@
-var gridCore = FindDotaHudElement('GridCore');
-var mainFilters = FindDotaHudElement('Filters');
+var gridCategories = FindDotaHudElement('GridCategories');
+function getAllHeroCards() {
+	return gridCategories.FindChildrenWithClassTraverse("HeroCard");
+}
 
-/** @type {string[] | 'foo' | 'cooldown'} */
+/** @type {string[] | 'no_stats' | 'cooldown'} */
 var smartRandomStatus;
 
 function Activate() {
@@ -16,17 +18,19 @@ function OnMouseOver() {
 	var message = Array.isArray(smartRandomStatus) ? 'ready' : smartRandomStatus;
 	$.DispatchEvent('DOTAShowTextTooltip', 'smart_random_tooltip_' + message);
 	if (Array.isArray(smartRandomStatus)) {
-		for (var card of gridCore.Children()) {
-			if (card.paneltype !== 'DOTAHeroCard') return;
-			var heroName = 'npc_dota_hero_' + card.FindChildTraverse('HeroImage').heroname;
-			card.SetHasClass('Filtered', smartRandomStatus.includes(heroName));
+		for (var card of getAllHeroCards()) {
+			var shortName = card.FindChildTraverse('HeroImage').heroname;
+			var heroName = 'npc_dota_hero_' + shortName;
+			card.SetHasClass('Filtered', !smartRandomStatus.includes(heroName));
 		}
 	}
 }
 
+var filters = FindDotaHudElement('Filters');
 function OnMouseOut() {
 	$.DispatchEvent('DOTAHideTextTooltip');
-	$.DispatchEvent('DOTAUpdateEnabledHeroes', mainFilters);
+	$.DispatchEvent('DOTAHeroGridToggleRecommendedHeroesFilter', filters);
+	$.DispatchEvent('DOTAHeroGridToggleRecommendedHeroesFilter', filters);
 }
 
 function updateSmartRandomStatus(newStatus) {
@@ -42,9 +46,8 @@ SubscribeToNetTableKey('game_state', 'smart_random', function(smartRandom) {
 });
 
 function getBans() {
-	var gridCore = FindDotaHudElement("GridCore");
 	var result = {};
-	for (var child of gridCore.Children()) {
+	for (var child of getAllHeroCards()) {
 		if (child.BHasClass("Banned")) {
 			var heroImage = child.FindChildTraverse("HeroImage");
 			if (heroImage) {

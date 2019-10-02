@@ -3,7 +3,6 @@
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/display_error.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/creator.js" />
-		<include src="file://{resources}/layout/custom_game/common/kicks.js" />
 	</scripts>
 
 	<script>

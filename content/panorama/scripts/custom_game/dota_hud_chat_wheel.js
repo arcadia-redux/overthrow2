@@ -160,7 +160,7 @@ var rings = new Array(
         new Array(herostartnum-8,herostartnum-7,herostartnum-6,herostartnum-5,herostartnum-4,herostartnum-3,herostartnum-2,herostartnum-1)
     ),
     new Array(//2 chineseannouncer
-        new Array("#chineseannouncer2","#","#","#","#","#","#","#"),
+        new Array("#chineseannouncer2","#duiyou_ne","#wan_bu_liao_la","#po_liang_lu","#tian_huo","#jia_you","#zou_hao_bu_song","#liu_liu_liu"),
         new Array(false,true,true,true,true,true,true,true),
         new Array(9,40,41,42,43,44,45,46)
     ),
@@ -195,7 +195,7 @@ var rings = new Array(
         new Array(1,2,3,4,5,6,7,8)
     ),
     new Array(//9 chineseannouncer2
-        new Array("#","#","#","#","#","#","#","#"),
+        new Array("#hu_lu_wa","#ni_qi_bu_qi","#gao_fu_shuai","#gan_ma_ne_xiong_di","#bai_tuo_shei_qu","#piao_liang","#lian_dou_xiu_wai_la","#zai_jian_le_bao_bei"),
         new Array(true,true,true,true,true,true,true,true),
         new Array(47,48,49,50,51,52,53,54)
     ),
@@ -338,6 +338,8 @@ function AddOnFavourites(num) {
         nowselect = 0;
         OnSelect(2);
     }
+
+	GameEvents.SendCustomGameEventToServer("patreon_update_chat_wheel_favorites", { favorites: favourites });
 }
 
 function UpdateFavourites() {
@@ -385,7 +387,6 @@ function OnMouseOver(num) {
             $( "#Wheel" ).RemoveClass( "ForWheel"+i );
     }
     $( "#Wheel" ).AddClass( "ForWheel"+num );
-    $.Msg($.Localize("#whsoundtooltip"));
     $("#WHTooltip").visible = rings[nowselect][1][num];
     $("#WHTooltip").SetDialogVariableInt( "num", rings[nowselect][2][num]);
 }
@@ -397,8 +398,17 @@ function OnMouseOut(num) {
     $("#WHTooltip").visible = false;
 }
 
-(function()
-{
+(function() {
+	GameUI.CustomUIConfig().chatWheelLoaded = true;
+
+	SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
+		var localStats = patreonBonuses[Game.GetLocalPlayerID()];
+		if (!localStats) return;
+
+		favourites = Object.values(localStats.chatWheelFavorites || {});
+		UpdateFavourites();
+	});
+
     //var hero = Players.GetPlayerSelectedHero(Game.GetLocalPlayerID());
     //$("#HeroImage").heroname = hero;
     for ( var i = 0; i < 8; i++ )

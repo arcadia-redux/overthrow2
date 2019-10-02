@@ -37,11 +37,11 @@ function SelectColor(colorName) {
     }
 }
 
-var showNewPaymentMethods = Game.IsInToolsMode();
-Game.AddCommand("dota_2_unofficial_new_payment_methods", function() {
-	showNewPaymentMethods = true;
+var shouldHideNewMethodsAnnouncement = false;
+function hideNewMethodsAnnouncement() {
+	shouldHideNewMethodsAnnouncement = true;
 	updatePatreonButton();
-}, "", 0);
+}
 
 function updatePatreonButton() {
 	// TODO: Either remove full button, or revert this change
@@ -50,9 +50,9 @@ function updatePatreonButton() {
 	$('#PatreonButtonPanel').visible = hasPatreonStatus;
 	$('#PatreonButton').visible = !minimizePatreonButton;
 	$('#PatreonButtonSmallerImage').visible = minimizePatreonButton;
-	$('#VOIcon').visible = Game.GetDOTATime(false, false) <= 120;
-	$('#NewMethodsAnnouncement').visible = showNewPaymentMethods && !isPatron && $.Language() !== 'russian';
-	$('#SupportButtonPaymentWindow').visible = showNewPaymentMethods;
+	// Show icon only when chat wheel is loaded as it's not a common module yet
+	$('#VOIcon').visible = Boolean(GameUI.CustomUIConfig().chatWheelLoaded) && Game.GetDOTATime(false, false) <= 120;
+	$('#NewMethodsAnnouncement').visible = !shouldHideNewMethodsAnnouncement && !isPatron && $.Language() !== 'russian' && Game.GetDOTATime(false, false) <= 120;
 }
 
 function setPaymentWindowVisible(visible) {
@@ -81,15 +81,16 @@ function togglePaymentWindowVisible() {
 
 var createPaymentRequest = createEventRequestCreator('patreon:payments:create');
 
-var paymentWindowUpdateListener
+var paymentWindowUpdateListener;
+var paymentWindowPostUpdateTimer;
 function updatePaymentWindow() {
 	if (paymentWindowUpdateListener != null) {
 		GameEvents.Unsubscribe(paymentWindowUpdateListener);
 	}
 
-	$('#PaymentWindowBody').RemoveAndDeleteChildren()
-	$('#PaymentWindowBody').BCreateChildren('<HTML acceptsinput="' + Game.IsInToolsMode() + '" />');
-	var htmlPanel = $('#PaymentWindowBody').GetChild(0);
+	if (paymentWindowPostUpdateTimer != null) {
+		$.CancelScheduled(paymentWindowPostUpdateTimer);
+	}
 
 	setPaymentWindowStatus('loading');
 
@@ -110,8 +111,11 @@ function updatePaymentWindow() {
 	var requestData = { provider: provider, paymentKind: paymentKind };
 	paymentWindowUpdateListener = createPaymentRequest(requestData, function(response) {
 		if (response.url != null) {
-			setPaymentWindowStatus('success');
-			htmlPanel.SetURL(response.url);
+			$('#PaymentWindowBody').SetURL(response.url);
+			paymentWindowPostUpdateTimer = $.Schedule(1, function() {
+				paymentWindowPostUpdateTimer = undefined;
+				setPaymentWindowStatus('success');
+			});
 		} else {
 			setPaymentWindowStatus({ error: response.error || 'Unknown error' });
 		}

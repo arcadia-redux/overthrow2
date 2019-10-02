@@ -299,11 +299,30 @@ end
 -- Event: OnEntityKilled
 ---------------------------------------------------------------------------
 function COverthrowGameMode:OnEntityKilled( event )
+	local extraTime = 0
 	local killedUnit = EntIndexToHScript( event.entindex_killed )
 	local killedTeam = killedUnit:GetTeam()
-	local hero = EntIndexToHScript( event.entindex_attacker )
-	local heroTeam = hero:GetTeam()
-	local extraTime = 0
+	local hero
+	local uniqueKey
+	local heroTeam
+
+	if event.entindex_attacker then
+		hero = EntIndexToHScript( event.entindex_attacker )
+		heroTeam = hero:GetTeam()
+	end
+	if event.entindex_killed and event.entindex_attacker then uniqueKey = event.entindex_attacker .. "_" .. event.entindex_killed end
+
+
+	if (not (hero == killedUnit)) and killedUnit:IsRealHero() then
+		_G.timesOfTheLastKillings[hero] = GameRules:GetGameTime()
+	end
+
+	if uniqueKey and hero and killedUnit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(killedUnit:GetPlayerID()) == killedUnit) then
+		local killerClassname = hero:GetClassname()
+		if killerClassname == "ent_dota_fountain" or killerClassname == "ent_dota_tower" then
+			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey] or 0) + 1
+		end
+	end
 
 	if killedUnit:IsRealHero() and not killedUnit:IsReincarnating() then
 		local player_id = -1
@@ -334,7 +353,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 		self.allSpawned = true
 		--print("Hero has been killed")
 		--Add extra time if killed by Necro Ult
-		if hero:IsRealHero() == true then
+		if hero and hero:IsRealHero() then
 			if event.entindex_inflictor ~= nil then
 				local inflictor_index = event.entindex_inflictor
 				if inflictor_index ~= nil then
@@ -350,7 +369,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 				end
 			end
 		end
-		if hero:IsRealHero() and heroTeam ~= killedTeam then
+		if hero and hero:IsRealHero() and heroTeam ~= killedTeam then
 			--print("Granting killer xp")
 			if killedUnit:GetTeam() == self.leadingTeam and self.isGameTied == false then
 				local memberID = hero:GetPlayerID()
