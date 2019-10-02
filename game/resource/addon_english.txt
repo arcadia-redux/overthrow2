@@ -173,7 +173,6 @@
 
 		//////////////////////////////////////////////////////////////////
 
-
 		"donator_label_1"			"Patron"
 		"donator_label_2"			"Team Member"
 
@@ -209,7 +208,7 @@
 		"DOTA_Tooltip_ability_item_patreonbundle_2_Description"			"<h1>Use</h1>Contains a full set of consumables for both normal Dota and the Frosthaven special event."
 
 		"DOTA_Tooltip_ability_item_banhammer"						"Kick Troll"
-		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use</h1>Kick a trolling allied player from the game. Should only be used against genuine trolls. Only high level Patrons (25$ Tier) can use this item. If a Patron is found to be abusing this item they will lose the right to use it forever. Patrons are immune to Kick Troll item."
+		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>Use</h1>Kick a trolling allied player from the game. Should only be used against genuine trolls. Only high level Supporters (25$ Tier) can use this item. If a Supporter is found to be abusing this item they will lose the right to use it forever. Supporters are immune to Kick Troll item."
 		"DOTA_Tooltip_ability_item_banhammer_Lore"					"With Great Power Comes Great Responsibility."
 
 		"nopatreonerror"											"This item for Patrons only"
@@ -326,6 +325,23 @@
 		"kor_roshan"						"Roshan! Roshan! Roshan!"
 		"kor_yolo"							"골드 부활 못 해! YOLO! 골드 부활 못 해! YOLO!"
 		"kor_million_dollar_house"			"10억짜리 꿈의 고리! 15억짜리 꿈의 고리!"
+		//ch
+		"duiyou_ne"							"啊，队友呢？队友呢？队友呢？！队友呢？！？！"
+		"wan_bu_liao_la"					"玩不了啦!"
+		"po_liang_lu"						"破两路更好打, 是吧?"
+		"tian_huo"							"天火!"
+		"jia_you"							"加油!"
+		"zou_hao_bu_song"					"走好, 不送"
+		"liu_liu_liu"						"这波不亏"
+		//ch2
+		"hu_lu_wa"							"葫芦娃救爷爷"
+		"ni_qi_bu_qi"						"你气不气?"
+		"gao_fu_shuai"						"这就是高富帅啊"
+		"gan_ma_ne_xiong_di"				"干嘛呢兄弟"
+		"bai_tuo_shei_qu"					"拜托谁去杀了他吧"
+		"piao_liang"						"漂~ 亮！"
+		"lian_dou_xiu_wai_la"				"脸都秀歪啦"
+		"zai_jian_le_bao_bei"				"再见了宝贝儿！"
 
 		"stop_to_feed_on_enemy_base"		"Hero Denied because they were feeding Tower/Fountain"
 	}

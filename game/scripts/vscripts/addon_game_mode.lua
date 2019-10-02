@@ -342,24 +342,26 @@ end
 -- Fix feed on tower
 ---------------------------------------------------------------------------
 function COverthrowGameMode:DamageFilter(event)
-	local killer = EntIndexToHScript(event.entindex_attacker_const)
 	local death_unit = EntIndexToHScript(event.entindex_victim_const)
-	local uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
+	local uniqueKey
+	if event.entindex_attacker_const and event.entindex_victim_const then
+		uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
 
-	local checkLastKill = true
+		local checkLastKill = true
 
-	local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
+		local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
 
-	if deathUnitHasKill then
-		checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
-	end
+		if deathUnitHasKill then
+			checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
+		end
 
-	if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
-		if death_unit:GetHealth() <= event.damage then
-			_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
-			death_unit:Kill(nil, death_unit)
-			if _G.pairKillCounts[uniqueKey] == 2 then
-				GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+		if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
+			if death_unit:GetHealth() <= event.damage then
+				_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
+				death_unit:Kill(nil, death_unit)
+				if _G.pairKillCounts[uniqueKey] == 2 then
+					GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+				end
 			end
 		end
 	end
@@ -434,13 +436,13 @@ end
 ---------------------------------------------------------------------------
 function COverthrowGameMode:UpdateScoreboard()
 	local sortedTeams = self:GetSortedTeams()
-	for _, t in ipairs(sortedTeams) do
-		-- Scaleform UI Scoreboard
-		FireGameEvent("score_board", {
-			team_id = t.team,
-			team_score = t.score
-		})
-	end
+	-- for _, t in ipairs(sortedTeams) do
+	-- 	-- Scaleform UI Scoreboard
+	-- 	FireGameEvent("score_board", {
+	-- 		team_id = t.team,
+	-- 		team_score = t.score
+	-- 	})
+	-- end
 	-- Leader effects (moved from OnTeamKillCredit)
 	local leader = sortedTeams[1].team
 	self.leadingTeam = leader
@@ -1188,22 +1190,22 @@ SelectVO = function(keys)
 				"absolutely_perfect",
 				"lets_play",
 				--ch an
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				"duiyou_ne",
+				"wan_bu_liao_la",
+				"po_liang_lu",
+				"tian_huo",
+				"jia_you",
+				"zou_hao_bu_song",
+				"liu_liu_liu",
 				--ch an2
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				"hu_lu_wa",
+				"ni_qi_bu_qi",
+				"gao_fu_shuai",
+				"gan_ma_ne_xiong_di",
+				"bai_tuo_shei_qu",
+				"piao_liang",
+				"lian_dou_xiu_wai_la",
+				"zai_jian_le_bao_bei",
 				--ru an
 				"bozhe_ti_posmotri",
 				"zhil_do_konsta",
@@ -1333,22 +1335,22 @@ SelectVO = function(keys)
 				"soundboard.absolutely_perfect",
 				"custom_soundboard.lets_play",
 				--ch an
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				"soundboard.duiyou_ne",
+				"soundboard.wan_bu_liao_la",
+				"soundboard.po_liang_lu",
+				"soundboard.tian_huo",
+				"soundboard.jia_you",
+				"soundboard.zou_hao_bu_song",
+				"soundboard.liu_liu_liu",
 				--ch an2
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
-				"",
+				"soundboard.hu_lu_wa",
+				"soundboard.ni_qi_bu_qi",
+				"soundboard.gao_fu_shuai",
+				"soundboard.gan_ma_ne_xiong_di",
+				"soundboard.bai_tuo_shei_qu",
+				"soundboard.piao_liang",
+				"soundboard.lian_dou_xiu_wai_la",
+				"soundboard.zai_jian_le_bao_bei",
 				--ru an
 				"soundboard.bozhe_ti_posmotri",
 				"soundboard.zhil_do_konsta",
@@ -1387,10 +1389,10 @@ SelectVO = function(keys)
 				"soundboard.nakupuuu",
 				"soundboard.whats_cooking",
 				"soundboard.eughahaha",
-				"custom_soundboard.glados_chat_21",
 				"custom_soundboard.glados_chat_01",
-				"custom_soundboard.glados_chat_07",
+				"custom_soundboard.glados_chat_21",
 				"custom_soundboard.glados_chat_04",
+				"custom_soundboard.glados_chat_07",
 				"",
 				--kor cas
 				"custom_soundboard.kor_yes_no",
