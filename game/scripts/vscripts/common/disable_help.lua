@@ -40,6 +40,8 @@ local disabledAbilities = {
 	earth_spirit_geomagnetic_grip = true,
 	earth_spirit_petrify = true,
 	troll_warlord_battle_trance = true,
+	vengefulspirit_nether_swap = true,
+	pugna_decrepify = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
