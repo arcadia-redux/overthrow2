@@ -14,7 +14,7 @@
 	<Panel style="width: 100%; height: 100%;" hittest="false">
 		<Panel id="CosmeticMenu">
 			<Button id="CosmeticMenuButton" onactivate="ToggleCosmeticMenu()">
-				<Label id="CosmeticMenuButtonText" text="Cosmetic" />
+				<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/button.png" />
 			</Button>
 			<Panel id="CosmeticMenuMain">
 				<Panel id="Header">

@@ -19,9 +19,6 @@
 	horizontal-align: right;
 	width: 60px;
 	height: 30px;
-	border-radius: 5px 5px 0px 0px;
-	background-color: #f96854;
-	background-image: url( "s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex" );
 }
 
 #CosmeticMenuButtonText {
@@ -61,7 +58,7 @@
 
 .HeaderText {
 	color: #768e8d;
-	font-size: 17px;
+	font-size: 18px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	font-family: Radiance;
@@ -89,15 +86,15 @@
 
 #SaveSettings {
 	horizontal-align: right;
-	margin-top: 2px;
+	margin-top: 1px;
 	margin-right: 8px;
 }
 
 #SaveSettings Label {
 	transition-duration: 0.1s;
 	color: #687d7c;
-	font-size: 13px;
-	letter-spacing: 0.5px;
+	font-size: 16.6px;
+	letter-spacing: 0.3px;
 	text-transform: none;
 }
 
