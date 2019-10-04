@@ -344,5 +344,8 @@
 		"zai_jian_le_bao_bei"				"再见了宝贝儿！"
 
 		"stop_to_feed_on_enemy_base"		"Hero Denied because they were feeding Tower/Fountain"
+
+		"DOTA_Tooltip_ability_item_disable_help_custom"					"Disable Help"
+		"DOTA_Tooltip_ability_item_mute_custom"					        "Mute Player"
 	}
 }

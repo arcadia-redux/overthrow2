@@ -26,7 +26,8 @@
 			}
 		}
 
-		(function()
+
+		function RefreshMuteAndDisableHelpList()
 		{
 			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
 			$.GetContextPanel().SetHasClass( "player_muted", Game.IsPlayerMuted( playerId ) );
@@ -35,7 +36,24 @@
 			if (disableHelp && disableHelp[playerId]) {
 				$("#DisableHelpButton").checked = true;
 			}
-		})();
+		}
+
+		RefreshMuteAndDisableHelpList();
+
+		function ToggleMuteItem( event_data )
+		{
+			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
+			if ( (playerId !== -1) && (playerId == event_data["to"]))
+			{
+				var newIsMuted = (event_data["mute"] == 1)
+				Game.SetPlayerMuted( playerId, newIsMuted );
+				$.GetContextPanel().SetHasClass( "player_muted", newIsMuted );
+			}
+		}
+
+		GameEvents.Subscribe("set_disable_help_refresh", RefreshMuteAndDisableHelpList);
+		GameEvents.Subscribe("set_mute_refresh", ToggleMuteItem);
+
 	</script>
 	<Panel class="PlayerRow">
 		<Panel id="PlayerRowContainer">

@@ -16,6 +16,7 @@ _G.newStats = newStats or {}
 _G.pairKillCounts = {}
 LOCK_ANTI_FEED_TIME_SEC = 120
 _G.timesOfTheLastKillings = {}
+_G.itemsBuy = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -902,6 +903,26 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				"item_patreonbundle_1",
 				"item_patreonbundle_2"
 			}
+			local fastItems =
+			{
+				["item_mute_custom"] = 1,
+				["item_disable_help_custom"] = 1,
+			}
+
+			if fastItems[itemName] then
+				if not _G.itemsBuy[itemName] then
+					_G.itemsBuy[itemName] = true
+				else
+					_G.itemsBuy[itemName] = not _G.itemsBuy[itemName]
+				end
+
+				if _G.itemsBuy[itemName] == true then
+					UTIL_Remove(hItem)
+					hInventoryParent:AddItemByName(itemName)
+					return false
+				end
+			end
+
 			local pitem = false
 			for i=1,#pitems do
 				if itemName == pitems[i] then
