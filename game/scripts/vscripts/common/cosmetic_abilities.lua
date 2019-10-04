@@ -826,7 +826,7 @@ function Cosmetics.DeletePet( keys )
 	HidePet( Cosmetics.playerPets[id].unit, 0 )
 
 	Cosmetics.playerPets[id].unit:Destroy()
-	Cosmetics.playerPets[id].unit = nil
+	Cosmetics.playerPets[id] = nil
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.pet = nil
