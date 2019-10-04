@@ -13,6 +13,18 @@ function SetCosmeticsClass( style ) {
 	}
 }
 
+function SaveSettings() {
+	GameEvents.SendCustomGameEventToServer( "cosmetics_save", {} )
+}
+
+function UpdateSaveButton( i ) {
+	if ( i == 0 ) {
+		$( "#SaveSettings" ).style.visibility = "visible"
+	} else {
+		$( "#SaveSettings" ).style.visibility = "collapse"
+	}
+}
+
 SetCosmeticsClass( "Abilities" )
 
 CreateAbilitiesToTake()
@@ -36,6 +48,7 @@ function Load() {
 			UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 			UpdateCurrentKillEffect( t.kill_effects )
 			UpdateCurrentPet( t.pet )
+			UpdateSaveButton( t.saved )
 		}
 
 		var tt = CustomNetTables.GetTableValue( "cosmetics", "team_" + Players.GetTeam( id ) )
@@ -64,6 +77,7 @@ CustomNetTables.SubscribeNetTableListener( "cosmetics", function( _, k, v ) {
 		UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 		UpdateCurrentKillEffect( v.kill_effects )
 		UpdateCurrentPet( v.pet )
+		UpdateSaveButton( v.saved )
 	} else if ( k == "team_" + Players.GetTeam( Players.GetLocalPlayer() ) ) {
 		currentEffects.courier = v.courier_effect
 		currentColors.courier = v.courier_color

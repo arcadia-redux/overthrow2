@@ -478,7 +478,7 @@ function Cosmetics.SetHeroEffect( keys )
 	if keys.type ~= "courier" then
 		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 		t[keys.type .. "_effect"] = index
-		t.saved = false
+		t.saved = 0
 		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
 end
@@ -495,7 +495,7 @@ function Cosmetics.RemoveHeroEffect( keys )
 
 		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 		t.hero_effects = nil
-		t.saved = false
+		t.saved = 0
 		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
 
@@ -549,7 +549,7 @@ function Cosmetics.RemoveHeroEffect( keys )
 	if keys.type ~= "courier" then
 		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 		t[keys.type .. "_effect"] = nil
-		t.saved = false
+		t.saved = 0
 		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
 end
@@ -632,7 +632,7 @@ function Cosmetics.SetEffectColor( keys )
 	if keys.type ~= "courier" then
 		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 		t[keys.type .. "_color"] = index
-		t.saved = false
+		t.saved = 0
 		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
 end
@@ -693,7 +693,7 @@ function Cosmetics.RemoveEffectColor( keys )
 	if keys.type ~= "courier" then
 		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 		t[keys.type .. "_color"] = nil
-		t.saved = false
+		t.saved = 0
 		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 	end
 end
@@ -719,7 +719,7 @@ function Cosmetics.SetKillEffect( keys )
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.kill_effects = keys.effect_name
-	t.saved = false
+	t.saved = 0
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -734,7 +734,7 @@ function Cosmetics.RemoveKillEffect( keys )
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.kill_effects = nil
-	t.saved = false
+	t.saved = 0
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -812,7 +812,7 @@ function Cosmetics.SelectPet( keys )
 	}
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.pet = keys.index
-	t.saved = false
+	t.saved = 0
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -823,14 +823,14 @@ function Cosmetics.DeletePet( keys )
 		return
 	end
 
-	HidePet( Cosmetics.playerPets[id].unit )
+	HidePet( Cosmetics.playerPets[id].unit, 0 )
 
 	Cosmetics.playerPets[id].unit:Destroy()
 	Cosmetics.playerPets[id].unit = nil
 
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 	t.pet = nil
-	t.saved = false
+	t.saved = 0
 	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 end
 
@@ -838,21 +838,38 @@ function Cosmetics.Save( keys )
 	local id = keys.PlayerID
 	local player = PlayerResource:GetPlayer( id )
 	local hero = player:GetAssignedHero()
+	local patreon = Patreons:GetPlayerSettings( id )
+	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
+
+	if not IsInToolsMode() and patreon.level < 1 then
+		return
+	elseif t.saved ~= 0 then
+		return
+	end
+
+	local a = Cosmetics.playerPets[id]
+	local b = Cosmetics.playerHeroEffects[id]
+	local c = Cosmetics.playerHeroColors[id]
+	local d = Cosmetics.playerPetEffects[id]
+	local e = Cosmetics.playerPetColors[id]
+	local f = Cosmetics.playerWardEffects[id]
+	local g = Cosmetics.playerWardColors[id]
+	local h = Cosmetics.playerKillEffects[id]
 
 	local data = {
 		steam_id = PlayerResource:GetSteamID( id ),
-		pet = Cosmetics.playerPets[id].index or -1,
+		pet = a and a.index or -1,
 
-		hero_effect = Cosmetics.playerHeroEffects[id].index or -1,
-		hero_color = Cosmetics.playerEffectColors[id].index or -1,
+		hero_effect = b and b.index or -1,
+		hero_color = c and c.index or -1,
 
-		pet_effect = Cosmetics.playerPetEffects[id].index or -1,
-		pet_color = Cosmetics.playerPetColors[id].index or -1,
+		pet_effect = d and d.index or -1,
+		pet_color = e and e.index or -1,
 
-		wards_effect = Cosmetics.playerWardEffects[id].index or -1,
-		wards_color = Cosmetics.playerWardColors[id].index or -1,
+		wards_effect = f and f.index or -1,
+		wards_color = g and g.index or -1,
 
-		kill_effect = Cosmetics.playerKillEffects[id].index or -1,
+		kill_effect = h and h.index or -1,
 		abilities = {},
 	}
 
@@ -864,13 +881,16 @@ function Cosmetics.Save( keys )
 		end
 	end
 
+	t.saved = 1
+	CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
+
 	--[[
 	WebApi:Send(
 		"path", -- ???
 		data,
 		function()
 			local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-			t.saved = true
+			t.saved = 2
 			CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
 		end,
 		function() end
