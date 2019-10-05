@@ -685,13 +685,20 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		unit = EntIndexToHScript(filterTable.units["0"])
 	end
 
+	local itemsToBeDestroy = {
+		["item_disable_help_custom"] = true,
+		["item_mute_custom"] = true,
+	}
+
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM then
-		local itemsToBeDestroy = {
-			["item_disable_help_custom"] = true,
-			["item_mute_custom"] = true,
-		}
-		if itemsToBeDestroy[ability:GetAbilityName()] then
+		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
 				ability:Destroy()
+		end
+	end
+
+	if orderType == 25 then
+		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
+			ability:Destroy()
 		end
 	end
 
@@ -968,7 +975,6 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				if not _G.itemsBuy[unique_key] then
 					_G.itemsBuy[unique_key] = true
 				else
-
 					_G.itemsBuy[unique_key] = not _G.itemsBuy[unique_key]
 				end
 
