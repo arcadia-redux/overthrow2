@@ -1,13 +1,10 @@
-item_disable_help_custom = item_disable_help_custom or class({})
+function OnSpellStartDisableHelp(event)
+	local target = event.target
+	local caster = event.caster
+	local ability = event.ability
 
---------------------------------------------------------------------------------
-
-function item_disable_help_custom:OnSpellStart()
-	local target = self:GetCursorTarget()
 	local targetId = target:GetPlayerID()
-	local casterId = self:GetCaster():GetPlayerID()
-
-
+	local casterId = caster:GetPlayerID()
 
 	local to = targetId;
 	if PlayerResource:IsValidPlayerID(to) then
@@ -18,5 +15,10 @@ function item_disable_help_custom:OnSpellStart()
 		disableHelp[tostring(to)] = disable
 		CustomNetTables:SetTableValue("disable_help", tostring(casterId), disableHelp)
 		CustomGameEventManager:Send_ServerToAllClients( "set_disable_help_refresh", {} )
+	end
+	if ability:GetCurrentCharges() > 1 then
+		ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
+	else
+		ability:RemoveSelf()
 	end
 end

@@ -1,10 +1,7 @@
-item_mute_custom = item_mute_custom or class({})
-
---------------------------------------------------------------------------------
-
-function item_mute_custom:OnSpellStart()
-	local target = self:GetCursorTarget()
-	local caster = self:GetCaster()
+function OnSpellStartMute(event)
+	local target = event.target
+	local caster = event.caster
+	local ability = event.ability
 
 	local targetId = target:GetPlayerID()
 
@@ -14,5 +11,9 @@ function item_mute_custom:OnSpellStart()
 		to = targetId,
 	}
 	CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "set_mute_refresh", event_data )
-
+	if ability:GetCurrentCharges() > 1 then
+		ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
+	else
+		ability:RemoveSelf()
+	end
 end

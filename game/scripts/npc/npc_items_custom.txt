@@ -505,37 +505,63 @@
 	"item_disable_help_custom"
 	{
 	    "ID"							"1501"
-		"BaseClass"						"item_lua"
-		"ScriptFile"					"abilities/items/item_disable_help_custom"
+		"BaseClass"						"item_datadriven"
 		"AbilityTextureName"			"custom/item_disable_help_custom"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-
 		"AbilityCastRange"				"99999"
-		"AbilityCastPoint"				"0"
-		"AbilityCooldown"				"45"
 
 		"ItemQuality"					"artifact"
 		"ItemAliases"					"help;dis;disable"
+
+        "ItemInitialCharges"			"1"
+        "ItemStackable"					"0"
+        "ItemPermanent"					"0"
+        "ItemHideCharges"				"0"
+        "CastFilterRejectCaster" 		"1"
+        "IsTempestDoubleClonable"		"0"
+        "ShouldBeInitiallySuggested"	"1"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"	"abilities/items/item_disable_help_custom.lua"
+                "Function"	    "OnSpellStartDisableHelp"
+            }
+        }
 	}
 
     "item_mute_custom"
     {
         "ID"							"1502"
-        "BaseClass"						"item_lua"
-        "ScriptFile"					"abilities/items/item_mute_custom"
+        "BaseClass"						"item_datadriven"
         "AbilityTextureName"			"custom/item_mute_custom"
         "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-        "AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+        "AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY | DOTA_UNIT_TARGET_TEAM_ENEMY"
         "AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-
         "AbilityCastRange"				"99999"
-        "AbilityCastPoint"				"0"
-        "AbilityCooldown"				"45"
 
         "ItemQuality"					"artifact"
         "ItemAliases"					"mute;dis;disable"
+
+        "ItemInitialCharges"			"1"
+        "ItemStackable"					"0"
+        "ItemPermanent"					"0"
+        "ItemHideCharges"				"0"
+        "CastFilterRejectCaster" 		"1"
+        "IsTempestDoubleClonable"		"0"
+        "ShouldBeInitiallySuggested"	"1"
+
+        "OnSpellStart"
+        {
+            "RunScript"
+            {
+                "ScriptFile"	"abilities/items/item_mute_custom.lua"
+                "Function"	    "OnSpellStartMute"
+            }
+        }
     }
 
 }

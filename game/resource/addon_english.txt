@@ -347,5 +347,6 @@
 
 		"DOTA_Tooltip_ability_item_disable_help_custom"					"Disable Help"
 		"DOTA_Tooltip_ability_item_mute_custom"					        "Mute Player"
+		"fast_buy_items"					                            "Cannot Buy Yet"
 	}
 }
