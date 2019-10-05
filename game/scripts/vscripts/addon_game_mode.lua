@@ -997,22 +997,22 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 					break
 				end
 			end
---			if pitem == true then
---				local psets = Patreons:GetPlayerSettings(plyID)
---				if psets.level < 1 then
---					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
---					UTIL_Remove(hItem)
---					return false
---				end
---			end
---			if itemName == "item_banhammer" then
---				local psets = Patreons:GetPlayerSettings(plyID)
---				if psets.level < 2 then
---					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
---					UTIL_Remove(hItem)
---					return false
---				end
---			end
+			if pitem == true then
+				local psets = Patreons:GetPlayerSettings(plyID)
+				if psets.level < 1 then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
+					UTIL_Remove(hItem)
+					return false
+				end
+			end
+			if itemName == "item_banhammer" then
+				local psets = Patreons:GetPlayerSettings(plyID)
+				if psets.level < 2 then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
+					UTIL_Remove(hItem)
+					return false
+				end
+			end
 		else
 			local pitems = {
 				"item_patreonbundle_1",
@@ -1034,25 +1034,25 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 								UTIL_Remove(hItem)
 								return false
 							end
---							if itemName == "item_banhammer" then
---								if psets.level < 2 then
---									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror2" })
---									UTIL_Remove(hItem)
---									return false
---								else
---									if GameRules:GetDOTATime(false,false) < 300 then
---										CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
---										UTIL_Remove(hItem)
---										return false
---									end
---								end
---							else
---								if psets.level < 1 then
---									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
---									UTIL_Remove(hItem)
---									return false
---								end
---							end
+							if itemName == "item_banhammer" then
+								if psets.level < 2 then
+									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror2" })
+									UTIL_Remove(hItem)
+									return false
+								else
+									if GameRules:GetDOTATime(false,false) < 300 then
+										CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
+										UTIL_Remove(hItem)
+										return false
+									end
+								end
+							else
+								if psets.level < 1 then
+									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
+									UTIL_Remove(hItem)
+									return false
+								end
+							end
 						else
 							UTIL_Remove(hItem)
 							return false
