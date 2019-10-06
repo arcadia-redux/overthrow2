@@ -305,8 +305,17 @@
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"Восстановление маны увеличено."
 	
 
-		////////////////////////////////////////////////////////////////// 
-    
+		//////////////////////////////////////////////////////////////////
+
+        "DOTA_Tooltip_ability_item_disable_help_custom"					"Disable Help"
+        "DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Use: Disable Help</h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
+        "DOTA_Tooltip_ability_item_disable_help_custom_Lore"			"Кому нужны враги с такими союзниками?"
+
+        "DOTA_Tooltip_ability_item_mute_custom"					        "Mute Player"
+        "DOTA_Tooltip_ability_item_mute_custom_Description"				"<h1>Use: Mute Player</h1> При использовании предмета на союзника вы перестанете слышать его в голосовом чате. Голос союзника также можно отключить на табло."
+        "DOTA_Tooltip_ability_item_mute_custom_Lore"					"Тишина - это золото"
+
+        "fast_buy_items"					                            "Вы пока не можете купить это"
     
 	}
 }
