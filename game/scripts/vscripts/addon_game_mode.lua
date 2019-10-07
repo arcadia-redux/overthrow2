@@ -25,7 +25,7 @@ _G.fastItemsWithCooldown = {
 }
 _G.fastItemsWithoutCooldown =
 {
-	["item_banhammer"] = true,
+	 --["item_banhammer"] = true, When teleporting, you can not change the size of the stack in the store.
 }
 
 ---------------------------------------------------------------------------
