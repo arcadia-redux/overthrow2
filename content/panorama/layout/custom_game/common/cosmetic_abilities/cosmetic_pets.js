@@ -1,4 +1,112 @@
-var petsData = [
+var petsData = null
+var pets = []
+var currentPetIndex = null
+
+function Pet( parent, data ) {
+	var button = $.CreatePanel( "Button", parent, "" )
+	button.AddClass( "Pet" )
+
+	if ( data.image && data.index ) {
+		var image = $.CreatePanel( "Image", button, "" )
+		image.SetImage( "file://{images}/" + data.image + ".png" )
+
+		button.SetPanelEvent( "onactivate", function() {
+			GameEvents.SendCustomGameEventToServer( "cosmetics_select_pet", {
+				index: data.index
+			} )
+		} )
+	} else if ( data.styles ) {
+		this.styles = data.styles
+		this.style = 0
+
+		this.styleImages = []
+
+		for ( var i = 0; i < data.styles.length; i++ ) {
+			this.styleImages[i] = $.CreatePanel( "Image", button, "" )
+			this.styleImages[i].SetImage( "file://{images}/" + data.styles[i].image + ".png" )
+			this.styleImages[i].visible = false
+		}
+
+		this.Scroll = function( v ) {
+			this.styleImages[this.style].visible = false
+			this.style = this.style + v
+
+			if ( this.style == -1 ) {
+				this.style = this.styles.length - 1
+			} else if ( this.style == this.styles.length ) {
+				this.style = 0
+			}
+
+			this.styleImages[this.style].visible = true
+		}
+
+		this.Scroll( 0 )
+
+		var left_button = $.CreatePanel( "Button", button, "PetScrollLeft" )
+		var right_button = $.CreatePanel( "Button", button, "PetScrollRight" )
+
+		var a = this
+
+		button.SetPanelEvent( "onactivate", function() {
+			GameEvents.SendCustomGameEventToServer( "cosmetics_select_pet", {
+				index: a.styles[a.style].index
+			} )
+		} )
+
+		left_button.SetPanelEvent( "onactivate", function() {
+			a.Scroll( -1 )
+		} )
+		right_button.SetPanelEvent( "onactivate", function() {
+			a.Scroll( 1 )
+		} )
+	}
+}
+
+function CreatePets() {
+	var container = $( "#PetsContainer" )
+	container.RemoveAndDeleteChildren()
+
+	for ( var data of petsData ) {
+		pets.push( new Pet( container, data ) )
+	}
+}
+
+function DeletePet() {
+	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_pet", {} )
+}
+
+function UpdateCurrentPet( index ) {
+	if ( index == currentPetIndex ) {
+		return
+	}
+
+	if ( index ) {
+		var current = $( "#CurrentPetImage" )
+
+		for ( var data of petsData ) {
+			if ( index == data.index ) {
+				current.SetImage( "file://{images}/" + data.image + ".png" )
+			} else if ( data.styles ) {
+				for ( var style of data.styles ) {
+					if ( index == style.index ) {
+						current.SetImage( "file://{images}/" + style.image + ".png" )
+					}
+				}
+			}
+		}
+
+		current.style.visibility = "visible"
+
+		$( "#PetNone" ).style.visibility = "collapse"
+		$( "#DeletePet" ).style.visibility = "visible"
+	} else {
+		$( "#PetNone" ).style.visibility = "visible"
+		$( "#CurrentPetImage" ).style.visibility = "collapse"
+		$( "#DeletePet" ).style.visibility = "collapse"
+	}
+}
+
+petsData = [
 	{
 		image: "econ/courier/beetlejaws/mesh/beetlejaws1",
 		index: 1
@@ -28,72 +136,76 @@ var petsData = [
 		index: 7
 	},
 	{
-		image: "econ/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey",
-		index: 8
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey",
-		index: 9
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_03_grey_particles/nexon_turtle_03_grey_particles",
-		index: 10
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_05_green/nexon_turtle_05_green",
-		index: 11
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_06_green/nexon_turtle_06_green",
-		index: 12
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_07_green/nexon_turtle_07_green",
-		index: 13
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_07_green_particles/nexon_turtle_07_green_particles",
-		index: 14
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue",
-		index: 15
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue",
-		index: 16
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue",
-		index: 17
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_11_blue_particles/nexon_turtle_11_blue_particles",
-		index: 18
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_13_red/nexon_turtle_13_red",
-		index: 19
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_14_red/nexon_turtle_14_red",
-		index: 20
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_15_red/nexon_turtle_15_red",
-		index: 21
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_15_red_particles/nexon_turtle_15_red_particles",
-		index: 22
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold",
-		index: 23
-	},
-	{
-		image: "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
-		index: 24
+		styles: [
+			{
+				image: "econ/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey",
+				index: 8
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey",
+				index: 9
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_03_grey_particles/nexon_turtle_03_grey_particles",
+				index: 10
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_05_green/nexon_turtle_05_green",
+				index: 11
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_06_green/nexon_turtle_06_green",
+				index: 12
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_07_green/nexon_turtle_07_green",
+				index: 13
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_07_green_particles/nexon_turtle_07_green_particles",
+				index: 14
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue",
+				index: 15
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue",
+				index: 16
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue",
+				index: 17
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_11_blue_particles/nexon_turtle_11_blue_particles",
+				index: 18
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_13_red/nexon_turtle_13_red",
+				index: 19
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_14_red/nexon_turtle_14_red",
+				index: 20
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_15_red/nexon_turtle_15_red",
+				index: 21
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_15_red_particles/nexon_turtle_15_red_particles",
+				index: 22
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold",
+				index: 23
+			},
+			{
+				image: "econ/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey",
+				index: 24
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/guardians_of_justice/guardians_of_justice",
@@ -168,12 +280,16 @@ var petsData = [
 		index: 42
 	},
 	{
-		image: "econ/courier/minipudge/minipudge1",
-		index: 43
-	},
-	{
-		image: "econ/courier/minipudge/minipudge",
-		index: 44
+		styles: [
+			{
+				image: "econ/courier/minipudge/minipudge1",
+				index: 43
+			},
+			{
+				image: "econ/courier/minipudge/minipudge",
+				index: 44
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/courier_faun/courier_faun",
@@ -184,36 +300,40 @@ var petsData = [
 		index: 46
 	},
 	{
-		image: "econ/courier/smeevil/smeevil1",
-		index: 47
-	},
-	{
-		image: "econ/courier/smeevil/smeevil2",
-		index: 48
-	},
-	{
-		image: "econ/courier/smeevil/smeevil3",
-		index: 49
-	},
-	{
-		image: "econ/courier/smeevil_mammoth/smeevil_mammoth",
-		index: 50
-	},
-	{
-		image: "econ/courier/smeevil_bird/smeevil_bird",
-		index: 51
-	},
-	{
-		image: "econ/courier/smeevil_crab/smeevil_crab",
-		index: 52
-	},
-	{
-		image: "econ/courier/smeevil_crab/smeevil_crab_painted",
-		index: 53
-	},
-	{
-		image: "econ/courier/smeevil/smeevil",
-		index: 54
+		styles: [
+			{
+				image: "econ/courier/smeevil/smeevil1",
+				index: 47
+			},
+			{
+				image: "econ/courier/smeevil/smeevil2",
+				index: 48
+			},
+			{
+				image: "econ/courier/smeevil/smeevil3",
+				index: 49
+			},
+			{
+				image: "econ/courier/smeevil_mammoth/smeevil_mammoth",
+				index: 50
+			},
+			{
+				image: "econ/courier/smeevil_bird/smeevil_bird",
+				index: 51
+			},
+			{
+				image: "econ/courier/smeevil_crab/smeevil_crab",
+				index: 52
+			},
+			{
+				image: "econ/courier/smeevil_crab/smeevil_crab_painted",
+				index: 53
+			},
+			{
+				image: "econ/courier/smeevil/smeevil",
+				index: 54
+			},
+		]
 	},
 	{
 		image: "econ/courier/baby_rosh/babyroshan_ti96",
@@ -236,16 +356,20 @@ var petsData = [
 		index: 59
 	},
 	{
-		image: "econ/items/courier/little_sappling_style1/little_sappling_style1_style1",
-		index: 60
-	},
-	{
-		image: "econ/items/courier/little_sappling_style1/little_sappling_style1_style2",
-		index: 61
-	},
-	{
-		image: "econ/items/courier/little_sappling_style1/little_sappling_style1_style3",
-		index: 62
+		styles: [
+			{
+				image: "econ/items/courier/little_sappling_style1/little_sappling_style1_style1",
+				index: 60
+			},
+			{
+				image: "econ/items/courier/little_sappling_style1/little_sappling_style1_style2",
+				index: 61
+			},
+			{
+				image: "econ/items/courier/little_sappling_style1/little_sappling_style1_style3",
+				index: 62
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/babka_bewitcher/babka_bewitcher",
@@ -296,12 +420,16 @@ var petsData = [
 		index: 74
 	},
 	{
-		image: "econ/items/courier/bearzky_v2/bearzky_v2",
-		index: 75
-	},
-	{
-		image: "econ/items/courier/bearzky/bearzky",
-		index: 76
+		styles: [
+			{
+				image: "econ/items/courier/bearzky_v2/bearzky_v2",
+				index: 75
+			},
+			{
+				image: "econ/items/courier/bearzky/bearzky",
+				index: 76
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/pw_zombie/pw_zombie",
@@ -316,52 +444,60 @@ var petsData = [
 		index: 79
 	},
 	{
-		image: "econ/items/courier/xianhe_stork_upgrade/xianhe_stork_upgrade3",
-		index: 80
+		styles: [
+			{
+				image: "econ/items/courier/xianhe_stork_upgrade/xianhe_stork_upgrade3",
+				index: 80
+			},
+			{
+				image: "econ/items/courier/xianhe_stork/xianhe_stork",
+				index: 81
+			},
+		]
 	},
 	{
-		image: "econ/items/courier/xianhe_stork/xianhe_stork",
-		index: 81
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style1",
-		index: 82
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style2",
-		index: 83
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style3",
-		index: 84
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style4",
-		index: 85
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style5",
-		index: 86
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style6",
-		index: 87
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style7",
-		index: 88
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style8",
-		index: 89
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style0",
-		index: 90
-	},
-	{
-		image: "econ/items/courier/hermit_crab/hermit_crab_style0",
-		index: 91
+		styles: [
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style1",
+				index: 82
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style2",
+				index: 83
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style3",
+				index: 84
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style4",
+				index: 85
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style5",
+				index: 86
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style6",
+				index: 87
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style7",
+				index: 88
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style8",
+				index: 89
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style0",
+				index: 90
+			},
+			{
+				image: "econ/items/courier/hermit_crab/hermit_crab_style0",
+				index: 91
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/devourling/devourling1",
@@ -412,20 +548,24 @@ var petsData = [
 		index: 103
 	},
 	{
-		image: "econ/items/courier/wabbit/wabbit_style1",
-		index: 104
-	},
-	{
-		image: "econ/items/courier/wabbit/wabbit_style2",
-		index: 105
-	},
-	{
-		image: "econ/items/courier/wabbit/wabbit_style3",
-		index: 106
-	},
-	{
-		image: "econ/items/courier/wabbit/wabbit",
-		index: 107
+		styles: [
+			{
+				image: "econ/items/courier/wabbit/wabbit_style1",
+				index: 104
+			},
+			{
+				image: "econ/items/courier/wabbit/wabbit_style2",
+				index: 105
+			},
+			{
+				image: "econ/items/courier/wabbit/wabbit_style3",
+				index: 106
+			},
+			{
+				image: "econ/items/courier/wabbit/wabbit",
+				index: 107
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/bookwyrm/bookwyrm",
@@ -504,16 +644,20 @@ var petsData = [
 		index: 126
 	},
 	{
-		image: "econ/items/courier/virtus_werebear_t2/virtus_werebear_t2",
-		index: 127
-	},
-	{
-		image: "econ/items/courier/virtus_werebear_t3/virtus_werebear_t3",
-		index: 128
-	},
-	{
-		image: "econ/items/courier/virtus_werebear_t1/virtus_werebear_t1",
-		index: 129
+		styles: [
+			{
+				image: "econ/items/courier/virtus_werebear_t2/virtus_werebear_t2",
+				index: 127
+			},
+			{
+				image: "econ/items/courier/virtus_werebear_t3/virtus_werebear_t3",
+				index: 128
+			},
+			{
+				image: "econ/items/courier/virtus_werebear_t1/virtus_werebear_t1",
+				index: 129
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/jumo/jumo",
@@ -612,16 +756,20 @@ var petsData = [
 		index: 153
 	},
 	{
-		image: "econ/courier/baby_winter_wyvern_fire/baby_winter_wyvern_fire",
-		index: 154
-	},
-	{
-		image: "econ/courier/baby_winter_wyvern_gold/baby_winter_wyvern_gold",
-		index: 155
-	},
-	{
-		image: "econ/courier/baby_winter_wyvern/baby_winter_wyvern",
-		index: 156
+		styles: [
+			{
+				image: "econ/courier/baby_winter_wyvern_fire/baby_winter_wyvern_fire",
+				index: 154
+			},
+			{
+				image: "econ/courier/baby_winter_wyvern_gold/baby_winter_wyvern_gold",
+				index: 155
+			},
+			{
+				image: "econ/courier/baby_winter_wyvern/baby_winter_wyvern",
+				index: 156
+			},
+		]
 	},
 	{
 		image: "econ/courier/seekling_gold/seekling_gold",
@@ -656,92 +804,96 @@ var petsData = [
 		index: 164
 	},
 	{
-		image: "econ/items/courier/onibi_lvl_01/onibi_lvl_01",
-		index: 165
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_02/onibi_lvl_02",
-		index: 166
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_03/onibi_lvl_03",
-		index: 167
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_04/onibi_lvl_04",
-		index: 168
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_05/onibi_lvl_05",
-		index: 169
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_06/onibi_lvl_06",
-		index: 170
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_07/onibi_lvl_07",
-		index: 171
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_08/onibi_lvl_08",
-		index: 172
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_09/onibi_lvl_09",
-		index: 173
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_10/onibi_lvl_10",
-		index: 174
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_11/onibi_lvl_11",
-		index: 175
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_12/onibi_lvl_12",
-		index: 176
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_13/onibi_lvl_13",
-		index: 177
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_14/onibi_lvl_14",
-		index: 178
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_15/onibi_lvl_15",
-		index: 179
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_16/onibi_lvl_16",
-		index: 180
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_17/onibi_lvl_17",
-		index: 181
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_18/onibi_lvl_18",
-		index: 182
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_19/onibi_lvl_19",
-		index: 183
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_20/onibi_lvl_20",
-		index: 184
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_21/onibi_lvl_21",
-		index: 185
-	},
-	{
-		image: "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
-		index: 186
+		styles: [
+			{
+				image: "econ/items/courier/onibi_lvl_01/onibi_lvl_01",
+				index: 165
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_02/onibi_lvl_02",
+				index: 166
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_03/onibi_lvl_03",
+				index: 167
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_04/onibi_lvl_04",
+				index: 168
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_05/onibi_lvl_05",
+				index: 169
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_06/onibi_lvl_06",
+				index: 170
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_07/onibi_lvl_07",
+				index: 171
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_08/onibi_lvl_08",
+				index: 172
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_09/onibi_lvl_09",
+				index: 173
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_10/onibi_lvl_10",
+				index: 174
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_11/onibi_lvl_11",
+				index: 175
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_12/onibi_lvl_12",
+				index: 176
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_13/onibi_lvl_13",
+				index: 177
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_14/onibi_lvl_14",
+				index: 178
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_15/onibi_lvl_15",
+				index: 179
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_16/onibi_lvl_16",
+				index: 180
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_17/onibi_lvl_17",
+				index: 181
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_18/onibi_lvl_18",
+				index: 182
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_19/onibi_lvl_19",
+				index: 183
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_20/onibi_lvl_20",
+				index: 184
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_21/onibi_lvl_21",
+				index: 185
+			},
+			{
+				image: "econ/items/courier/onibi_lvl_00/onibi_lvl_00",
+				index: 186
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/chocobo/chocobo",
@@ -756,32 +908,36 @@ var petsData = [
 		index: 189
 	},
 	{
-		image: "econ/items/courier/mole_messenger/mole_messenger_style1",
-		index: 190
-	},
-	{
-		image: "econ/items/courier/mole_messenger/mole_messenger_style2",
-		index: 191
-	},
-	{
-		image: "econ/items/courier/mole_messenger/mole_messenger_style3",
-		index: 192
-	},
-	{
-		image: "econ/items/courier/mole_messenger/mole_messenger_style4",
-		index: 193
-	},
-	{
-		image: "econ/items/courier/mole_messenger/mole_messenger_style5",
-		index: 194
-	},
-	{
-		image: "econ/items/courier/mole_messenger/mole_messenger_style6",
-		index: 195
-	},
-	{
-		image: "econ/items/courier/mole_messenger/mole_messenger",
-		index: 196
+		styles: [
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger_style1",
+				index: 190
+			},
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger_style2",
+				index: 191
+			},
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger_style3",
+				index: 192
+			},
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger_style4",
+				index: 193
+			},
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger_style5",
+				index: 194
+			},
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger_style6",
+				index: 195
+			},
+			{
+				image: "econ/items/courier/mole_messenger/mole_messenger",
+				index: 196
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/blotto_and_stick/blotto",
@@ -816,12 +972,16 @@ var petsData = [
 		index: 204
 	},
 	{
-		image: "econ/items/courier/bajie_pig_upgrade/bajie_pig_upgrade2",
-		index: 205
-	},
-	{
-		image: "econ/items/courier/bajie_pig/bajie_pig2",
-		index: 206
+		styles: [
+			{
+				image: "econ/items/courier/bajie_pig_upgrade/bajie_pig_upgrade2",
+				index: 205
+			},
+			{
+				image: "econ/items/courier/bajie_pig/bajie_pig2",
+				index: 206
+			},
+		]
 	},
 	{
 		image: "econ/courier/donkey_radiant_default",
@@ -832,20 +992,24 @@ var petsData = [
 		index: 208
 	},
 	{
-		image: "econ/items/courier/axolotl/axolotl_style1",
-		index: 209
-	},
-	{
-		image: "econ/items/courier/axolotl/axolotl_style2",
-		index: 210
-	},
-	{
-		image: "econ/items/courier/axolotl/axolotl_style3",
-		index: 211
-	},
-	{
-		image: "econ/items/courier/axolotl/axolotl",
-		index: 212
+		styles: [
+			{
+				image: "econ/items/courier/axolotl/axolotl_style1",
+				index: 209
+			},
+			{
+				image: "econ/items/courier/axolotl/axolotl_style2",
+				index: 210
+			},
+			{
+				image: "econ/items/courier/axolotl/axolotl_style3",
+				index: 211
+			},
+			{
+				image: "econ/items/courier/axolotl/axolotl",
+				index: 212
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/faceless_rex/faceless_rex",
@@ -904,32 +1068,40 @@ var petsData = [
 		index: 226
 	},
 	{
-		image: "econ/items/courier/beaverknight_s1/beaverknight_s1",
-		index: 227
-	},
-	{
-		image: "econ/items/courier/beaverknight_s2/beaverknight_s2",
-		index: 228
-	},
-	{
-		image: "econ/items/courier/beaverknight/beaverknight",
-		index: 229
+		styles: [
+			{
+				image: "econ/items/courier/beaverknight_s1/beaverknight_s1",
+				index: 227
+			},
+			{
+				image: "econ/items/courier/beaverknight_s2/beaverknight_s2",
+				index: 228
+			},
+			{
+				image: "econ/items/courier/beaverknight/beaverknight",
+				index: 229
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/shagbark/shagbark",
 		index: 230
 	},
 	{
-		image: "econ/courier/skippy_parrot/skippy_parrot_row",
-		index: 231
-	},
-	{
-		image: "econ/courier/skippy_parrot/skippy_parrot_sail",
-		index: 232
-	},
-	{
-		image: "econ/courier/skippy_parrot/skippy_parrot",
-		index: 233
+		styles: [
+			{
+				image: "econ/courier/skippy_parrot/skippy_parrot_row",
+				index: 231
+			},
+			{
+				image: "econ/courier/skippy_parrot/skippy_parrot_sail",
+				index: 232
+			},
+			{
+				image: "econ/courier/skippy_parrot/skippy_parrot",
+				index: 233
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/blue_lightning_horse/blue_lightning_horse",
@@ -1004,32 +1176,36 @@ var petsData = [
 		index: 251
 	},
 	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style1",
-		index: 252
-	},
-	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style2",
-		index: 253
-	},
-	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style3",
-		index: 254
-	},
-	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style4",
-		index: 255
-	},
-	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style5",
-		index: 256
-	},
-	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style6",
-		index: 257
-	},
-	{
-		image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
-		index: 258
+		styles: [
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style1",
+				index: 252
+			},
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style2",
+				index: 253
+			},
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style3",
+				index: 254
+			},
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style4",
+				index: 255
+			},
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style5",
+				index: 256
+			},
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_style6",
+				index: 257
+			},
+			{
+				image: "econ/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1",
+				index: 258
+			},
+		]
 	},
 	{
 		image: "econ/items/courier/serpent_warbler/serpent_warbler",
@@ -1040,59 +1216,21 @@ var petsData = [
 		index: 260
 	},
 	{
-		image: "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_silver",
-		index: 261
+		styles: [
+			{
+				image: "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_silver",
+				index: 261
+			},
+			{
+				image: "econ/items/courier/el_gato_hero/el_gato_hero",
+				index: 262
+			},
+			{
+				image: "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying",
+				index: 263
+			},
+		]
 	},
-	{
-		image: "econ/items/courier/el_gato_hero/el_gato_hero",
-		index: 262
-	},
-	{
-		image: "econ/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying",
-		index: 263
-	}
 ]
 
-function CreatePet( parent, data ) {
-	var button = $.CreatePanel( "Button", parent, "" )
-	var image = $.CreatePanel( "Image", button, "" )
-	image.SetImage( "file://{images}/" + data.image + ".png" )
-	
-	button.AddClass( "Pet" )
-	
-	button.SetPanelEvent( "onactivate", function() {
-		GameEvents.SendCustomGameEventToServer( "cosmetics_select_pet", {
-			index: data.index
-		} )
-	} )
-}
-
-function CreatePets() {
-	var container = $( "#PetsContainer" )
-	container.RemoveAndDeleteChildren()
-
-	for ( var data of petsData ) {
-		CreatePet( container, data )
-	}
-}
-
 CreatePets()
-
-function DeletePet() {
-	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_pet", {} )
-}
-
-function UpdateCurrentPet( index ) {
-	if ( index ) {
-		var current = $( "#CurrentPetImage" )
-		current.SetImage( "file://{images}/" + petsData[index - 1].image + ".png" )
-		current.style.visibility = "visible"
-
-		$( "#PetNone" ).style.visibility = "collapse"
-		$( "#DeletePet" ).style.visibility = "visible"
-	} else {
-		$( "#PetNone" ).style.visibility = "visible"
-		$( "#CurrentPetImage" ).style.visibility = "collapse"
-		$( "#DeletePet" ).style.visibility = "collapse"
-	}
-}

@@ -50,18 +50,16 @@ function Cosmetics:Precache( context )
 		end
 	end
 
-	for _, c in pairs( self.petsData.couriers ) do
-		PrecacheModel( c.ground_radiant.model, context )
+	for _, p in pairs( self.petsData.particles ) do
+		PrecacheResource( "particle", p.particle, context )
+	end
 
-		for _, v in pairs( c ) do
-			if type( v ) == "table" then
-				for _, p in pairs( v.particles ) do
-					if type( p ) == "number" then
-						PrecacheResource( "particle", self.petsData.particles[p].particle, context )
-					else
-						PrecacheResource( "particle", p, context )
-					end
-				end
+	for _, c in pairs( self.petsData.couriers ) do
+		PrecacheModel( c.model, context )
+
+		for _, p in pairs( c.particles ) do
+			if type( p ) == "string" then
+				PrecacheResource( "particle", p, context )
 			end
 		end
 	end
@@ -767,10 +765,8 @@ function Cosmetics.SelectPet( keys )
 	pet:AddNewModifier( pet, nil, "modifier_cosmetic_pet", {} )
 	UnhidePet( pet )
 
-	local m = pet_data.ground_radiant
-
-	pet:SetModel( m.model )
-	pet:SetOriginalModel( m.model )
+	pet:SetModel( pet_data.model )
+	pet:SetOriginalModel( pet_data.model )
 
 	if pet_data.skin then
 		pet:SetMaterialGroup( tostring( pet_data.skin ) )
@@ -782,7 +778,7 @@ function Cosmetics.SelectPet( keys )
 		absorigin_follow = PATTACH_ABSORIGIN_FOLLOW
 	}
 
-	for _, p in pairs( m.particles ) do
+	for _, p in pairs( pet_data.particles ) do
 		if type( p ) == "number" then
 			local particle_data =  Cosmetics.petsData.particles[p]
 			local mat = attach_types[particle_data.attach_type] or PATTACH_POINT_FOLLOW
@@ -4084,6179 +4080,1526 @@ Cosmetics.petsData = {
 	},
 	couriers = {
 		[1] = {
-			flying_radiant = {
-				particles = {
-					[1] = 1
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws_flying.vmdl"
+			model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl",
+			particles = {
+				[1] = 1
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 1
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 1
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 1
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl"
-			}
+			skin = 1
 		},
 		[2] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog_wings.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog_wings.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog.vmdl"
-			}
+			particles = {},
+			model = "models/courier/juggernaut_dog/juggernaut_dog.vmdl"
 		},
 		[3] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/yak/yak_wings.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/yak/yak.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/yak/yak_wings.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/yak/yak.vmdl"
-			}
+			particles = {},
+			model = "models/courier/yak/yak.vmdl"
 		},
 		[4] = {
-			flying_radiant = {
-				particles = {
-					[1] = 2
-				},
-				model = "models/items/courier/g1_courier/g1_courier_flying.vmdl"
+			particles = {
+				[1] = 2
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 2
-				},
-				model = "models/items/courier/g1_courier/g1_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 2
-				},
-				model = "models/items/courier/g1_courier/g1_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 2
-				},
-				model = "models/items/courier/g1_courier/g1_courier.vmdl"
-			}
+			model = "models/items/courier/g1_courier/g1_courier.vmdl"
 		},
 		[5] = {
-			flying_radiant = {
-				particles = {
-					[1] = 3
-				},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
+			model = "models/courier/baby_rosh/babyroshan.vmdl",
+			particles = {
+				[1] = 3
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 4
-				},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 3
-				},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			skin = 5,
-			ground_dire = {
-				particles = {
-					[1] = 4
-				},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			}
+			skin = 5
 		},
 		[6] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/raiq/raiq_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/raiq/raiq.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/raiq/raiq_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/raiq/raiq.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/raiq/raiq.vmdl"
 		},
 		[7] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/coco_the_courageous/coco_the_courageous_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/coco_the_courageous/coco_the_courageous.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/coco_the_courageous/coco_the_courageous_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/coco_the_courageous/coco_the_courageous.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/coco_the_courageous/coco_the_courageous.vmdl"
 		},
 		[8] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey.vmdl"
-			}
+			model = "models/items/courier/nexon_turtle_02_grey/nexon_turtle_02_grey.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[9] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey.vmdl"
-			}
+			model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[10] = {
-			flying_radiant = {
-				particles = {
-					[1] = 5
-				},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey.vmdl",
+			particles = {
+				[1] = 5
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 5
-				},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 5
-				},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 5
-				},
-				model = "models/items/courier/nexon_turtle_03_grey/nexon_turtle_03_grey.vmdl"
-			}
+			skin = 0
 		},
 		[11] = {
-			flying_radiant = {
-				particles = {
-					[1] = 6
-				},
-				model = "models/items/courier/nexon_turtle_05_green/nexon_turtle_05_green_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_05_green/nexon_turtle_05_green.vmdl",
+			particles = {
+				[1] = 6
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 6
-				},
-				model = "models/items/courier/nexon_turtle_05_green/nexon_turtle_05_green.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 6
-				},
-				model = "models/items/courier/nexon_turtle_05_green/nexon_turtle_05_green_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 6
-				},
-				model = "models/items/courier/nexon_turtle_05_green/nexon_turtle_05_green.vmdl"
-			}
+			skin = 0
 		},
 		[12] = {
-			flying_radiant = {
-				particles = {
-					[1] = 7
-				},
-				model = "models/items/courier/nexon_turtle_06_green/nexon_turtle_06_green_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_06_green/nexon_turtle_06_green.vmdl",
+			particles = {
+				[1] = 7
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 7
-				},
-				model = "models/items/courier/nexon_turtle_06_green/nexon_turtle_06_green.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 7
-				},
-				model = "models/items/courier/nexon_turtle_06_green/nexon_turtle_06_green_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 7
-				},
-				model = "models/items/courier/nexon_turtle_06_green/nexon_turtle_06_green.vmdl"
-			}
+			skin = 0
 		},
 		[13] = {
-			flying_radiant = {
-				particles = {
-					[1] = 8
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green.vmdl",
+			particles = {
+				[1] = 8
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 8
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 8
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 8
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green.vmdl"
-			}
+			skin = 0
 		},
 		[14] = {
-			flying_radiant = {
-				particles = {
-					[1] = 9,
-					[2] = 10
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green.vmdl",
+			particles = {
+				[1] = 9,
+				[2] = 10
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 9,
-					[2] = 10
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 9,
-					[2] = 10
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 9,
-					[2] = 10
-				},
-				model = "models/items/courier/nexon_turtle_07_green/nexon_turtle_07_green.vmdl"
-			}
+			skin = 0
 		},
 		[15] = {
-			flying_radiant = {
-				particles = {
-					[1] = 11,
-					[2] = 12
-				},
-				model = "models/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue.vmdl",
+			particles = {
+				[1] = 11,
+				[2] = 12
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 11,
-					[2] = 12
-				},
-				model = "models/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 11,
-					[2] = 12
-				},
-				model = "models/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 11,
-					[2] = 12
-				},
-				model = "models/items/courier/nexon_turtle_09_blue/nexon_turtle_09_blue.vmdl"
-			}
+			skin = 0
 		},
 		[16] = {
-			flying_radiant = {
-				particles = {
-					[1] = 13,
-					[2] = 14
-				},
-				model = "models/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue.vmdl",
+			particles = {
+				[1] = 13,
+				[2] = 14
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 13,
-					[2] = 14
-				},
-				model = "models/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 13,
-					[2] = 14
-				},
-				model = "models/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 13,
-					[2] = 14
-				},
-				model = "models/items/courier/nexon_turtle_10_blue/nexon_turtle_10_blue.vmdl"
-			}
+			skin = 0
 		},
 		[17] = {
-			flying_radiant = {
-				particles = {
-					[1] = 15,
-					[2] = 16
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue.vmdl",
+			particles = {
+				[1] = 15,
+				[2] = 16
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 15,
-					[2] = 16
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 15,
-					[2] = 16
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 15,
-					[2] = 16
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue.vmdl"
-			}
+			skin = 0
 		},
 		[18] = {
-			flying_radiant = {
-				particles = {
-					[1] = 17,
-					[2] = 18
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue.vmdl",
+			particles = {
+				[1] = 17,
+				[2] = 18
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 17,
-					[2] = 18
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 17,
-					[2] = 18
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 17,
-					[2] = 18
-				},
-				model = "models/items/courier/nexon_turtle_11_blue/nexon_turtle_11_blue.vmdl"
-			}
+			skin = 0
 		},
 		[19] = {
-			flying_radiant = {
-				particles = {
-					[1] = 19,
-					[2] = 20
-				},
-				model = "models/items/courier/nexon_turtle_13_red/nexon_turtle_13_red_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_13_red/nexon_turtle_13_red.vmdl",
+			particles = {
+				[1] = 19,
+				[2] = 20
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 19,
-					[2] = 20
-				},
-				model = "models/items/courier/nexon_turtle_13_red/nexon_turtle_13_red.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 19,
-					[2] = 20
-				},
-				model = "models/items/courier/nexon_turtle_13_red/nexon_turtle_13_red_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 19,
-					[2] = 20
-				},
-				model = "models/items/courier/nexon_turtle_13_red/nexon_turtle_13_red.vmdl"
-			}
+			skin = 0
 		},
 		[20] = {
-			flying_radiant = {
-				particles = {
-					[1] = 21,
-					[2] = 22
-				},
-				model = "models/items/courier/nexon_turtle_14_red/nexon_turtle_14_red_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_14_red/nexon_turtle_14_red.vmdl",
+			particles = {
+				[1] = 21,
+				[2] = 22
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 21,
-					[2] = 22
-				},
-				model = "models/items/courier/nexon_turtle_14_red/nexon_turtle_14_red.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 21,
-					[2] = 22
-				},
-				model = "models/items/courier/nexon_turtle_14_red/nexon_turtle_14_red_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 21,
-					[2] = 22
-				},
-				model = "models/items/courier/nexon_turtle_14_red/nexon_turtle_14_red.vmdl"
-			}
+			skin = 0
 		},
 		[21] = {
-			flying_radiant = {
-				particles = {
-					[1] = 23,
-					[2] = 24
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red.vmdl",
+			particles = {
+				[1] = 23,
+				[2] = 24
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 23,
-					[2] = 24
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 23,
-					[2] = 24
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 23,
-					[2] = 24
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red.vmdl"
-			}
+			skin = 0
 		},
 		[22] = {
-			flying_radiant = {
-				particles = {
-					[1] = 25,
-					[2] = 26
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red.vmdl",
+			particles = {
+				[1] = 25,
+				[2] = 26
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 25,
-					[2] = 26
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 25,
-					[2] = 26
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 25,
-					[2] = 26
-				},
-				model = "models/items/courier/nexon_turtle_15_red/nexon_turtle_15_red.vmdl"
-			}
+			skin = 0
 		},
 		[23] = {
-			flying_radiant = {
-				particles = {
-					[1] = 27,
-					[2] = 28
-				},
-				model = "models/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold_flying.vmdl"
+			model = "models/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold.vmdl",
+			particles = {
+				[1] = 27,
+				[2] = 28
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 27,
-					[2] = 28
-				},
-				model = "models/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 27,
-					[2] = 28
-				},
-				model = "models/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 27,
-					[2] = 28
-				},
-				model = "models/items/courier/nexon_turtle_17_gold/nexon_turtle_17_gold.vmdl"
-			}
+			skin = 0
 		},
 		[24] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey.vmdl"
-			}
+			model = "models/items/courier/nexon_turtle_01_grey/nexon_turtle_01_grey.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[25] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/guardians_of_justice_phoe/guardians_of_justice_phoe_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/guardians_of_justice_phoe/guardians_of_justice_phoe.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/guardians_of_justice_enix/guardians_of_justice_enix_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/guardians_of_justice_enix/guardians_of_justice_enix.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/guardians_of_justice_enix/guardians_of_justice_enix.vmdl"
 		},
 		[26] = {
-			flying_radiant = {
-				particles = {
-					[1] = 29
-				},
-				model = "models/courier/flopjaw/flopjaw_flying.vmdl"
+			model = "models/courier/flopjaw/flopjaw.vmdl",
+			particles = {
+				[1] = 29
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 29
-				},
-				model = "models/courier/flopjaw/flopjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 29
-				},
-				model = "models/courier/flopjaw/flopjaw_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 29
-				},
-				model = "models/courier/flopjaw/flopjaw.vmdl"
-			}
+			skin = 1
 		},
 		[27] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/shagbark/shagbark.vmdl"
 		},
 		[28] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/mlg_courier_wraith/mlg_courier_wraith_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/mlg_courier_wraith/mlg_courier_wraith.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/mlg_courier_wraith/mlg_courier_wraith_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/mlg_courier_wraith/mlg_courier_wraith.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/mlg_courier_wraith/mlg_courier_wraith.vmdl"
 		},
 		[29] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/basim/basim_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/basim/basim.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/basim/basim_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/basim/basim.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/basim/basim.vmdl"
 		},
 		[30] = {
-			flying_radiant = {
-				particles = {
-					[1] = 30
-				},
-				model = "models/courier/otter_dragon/otter_dragon_flying.vmdl"
+			particles = {
+				[1] = 30
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 30
-				},
-				model = "models/courier/otter_dragon/otter_dragon.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 30
-				},
-				model = "models/courier/otter_dragon/otter_dragon_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 30
-				},
-				model = "models/courier/otter_dragon/otter_dragon.vmdl"
-			}
+			model = "models/courier/otter_dragon/otter_dragon.vmdl"
 		},
 		[31] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/white_the_crystal_courier/white_the_crystal_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/white_the_crystal_courier/white_the_crystal_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/white_the_crystal_courier/white_the_crystal_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/white_the_crystal_courier/white_the_crystal_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/white_the_crystal_courier/white_the_crystal_courier.vmdl"
 		},
 		[32] = {
-			flying_radiant = {
-				particles = {
-					[1] = 31,
-					[2] = 32
-				},
-				model = "models/items/courier/dc_angel/dc_angel_flying.vmdl"
+			particles = {
+				[1] = 31,
+				[2] = 32
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 31,
-					[2] = 32
-				},
-				model = "models/items/courier/dc_angel/dc_angel.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 31,
-					[2] = 32
-				},
-				model = "models/items/courier/dc_demon/dc_demon_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 31,
-					[2] = 32
-				},
-				model = "models/items/courier/dc_demon/dc_demon.vmdl"
-			}
+			model = "models/items/courier/dc_demon/dc_demon.vmdl"
 		},
 		[33] = {
-			flying_radiant = {
-				particles = {
-					[1] = 33
-				},
-				model = "models/courier/huntling/huntling_flying.vmdl"
+			particles = {
+				[1] = 33
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/huntling/huntling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 33
-				},
-				model = "models/courier/huntling/huntling_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/huntling/huntling.vmdl"
-			}
+			model = "models/courier/huntling/huntling.vmdl"
 		},
 		[34] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/gnomepig/gnomepig_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/gnomepig/gnomepig.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/gnomepig/gnomepig_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/gnomepig/gnomepig.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/gnomepig/gnomepig.vmdl"
 		},
 		[35] = {
-			flying_radiant = {
-				particles = {
-					[1] = 34,
-					[2] = 35
-				},
-				model = "models/courier/ram/ram_flying.vmdl"
+			model = "models/courier/ram/ram.vmdl",
+			particles = {
+				[1] = 34,
+				[2] = 35
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 34
-				},
-				model = "models/courier/ram/ram.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 34,
-					[2] = 35
-				},
-				model = "models/courier/ram/ram_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 34
-				},
-				model = "models/courier/ram/ram.vmdl"
-			}
+			skin = 1
 		},
 		[36] = {
-			flying_radiant = {
-				particles = {
-					[1] = 36
-				},
-				model = "models/items/courier/deathripper/deathripper_flying.vmdl"
+			particles = {
+				[1] = 36
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 36
-				},
-				model = "models/items/courier/deathripper/deathripper.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 36
-				},
-				model = "models/items/courier/deathripper/deathripper_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 36
-				},
-				model = "models/items/courier/deathripper/deathripper.vmdl"
-			}
+			model = "models/items/courier/deathripper/deathripper.vmdl"
 		},
 		[37] = {
-			flying_radiant = {
-				particles = {
-					[1] = 37
-				},
-				model = "models/items/courier/premier_league_wyrmeleon/premier_league_wyrmeleon_flying.vmdl"
+			particles = {
+				[1] = 37
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 37
-				},
-				model = "models/items/courier/premier_league_wyrmeleon/premier_league_wyrmeleon.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 37
-				},
-				model = "models/items/courier/premier_league_wyrmeleon/premier_league_wyrmeleon_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 37
-				},
-				model = "models/items/courier/premier_league_wyrmeleon/premier_league_wyrmeleon.vmdl"
-			}
+			model = "models/items/courier/premier_league_wyrmeleon/premier_league_wyrmeleon.vmdl"
 		},
 		[38] = {
-			flying_radiant = {
-				particles = {
-					[1] = 38,
-					[2] = 39
-				},
-				model = "models/items/courier/shibe_dog_cat/shibe_dog_cat_flying.vmdl"
+			particles = {
+				[1] = 38,
+				[2] = 39
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 38
-				},
-				model = "models/items/courier/shibe_dog_cat/shibe_dog_cat.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 38,
-					[2] = 39
-				},
-				model = "models/items/courier/shibe_dog_cat/shibe_dog_cat_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 38
-				},
-				model = "models/items/courier/shibe_dog_cat/shibe_dog_cat.vmdl"
-			}
+			model = "models/items/courier/shibe_dog_cat/shibe_dog_cat.vmdl"
 		},
 		[39] = {
-			flying_radiant = {
-				particles = {
-					[1] = 40,
-					[2] = 41
-				},
-				model = "models/items/courier/lgd_golden_skipper/lgd_golden_skipper_flying.vmdl"
+			particles = {
+				[1] = 40,
+				[2] = 41
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 40,
-					[2] = 41
-				},
-				model = "models/items/courier/lgd_golden_skipper/lgd_golden_skipper.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 40,
-					[2] = 41
-				},
-				model = "models/items/courier/lgd_golden_skipper/lgd_golden_skipper_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 40,
-					[2] = 41
-				},
-				model = "models/items/courier/lgd_golden_skipper/lgd_golden_skipper.vmdl"
-			}
+			model = "models/items/courier/lgd_golden_skipper/lgd_golden_skipper.vmdl"
 		},
 		[40] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog_wings.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog_wings.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/courier/juggernaut_dog/juggernaut_dog.vmdl"
-			}
+			model = "models/courier/juggernaut_dog/juggernaut_dog.vmdl",
+			particles = {},
+			skin = 1
 		},
 		[41] = {
-			flying_radiant = {
-				particles = {
-					[1] = 42,
-					[2] = 43
-				},
-				model = "models/courier/trapjaw/trapjaw_flying.vmdl"
+			particles = {
+				[1] = 42,
+				[2] = 43
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 42,
-					[2] = 43
-				},
-				model = "models/courier/trapjaw/trapjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 42,
-					[2] = 43
-				},
-				model = "models/courier/trapjaw/trapjaw_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 42,
-					[2] = 43
-				},
-				model = "models/courier/trapjaw/trapjaw.vmdl"
-			}
+			model = "models/courier/trapjaw/trapjaw.vmdl"
 		},
 		[42] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/mighty_boar/mighty_boar_wings.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/mighty_boar/mighty_boar.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/mighty_boar/mighty_boar_wings.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/mighty_boar/mighty_boar.vmdl"
-			}
+			particles = {},
+			model = "models/courier/mighty_boar/mighty_boar.vmdl"
 		},
 		[43] = {
-			flying_radiant = {
-				particles = {
-					[1] = 44
-				},
-				model = "models/courier/minipudge/minipudge_flying.vmdl"
+			model = "models/courier/minipudge/minipudge.vmdl",
+			particles = {
+				[1] = 44
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 44
-				},
-				model = "models/courier/minipudge/minipudge.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 44
-				},
-				model = "models/courier/minipudge/minipudge_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 44
-				},
-				model = "models/courier/minipudge/minipudge.vmdl"
-			}
+			skin = 1
 		},
 		[44] = {
-			flying_radiant = {
-				particles = {
-					[1] = 45
-				},
-				model = "models/courier/minipudge/minipudge_flying.vmdl"
+			model = "models/courier/minipudge/minipudge.vmdl",
+			particles = {
+				[1] = 45
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 45
-				},
-				model = "models/courier/minipudge/minipudge.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 45
-				},
-				model = "models/courier/minipudge/minipudge_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 45
-				},
-				model = "models/courier/minipudge/minipudge.vmdl"
-			}
+			skin = 0
 		},
 		[45] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/courier_faun/courier_faun_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/courier_faun/courier_faun.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/courier_faun/courier_faun_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/courier_faun/courier_faun.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/courier_faun/courier_faun.vmdl"
 		},
 		[46] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/sltv_10_courier/sltv_10_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/sltv_10_courier/sltv_10_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/sltv_10_courier/sltv_10_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/sltv_10_courier/sltv_10_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/sltv_10_courier/sltv_10_courier.vmdl"
 		},
 		[47] = {
-			flying_radiant = {
-				particles = {
-					[1] = 46
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
+			model = "models/courier/smeevil/smeevil.vmdl",
+			particles = {
+				[1] = 46
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 46
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 46
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 46
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			}
+			skin = 1
 		},
 		[48] = {
-			flying_radiant = {
-				particles = {
-					[1] = 47
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
+			model = "models/courier/smeevil/smeevil.vmdl",
+			particles = {
+				[1] = 47
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 47
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 47
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 47
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			}
+			skin = 2
 		},
 		[49] = {
-			flying_radiant = {
-				particles = {
-					[1] = 48
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
+			model = "models/courier/smeevil/smeevil.vmdl",
+			particles = {
+				[1] = 48
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 48
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 48
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
-			},
-			skin = 3,
-			ground_dire = {
-				particles = {
-					[1] = 48
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			}
+			skin = 3
 		},
 		[50] = {
-			flying_radiant = {
-				particles = {
-					[1] = 49
-				},
-				model = "models/courier/smeevil_mammoth/smeevil_mammoth_flying.vmdl"
+			particles = {
+				[1] = 49
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 49
-				},
-				model = "models/courier/smeevil_mammoth/smeevil_mammoth.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 49
-				},
-				model = "models/courier/smeevil_mammoth/smeevil_mammoth_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 49
-				},
-				model = "models/courier/smeevil_mammoth/smeevil_mammoth.vmdl"
-			}
+			model = "models/courier/smeevil_mammoth/smeevil_mammoth.vmdl"
 		},
 		[51] = {
-			flying_radiant = {
-				particles = {
-					[1] = 50
-				},
-				model = "models/courier/smeevil_bird/smeevil_bird_flying.vmdl"
+			particles = {
+				[1] = 50
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 50
-				},
-				model = "models/courier/smeevil_bird/smeevil_bird.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 50
-				},
-				model = "models/courier/smeevil_bird/smeevil_bird_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 50
-				},
-				model = "models/courier/smeevil_bird/smeevil_bird.vmdl"
-			}
+			model = "models/courier/smeevil_bird/smeevil_bird.vmdl"
 		},
 		[52] = {
-			flying_radiant = {
-				particles = {
-					[1] = 51
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab_flying.vmdl"
+			model = "models/courier/smeevil_crab/smeevil_crab.vmdl",
+			particles = {
+				[1] = 51
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 51
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 51
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 51
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab.vmdl"
-			}
+			skin = 0
 		},
 		[53] = {
-			flying_radiant = {
-				particles = {
-					[1] = 52
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab_flying.vmdl"
+			model = "models/courier/smeevil_crab/smeevil_crab.vmdl",
+			particles = {
+				[1] = 52
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 52
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 52
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 52
-				},
-				model = "models/courier/smeevil_crab/smeevil_crab.vmdl"
-			}
+			skin = 1
 		},
 		[54] = {
-			flying_radiant = {
-				particles = {
-					[1] = 53
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
+			model = "models/courier/smeevil/smeevil.vmdl",
+			particles = {
+				[1] = 53
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 53
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 53
-				},
-				model = "models/courier/smeevil/smeevil_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 53
-				},
-				model = "models/courier/smeevil/smeevil.vmdl"
-			}
+			skin = 0
 		},
 		[55] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_ti9/courier_babyroshan_ti9_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_ti9_flying.vmdl"
+			model = "models/courier/baby_rosh/babyroshan_ti9.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_babyroshan_ti9/courier_babyroshan_ti9_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_ti9/courier_babyroshan_ti9_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_ti9.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_ti9/courier_babyroshan_ti9_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_ti9_flying.vmdl"
-			},
-			skin = 6,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_ti9/courier_babyroshan_ti9_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_ti9.vmdl"
-			}
+			skin = 6
 		},
 		[56] = {
-			flying_radiant = {
-				particles = {
-					[1] = 54
-				},
-				model = "models/courier/mechjaw/mechjaw_flying.vmdl"
+			particles = {
+				[1] = 54
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 54
-				},
-				model = "models/courier/mechjaw/mechjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 54
-				},
-				model = "models/courier/mechjaw/mechjaw_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 54
-				},
-				model = "models/courier/mechjaw/mechjaw.vmdl"
-			}
+			model = "models/courier/mechjaw/mechjaw.vmdl"
 		},
 		[57] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/lilnova/lilnova_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/lilnova/lilnova.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/lilnova/lilnova_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/lilnova/lilnova.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/lilnova/lilnova.vmdl"
 		},
 		[58] = {
-			flying_radiant = {
-				particles = {
-					[1] = 55
-				},
-				model = "models/items/courier/devourling/devourling_flying.vmdl"
+			particles = {
+				[1] = 55
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 55
-				},
-				model = "models/items/courier/devourling/devourling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 55
-				},
-				model = "models/items/courier/devourling/devourling_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 55
-				},
-				model = "models/items/courier/devourling/devourling.vmdl"
-			}
+			model = "models/items/courier/devourling/devourling.vmdl"
 		},
 		[59] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/donkey_trio/mesh/donkey_trio_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/donkey_trio/mesh/donkey_trio.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/donkey_trio/mesh/donkey_trio_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/donkey_trio/mesh/donkey_trio.vmdl"
-			}
+			particles = {},
+			model = "models/courier/donkey_trio/mesh/donkey_trio.vmdl"
 		},
 		[60] = {
-			flying_radiant = {
-				particles = {
-					[1] = 56,
-					[2] = 57
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1_flying.vmdl"
+			model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl",
+			particles = {
+				[1] = 56,
+				[2] = 57
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 57
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 56,
-					[2] = 57
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 57
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl"
-			}
+			skin = 1
 		},
 		[61] = {
-			flying_radiant = {
-				particles = {
-					[1] = 58,
-					[2] = 59
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1_flying.vmdl"
+			model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl",
+			particles = {
+				[1] = 58,
+				[2] = 59
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 59
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 58,
-					[2] = 59
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 59
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl"
-			}
+			skin = 2
 		},
 		[62] = {
-			flying_radiant = {
-				particles = {
-					[1] = 60,
-					[2] = 61
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1_flying.vmdl"
+			model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl",
+			particles = {
+				[1] = 60,
+				[2] = 61
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 61
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 60,
-					[2] = 61
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1_flying.vmdl"
-			},
-			skin = 3,
-			ground_dire = {
-				particles = {
-					[1] = 61
-				},
-				model = "models/items/courier/little_sappling_style1/little_sappling_style1.vmdl"
-			}
+			skin = 3
 		},
 		[63] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/babka_bewitcher/babka_bewitcher_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/babka_bewitcher/babka_bewitcher.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/babka_bewitcher_blue/babka_bewitcher_blue_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/babka_bewitcher_blue/babka_bewitcher_blue.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/babka_bewitcher_blue/babka_bewitcher_blue.vmdl"
 		},
 		[64] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda.vmdl"
 		},
 		[65] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/props_gameplay/donkey_wings.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/props_gameplay/donkey.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/props_gameplay/donkey_wings.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/props_gameplay/donkey.vmdl"
-			}
+			model = "models/props_gameplay/donkey.vmdl",
+			particles = {},
+			skin = 1
 		},
 		[66] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/badger/courier_badger_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/badger/courier_badger.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/badger/courier_badger_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/badger/courier_badger.vmdl"
-			}
+			particles = {},
+			model = "models/courier/badger/courier_badger.vmdl"
 		},
 		[67] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/boooofus_courier/boooofus_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/boooofus_courier/boooofus_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/boooofus_courier/boooofus_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/boooofus_courier/boooofus_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/boooofus_courier/boooofus_courier.vmdl"
 		},
 		[68] = {
-			flying_radiant = {
-				particles = {
-					[1] = 62
-				},
-				model = "models/items/courier/mok/mok_flying.vmdl"
+			particles = {
+				[1] = 62
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/mok/mok.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 62
-				},
-				model = "models/items/courier/mok/mok_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/mok/mok.vmdl"
-			}
+			model = "models/items/courier/mok/mok.vmdl"
 		},
 		[69] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/snowl/snowl_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/snowl/snowl.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/snowl/snowl_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/snowl/snowl.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/snowl/snowl.vmdl"
 		},
 		[70] = {
-			flying_radiant = {
-				particles = {
-					[1] = 63
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws_flying.vmdl"
+			particles = {
+				[1] = 63
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 63
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 63
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 63
-				},
-				model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl"
-			}
+			model = "models/courier/beetlejaws/mesh/beetlejaws.vmdl"
 		},
 		[71] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/snaggletooth_red_panda/snaggletooth_red_panda.vmdl"
 		},
 		[72] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/shroomy/shroomy_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/shroomy/shroomy.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/shroomy/shroomy_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/shroomy/shroomy.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/shroomy/shroomy.vmdl"
 		},
 		[73] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/navi_courier/navi_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/navi_courier/navi_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/navi_courier/navi_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/navi_courier/navi_courier.vmdl"
-			}
+			particles = {},
+			model = "models/courier/navi_courier/navi_courier.vmdl"
 		},
 		[74] = {
-			flying_radiant = {
-				particles = {
-					[1] = 64
-				},
-				model = "models/courier/sw_donkey/sw_donkey_flying.vmdl"
+			particles = {
+				[1] = 64
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 64
-				},
-				model = "models/courier/sw_donkey/sw_donkey.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 64
-				},
-				model = "models/courier/sw_donkey/sw_donkey_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 64
-				},
-				model = "models/courier/sw_donkey/sw_donkey.vmdl"
-			}
+			model = "models/courier/sw_donkey/sw_donkey.vmdl"
 		},
 		[75] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/bearzky_v2/bearzky_v2_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/bearzky_v2/bearzky_v2.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/bearzky_v2/bearzky_v2_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/bearzky_v2/bearzky_v2.vmdl"
-			}
+			model = "models/items/courier/bearzky_v2/bearzky_v2.vmdl",
+			particles = {},
+			skin = 1
 		},
 		[76] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/bearzky/bearzky_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/bearzky/bearzky.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/bearzky/bearzky_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/bearzky/bearzky.vmdl"
-			}
+			model = "models/items/courier/bearzky/bearzky.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[77] = {
-			flying_radiant = {
-				particles = {
-					[1] = 65
-				},
-				model = "models/items/courier/pw_zombie/pw_zombie_flying.vmdl"
+			particles = {
+				[1] = 65
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 65
-				},
-				model = "models/items/courier/pw_zombie/pw_zombie.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 65
-				},
-				model = "models/items/courier/pw_zombie/pw_zombie_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 65
-				},
-				model = "models/items/courier/pw_zombie/pw_zombie.vmdl"
-			}
+			model = "models/items/courier/pw_zombie/pw_zombie.vmdl"
 		},
 		[78] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/jilling_ben_courier/jilling_ben_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/jilling_ben_courier/jilling_ben_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/jilling_ben_courier/jilling_ben_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/jilling_ben_courier/jilling_ben_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/jilling_ben_courier/jilling_ben_courier.vmdl"
 		},
 		[79] = {
-			flying_radiant = {
-				particles = {
-					[1] = 66
-				},
-				model = "models/courier/donkey_unicorn/donkey_unicorn_flying.vmdl"
+			particles = {
+				[1] = 66
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 66
-				},
-				model = "models/courier/donkey_unicorn/donkey_unicorn.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 66
-				},
-				model = "models/courier/donkey_unicorn/donkey_unicorn_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 66
-				},
-				model = "models/courier/donkey_unicorn/donkey_unicorn.vmdl"
-			}
+			model = "models/courier/donkey_unicorn/donkey_unicorn.vmdl"
 		},
 		[80] = {
-			flying_radiant = {
-				particles = {
-					[1] = 67
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork_flying.vmdl"
+			model = "models/items/courier/xianhe_stork/xianhe_stork.vmdl",
+			particles = {
+				[1] = 67
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 67
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 67
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 67
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork.vmdl"
-			}
+			skin = 1
 		},
 		[81] = {
-			flying_radiant = {
-				particles = {
-					[1] = 68
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork_flying.vmdl"
+			model = "models/items/courier/xianhe_stork/xianhe_stork.vmdl",
+			particles = {
+				[1] = 68
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 68
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 68
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 68
-				},
-				model = "models/items/courier/xianhe_stork/xianhe_stork.vmdl"
-			}
+			skin = 0
 		},
 		[82] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_boot_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_boot.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_boot_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_boot.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/hermit_crab/hermit_crab_boot.vmdl"
 		},
 		[83] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_shield_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_shield.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_shield_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_shield.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/hermit_crab/hermit_crab_shield.vmdl"
 		},
 		[84] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_necro_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_necro_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_necro_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_necro_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_necro.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_necro_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_necro_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_necro_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_necro.vmdl"
-			}
+			model = "models/items/courier/hermit_crab/hermit_crab_necro.vmdl"
 		},
 		[85] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_bot_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_travelboot_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_bot_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_bot_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_travelboot.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_bot_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_travelboot_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_bot_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_travelboot.vmdl"
-			}
+			model = "models/items/courier/hermit_crab/hermit_crab_travelboot.vmdl"
 		},
 		[86] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_lotus_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_lotus_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_lotus_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_lotus_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_lotus.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_lotus_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_lotus_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_lotus_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_lotus.vmdl"
-			}
+			model = "models/items/courier/hermit_crab/hermit_crab_lotus.vmdl"
 		},
 		[87] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_octarine_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_octarine_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_octarine_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_octarine_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_octarine.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_octarine_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_octarine_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_octarine_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_octarine.vmdl"
-			}
+			model = "models/items/courier/hermit_crab/hermit_crab_octarine.vmdl"
 		},
 		[88] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_skady_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_skady_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_skady_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_skady_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_skady.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_skady_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_skady_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_skady_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_skady.vmdl"
-			}
+			model = "models/items/courier/hermit_crab/hermit_crab_skady.vmdl"
 		},
 		[89] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_aegis_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_aegis_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_aegis_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_aegis_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_aegis.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_aegis_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_aegis_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_hermit_crab/hermit_crab_aegis_ambient.vpcf"
-				},
-				model = "models/items/courier/hermit_crab/hermit_crab_aegis.vmdl"
-			}
+			model = "models/items/courier/hermit_crab/hermit_crab_aegis.vmdl"
 		},
 		[90] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/hermit_crab/hermit_crab.vmdl"
 		},
 		[91] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/hermit_crab/hermit_crab.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/hermit_crab/hermit_crab.vmdl"
 		},
 		[92] = {
-			flying_radiant = {
-				particles = {
-					[1] = 69
-				},
-				model = "models/items/courier/devourling/devourling_flying.vmdl"
+			model = "models/items/courier/devourling/devourling.vmdl",
+			particles = {
+				[1] = 69
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 69
-				},
-				model = "models/items/courier/devourling/devourling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 69
-				},
-				model = "models/items/courier/devourling/devourling_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 69
-				},
-				model = "models/items/courier/devourling/devourling.vmdl"
-			}
+			skin = 1
 		},
 		[93] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/royal_griffin_cub/royal_griffin_cub_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/royal_griffin_cub/royal_griffin_cub.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/royal_griffin_cub/royal_griffin_cub_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/royal_griffin_cub/royal_griffin_cub.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/royal_griffin_cub/royal_griffin_cub.vmdl"
 		},
 		[94] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_donkey_ti7/courier_donkey_ti7_ambient.vpcf"
-				},
-				model = "models/courier/donkey_ti7/donkey_ti7_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_donkey_ti7/courier_donkey_ti7_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_donkey_ti7/courier_donkey_ti7_ambient.vpcf"
-				},
-				model = "models/courier/donkey_ti7/donkey_ti7.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_donkey_ti7/courier_donkey_ti7_ambient.vpcf"
-				},
-				model = "models/courier/donkey_ti7/donkey_ti7_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_donkey_ti7/courier_donkey_ti7_ambient.vpcf"
-				},
-				model = "models/courier/donkey_ti7/donkey_ti7.vmdl"
-			}
+			model = "models/courier/donkey_ti7/donkey_ti7.vmdl"
 		},
 		[95] = {
-			flying_radiant = {
-				particles = {
-					[1] = 70
-				},
-				model = "models/items/courier/krobeling_gold/krobeling_gold_flying.vmdl"
+			particles = {
+				[1] = 70
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 70
-				},
-				model = "models/items/courier/krobeling_gold/krobeling_gold.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 70
-				},
-				model = "models/items/courier/krobeling_gold/krobeling_gold_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 70
-				},
-				model = "models/items/courier/krobeling_gold/krobeling_gold.vmdl"
-			}
+			model = "models/items/courier/krobeling_gold/krobeling_gold.vmdl"
 		},
 		[96] = {
-			flying_radiant = {
-				particles = {
-					[1] = 71
-				},
-				model = "models/courier/flopjaw/flopjaw_flying.vmdl"
+			model = "models/courier/flopjaw/flopjaw.vmdl",
+			particles = {
+				[1] = 71
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 71
-				},
-				model = "models/courier/flopjaw/flopjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 71
-				},
-				model = "models/courier/flopjaw/flopjaw_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 71
-				},
-				model = "models/courier/flopjaw/flopjaw.vmdl"
-			}
+			skin = 0
 		},
 		[97] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/scribbinsthescarab/scribbinsthescarab_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/scribbinsthescarab/scribbinsthescarab.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/scribbinsthescarab/scribbinsthescarab_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/scribbinsthescarab/scribbinsthescarab.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/scribbinsthescarab/scribbinsthescarab.vmdl"
 		},
 		[98] = {
-			flying_radiant = {
-				particles = {
-					[1] = 72,
-					[2] = 73
-				},
-				model = "models/courier/huntling/huntling_flying.vmdl"
+			model = "models/courier/huntling/huntling.vmdl",
+			particles = {
+				[1] = 72,
+				[2] = 73
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 72
-				},
-				model = "models/courier/huntling/huntling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 72,
-					[2] = 73
-				},
-				model = "models/courier/huntling/huntling_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 72
-				},
-				model = "models/courier/huntling/huntling.vmdl"
-			}
+			skin = 1
 		},
 		[99] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			}
+			model = "models/courier/baby_rosh/babyroshan.vmdl",
+			particles = {},
+			skin = 1
 		},
 		[100] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/seekling/seekling_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/seekling/seekling.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/seekling/seekling_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/seekling/seekling.vmdl"
-			}
+			particles = {},
+			model = "models/courier/seekling/seekling.vmdl"
 		},
 		[101] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/livery_llama_courier/livery_llama_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/livery_llama_courier/livery_llama_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/livery_llama_courier/livery_llama_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/livery_llama_courier/livery_llama_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/livery_llama_courier/livery_llama_courier.vmdl"
 		},
 		[102] = {
-			flying_radiant = {
-				particles = {
-					[1] = 74,
-					[2] = 75
-				},
-				model = "models/courier/frull/frull_courier_flying.vmdl"
+			particles = {
+				[1] = 74,
+				[2] = 75
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 75
-				},
-				model = "models/courier/frull/frull_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 74,
-					[2] = 75
-				},
-				model = "models/courier/frull/frull_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 75
-				},
-				model = "models/courier/frull/frull_courier.vmdl"
-			}
+			model = "models/courier/frull/frull_courier.vmdl"
 		},
 		[103] = {
-			flying_radiant = {
-				particles = {
-					[1] = 76
-				},
-				model = "models/items/courier/boris_baumhauer/boris_baumhauer_flying.vmdl"
+			particles = {
+				[1] = 76
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/boris_baumhauer/boris_baumhauer.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 76
-				},
-				model = "models/items/courier/boris_baumhauer/boris_baumhauer_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/boris_baumhauer/boris_baumhauer.vmdl"
-			}
+			model = "models/items/courier/boris_baumhauer/boris_baumhauer.vmdl"
 		},
 		[104] = {
-			flying_radiant = {
-				particles = {
-					[1] = 77
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
+			model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl",
+			particles = {
+				[1] = 77
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 77
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 77
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 77
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			}
+			skin = 1
 		},
 		[105] = {
-			flying_radiant = {
-				particles = {
-					[1] = 78
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
+			model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl",
+			particles = {
+				[1] = 78
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 78
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 78
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 78
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			}
+			skin = 2
 		},
 		[106] = {
-			flying_radiant = {
-				particles = {
-					[1] = 79
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
+			model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl",
+			particles = {
+				[1] = 79
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 79
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 79
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
-			},
-			skin = 3,
-			ground_dire = {
-				particles = {
-					[1] = 79
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			}
+			skin = 3
 		},
 		[107] = {
-			flying_radiant = {
-				particles = {
-					[1] = 80
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
+			model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl",
+			particles = {
+				[1] = 80
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 80
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 80
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 80
-				},
-				model = "models/items/courier/wabbit_the_mighty_courier_of_heroes/wabbit_the_mighty_courier_of_heroes.vmdl"
-			}
+			skin = 0
 		},
 		[108] = {
-			flying_radiant = {
-				particles = {
-					[1] = 81
-				},
-				model = "models/items/courier/bookwyrm/bookwyrm_flying.vmdl"
+			particles = {
+				[1] = 81
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 81
-				},
-				model = "models/items/courier/bookwyrm/bookwyrm.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 81
-				},
-				model = "models/items/courier/bookwyrm/bookwyrm_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 81
-				},
-				model = "models/items/courier/bookwyrm/bookwyrm.vmdl"
-			}
+			model = "models/items/courier/bookwyrm/bookwyrm.vmdl"
 		},
 		[109] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/waldi_the_faithful/waldi_the_faithful_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/waldi_the_faithful/waldi_the_faithful.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/waldi_the_faithful/waldi_the_faithful_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/waldi_the_faithful/waldi_the_faithful.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/waldi_the_faithful/waldi_the_faithful.vmdl"
 		},
 		[110] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_amaterasu/courier_amaterasu_ambient.vpcf"
-				},
-				model = "models/items/courier/amaterasu/amaterasu_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_amaterasu/courier_amaterasu_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_amaterasu/courier_amaterasu_ambient.vpcf"
-				},
-				model = "models/items/courier/amaterasu/amaterasu.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_amaterasu/courier_amaterasu_ambient.vpcf"
-				},
-				model = "models/items/courier/amaterasu/amaterasu_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_amaterasu/courier_amaterasu_ambient.vpcf"
-				},
-				model = "models/items/courier/amaterasu/amaterasu.vmdl"
-			}
+			model = "models/items/courier/amaterasu/amaterasu.vmdl"
 		},
 		[111] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/corsair_ship/corsair_ship_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/corsair_ship/corsair_ship.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/corsair_ship/corsair_ship_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/corsair_ship/corsair_ship.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/corsair_ship/corsair_ship.vmdl"
 		},
 		[112] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			}
+			particles = {},
+			model = "models/courier/baby_rosh/babyroshan.vmdl"
 		},
 		[113] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			}
+			model = "models/courier/baby_rosh/babyroshan.vmdl",
+			particles = {},
+			skin = 2
 		},
 		[114] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/captain_bamboo/captain_bamboo_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/captain_bamboo/captain_bamboo.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/captain_bamboo/captain_bamboo_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/captain_bamboo/captain_bamboo.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/captain_bamboo/captain_bamboo.vmdl"
 		},
 		[115] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/bts_chirpy/bts_chirpy_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/bts_chirpy/bts_chirpy.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/bts_chirpy/bts_chirpy_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/bts_chirpy/bts_chirpy.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/bts_chirpy/bts_chirpy.vmdl"
 		},
 		[116] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/flightless_dod/flightless_dod_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/flightless_dod/flightless_dod.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/flightless_dod/flightless_dod_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/flightless_dod/flightless_dod.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/flightless_dod/flightless_dod.vmdl"
 		},
 		[117] = {
-			flying_radiant = {
-				particles = {
-					[1] = 82
-				},
-				model = "models/courier/godhorse/godhorse_flying.vmdl"
+			particles = {
+				[1] = 82
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 82
-				},
-				model = "models/courier/godhorse/godhorse.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 82
-				},
-				model = "models/courier/godhorse/godhorse_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 82
-				},
-				model = "models/courier/godhorse/godhorse.vmdl"
-			}
+			model = "models/courier/godhorse/godhorse.vmdl"
 		},
 		[118] = {
-			flying_radiant = {
-				particles = {
-					[1] = 83
-				},
-				model = "models/items/courier/nilbog/nilbog_flying.vmdl"
+			particles = {
+				[1] = 83
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/nilbog/nilbog.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 83
-				},
-				model = "models/items/courier/nilbog/nilbog_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/nilbog/nilbog.vmdl"
-			}
+			model = "models/items/courier/nilbog/nilbog.vmdl"
 		},
 		[119] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/billy_bounceback/billy_bounceback_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/billy_bounceback/billy_bounceback.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/billy_bounceback/billy_bounceback_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/billy_bounceback/billy_bounceback.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/billy_bounceback/billy_bounceback.vmdl"
 		},
 		[120] = {
-			flying_radiant = {
-				particles = {
-					[1] = 84
-				},
-				model = "models/courier/drodo/drodo_flying.vmdl"
+			particles = {
+				[1] = 84
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 84
-				},
-				model = "models/courier/drodo/drodo.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 84
-				},
-				model = "models/courier/drodo/drodo_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 84
-				},
-				model = "models/courier/drodo/drodo.vmdl"
-			}
+			model = "models/courier/drodo/drodo.vmdl"
 		},
 		[121] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/sillydragon/sillydragon_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/sillydragon/sillydragon.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/sillydragon/sillydragon_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/sillydragon/sillydragon.vmdl"
-			}
+			particles = {},
+			model = "models/courier/sillydragon/sillydragon.vmdl"
 		},
 		[122] = {
-			flying_radiant = {
-				particles = {
-					[1] = 85
-				},
-				model = "models/items/courier/tinkbot/tinkbot_flying.vmdl"
+			particles = {
+				[1] = 85
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/tinkbot/tinkbot.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 85
-				},
-				model = "models/items/courier/tinkbot/tinkbot_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/tinkbot/tinkbot.vmdl"
-			}
+			model = "models/items/courier/tinkbot/tinkbot.vmdl"
 		},
 		[123] = {
-			flying_radiant = {
-				particles = {
-					[1] = 86
-				},
-				model = "models/items/courier/starladder_grillhound/starladder_grillhound_flying.vmdl"
+			particles = {
+				[1] = 86
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 86
-				},
-				model = "models/items/courier/starladder_grillhound/starladder_grillhound.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 86
-				},
-				model = "models/items/courier/starladder_grillhound/starladder_grillhound_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 86
-				},
-				model = "models/items/courier/starladder_grillhound/starladder_grillhound.vmdl"
-			}
+			model = "models/items/courier/starladder_grillhound/starladder_grillhound.vmdl"
 		},
 		[124] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/ig_dragon/ig_dragon_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/ig_dragon/ig_dragon.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/ig_dragon/ig_dragon_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/ig_dragon/ig_dragon.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/ig_dragon/ig_dragon.vmdl"
 		},
 		[125] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/defense3_sheep/defense3_sheep_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/defense3_sheep/defense3_sheep.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/defense3_sheep/defense3_sheep_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/defense3_sheep/defense3_sheep.vmdl"
-			}
+			particles = {},
+			model = "models/courier/defense3_sheep/defense3_sheep.vmdl"
 		},
 		[126] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/duskie/duskie_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/duskie/duskie.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/duskie/duskie_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/duskie/duskie.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/duskie/duskie.vmdl"
 		},
 		[127] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t2/virtus_werebear_t2_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t2/virtus_werebear_t2.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t2/virtus_werebear_t2_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t2/virtus_werebear_t2.vmdl"
-			}
+			model = "models/items/courier/virtus_werebear_t2/virtus_werebear_t2.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[128] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t3/virtus_werebear_t3_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t3/virtus_werebear_t3.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t3/virtus_werebear_t3_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t3/virtus_werebear_t3.vmdl"
-			}
+			model = "models/items/courier/virtus_werebear_t3/virtus_werebear_t3.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[129] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t1/virtus_werebear_t1_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t1/virtus_werebear_t1.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t1/virtus_werebear_t1_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/virtus_werebear_t1/virtus_werebear_t1.vmdl"
-			}
+			model = "models/items/courier/virtus_werebear_t1/virtus_werebear_t1.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[130] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/jumo/jumo_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/jumo/jumo.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/jumo_dire/jumo_dire_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/jumo_dire/jumo_dire.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/jumo_dire/jumo_dire.vmdl"
 		},
 		[131] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_winter18/courier_babyroshan_winter18_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_winter18_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_babyroshan_winter18/courier_babyroshan_winter18_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_winter18/courier_babyroshan_winter18_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_winter18.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_winter18/courier_babyroshan_winter18_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_winter18_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyroshan_winter18/courier_babyroshan_winter18_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_winter18.vmdl"
-			}
+			model = "models/courier/baby_rosh/babyroshan_winter18.vmdl"
 		},
 		[132] = {
-			flying_radiant = {
-				particles = {
-					[1] = 87
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier_flying.vmdl"
+			particles = {
+				[1] = 87
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 87
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 87
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 87
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier.vmdl"
-			}
+			model = "models/courier/doom_demihero_courier/doom_demihero_courier.vmdl"
 		},
 		[133] = {
-			flying_radiant = {
-				particles = {
-					[1] = 88
-				},
-				model = "models/courier/smeevil_magic_carpet/smeevil_magic_carpet_flying.vmdl"
+			particles = {
+				[1] = 88
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/smeevil_magic_carpet/smeevil_magic_carpet.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 88
-				},
-				model = "models/courier/smeevil_magic_carpet/smeevil_magic_carpet_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/smeevil_magic_carpet/smeevil_magic_carpet.vmdl"
-			}
+			model = "models/courier/smeevil_magic_carpet/smeevil_magic_carpet.vmdl"
 		},
 		[134] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_flying_loadout.vpcf",
-					[2] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_flying.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
+			model = "models/courier/baby_rosh/babyroshan.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_flying_loadout.vpcf",
+				[2] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_flying.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_loadout.vpcf",
-					[2] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_flying_loadout.vpcf",
-					[2] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_flying.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			skin = 4,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient_loadout.vpcf",
-					[2] = "particles/econ/courier/courier_roshan_desert_sands/baby_roshan_desert_sands_ambient.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			}
+			skin = 4
 		},
 		[135] = {
-			flying_radiant = {
-				particles = {
-					[1] = 89
-				},
-				model = "models/courier/venoling/venoling_flying.vmdl"
+			particles = {
+				[1] = 89
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 89
-				},
-				model = "models/courier/venoling/venoling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 89
-				},
-				model = "models/courier/venoling/venoling_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 89
-				},
-				model = "models/courier/venoling/venoling.vmdl"
-			}
+			model = "models/courier/venoling/venoling.vmdl"
 		},
 		[136] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/carty/carty_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/carty/carty.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/carty/carty_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/carty/carty.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/carty/carty.vmdl"
 		},
 		[137] = {
-			flying_radiant = {
-				particles = {
-					[1] = 90,
-					[2] = 91
-				},
-				model = "models/items/courier/snail/courier_snail_flying.vmdl"
+			particles = {
+				[1] = 90,
+				[2] = 91
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 90
-				},
-				model = "models/items/courier/snail/courier_snail.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 90,
-					[2] = 91
-				},
-				model = "models/items/courier/snail/courier_snail_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 90
-				},
-				model = "models/items/courier/snail/courier_snail.vmdl"
-			}
+			model = "models/items/courier/snail/courier_snail.vmdl"
 		},
 		[138] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/throe/throe_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/throe/throe.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/throe/throe_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/throe/throe.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/throe/throe.vmdl"
 		},
 		[139] = {
-			flying_radiant = {
-				particles = {
-					[1] = 92
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier_flying.vmdl"
+			model = "models/courier/doom_demihero_courier/doom_demihero_courier.vmdl",
+			particles = {
+				[1] = 92
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 92
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 92
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 92
-				},
-				model = "models/courier/doom_demihero_courier/doom_demihero_courier.vmdl"
-			}
+			skin = 1
 		},
 		[140] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/dokkaebi_nexon_courier/dokkaebi_nexon_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/dokkaebi_nexon_courier/dokkaebi_nexon_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/dokkaebi_nexon_courier/dokkaebi_nexon_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/dokkaebi_nexon_courier/dokkaebi_nexon_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/dokkaebi_nexon_courier/dokkaebi_nexon_courier.vmdl"
 		},
 		[141] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/greevil/gold_greevil_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/greevil/gold_greevil.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/greevil/gold_greevil_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/greevil/gold_greevil.vmdl"
-			}
+			particles = {},
+			model = "models/courier/greevil/gold_greevil.vmdl"
 		},
 		[142] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/alphid_of_lecaciida/alphid_of_lecaciida_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/alphid_of_lecaciida/alphid_of_lecaciida.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/alphid_of_lecaciida/alphid_of_lecaciida_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/alphid_of_lecaciida/alphid_of_lecaciida.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/alphid_of_lecaciida/alphid_of_lecaciida.vmdl"
 		},
 		[143] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/atrophic_skitterwing/atrophic_skitterwing_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/atrophic_skitterwing/atrophic_skitterwing.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/atrophic_skitterwing/atrophic_skitterwing_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/atrophic_skitterwing/atrophic_skitterwing.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/atrophic_skitterwing/atrophic_skitterwing.vmdl"
 		},
 		[144] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_nian/courier_nian_ambient.vpcf"
-				},
-				model = "models/items/courier/nian_courier/nian_courier_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_nian/courier_nian_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_nian/courier_nian_ambient.vpcf"
-				},
-				model = "models/items/courier/nian_courier/nian_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_nian/courier_nian_ambient.vpcf"
-				},
-				model = "models/items/courier/nian_courier/nian_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_nian/courier_nian_ambient.vpcf"
-				},
-				model = "models/items/courier/nian_courier/nian_courier.vmdl"
-			}
+			model = "models/items/courier/nian_courier/nian_courier.vmdl"
 		},
 		[145] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/gama_brothers/gama_brothers_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/gama_brothers/gama_brothers.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/gama_brothers/gama_brothers_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/gama_brothers/gama_brothers.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/gama_brothers/gama_brothers.vmdl"
 		},
 		[146] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/frostivus2018_courier_serac_the_seal/frostivus2018_courier_serac_the_seal_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/frostivus2018_courier_serac_the_seal/frostivus2018_courier_serac_the_seal.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/frostivus2018_courier_serac_the_seal/frostivus2018_courier_serac_the_seal_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/frostivus2018_courier_serac_the_seal/frostivus2018_courier_serac_the_seal.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/frostivus2018_courier_serac_the_seal/frostivus2018_courier_serac_the_seal.vmdl"
 		},
 		[147] = {
-			flying_radiant = {
-				particles = {
-					[1] = 93
-				},
-				model = "models/courier/venoling/venoling_flying.vmdl"
+			model = "models/courier/venoling/venoling.vmdl",
+			particles = {
+				[1] = 93
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 93
-				},
-				model = "models/courier/venoling/venoling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 93
-				},
-				model = "models/courier/venoling/venoling_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 93
-				},
-				model = "models/courier/venoling/venoling.vmdl"
-			}
+			skin = 1
 		},
 		[148] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental.vmdl"
-			}
+			model = "models/courier/baby_rosh/babyroshan_elemental.vmdl",
+			particles = {},
+			skin = 2
 		},
 		[149] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/vaal_the_animated_constructradiant/vaal_the_animated_constructradiant_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/vaal_the_animated_constructradiant/vaal_the_animated_constructradiant.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/vaal_the_animated_constructdire/vaal_the_animated_constructdire_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/vaal_the_animated_constructdire/vaal_the_animated_constructdire.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/vaal_the_animated_constructdire/vaal_the_animated_constructdire.vmdl"
 		},
 		[150] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/raidcall_ems_one_turtle/raidcall_ems_one_turtle_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/raidcall_ems_one_turtle/raidcall_ems_one_turtle.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/raidcall_ems_one_turtle/raidcall_ems_one_turtle_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/raidcall_ems_one_turtle/raidcall_ems_one_turtle.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/raidcall_ems_one_turtle/raidcall_ems_one_turtle.vmdl"
 		},
 		[151] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/kupu_courier/kupu_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/kupu_courier/kupu_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/kupu_courier/kupu_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/kupu_courier/kupu_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/kupu_courier/kupu_courier.vmdl"
 		},
 		[152] = {
-			flying_radiant = {
-				particles = {
-					[1] = 94,
-					[2] = 95
-				},
-				model = "models/courier/ram/ram_flying.vmdl"
+			particles = {
+				[1] = 94,
+				[2] = 95
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 94
-				},
-				model = "models/courier/ram/ram.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 94,
-					[2] = 95
-				},
-				model = "models/courier/ram/ram_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 94
-				},
-				model = "models/courier/ram/ram.vmdl"
-			}
+			model = "models/courier/ram/ram.vmdl"
 		},
 		[153] = {
-			flying_radiant = {
-				particles = {
-					[1] = 96
-				},
-				model = "models/courier/godhorse/godhorse_flying.vmdl"
+			model = "models/courier/godhorse/godhorse.vmdl",
+			particles = {
+				[1] = 96
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 96
-				},
-				model = "models/courier/godhorse/godhorse.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 96
-				},
-				model = "models/courier/godhorse/godhorse_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 96
-				},
-				model = "models/courier/godhorse/godhorse.vmdl"
-			}
+			skin = 1
 		},
 		[154] = {
-			flying_radiant = {
-				particles = {
-					[1] = 97,
-					[2] = 98
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern_flying.vmdl"
+			model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl",
+			particles = {
+				[1] = 97,
+				[2] = 98
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 97,
-					[2] = 98
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 97,
-					[2] = 98
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 97,
-					[2] = 98
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl"
-			}
+			skin = 1
 		},
 		[155] = {
-			flying_radiant = {
-				particles = {
-					[1] = 99,
-					[2] = 100
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern_flying.vmdl"
+			model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl",
+			particles = {
+				[1] = 99,
+				[2] = 100
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 99,
-					[2] = 100
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 99,
-					[2] = 100
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 99,
-					[2] = 100
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl"
-			}
+			skin = 2
 		},
 		[156] = {
-			flying_radiant = {
-				particles = {
-					[1] = 101,
-					[2] = 102
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern_flying.vmdl"
+			model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl",
+			particles = {
+				[1] = 101,
+				[2] = 102
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 101,
-					[2] = 102
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 101,
-					[2] = 102
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 101,
-					[2] = 102
-				},
-				model = "models/courier/baby_winter_wyvern/baby_winter_wyvern.vmdl"
-			}
+			skin = 0
 		},
 		[157] = {
-			flying_radiant = {
-				particles = {
-					[1] = 103
-				},
-				model = "models/courier/seekling/seekling_flying.vmdl"
+			model = "models/courier/seekling/seekling.vmdl",
+			particles = {
+				[1] = 103
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 103
-				},
-				model = "models/courier/seekling/seekling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 103
-				},
-				model = "models/courier/seekling/seekling_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 103
-				},
-				model = "models/courier/seekling/seekling.vmdl"
-			}
+			skin = 1
 		},
 		[158] = {
-			flying_radiant = {
-				particles = {
-					[1] = 104,
-					[2] = 105
-				},
-				model = "models/items/courier/mighty_chicken/mighty_chicken_flying.vmdl"
+			particles = {
+				[1] = 104,
+				[2] = 105
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 105
-				},
-				model = "models/items/courier/mighty_chicken/mighty_chicken.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 104,
-					[2] = 105
-				},
-				model = "models/items/courier/mighty_chicken/mighty_chicken_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 105
-				},
-				model = "models/items/courier/mighty_chicken/mighty_chicken.vmdl"
-			}
+			model = "models/items/courier/mighty_chicken/mighty_chicken.vmdl"
 		},
 		[159] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/weta_automaton/weta_automaton_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/weta_automaton/weta_automaton.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/weta_automaton/weta_automaton_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/weta_automaton/weta_automaton.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/weta_automaton/weta_automaton.vmdl"
 		},
 		[160] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/azuremircourierfinal/azuremircourierfinal_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/azuremircourierfinal/azuremircourierfinal.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/azuremircourierfinal/azuremircourierfinal_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/azuremircourierfinal/azuremircourierfinal.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/azuremircourierfinal/azuremircourierfinal.vmdl"
 		},
 		[161] = {
-			flying_radiant = {
-				particles = {
-					[1] = 106
-				},
-				model = "models/courier/donkey_crummy_wizard_2014/donkey_crummy_wizard_2014_flying.vmdl"
+			particles = {
+				[1] = 106
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 106
-				},
-				model = "models/courier/donkey_crummy_wizard_2014/donkey_crummy_wizard_2014.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 106
-				},
-				model = "models/courier/donkey_crummy_wizard_2014/donkey_crummy_wizard_2014_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 106
-				},
-				model = "models/courier/donkey_crummy_wizard_2014/donkey_crummy_wizard_2014.vmdl"
-			}
+			model = "models/courier/donkey_crummy_wizard_2014/donkey_crummy_wizard_2014.vmdl"
 		},
 		[162] = {
-			flying_radiant = {
-				particles = {
-					[1] = 107,
-					[2] = 108
-				},
-				model = "models/courier/ram/ram_flying.vmdl"
+			model = "models/courier/ram/ram.vmdl",
+			particles = {
+				[1] = 107,
+				[2] = 108
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 107
-				},
-				model = "models/courier/ram/ram.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 107,
-					[2] = 108
-				},
-				model = "models/courier/ram/ram_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 107
-				},
-				model = "models/courier/ram/ram.vmdl"
-			}
+			skin = 2
 		},
 		[163] = {
-			flying_radiant = {
-				particles = {
-					[1] = 109
-				},
-				model = "models/items/courier/green_jade_dragon/green_jade_dragon_flying.vmdl"
+			particles = {
+				[1] = 109
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/green_jade_dragon/green_jade_dragon.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 109
-				},
-				model = "models/items/courier/green_jade_dragon/green_jade_dragon_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/green_jade_dragon/green_jade_dragon.vmdl"
-			}
+			model = "models/items/courier/green_jade_dragon/green_jade_dragon.vmdl"
 		},
 		[164] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_squire/courier_squire_ambient_flying.vpcf",
-					[2] = "particles/econ/courier/courier_squire/courier_squire_ambient_flying_loadout.vpcf"
-				},
-				model = "models/items/courier/pangolier_squire/pangolier_squire_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_squire/courier_squire_ambient_flying.vpcf",
+				[2] = "particles/econ/courier/courier_squire/courier_squire_ambient_flying_loadout.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_squire/courier_squire_ambient.vpcf"
-				},
-				model = "models/items/courier/pangolier_squire/pangolier_squire.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_squire/courier_squire_ambient_flying.vpcf",
-					[2] = "particles/econ/courier/courier_squire/courier_squire_ambient_flying_loadout.vpcf"
-				},
-				model = "models/items/courier/pangolier_squire/pangolier_squire_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_squire/courier_squire_ambient.vpcf"
-				},
-				model = "models/items/courier/pangolier_squire/pangolier_squire.vmdl"
-			}
+			model = "models/items/courier/pangolier_squire/pangolier_squire.vmdl"
 		},
 		[165] = {
-			flying_radiant = {
-				particles = {
-					[1] = 110
-				},
-				model = "models/items/courier/onibi_lvl_01/onibi_lvl_01_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_01/onibi_lvl_01.vmdl",
+			particles = {
+				[1] = 110
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 110
-				},
-				model = "models/items/courier/onibi_lvl_01/onibi_lvl_01.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 110
-				},
-				model = "models/items/courier/onibi_lvl_01/onibi_lvl_01_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 110
-				},
-				model = "models/items/courier/onibi_lvl_01/onibi_lvl_01.vmdl"
-			}
+			skin = 0
 		},
 		[166] = {
-			flying_radiant = {
-				particles = {
-					[1] = 111
-				},
-				model = "models/items/courier/onibi_lvl_02/onibi_lvl_02_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_02/onibi_lvl_02.vmdl",
+			particles = {
+				[1] = 111
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 111
-				},
-				model = "models/items/courier/onibi_lvl_02/onibi_lvl_02.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 111
-				},
-				model = "models/items/courier/onibi_lvl_02/onibi_lvl_02_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 111
-				},
-				model = "models/items/courier/onibi_lvl_02/onibi_lvl_02.vmdl"
-			}
+			skin = 0
 		},
 		[167] = {
-			flying_radiant = {
-				particles = {
-					[1] = 112
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_03/onibi_lvl_03.vmdl",
+			particles = {
+				[1] = 112
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 112
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 112
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 112
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03.vmdl"
-			}
+			skin = 0
 		},
 		[168] = {
-			flying_radiant = {
-				particles = {
-					[1] = 113
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_03/onibi_lvl_03.vmdl",
+			particles = {
+				[1] = 113
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 113
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 113
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 113
-				},
-				model = "models/items/courier/onibi_lvl_03/onibi_lvl_03.vmdl"
-			}
+			skin = 0
 		},
 		[169] = {
-			flying_radiant = {
-				particles = {
-					[1] = 114
-				},
-				model = "models/items/courier/onibi_lvl_05/onibi_lvl_05_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_05/onibi_lvl_05.vmdl",
+			particles = {
+				[1] = 114
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 114
-				},
-				model = "models/items/courier/onibi_lvl_05/onibi_lvl_05.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 114
-				},
-				model = "models/items/courier/onibi_lvl_05/onibi_lvl_05_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 114
-				},
-				model = "models/items/courier/onibi_lvl_05/onibi_lvl_05.vmdl"
-			}
+			skin = 0
 		},
 		[170] = {
-			flying_radiant = {
-				particles = {
-					[1] = 115
-				},
-				model = "models/items/courier/onibi_lvl_06/onibi_lvl_06_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_06/onibi_lvl_06.vmdl",
+			particles = {
+				[1] = 115
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 115
-				},
-				model = "models/items/courier/onibi_lvl_06/onibi_lvl_06.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 115
-				},
-				model = "models/items/courier/onibi_lvl_06/onibi_lvl_06_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 115
-				},
-				model = "models/items/courier/onibi_lvl_06/onibi_lvl_06.vmdl"
-			}
+			skin = 0
 		},
 		[171] = {
-			flying_radiant = {
-				particles = {
-					[1] = 116
-				},
-				model = "models/items/courier/onibi_lvl_07/onibi_lvl_07_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_07/onibi_lvl_07.vmdl",
+			particles = {
+				[1] = 116
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 116
-				},
-				model = "models/items/courier/onibi_lvl_07/onibi_lvl_07.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 116
-				},
-				model = "models/items/courier/onibi_lvl_07/onibi_lvl_07_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 116
-				},
-				model = "models/items/courier/onibi_lvl_07/onibi_lvl_07.vmdl"
-			}
+			skin = 0
 		},
 		[172] = {
-			flying_radiant = {
-				particles = {
-					[1] = 117
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_09/onibi_lvl_09.vmdl",
+			particles = {
+				[1] = 117
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 117
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 117
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 117
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09.vmdl"
-			}
+			skin = 0
 		},
 		[173] = {
-			flying_radiant = {
-				particles = {
-					[1] = 118
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_09/onibi_lvl_09.vmdl",
+			particles = {
+				[1] = 118
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 118
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 118
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 118
-				},
-				model = "models/items/courier/onibi_lvl_09/onibi_lvl_09.vmdl"
-			}
+			skin = 0
 		},
 		[174] = {
-			flying_radiant = {
-				particles = {
-					[1] = 119
-				},
-				model = "models/items/courier/onibi_lvl_10/onibi_lvl_10_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_10/onibi_lvl_10.vmdl",
+			particles = {
+				[1] = 119
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 119
-				},
-				model = "models/items/courier/onibi_lvl_10/onibi_lvl_10.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 119
-				},
-				model = "models/items/courier/onibi_lvl_10/onibi_lvl_10_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 119
-				},
-				model = "models/items/courier/onibi_lvl_10/onibi_lvl_10.vmdl"
-			}
+			skin = 0
 		},
 		[175] = {
-			flying_radiant = {
-				particles = {
-					[1] = 120
-				},
-				model = "models/items/courier/onibi_lvl_11/onibi_lvl_11_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_11/onibi_lvl_11.vmdl",
+			particles = {
+				[1] = 120
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 120
-				},
-				model = "models/items/courier/onibi_lvl_11/onibi_lvl_11.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 120
-				},
-				model = "models/items/courier/onibi_lvl_11/onibi_lvl_11_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 120
-				},
-				model = "models/items/courier/onibi_lvl_11/onibi_lvl_11.vmdl"
-			}
+			skin = 0
 		},
 		[176] = {
-			flying_radiant = {
-				particles = {
-					[1] = 121
-				},
-				model = "models/items/courier/onibi_lvl_12/onibi_lvl_12_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_12/onibi_lvl_12.vmdl",
+			particles = {
+				[1] = 121
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 121
-				},
-				model = "models/items/courier/onibi_lvl_12/onibi_lvl_12.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 121
-				},
-				model = "models/items/courier/onibi_lvl_12/onibi_lvl_12_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 121
-				},
-				model = "models/items/courier/onibi_lvl_12/onibi_lvl_12.vmdl"
-			}
+			skin = 0
 		},
 		[177] = {
-			flying_radiant = {
-				particles = {
-					[1] = 122
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_13/onibi_lvl_13.vmdl",
+			particles = {
+				[1] = 122
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 122
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 122
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 122
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13.vmdl"
-			}
+			skin = 0
 		},
 		[178] = {
-			flying_radiant = {
-				particles = {
-					[1] = 123
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_13/onibi_lvl_13.vmdl",
+			particles = {
+				[1] = 123
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 123
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 123
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 123
-				},
-				model = "models/items/courier/onibi_lvl_13/onibi_lvl_13.vmdl"
-			}
+			skin = 0
 		},
 		[179] = {
-			flying_radiant = {
-				particles = {
-					[1] = 124
-				},
-				model = "models/items/courier/onibi_lvl_15/onibi_lvl_15_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_15/onibi_lvl_15.vmdl",
+			particles = {
+				[1] = 124
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 124
-				},
-				model = "models/items/courier/onibi_lvl_15/onibi_lvl_15.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 124
-				},
-				model = "models/items/courier/onibi_lvl_15/onibi_lvl_15_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 124
-				},
-				model = "models/items/courier/onibi_lvl_15/onibi_lvl_15.vmdl"
-			}
+			skin = 0
 		},
 		[180] = {
-			flying_radiant = {
-				particles = {
-					[1] = 125
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl",
+			particles = {
+				[1] = 125
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 125
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 125
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 125
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl"
-			}
+			skin = 0
 		},
 		[181] = {
-			flying_radiant = {
-				particles = {
-					[1] = 126
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl",
+			particles = {
+				[1] = 126
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 126
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 126
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 126
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl"
-			}
+			skin = 0
 		},
 		[182] = {
-			flying_radiant = {
-				particles = {
-					[1] = 127
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl",
+			particles = {
+				[1] = 127
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 127
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 127
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 127
-				},
-				model = "models/items/courier/onibi_lvl_16/onibi_lvl_16.vmdl"
-			}
+			skin = 0
 		},
 		[183] = {
-			flying_radiant = {
-				particles = {
-					[1] = 128
-				},
-				model = "models/items/courier/onibi_lvl_19/onibi_lvl_19_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_19/onibi_lvl_19.vmdl",
+			particles = {
+				[1] = 128
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 128
-				},
-				model = "models/items/courier/onibi_lvl_19/onibi_lvl_19.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 128
-				},
-				model = "models/items/courier/onibi_lvl_19/onibi_lvl_19_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 128
-				},
-				model = "models/items/courier/onibi_lvl_19/onibi_lvl_19.vmdl"
-			}
+			skin = 0
 		},
 		[184] = {
-			flying_radiant = {
-				particles = {
-					[1] = 129
-				},
-				model = "models/items/courier/onibi_lvl_20/onibi_lvl_20_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_20/onibi_lvl_20.vmdl",
+			particles = {
+				[1] = 129
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 129
-				},
-				model = "models/items/courier/onibi_lvl_20/onibi_lvl_20.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 129
-				},
-				model = "models/items/courier/onibi_lvl_20/onibi_lvl_20_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 129
-				},
-				model = "models/items/courier/onibi_lvl_20/onibi_lvl_20.vmdl"
-			}
+			skin = 0
 		},
 		[185] = {
-			flying_radiant = {
-				particles = {
-					[1] = 130
-				},
-				model = "models/items/courier/onibi_lvl_21/onibi_lvl_21_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_21/onibi_lvl_21.vmdl",
+			particles = {
+				[1] = 130
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 130
-				},
-				model = "models/items/courier/onibi_lvl_21/onibi_lvl_21.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 130
-				},
-				model = "models/items/courier/onibi_lvl_21/onibi_lvl_21_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 130
-				},
-				model = "models/items/courier/onibi_lvl_21/onibi_lvl_21.vmdl"
-			}
+			skin = 0
 		},
 		[186] = {
-			flying_radiant = {
-				particles = {
-					[1] = 131
-				},
-				model = "models/items/courier/onibi_lvl_00/onibi_lvl_00_flying.vmdl"
+			model = "models/items/courier/onibi_lvl_00/onibi_lvl_00.vmdl",
+			particles = {
+				[1] = 131
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 131
-				},
-				model = "models/items/courier/onibi_lvl_00/onibi_lvl_00.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 131
-				},
-				model = "models/items/courier/onibi_lvl_00/onibi_lvl_00_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 131
-				},
-				model = "models/items/courier/onibi_lvl_00/onibi_lvl_00.vmdl"
-			}
+			skin = 0
 		},
 		[187] = {
-			flying_radiant = {
-				particles = {
-					[1] = 132
-				},
-				model = "models/items/courier/chocobo/chocobo_flying.vmdl"
+			particles = {
+				[1] = 132
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 132
-				},
-				model = "models/items/courier/chocobo/chocobo.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 132
-				},
-				model = "models/items/courier/chocobo/chocobo_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 132
-				},
-				model = "models/items/courier/chocobo/chocobo.vmdl"
-			}
+			model = "models/items/courier/chocobo/chocobo.vmdl"
 		},
 		[188] = {
-			flying_radiant = {
-				particles = {
-					[1] = 133,
-					[2] = 134
-				},
-				model = "models/courier/mech_donkey/mech_donkey_flying.vmdl"
+			particles = {
+				[1] = 133,
+				[2] = 134
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 133
-				},
-				model = "models/courier/mech_donkey/mech_donkey.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 133,
-					[2] = 134
-				},
-				model = "models/courier/mech_donkey/mech_donkey_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 133
-				},
-				model = "models/courier/mech_donkey/mech_donkey.vmdl"
-			}
+			model = "models/courier/mech_donkey/mech_donkey.vmdl"
 		},
 		[189] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/coral_furryfish/coral_furryfish_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/coral_furryfish/coral_furryfish.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/coral_furryfish/coral_furryfish_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/coral_furryfish/coral_furryfish.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/coral_furryfish/coral_furryfish.vmdl"
 		},
 		[190] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl2_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger_lvl2.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf",
+				[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl2.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl2_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl2.vmdl"
-			}
+			skin = 1
 		},
 		[191] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl3_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger_lvl3.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
+				[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
+				[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl3.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl3_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl3.vmdl"
-			}
+			skin = 2
 		},
 		[192] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_candle_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl4_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger_lvl4.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_candle_ambient.vpcf",
+				[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
+				[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
+				[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_candle_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl4.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_candle_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl4_flying.vmdl"
-			},
-			skin = 3,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_candle_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl4.vmdl"
-			}
+			skin = 3
 		},
 		[193] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl5_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger_lvl5.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
+				[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
+				[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
+				[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl5.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl5_flying.vmdl"
-			},
-			skin = 4,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl5.vmdl"
-			}
+			skin = 4
 		},
 		[194] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[5] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl6_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger_lvl6.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
+				[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
+				[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
+				[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
+				[5] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl6.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[5] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl6_flying.vmdl"
-			},
-			skin = 5,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_drill_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl6.vmdl"
-			}
+			skin = 5
 		},
 		[195] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl7_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger_lvl7.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
+				[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
+				[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
+				[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl7.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_thrusters_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_rocket_ambient.vpcf",
-					[3] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[4] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl7_flying.vmdl"
-			},
-			skin = 6,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_jadedrill_ambient.vpcf",
-					[2] = "particles/econ/courier/courier_mole_messenger_ti8/mole_headlight_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_lvl7.vmdl"
-			}
+			skin = 6
 		},
 		[196] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_flying.vmdl"
+			model = "models/items/courier/mole_messenger/mole_messenger.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf"
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/mole_messenger/mole_messenger.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_mole_messenger_ti8/mole_propeller_ambient.vpcf"
-				},
-				model = "models/items/courier/mole_messenger/mole_messenger_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/mole_messenger/mole_messenger.vmdl"
-			}
+			skin = 0
 		},
 		[197] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/blotto_and_stick/blotto_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/blotto_and_stick/blotto.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/blotto_and_stick/blotto_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/blotto_and_stick/blotto.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/blotto_and_stick/blotto.vmdl"
 		},
 		[198] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/itsy/itsy_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/itsy/itsy.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/itsy/itsy_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/itsy/itsy.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/itsy/itsy.vmdl"
 		},
 		[199] = {
-			flying_radiant = {
-				particles = {
-					[1] = 135
-				},
-				model = "models/items/courier/vigilante_fox_green/vigilante_fox_green_flying.vmdl"
+			particles = {
+				[1] = 135
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/vigilante_fox_green/vigilante_fox_green.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 135
-				},
-				model = "models/items/courier/vigilante_fox_red/vigilante_fox_red_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/vigilante_fox_red/vigilante_fox_red.vmdl"
-			}
+			model = "models/items/courier/vigilante_fox_red/vigilante_fox_red.vmdl"
 		},
 		[200] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/deathbringer/deathbringer_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/deathbringer/deathbringer.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/deathbringer/deathbringer_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/deathbringer/deathbringer.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/deathbringer/deathbringer.vmdl"
 		},
 		[201] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/courier_mech/courier_mech_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/courier_mech/courier_mech.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/courier_mech/courier_mech_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/courier_mech/courier_mech.vmdl"
-			}
+			particles = {},
+			model = "models/courier/courier_mech/courier_mech.vmdl"
 		},
 		[202] = {
-			flying_radiant = {
-				particles = {
-					[1] = 136
-				},
-				model = "models/items/courier/krobeling/krobeling_flying.vmdl"
+			particles = {
+				[1] = 136
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 136
-				},
-				model = "models/items/courier/krobeling/krobeling.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 136
-				},
-				model = "models/items/courier/krobeling/krobeling_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 136
-				},
-				model = "models/items/courier/krobeling/krobeling.vmdl"
-			}
+			model = "models/items/courier/krobeling/krobeling.vmdl"
 		},
 		[203] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/courier/baby_rosh/babyroshan_elemental.vmdl"
-			}
+			model = "models/courier/baby_rosh/babyroshan_elemental.vmdl",
+			particles = {},
+			skin = 1
 		},
 		[204] = {
-			flying_radiant = {
-				particles = {
-					[1] = 137
-				},
-				model = "models/courier/mega_greevil_courier/mega_greevil_courier_flying.vmdl"
+			particles = {
+				[1] = 137
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 137
-				},
-				model = "models/courier/mega_greevil_courier/mega_greevil_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 137
-				},
-				model = "models/courier/mega_greevil_courier/mega_greevil_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 137
-				},
-				model = "models/courier/mega_greevil_courier/mega_greevil_courier.vmdl"
-			}
+			model = "models/courier/mega_greevil_courier/mega_greevil_courier.vmdl"
 		},
 		[205] = {
-			flying_radiant = {
-				particles = {
-					[1] = 138
-				},
-				model = "models/items/courier/bajie_pig/bajie_pig_flying.vmdl"
+			model = "models/items/courier/bajie_pig/bajie_pig.vmdl",
+			particles = {
+				[1] = 138
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/bajie_pig/bajie_pig.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 138
-				},
-				model = "models/items/courier/bajie_pig/bajie_pig_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/bajie_pig/bajie_pig.vmdl"
-			}
+			skin = 1
 		},
 		[206] = {
-			flying_radiant = {
-				particles = {
-					[1] = 139
-				},
-				model = "models/items/courier/bajie_pig/bajie_pig_flying.vmdl"
+			model = "models/items/courier/bajie_pig/bajie_pig.vmdl",
+			particles = {
+				[1] = 139
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/bajie_pig/bajie_pig.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 139
-				},
-				model = "models/items/courier/bajie_pig/bajie_pig_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/bajie_pig/bajie_pig.vmdl"
-			}
+			skin = 0
 		},
 		[207] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/props_gameplay/donkey_wings.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/props_gameplay/donkey.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/props_gameplay/donkey_dire_wings.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/props_gameplay/donkey_dire.vmdl"
-			}
+			particles = {},
+			model = "models/props_gameplay/donkey_dire.vmdl"
 		},
 		[208] = {
-			flying_radiant = {
-				particles = {
-					[1] = 140
-				},
-				model = "models/courier/f2p_courier/f2p_courier_flying.vmdl"
+			particles = {
+				[1] = 140
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 140
-				},
-				model = "models/courier/f2p_courier/f2p_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 140
-				},
-				model = "models/courier/f2p_courier/f2p_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 140
-				},
-				model = "models/courier/f2p_courier/f2p_courier.vmdl"
-			}
+			model = "models/courier/f2p_courier/f2p_courier.vmdl"
 		},
 		[209] = {
-			flying_radiant = {
-				particles = {
-					[1] = 141
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
+			model = "models/items/courier/axolotl/axolotl.vmdl",
+			particles = {
+				[1] = 141
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 141
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 141
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 141
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			}
+			skin = 1
 		},
 		[210] = {
-			flying_radiant = {
-				particles = {
-					[1] = 142
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
+			model = "models/items/courier/axolotl/axolotl.vmdl",
+			particles = {
+				[1] = 142
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 142
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 142
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 142
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			}
+			skin = 2
 		},
 		[211] = {
-			flying_radiant = {
-				particles = {
-					[1] = 143
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
+			model = "models/items/courier/axolotl/axolotl.vmdl",
+			particles = {
+				[1] = 143
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 143
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 143
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
-			},
-			skin = 3,
-			ground_dire = {
-				particles = {
-					[1] = 143
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			}
+			skin = 3
 		},
 		[212] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_axolotl_ambient/courier_axolotl_ambient_lvl1.vpcf"
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
+			model = "models/items/courier/axolotl/axolotl.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_axolotl_ambient/courier_axolotl_ambient_lvl1.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_axolotl_ambient/courier_axolotl_ambient_lvl1.vpcf"
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_axolotl_ambient/courier_axolotl_ambient_lvl1.vpcf"
-				},
-				model = "models/items/courier/axolotl/axolotl_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_axolotl_ambient/courier_axolotl_ambient_lvl1.vpcf"
-				},
-				model = "models/items/courier/axolotl/axolotl.vmdl"
-			}
+			skin = 0
 		},
 		[213] = {
-			flying_radiant = {
-				particles = {
-					[1] = 144,
-					[2] = 145
-				},
-				model = "models/items/courier/faceless_rex/faceless_rex_flying.vmdl"
+			particles = {
+				[1] = 144,
+				[2] = 145
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 144
-				},
-				model = "models/items/courier/faceless_rex/faceless_rex.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 144,
-					[2] = 145
-				},
-				model = "models/items/courier/faceless_rex/faceless_rex_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 144
-				},
-				model = "models/items/courier/faceless_rex/faceless_rex.vmdl"
-			}
+			model = "models/items/courier/faceless_rex/faceless_rex.vmdl"
 		},
 		[214] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/kanyu_shark/kanyu_shark_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/kanyu_shark/kanyu_shark.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/kanyu_shark/kanyu_shark_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/kanyu_shark/kanyu_shark.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/kanyu_shark/kanyu_shark.vmdl"
 		},
 		[215] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/courier_mvp_redkita/courier_mvp_redkita_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/courier_mvp_redkita/courier_mvp_redkita.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/courier_mvp_redkita/courier_mvp_redkita_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/courier_mvp_redkita/courier_mvp_redkita.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/courier_mvp_redkita/courier_mvp_redkita.vmdl"
 		},
 		[216] = {
-			flying_radiant = {
-				particles = {
-					[1] = 146
-				},
-				model = "models/items/courier/mei_nei_rabbit/mei_nei_rabbit_flying.vmdl"
+			particles = {
+				[1] = 146
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/mei_nei_rabbit/mei_nei_rabbit.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 146
-				},
-				model = "models/items/courier/mei_nei_rabbit/mei_nei_rabbit_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/mei_nei_rabbit/mei_nei_rabbit.vmdl"
-			}
+			model = "models/items/courier/mei_nei_rabbit/mei_nei_rabbit.vmdl"
 		},
 		[217] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/jin_yin_white_fox/jin_yin_white_fox_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/jin_yin_white_fox/jin_yin_white_fox.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/jin_yin_black_fox/jin_yin_black_fox_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/jin_yin_black_fox/jin_yin_black_fox.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/jin_yin_black_fox/jin_yin_black_fox.vmdl"
 		},
 		[218] = {
-			flying_radiant = {
-				particles = {
-					[1] = 147
-				},
-				model = "models/courier/octopus/octopus_flying.vmdl"
+			particles = {
+				[1] = 147
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 147
-				},
-				model = "models/courier/octopus/octopus.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 147
-				},
-				model = "models/courier/octopus/octopus_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 147
-				},
-				model = "models/courier/octopus/octopus.vmdl"
-			}
+			model = "models/courier/octopus/octopus.vmdl"
 		},
 		[219] = {
-			flying_radiant = {
-				particles = {
-					[1] = 148
-				},
-				model = "models/items/courier/snapjaw/snapjaw_flying.vmdl"
+			particles = {
+				[1] = 148
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/snapjaw/snapjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 148
-				},
-				model = "models/items/courier/snapjaw/snapjaw_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/snapjaw/snapjaw.vmdl"
-			}
+			model = "models/items/courier/snapjaw/snapjaw.vmdl"
 		},
 		[220] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/defense4_radiant/defense4_radiant_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/defense4_radiant/defense4_radiant.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/defense4_dire/defense4_dire_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/defense4_dire/defense4_dire.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/defense4_dire/defense4_dire.vmdl"
 		},
 		[221] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/courier_janjou/courier_janjou_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/courier_janjou/courier_janjou.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/courier_janjou/courier_janjou_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/courier_janjou/courier_janjou.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/courier_janjou/courier_janjou.vmdl"
 		},
 		[222] = {
-			flying_radiant = {
-				particles = {
-					[1] = 149
-				},
-				model = "models/items/courier/snapjaw/snapjaw_flying.vmdl"
+			particles = {
+				[1] = 149
 			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/snapjaw/snapjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 149
-				},
-				model = "models/items/courier/snapjaw/snapjaw_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/snapjaw/snapjaw.vmdl"
-			}
+			model = "models/items/courier/snapjaw/snapjaw.vmdl"
 		},
 		[223] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/arneyb_rabbit/arneyb_rabbit_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/arneyb_rabbit/arneyb_rabbit.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/arneyb_rabbit/arneyb_rabbit_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/arneyb_rabbit/arneyb_rabbit.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/arneyb_rabbit/arneyb_rabbit.vmdl"
 		},
 		[224] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/little_fraid_the_courier_of_simons_retribution/little_fraid_the_courier_of_simons_retribution_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/little_fraid_the_courier_of_simons_retribution/little_fraid_the_courier_of_simons_retribution.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/little_fraid_the_courier_of_simons_retribution/little_fraid_the_courier_of_simons_retribution_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/little_fraid_the_courier_of_simons_retribution/little_fraid_the_courier_of_simons_retribution.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/little_fraid_the_courier_of_simons_retribution/little_fraid_the_courier_of_simons_retribution.vmdl"
 		},
 		[225] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/teron/teron_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/teron/teron.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/teron/teron_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/teron/teron.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/teron/teron.vmdl"
 		},
 		[226] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti8/courier_babyrosh_alt_ti8.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt_flying.vmdl"
+			model = "models/courier/baby_rosh/babyroshan_alt.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_babyrosh_alt_ti8/courier_babyrosh_alt_ti8.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti8/courier_babyrosh_alt_ti8.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti8/courier_babyrosh_alt_ti8.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt_flying.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti8/courier_babyrosh_alt_ti8.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt.vmdl"
-			}
+			skin = 2
 		},
 		[227] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s1/beaverknight_s1_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s1/beaverknight_s1.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s1/beaverknight_s1_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s1/beaverknight_s1.vmdl"
-			}
+			model = "models/items/courier/beaverknight_s1/beaverknight_s1.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[228] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s2/beaverknight_s2_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s2/beaverknight_s2.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s2/beaverknight_s2_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/beaverknight_s2/beaverknight_s2.vmdl"
-			}
+			model = "models/items/courier/beaverknight_s2/beaverknight_s2.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[229] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/beaverknight/beaverknight_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/beaverknight/beaverknight.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/beaverknight/beaverknight_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/beaverknight/beaverknight.vmdl"
-			}
+			model = "models/items/courier/beaverknight/beaverknight.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[230] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/shagbark/shagbark.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/shagbark/shagbark.vmdl"
 		},
 		[231] = {
-			flying_radiant = {
-				particles = {
-					[1] = 151
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot_flying_rowboat.vmdl"
+			model = "models/courier/skippy_parrot/skippy_parrot.vmdl",
+			particles = {
+				[1] = 151
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 150
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 151
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot_flying_rowboat.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = 150
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot.vmdl"
-			}
+			skin = 1
 		},
 		[232] = {
-			flying_radiant = {
-				particles = {
-					[1] = 152
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot_flying_sailboat.vmdl"
+			model = "models/courier/skippy_parrot/skippy_parrot.vmdl",
+			particles = {
+				[1] = 152
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 153
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 152
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot_flying_sailboat.vmdl"
-			},
-			skin = 2,
-			ground_dire = {
-				particles = {
-					[1] = 153
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot.vmdl"
-			}
+			skin = 2
 		},
 		[233] = {
-			flying_radiant = {
-				particles = {
-					[1] = 154
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot_flying.vmdl"
+			model = "models/courier/skippy_parrot/skippy_parrot.vmdl",
+			particles = {
+				[1] = 154
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 154
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 154
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {
-					[1] = 154
-				},
-				model = "models/courier/skippy_parrot/skippy_parrot.vmdl"
-			}
+			skin = 0
 		},
 		[234] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/blue_lightning_horse/blue_lightning_horse_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/blue_lightning_horse/blue_lightning_horse.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/blue_lightning_horse/blue_lightning_horse_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/blue_lightning_horse/blue_lightning_horse.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/blue_lightning_horse/blue_lightning_horse.vmdl"
 		},
 		[235] = {
-			flying_radiant = {
-				particles = {
-					[1] = 155
-				},
-				model = "models/items/courier/butch_pudge_dog/butch_pudge_dog_flying.vmdl"
+			particles = {
+				[1] = 155
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 155
-				},
-				model = "models/items/courier/butch_pudge_dog/butch_pudge_dog.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 155
-				},
-				model = "models/items/courier/butch_pudge_dog/butch_pudge_dog_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 155
-				},
-				model = "models/items/courier/butch_pudge_dog/butch_pudge_dog.vmdl"
-			}
+			model = "models/items/courier/butch_pudge_dog/butch_pudge_dog.vmdl"
 		},
 		[236] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/tory_the_sky_guardian/tory_the_sky_guardian_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/tory_the_sky_guardian/tory_the_sky_guardian.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/tory_the_sky_guardian/tory_the_sky_guardian_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/tory_the_sky_guardian/tory_the_sky_guardian.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/tory_the_sky_guardian/tory_the_sky_guardian.vmdl"
 		},
 		[237] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/scuttling_scotty_penguin/scuttling_scotty_penguin_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/scuttling_scotty_penguin/scuttling_scotty_penguin.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/scuttling_scotty_penguin/scuttling_scotty_penguin_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/scuttling_scotty_penguin/scuttling_scotty_penguin.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/scuttling_scotty_penguin/scuttling_scotty_penguin.vmdl"
 		},
 		[238] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/baekho/baekho_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/baekho/baekho.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/baekho/baekho_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/baekho/baekho.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/baekho/baekho.vmdl"
 		},
 		[239] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/d2l_steambear/d2l_steambear_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/d2l_steambear/d2l_steambear.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/d2l_steambear/d2l_steambear_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/d2l_steambear/d2l_steambear.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/d2l_steambear/d2l_steambear.vmdl"
 		},
 		[240] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/greevil/greevil_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/greevil/greevil.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/greevil/greevil_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/greevil/greevil.vmdl"
-			}
+			particles = {},
+			model = "models/courier/greevil/greevil.vmdl"
 		},
 		[241] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/amphibian_kid/amphibian_kid_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/amphibian_kid/amphibian_kid.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/amphibian_kid/amphibian_kid_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/amphibian_kid/amphibian_kid.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/amphibian_kid/amphibian_kid.vmdl"
 		},
 		[242] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/imp/imp_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/imp/imp.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/imp/imp_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/imp/imp.vmdl"
-			}
+			particles = {},
+			model = "models/courier/imp/imp.vmdl"
 		},
 		[243] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/tegu/tegu_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/tegu/tegu.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/tegu/tegu_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/tegu/tegu.vmdl"
-			}
+			particles = {},
+			model = "models/courier/tegu/tegu.vmdl"
 		},
 		[244] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/stump/stump_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/stump/stump.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/stump/stump_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/stump/stump.vmdl"
-			}
+			particles = {},
+			model = "models/courier/stump/stump.vmdl"
 		},
 		[245] = {
-			flying_radiant = {
-				particles = {
-					[1] = 156
-				},
-				model = "models/courier/lockjaw/lockjaw_flying.vmdl"
+			particles = {
+				[1] = 156
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 156
-				},
-				model = "models/courier/lockjaw/lockjaw.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 156
-				},
-				model = "models/courier/lockjaw/lockjaw_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 156
-				},
-				model = "models/courier/lockjaw/lockjaw.vmdl"
-			}
+			model = "models/courier/lockjaw/lockjaw.vmdl"
 		},
 		[246] = {
-			flying_radiant = {
-				particles = {
-					[1] = 157,
-					[2] = 158
-				},
-				model = "models/courier/turtle_rider/turtle_rider_flying.vmdl"
+			particles = {
+				[1] = 157,
+				[2] = 158
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 157,
-					[2] = 158
-				},
-				model = "models/courier/turtle_rider/turtle_rider.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 157,
-					[2] = 158
-				},
-				model = "models/courier/turtle_rider/turtle_rider_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = 157,
-					[2] = 158
-				},
-				model = "models/courier/turtle_rider/turtle_rider.vmdl"
-			}
+			model = "models/courier/turtle_rider/turtle_rider.vmdl"
 		},
 		[247] = {
-			flying_radiant = {
-				particles = {
-					[1] = 159,
-					[2] = 160
-				},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
+			model = "models/courier/baby_rosh/babyroshan.vmdl",
+			particles = {
+				[1] = 159,
+				[2] = 160
 			},
-			ground_radiant = {
-				particles = {
-					[1] = 160
-				},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = 159,
-					[2] = 160
-				},
-				model = "models/courier/baby_rosh/babyroshan_flying.vmdl"
-			},
-			skin = 3,
-			ground_dire = {
-				particles = {
-					[1] = 160
-				},
-				model = "models/courier/baby_rosh/babyroshan.vmdl"
-			}
+			skin = 3
 		},
 		[248] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/courier/frog/frog_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/courier/frog/frog.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/courier/frog/frog_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/courier/frog/frog.vmdl"
-			}
+			particles = {},
+			model = "models/courier/frog/frog.vmdl"
 		},
 		[249] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/weplay_beaver/weplay_beaver_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/weplay_beaver/weplay_beaver.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/weplay_beaver/weplay_beaver_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/weplay_beaver/weplay_beaver.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/weplay_beaver/weplay_beaver.vmdl"
 		},
 		[250] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti7/courier_babyrosh_alt_ti7.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt_flying.vmdl"
+			model = "models/courier/baby_rosh/babyroshan_alt.vmdl",
+			particles = {
+				[1] = "particles/econ/courier/courier_babyrosh_alt_ti7/courier_babyrosh_alt_ti7.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti7/courier_babyrosh_alt_ti7.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti7/courier_babyrosh_alt_ti7.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_babyrosh_alt_ti7/courier_babyrosh_alt_ti7.vpcf"
-				},
-				model = "models/courier/baby_rosh/babyroshan_alt.vmdl"
-			}
+			skin = 1
 		},
 		[251] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/pumpkin_courier/pumpkin_courier_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/pumpkin_courier/pumpkin_courier.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/pumpkin_courier/pumpkin_courier_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/pumpkin_courier/pumpkin_courier.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/pumpkin_courier/pumpkin_courier.vmdl"
 		},
 		[252] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl2_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl2/courier_ti9_lvl2_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl2_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl2_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl2/courier_ti9_lvl2.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl2_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl2/courier_ti9_lvl2_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl2_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl2/courier_ti9_lvl2.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl2/courier_ti9_lvl2.vmdl"
 		},
 		[253] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl3_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl3/courier_ti9_lvl3_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl3_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl3_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl3/courier_ti9_lvl3.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl3_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl3/courier_ti9_lvl3_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl3_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl3/courier_ti9_lvl3.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl3/courier_ti9_lvl3.vmdl"
 		},
 		[254] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl4_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl4/courier_ti9_lvl4_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl4_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl4_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl4/courier_ti9_lvl4.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl4_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl4/courier_ti9_lvl4_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl4_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl4/courier_ti9_lvl4.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl4/courier_ti9_lvl4.vmdl"
 		},
 		[255] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl5_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl5/courier_ti9_lvl5_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl5_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl5_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl5/courier_ti9_lvl5.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl5_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl5/courier_ti9_lvl5_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl5_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl5/courier_ti9_lvl5.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl5/courier_ti9_lvl5.vmdl"
 		},
 		[256] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl6_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl6/courier_ti9_lvl6_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl6_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl6_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl6/courier_ti9_lvl6.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl6_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl6/courier_ti9_lvl6_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl6_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl6/courier_ti9_lvl6.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl6/courier_ti9_lvl6.vmdl"
 		},
 		[257] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl7_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl7_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl7_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl7_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl7_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl7/courier_ti9_lvl7.vmdl"
 		},
 		[258] = {
-			flying_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl1_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_flying.vmdl"
+			particles = {
+				[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl1_base.vpcf"
 			},
-			ground_radiant = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl1_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1.vmdl"
-			},
-			flying_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl1_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {
-					[1] = "particles/econ/courier/courier_ti9/courier_ti9_lvl1_base.vpcf"
-				},
-				model = "models/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1.vmdl"
-			}
+			model = "models/items/courier/courier_ti9/courier_ti9_lvl1/courier_ti9_lvl1.vmdl"
 		},
 		[259] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/serpent_warbler/serpent_warbler_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/serpent_warbler/serpent_warbler.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/serpent_warbler/serpent_warbler_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/serpent_warbler/serpent_warbler.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/serpent_warbler/serpent_warbler.vmdl"
 		},
 		[260] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/bucktooth_jerry/bucktooth_jerry_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/bucktooth_jerry/bucktooth_jerry.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/bucktooth_jerry/bucktooth_jerry_flying.vmdl"
-			},
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/bucktooth_jerry/bucktooth_jerry.vmdl"
-			}
+			particles = {},
+			model = "models/items/courier/bucktooth_jerry/bucktooth_jerry.vmdl"
 		},
 		[261] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying.vmdl"
-			},
-			skin = 1,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit.vmdl"
-			}
+			model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit.vmdl",
+			particles = {},
+			skin = 1
 		},
 		[262] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/el_gato_hero/el_gato_hero_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/el_gato_hero/el_gato_hero.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/el_gato_hero/el_gato_hero_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/el_gato_hero/el_gato_hero.vmdl"
-			}
+			model = "models/items/courier/el_gato_hero/el_gato_hero.vmdl",
+			particles = {},
+			skin = 0
 		},
 		[263] = {
-			flying_radiant = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying.vmdl"
-			},
-			ground_radiant = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit.vmdl"
-			},
-			flying_dire = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit_flying.vmdl"
-			},
-			skin = 0,
-			ground_dire = {
-				particles = {},
-				model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit.vmdl"
-			}
+			model = "models/items/courier/el_gato_beyond_the_summit/el_gato_beyond_the_summit.vmdl",
+			particles = {},
+			skin = 0
 		}
 	}
 }
