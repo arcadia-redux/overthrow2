@@ -19,19 +19,19 @@
 			<Panel id="CosmeticMenuMain">
 				<Panel id="Header">
 					<Button id="AbilitiesMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'Abilities' )">
-						<Label class="HeaderText" text="Abilities" />
+						<Label class="HeaderText" text="#cosemtics_header_abilities" />
 					</Button>
 					<Label class="HeaderText" text=" / " />
 					<Button id="HeroEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'HeroEffects' )">
-						<Label class="HeaderText" text="Effects" />
+						<Label class="HeaderText" text="#cosemtics_header_effects" />
 					</Button>
 					<Label class="HeaderText" text=" / " />
 					<Button id="KillEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'KillEffects' )">
-						<Label class="HeaderText" text="Kill effects" />
+						<Label class="HeaderText" text="#cosemtics_header_kill_effects" />
 					</Button>
 					<Label class="HeaderText" text=" / " />
 					<Button id="PetsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'Pets' )">
-						<Label class="HeaderText" text="Pets" />
+						<Label class="HeaderText" text="#cosemtics_header_pets" />
 					</Button>
 				</Panel>
 				<Panel id="CosmeticContainer">
@@ -44,19 +44,19 @@
 						<Panel id="HeroEffects">
 							<Panel id="EffectOwner">
 								<Button id="HeroOwnButton" class="MenuButton" onactivate="SetEffectType( 'hero' )">
-									<Label class="HeaderText" text="Hero" />
+									<Label class="HeaderText" text="#cosemtics_effects_header_hero" />
 								</Button>
 								<Label class="HeaderText" text=" / " />
 								<Button id="PetOwnButton" class="MenuButton" onactivate="SetEffectType( 'pet' )">
-									<Label class="HeaderText" text="Pet" />
+									<Label class="HeaderText" text="#cosemtics_effects_header_pet" />
 								</Button>
 								<Label class="HeaderText" text=" / " />
 								<Button id="CourierOwnButton" class="MenuButton" onactivate="SetEffectType( 'courier' )">
-									<Label class="HeaderText" text="Courier" />
+									<Label class="HeaderText" text="#cosemtics_effects_header_courier" />
 								</Button>
 								<Label class="HeaderText" text=" / " />
 								<Button id="WardsOwnButton" class="MenuButton" onactivate="SetEffectType( 'wards' )">
-									<Label class="HeaderText" text="Wards" />
+									<Label class="HeaderText" text="#cosemtics_effects_header_wards" />
 								</Button>
 							</Panel>
 							<Panel id="SelectedHeroEffect" class="SelectedRow">
@@ -101,7 +101,7 @@
 					</Panel>
 				</Panel>
 				<Button id="SaveSettings" class="MenuButton" onactivate="SaveSettings()" style="visibility: collapse;">
-					<Label class="HeaderText" text="Save settings" />
+					<Label class="HeaderText" text="#cosmetics_save_settings" />
 				</Button>
 			</Panel>
 		</Panel>
