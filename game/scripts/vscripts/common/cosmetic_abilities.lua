@@ -916,7 +916,51 @@ function Cosmetics.kill_effect_tombstone( killer, victim )
 	pos.z = GetGroundHeight( victim:GetAbsOrigin(), victim )
 
 	local tomb = SpawnEntityFromTableSynchronous( "prop_dynamic", { origin = pos, model = tombs[RandomInt( 1, #tombs )] } )
-	tomb:SetForwardVector( Vector( 0, RandomInt( 250, 290 ), 0 ) )
+	tomb:SetAngles( 0, RandomInt( 240, 300 ), 0 )
+end
+
+function Cosmetics.kill_effect_incineration( killer, victim )
+	local particles = {
+		"particles/units/heroes/hero_lina/lina_death_a.vpcf",
+		"particles/units/heroes/hero_lina/lina_death_ash_ground.vpcf",
+		"particles/units/heroes/hero_lina/lina_death_b.vpcf",
+		"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze_collumn.vpcf",
+		"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze_char_fire.vpcf",
+		"particles/econ/items/shadow_fiend/sf_fire_arcana/sf_fire_arcana_shadowraze_char.vpcf"
+	}
+
+	for _, pname in pairs( particles ) do
+		local p = ParticleManager:CreateParticle( pname, PATTACH_WORLDORIGIN, victim )
+		ParticleManager:SetParticleControl( p, 0, victim:GetAbsOrigin() )
+		ParticleManager:ReleaseParticleIndex( p )
+	end
+end
+
+function Cosmetics.kill_effect_halloween( killer, victim )
+	local models = {
+		"models/props_gameplay/halloween_candy.vmdl",
+		"models/props_gameplay/pumpkin_bucket.vmdl"
+	}
+
+	local r = RandomInt( 1, #models )
+
+	print( r )
+
+	local pos = victim:GetAbsOrigin()
+	pos.z = GetGroundHeight( victim:GetAbsOrigin(), victim )
+
+	if r == 1 then
+		pos.z = pos.z + 8
+	end
+
+	local prop = SpawnEntityFromTableSynchronous( "prop_dynamic", { origin = pos, model = models[r] } )
+	prop:SetAngles( 0, RandomInt( 240, 300 ), 0 )
+
+	if r == 2 then
+		prop:SetModelScale( 0.5 )
+	else
+		prop:SetModelScale( 0.87 )
+	end
 end
 
 Cosmetics.heroEffects = {

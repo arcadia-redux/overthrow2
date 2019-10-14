@@ -1,6 +1,8 @@
 var killEffects = [
 	"firework",
 	"tombstone",
+	"incineration",
+	"halloween"
 ]
 
 function DeleteKillEffect() {
