@@ -4,6 +4,7 @@
 	</styles>
 
 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/data.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_hero_effects.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_kill_effects.js" />

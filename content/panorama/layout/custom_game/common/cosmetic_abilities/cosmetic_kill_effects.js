@@ -5,6 +5,14 @@ var killEffects = [
 	"halloween"
 ]
 
+var killEffectWebms = {}
+killEffectWebms["firework"] = "http://s1.webmshare.com/Mxx0P.webm"
+killEffectWebms["tombstone"] = "http://s1.webmshare.com/RyyeG.webm"
+killEffectWebms["incineration"] = "http://s1.webmshare.com/gLLKj.webm"
+killEffectWebms["halloween"] = "http://s1.webmshare.com/1ZZw3.webm"
+
+var killEffectAnimations = {}
+
 function DeleteKillEffect() {
 	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_kill_effect", {} )
 }
@@ -18,6 +26,20 @@ function CreateKillEffect( parent, effectName ) {
 			effect_name: effectName
 		} )
 	} )
+
+	if ( killEffectWebms[effectName] ) {
+		killEffectAnimations[effectName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
+		killEffectAnimations[effectName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="' + killEffectWebms[effectName] + '" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+		killEffectAnimations[effectName].style.opacity = "0"
+
+		hero_effect.SetPanelEvent( "onmouseover", function() {
+			killEffectAnimations[effectName].style.opacity = "1"
+		} )
+
+		hero_effect.SetPanelEvent( "onmouseout", function() {
+			killEffectAnimations[effectName].style.opacity = "0"
+		} )
+	}
 
 	$.CreatePanel( "Label", hero_effect, "" ).text = $.Localize( "cosmetics_kill_effect_" + effectName )
 }
