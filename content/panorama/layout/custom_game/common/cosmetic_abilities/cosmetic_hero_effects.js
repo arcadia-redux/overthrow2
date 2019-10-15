@@ -21,26 +21,26 @@ heroEffects[21] = "#Attrib_Particle74"
 heroEffects[22] = "#Attrib_Particle158"
 
 var heroEffectsWebms = []
-heroEffectsWebms[1] = "http://s1.webmshare.com/KxeYA.webm" // Spirit of Ember
-heroEffectsWebms[2] = "http://s1.webmshare.com/MxaAW.webm" // Diretide Blight
-heroEffectsWebms[3] = "http://s1.webmshare.com/1ZVLV.webm" // Champion's Aura 2013
-heroEffectsWebms[4] = "http://s1.webmshare.com/gLVQL.webm" //
-heroEffectsWebms[5] = "http://s1.webmshare.com/Ry1YJ.webm" //
-heroEffectsWebms[7] = "http://s1.webmshare.com/LxaJB.webm" //
-heroEffectsWebms[8] = "http://s1.webmshare.com/rVgGQ.webm" //
-heroEffectsWebms[9] = "http://s1.webmshare.com/Pxazg.webm" //
-heroEffectsWebms[10] = "http://s1.webmshare.com/5do4Y.webm" //
-heroEffectsWebms[11] = "http://s1.webmshare.com/vo98W.webm" //
-heroEffectsWebms[12] = "http://s1.webmshare.com/KxxEq.webm" // Champion aura 2012
-heroEffectsWebms[13] = "http://s1.webmshare.com/403WQ.webm" //
-heroEffectsWebms[14] = "http://s1.webmshare.com/b16Ke.webm" //
-heroEffectsWebms[15] = "http://s1.webmshare.com/BAvq1.webm" //
-heroEffectsWebms[16] = "http://s1.webmshare.com/8mnLV.webm" //
-heroEffectsWebms[17] = "http://s1.webmshare.com/naY8d.webm" //
-heroEffectsWebms[18] = "http://s1.webmshare.com/yj9Qo.webm" //
-heroEffectsWebms[20] = "http://s1.webmshare.com/z09V3.webm" //
-heroEffectsWebms[21] = "http://s1.webmshare.com/93vWP.webm" //
-heroEffectsWebms[22] = "http://s1.webmshare.com/NxYrm.webm" //
+heroEffectsWebms[1] = "KxeYA" // Spirit of Ember
+heroEffectsWebms[2] = "MxaAW" // Diretide Blight
+heroEffectsWebms[3] = "1ZVLV" // Champion's Aura 2013
+heroEffectsWebms[4] = "gLVQL" //
+heroEffectsWebms[5] = "Ry1YJ" //
+heroEffectsWebms[7] = "LxaJB" //
+heroEffectsWebms[8] = "rVgGQ" //
+heroEffectsWebms[9] = "Pxazg" //
+heroEffectsWebms[10] = "5do4Y" //
+heroEffectsWebms[11] = "vo98W" //
+heroEffectsWebms[12] = "KxxEq" // Champion aura 2012
+heroEffectsWebms[13] = "403WQ" //
+heroEffectsWebms[14] = "b16Ke" //
+heroEffectsWebms[15] = "BAvq1" //
+heroEffectsWebms[16] = "8mnLV" //
+heroEffectsWebms[17] = "naY8d" //
+heroEffectsWebms[18] = "yj9Qo" //
+heroEffectsWebms[20] = "z09V3" //
+heroEffectsWebms[21] = "93vWP" //
+heroEffectsWebms[22] = "NxYrm" //
 
 var prismaticColors = []
 prismaticColors[1] = { name: "#UnusualShips", r: 25, g: 25, b: 112 }
@@ -124,7 +124,7 @@ function CreateHeroEffect( parent, heroEffectName, heroEffectIndex ) {
 
 	if ( heroEffectsWebms[heroEffectIndex] ) {
 		heroEffectAnimations[heroEffectIndex] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-		heroEffectAnimations[heroEffectIndex].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="' + heroEffectsWebms[heroEffectIndex] + '" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+		heroEffectAnimations[heroEffectIndex].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="s2r://panorama/videos/hero_effects/' + heroEffectsWebms[heroEffectIndex] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
 		heroEffectAnimations[heroEffectIndex].style.opacity = "0"
 
 		hero_effect.SetPanelEvent( "onmouseover", function() {

@@ -218,7 +218,7 @@ function CreateAbilityToTake( row, abilityName ) {
 	image.SetImage( cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
 
 	abilityAnimations[abilityName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-	abilityAnimations[abilityName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="http://s1.webmshare.com/' + abilityWebm[abilityName] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+	abilityAnimations[abilityName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="s2r://panorama/videos/cosmetic_abilities/' + abilityWebm[abilityName] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
 	abilityAnimations[abilityName].style.opacity = "0"
 
 	image.SetPanelEvent( "onactivate", function() {
