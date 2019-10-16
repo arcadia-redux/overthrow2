@@ -919,6 +919,8 @@ function Cosmetics.kill_effect_tombstone( killer, victim )
 
 	local tomb = SpawnEntityFromTableSynchronous( "prop_dynamic", { origin = pos, model = tombs[RandomInt( 1, #tombs )] } )
 	tomb:SetAngles( 0, RandomInt( 240, 300 ), 0 )
+
+	EmitSoundOnLocationWithCaster( victim:GetAbsOrigin(), "FrostivusConsumable.Fireworks.Explode", killer )
 end
 
 function Cosmetics.kill_effect_incineration( killer, victim )
@@ -936,6 +938,8 @@ function Cosmetics.kill_effect_incineration( killer, victim )
 		ParticleManager:SetParticleControl( p, 0, victim:GetAbsOrigin() )
 		ParticleManager:ReleaseParticleIndex( p )
 	end
+
+	EmitSoundOnLocationWithCaster( victim:GetAbsOrigin(), "Hero_DragonKnight.BreathFire", killer ) -- Mb ""
 end
 
 function Cosmetics.kill_effect_halloween( killer, victim )
@@ -945,8 +949,6 @@ function Cosmetics.kill_effect_halloween( killer, victim )
 	}
 
 	local r = RandomInt( 1, #models )
-
-	print( r )
 
 	local pos = victim:GetAbsOrigin()
 	pos.z = GetGroundHeight( victim:GetAbsOrigin(), victim )
@@ -963,4 +965,6 @@ function Cosmetics.kill_effect_halloween( killer, victim )
 	else
 		prop:SetModelScale( 0.87 )
 	end
+
+	killer:EmitSoundParams( "Conquest.hallow_laughter", 0, 3, 5 )
 end
