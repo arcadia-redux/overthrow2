@@ -4,16 +4,16 @@
 	"Tokens"
 	{
 		// Common start
-		"patreon_bonus_button_text"						"Free Boots"
-		"patreon_bonus_button_tooltip"					"Support us to get this feature"
+		"patreon_bonus_button_text"						"免费速度之靴"
+		"patreon_bonus_button_tooltip"					"请赞助我们来获得该项福利"
 
 		"smart_random_button"							"智能随机"
 		"smart_random_tooltip_ready"					"从你最常用的英雄中随机选择一个"
 		"smart_random_tooltip_cooldown"					"每24小时只能使用一次，向乱战先锋2.0捐助可以移除这个限制！"
 
-		"player_stats_title"							"Your statistics for {s:map_name}"
-		"player_stats_wins_loses"						"Wins/Loses: "
-		"player_stats_average_kda"						"Average KDA: "
+		"player_stats_title"							"你的数据 {s:map_name}"
+		"player_stats_wins_loses"						"赢场/输场： "
+		"player_stats_average_kda"						"平均击杀/死亡/辅助: "
 
 		"patreon_perks"									"赞助特权"
 		"emblem_supporter"								"支持者圣物"
