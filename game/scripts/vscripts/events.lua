@@ -497,26 +497,3 @@ function COverthrowGameMode:OnItemPickUp( event )
 		UTIL_Remove(item)
 	end
 end
-
-
---------------------------------------------------------------------------------
--- Event: OnNpcGoalReached
---------------------------------------------------------------------------------
-function COverthrowGameMode:OnNpcGoalReached( event )
-	local npc = EntIndexToHScript( event.npc_entindex )
-	if npc:GetUnitName() == "npc_dota_treasure_courier" then
-		COverthrowGameMode:TreasureDrop( npc )
-	end
-end
-
-function COverthrowGameMode:OnAbilityUsed( event )
-	print('OnAbilityUsed')
-	DeepPrintTable(event)
-    local caster = EntIndexToHScript(event.caster_entindex)
-
-	DisplayError(caster:GetPlayerOwnerID(),"dis_help_msg")
-	CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "help_view", nil)
-
-	--local abilityname=  event.abilityname
-
-end
