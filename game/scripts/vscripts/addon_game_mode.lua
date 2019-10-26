@@ -97,9 +97,13 @@ function Precache( context )
 		for hero, _ in pairs(heroeskv) do
 			PrecacheResource( "soundfile", "soundevents/voscripts/game_sounds_vo_"..string.sub(hero,15)..".vsndevts", context )
 		end
+
+	--Cache cosmetics
+		Cosmetics:Precache( context )
 end
 
 function Activate()
+	Cosmetics:Init()
 	-- Create our game mode and initialize it
 	COverthrowGameMode:InitGameMode()
 	-- Custom Spawn

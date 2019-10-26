@@ -1,4 +1,4 @@
-var IMAGES = {}
+var cosmeticAbilityOverrideImages = {}
 var cosmeticAbilities = {
 	"high_five": true,
 	"seasonal_ti9_banner": true,
@@ -37,7 +37,7 @@ var ABILITIES_CANT_BE_REMOVED = {
 	"high_five": true,
 	"seasonal_ti9_banner": true,
 }
-var abillity_name_to_webm = {
+var abilityWebm = {
 	"seasonal_summon_cny_balloon":"40XJ9",
 	"seasonal_summon_dragon":"Ry9Mv",
 	"seasonal_summon_cny_tree":"rVY9D",
@@ -51,22 +51,14 @@ var abillity_name_to_webm = {
 	"seasonal_decorate_tree":"Px17L",
 	"seasonal_summon_snowman":"na38r"
 }
-var showcaseAbilitiesSlot = 6
 
-var slots = []
-
-var currentUnit = null
-var currentAbilitiesCount = 0
-var animation = {}
-
-function ToggleCosmeticMenu() {
-	$.GetContextPanel().ToggleClass( "Open" )
-}
+var abilitySlots = []
+var abilityAnimations = {}
 
 function Ability( slot, abilityName ) {
 	this.abilityName = abilityName
 
-	var image_path = IMAGES[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png"
+	var image_path = cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png"
 
 	this.image = $.CreatePanel( "Image", slot.panel, "Image" )
 	this.image.SetImage( image_path )
@@ -127,7 +119,7 @@ function Ability( slot, abilityName ) {
 	}
 }
 
-function Slot( parent, index, style ) {
+function AbilitySlot( parent, index, style ) {
 	this.panel = $.CreatePanel( "Panel", parent, "Slot" + index )
 	this.panel.AddClass( style )
 
@@ -150,11 +142,11 @@ function Slot( parent, index, style ) {
 	}
 }
 
-function Reload() {
+function ReloadAbilities() {
 	currentUnit = Players.GetLocalPlayerPortraitUnit()
 
-	for ( i in slots ) {
-		var slot = slots[i]
+	for ( i in abilitySlots ) {
+		var slot = abilitySlots[i]
 		slot.Clear()
 	}
 
@@ -172,10 +164,10 @@ function Reload() {
 			var permSlot = permanentAbilitySlots[name]
 
 			if ( permSlot ) {
-				slots[permSlot].AddContent( new Ability( slots[permSlot], name ) )
+				abilitySlots[permSlot].AddContent( new Ability( abilitySlots[permSlot], name ) )
 			} else {
-				for ( s in slots ) {
-					var slot = slots[s]
+				for ( s in abilitySlots ) {
+					var slot = abilitySlots[s]
 
 					if ( !slot.content ) {
 						slot.AddContent( new Ability( slot, name ) )
@@ -199,56 +191,50 @@ function Reload() {
 	}
 }
 
-function Update() {
+function UpdateAbilities() {
 	if ( Players.GetLocalPlayerPortraitUnit() != currentUnit ) {
-		Reload()
+		ReloadAbilities()
 	} else {
-		for ( i in slots ) {
-			var slot = slots[i]
+		for ( i in abilitySlots ) {
+			var slot = abilitySlots[i]
 			slot.Update()
 		}
 	}
 
-	$.Schedule( 1 / 60, Update )
+	$.Schedule( 1 / 60, UpdateAbilities )
 }
 
 for ( var i = 0; i < 7; i++ ) {
 	if ( i > 3 ) { 
-		slots[i] = new Slot( $( "#BarOverItems" ), i, "SlotOverItems" )
+		abilitySlots[i] = new AbilitySlot( $( "#BarOverItems" ), i, "SlotOverItems" )
 	} else {
-		slots[i] = new Slot( $( "#BarOverAbilities" ), i, "SlotOverAbility" )
+		abilitySlots[i] = new AbilitySlot( $( "#BarOverAbilities" ), i, "SlotOverAbility" )
 	}
 
 }
 
-GameEvents.Subscribe( "cosmetic_abilities_reload_hud", Reload )
-
-Update()
-
 function CreateAbilityToTake( row, abilityName ) {
 	var image = $.CreatePanel( "Image", row, "ImagePreview" )
-	image.SetImage( IMAGES[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
+	image.SetImage( cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
 
-	animation[abilityName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-	animation[abilityName].BLoadLayoutFromString( '<root><Panel><MoviePanel src="http://s1.webmshare.com/'+abillity_name_to_webm[abilityName]+'.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
-	animation[abilityName].visible = false
+	abilityAnimations[abilityName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
+	abilityAnimations[abilityName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="s2r://panorama/videos/cosmetic_abilities/' + abilityWebm[abilityName] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
+	abilityAnimations[abilityName].style.opacity = "0"
 
 	image.SetPanelEvent( "onactivate", function() {
-		if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
-			GameEvents.SendCustomGameEventToServer( "cosmetic_abilities_take", { unit: currentUnit, ability: abilityName } )
-		}
+		GameEvents.SendCustomGameEventToServer( "cosmetics_add_ability", { unit: currentUnit, ability: abilityName } )
 	} )
 
 	image.SetPanelEvent( "onmouseover", function() {
 		$.DispatchEvent( "DOTAShowAbilityTooltip", image, abilityName )
 
-		animation[abilityName].visible = true
+		abilityAnimations[abilityName].style.opacity = "1"
 	} )
 
 	image.SetPanelEvent( "onmouseout", function() {
 		$.DispatchEvent( "DOTAHideAbilityTooltip", image )
 
-		animation[abilityName].visible = false
+		abilityAnimations[abilityName].style.opacity = "0"
 	} )
 }
 
@@ -257,12 +243,10 @@ function CreateAbilitiesToTake() {
 
 	for ( var i = 0; i < abilitiesToTake.length; i++ ) {
 		if ( i % 4 == 0 ) {
-			abilities_row = $.CreatePanel( "Panel", $( "#CosmeticAbilitiesContainer" ), "" )
+			abilities_row = $.CreatePanel( "Panel", $( "#AbilitiesContainer" ), "" )
 			abilities_row.AddClass( "AbilitiesRow" )
 		}
 
 		CreateAbilityToTake( abilities_row, abilitiesToTake[i] )
 	}
 }
-
-CreateAbilitiesToTake()
