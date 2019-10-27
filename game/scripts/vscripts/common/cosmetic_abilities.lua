@@ -487,18 +487,6 @@ function Cosmetics.RemoveHeroEffect( keys )
 	local id = keys.PlayerID
 	local data = Cosmetics.playerHeroEffects[id]
 
-	if data then
-		ParticleManager:DestroyParticle( data.particle, true )
-		ParticleManager:ReleaseParticleIndex( data.particle )
-
-		Cosmetics.playerHeroEffects[id] = nil
-
-		local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
-		t.hero_effects = nil
-		t.saved = 0
-		CustomNetTables:SetTableValue( "cosmetics", tostring( id ), t )
-	end
-
 	if keys.type == "hero" then
 		local data = Cosmetics.playerHeroEffects[id]
 
