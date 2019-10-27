@@ -16,7 +16,7 @@ _G.newStats = newStats or {}
 _G.pairKillCounts = {}
 LOCK_ANTI_FEED_TIME_SEC = 120
 _G.timesOfTheLastKillings = {}
-_G.itemsBuy = {}
+_G.itemsIsBuy = {}
 _G.lastTimeBuyItemWithCooldown = {}
 
 _G.fastItemsWithCooldown = {
@@ -698,9 +698,9 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		["item_mute_custom"] = true,
 	}
 
-	if orderType == DOTA_UNIT_ORDER_DROP_ITEM then
+	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
-				ability:Destroy()
+			ability:Destroy()
 		end
 	end
 
@@ -751,7 +751,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	end
 
 	if unit and unit:IsCourier()then
-		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and ability and (not ability:IsNull()) and ability:IsItem() then
+		if (orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_GIVE_ITEM) and IsValidEntity(ability) and ability:IsItem() then
 			local purchaser = ability:GetPurchaser()
 			if purchaser and purchaser:GetPlayerID() ~= playerId then
 				-- CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#hud_error_courier_cant_order_item" })
@@ -947,56 +947,6 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				"item_patreonbundle_1",
 				"item_patreonbundle_2"
 			}
-			if _G.fastItemsWithCooldown[itemName] then
-				local buyer = hItem:GetPurchaser()
-				local buyerEntIndex = buyer:GetEntityIndex()
-				local unique_key = itemName .. "_" .. buyerEntIndex
-				if ((_G.lastTimeBuyItemWithCooldown[unique_key] == nil) or ((GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key]) >= _G.fastItemsWithCooldown[itemName])) then
-					if not _G.itemsBuy[unique_key] then
-						_G.itemsBuy[unique_key] = true
-					else
-						_G.itemsBuy[unique_key] = not _G.itemsBuy[unique_key]
-					end
-
-					if DoesHeroHasFreeSlot(buyer) and _G.itemsBuy[unique_key] == true then
-						UTIL_Remove(hItem)
-						buyer:AddItemByName(itemName)
-						_G.lastTimeBuyItemWithCooldown[unique_key] = GameRules:GetGameTime()
-						return false
-					elseif not DoesHeroHasFreeSlot(buyer) then
-						UTIL_Remove(hItem)
-						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
-						return false
-					end
-				else
-					UTIL_Remove(hItem)
-					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#fast_buy_items" })
-					return false
-				end
-			end
-
-			if _G.fastItemsWithoutCooldown[itemName] then
-				local buyer = hItem:GetPurchaser()
-				local buyerEntIndex = buyer:GetEntityIndex()
-				local unique_key = itemName .. "_" .. buyerEntIndex
-
-				if not _G.itemsBuy[unique_key] then
-					_G.itemsBuy[unique_key] = true
-				else
-					_G.itemsBuy[unique_key] = not _G.itemsBuy[unique_key]
-				end
-
-				if DoesHeroHasFreeSlot(buyer) and _G.itemsBuy[unique_key] == true then
-					UTIL_Remove(hItem)
-					buyer:AddItemByName(itemName)
-					_G.lastTimeBuyItemWithCooldown[unique_key] = GameRules:GetGameTime()
-					return false
-				elseif not DoesHeroHasFreeSlot(buyer) then
-					UTIL_Remove(hItem)
-					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
-					return false
-				end
-			end
 
 			local pitem = false
 			for i=1,#pitems do
@@ -1070,6 +1020,52 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 						return false
 					end
 				end
+			end
+		end
+
+		if _G.fastItemsWithCooldown[itemName] then
+			local buyer = hItem:GetPurchaser()
+			local plyID = buyer:GetPlayerID()
+			local buyerEntIndex = buyer:GetEntityIndex()
+			local unique_key = itemName .. "_" .. buyerEntIndex
+			if ((_G.lastTimeBuyItemWithCooldown[unique_key] == nil) or ((GameRules:GetGameTime() - _G.lastTimeBuyItemWithCooldown[unique_key]) >= _G.fastItemsWithCooldown[itemName])) then
+
+				_G.itemsIsBuy[unique_key] = not _G.itemsIsBuy[unique_key]
+
+				if DoesHeroHasFreeSlot(buyer) and _G.itemsIsBuy[unique_key] == true then
+					UTIL_Remove(hItem)
+					buyer:AddItemByName(itemName)
+					_G.lastTimeBuyItemWithCooldown[unique_key] = GameRules:GetGameTime()
+					return false
+				elseif not DoesHeroHasFreeSlot(buyer) then
+					UTIL_Remove(hItem)
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
+					return false
+				end
+			else
+				UTIL_Remove(hItem)
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#fast_buy_items" })
+				return false
+			end
+		end
+
+		if _G.fastItemsWithoutCooldown[itemName] then
+			local buyer = hItem:GetPurchaser()
+			local buyerEntIndex = buyer:GetEntityIndex()
+			local unique_key = itemName .. "_" .. buyerEntIndex
+			local plyID = buyer:GetPlayerID()
+
+			_G.itemsIsBuy[unique_key] = not _G.itemsIsBuy[unique_key]
+
+			if DoesHeroHasFreeSlot(buyer) and _G.itemsIsBuy[unique_key] == true then
+				UTIL_Remove(hItem)
+				buyer:AddItemByName(itemName)
+				_G.lastTimeBuyItemWithCooldown[unique_key] = GameRules:GetGameTime()
+				return false
+			elseif not DoesHeroHasFreeSlot(buyer) then
+				UTIL_Remove(hItem)
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#dota_hud_error_cant_purchase_inventory_full" })
+				return false
 			end
 		end
 	end
