@@ -27,6 +27,9 @@ _G.fastItemsWithoutCooldown =
 {
 	 --["item_banhammer"] = true, When teleporting, you can not change the size of the stack in the store.
 }
+local game_start = true
+_G.personalCouriers = {}
+_G.mainTeamCouriers = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -50,6 +53,7 @@ LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -276,7 +280,7 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "dota_team_kill_credit", Dynamic_Wrap( COverthrowGameMode, 'OnTeamKillCredit' ), self )
 	ListenToGameEvent( "entity_killed", Dynamic_Wrap( COverthrowGameMode, 'OnEntityKilled' ), self )
 	ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( COverthrowGameMode, "OnItemPickUp"), self )
-	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
+	--ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
@@ -702,6 +706,37 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		["item_mute_custom"] = true,
 	}
 
+	if _G.personalCouriers[playerId] then
+		local privateCourier = _G.personalCouriers[playerId]
+
+		if orderType == DOTA_UNIT_ORDER_GIVE_ITEM and target:IsCourier() and target ~= privateCourier and privateCourier:IsAlive() and (not privateCourier:IsStunned())then
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#cannotgiveiteminthiscourier" })
+			return false
+		end
+
+		for _, unitEntityIndex in pairs(filterTable.units) do
+			unit = EntIndexToHScript(unitEntityIndex)
+			if unit:IsCourier() and unit ~= privateCourier and privateCourier:IsAlive() and (not privateCourier:IsStunned())then
+
+				for i, x in pairs(filterTable.units) do
+					if filterTable.units[i] == unitEntityIndex then
+						filterTable.units[i] = privateCourier:GetEntityIndex()
+					end
+				end
+
+				for i = 0, 20 do
+					if filterTable.entindex_ability and privateCourier:GetAbilityByIndex(i) and ability and privateCourier:GetAbilityByIndex(i):GetName() == ability:GetName() then
+						filterTable.entindex_ability = privateCourier:GetAbilityByIndex(i):GetEntityIndex()
+					end
+				end
+
+				local newFocus = {privateCourier:GetEntityIndex()}
+
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "selection_courier_update", { newCourier = newFocus, removeCourier = { unitEntityIndex } })
+			end
+		end
+	end
+
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
 			ability:Destroy()
@@ -975,6 +1010,15 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 					return false
 				end
 			end
+			if itemName == "item_patreon_courier" then
+				if _G.personalCouriers[plyID] then
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#alreadyhaveprivatecourier" })
+				else
+					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
+				end
+				UTIL_Remove(hItem)
+				return false
+			end
 		else
 			local pitems = {
 				"item_patreonbundle_1",
@@ -988,6 +1032,15 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 						if prsh:IsRealHero() then
 							local prshID = prsh:GetPlayerID()
 							if not prshID then
+								UTIL_Remove(hItem)
+								return false
+							end
+							if itemName == "item_patreon_courier" then
+								if _G.personalCouriers[prshID] then
+									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#alreadyhaveprivatecourier" })
+								else
+									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror2" })
+								end
 								UTIL_Remove(hItem)
 								return false
 							end
@@ -2688,3 +2741,61 @@ SelectVO = function(keys)
 	end
 end
 RegisterCustomEventListener("SelectVO", SelectVO)
+
+RegisterCustomEventListener("courier_custom_select", function(data)
+	local playerID = data.PlayerID
+	if not playerID then return end
+	local player = PlayerResource:GetPlayer(playerID)
+	local team = player:GetTeamNumber()
+	local currentCourier = false
+
+	if _G.personalCouriers[playerID] and _G.personalCouriers[playerID]:IsAlive() then
+		currentCourier = { _G.personalCouriers[playerID]:GetEntityIndex() }
+	elseif _G.mainTeamCouriers[team]:IsAlive() then
+		currentCourier = { _G.mainTeamCouriers[team]:GetEntityIndex() }
+	end
+
+	if not currentCourier then return end
+	CustomGameEventManager:Send_ServerToPlayer(player, "selection_new", { entities = currentCourier })
+end)
+
+function unitMoveToPoint(unit, point)
+	ExecuteOrderFromTable({
+		UnitIndex = unit:entindex(),
+		OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+		Position = point
+	})
+end
+
+RegisterCustomEventListener("courier_custom_select_deliever_items", function(data)
+	local playerID = data.PlayerID
+	if not playerID then return end
+	local player = PlayerResource:GetPlayer(playerID)
+	local team = player:GetTeamNumber()
+	local currentCourier = false
+
+	if _G.personalCouriers[playerID] and _G.personalCouriers[playerID]:IsAlive() then
+		currentCourier = _G.personalCouriers[playerID]
+	elseif _G.mainTeamCouriers[team]:IsAlive() then
+		currentCourier = _G.mainTeamCouriers[team]
+	end
+
+	if not currentCourier then return end
+	if currentCourier:IsStunned() then return end
+
+	local stashHasItems = false
+
+	for i = 9, 14 do
+		local item = player:GetAssignedHero():GetItemInSlot(i)
+		if item ~= nil then
+			stashHasItems = true
+		end
+	end
+
+	if stashHasItems then
+		currentCourier:CastAbilityNoTarget(currentCourier:GetAbilityByIndex(7), playerID)
+	else
+		unitMoveToPoint(currentCourier, player:GetAssignedHero():GetAbsOrigin())
+		currentCourier:CastAbilityNoTarget(currentCourier:GetAbilityByIndex(4), playerID)
+	end
+end)

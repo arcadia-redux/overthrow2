@@ -125,7 +125,31 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		newStats[player_id][name] = newStats[player_id][name] + 1
 	end
 
+	if spawnedUnit:IsCourier() then
+		local team = spawnedUnit:GetTeamNumber()
+		if _G.mainTeamCouriers[team] == nil then
+			_G.mainTeamCouriers[team] = spawnedUnit
+		end
+	end
+
 	if not spawnedUnit:IsRealHero() then return end
+	local playerId = spawnedUnit:GetPlayerID()
+	local psets = Patreons:GetPlayerSettings(playerId)
+
+	if psets.level > 1 and _G.personalCouriers[playerId] == nil then
+		Timers:CreateTimer(2, function()
+			local courier_spawn = spawnedUnit:GetAbsOrigin() + RandomVector(RandomFloat(100, 100))
+
+			local team = spawnedUnit:GetTeamNumber()
+
+			local cr = CreateUnitByName("npc_dota_courier", courier_spawn, true, nil, nil, team)
+			cr:AddNewModifier(cr, nil, "modifier_patreon_courier", {})
+			Timers:CreateTimer(.1, function()
+				cr:SetControllableByPlayer(spawnedUnit:GetPlayerID(), true)
+				_G.personalCouriers[playerId] = cr;
+			end)
+		end)
+	end
 
 	Timers:CreateTimer(1, function()
 		if spawnedUnit:HasModifier("modifier_silencer_int_steal") then

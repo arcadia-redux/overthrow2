@@ -371,5 +371,10 @@
 		"DOTA_Tooltip_ability_item_mute_custom_Lore"							"Silence is golden"
 
 		"fast_buy_items"					                            "Cannot Buy Yet"
+
+		"cannotgiveiteminthiscourier"			                        "You cannot give item in this courier."
+		"alreadyhaveprivatecourier"			                            "You already have a private courier."
+		"DOTA_Tooltip_ability_item_patreon_courier"			            "Private Courier"
+		"DOTA_Tooltip_ability_item_patreon_courier_Description"			"<h1>Use: Deploy Private Courier</h1> Deploys a creature to carry items to and from your team's base. Only you can use this courier. Only high level supporters (25$ Tier) can buy this item."
 	}
 }

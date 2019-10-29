@@ -18,6 +18,7 @@
 		"item"		"item_banhammer"
 		"item"		"item_disable_help_custom"
 		"item"		"item_mute_custom"
+		"item"		"item_patreon_courier"
 	}
 
 	"attributes"
