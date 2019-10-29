@@ -16,6 +16,8 @@
 		"item"		"item_courier"
 		"item"		"item_bottle"
 		"item"		"item_banhammer"
+		"item"		"item_disable_help_custom"
+		"item"		"item_mute_custom"
 	}
 
 	"attributes"
