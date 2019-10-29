@@ -155,17 +155,6 @@ function getUnmodifiedHeroName(heroId) {
 	return $.Localize('#' + heroId).replace(/ \(Modified\)$/, '');
 }
 
-function HelpView() {
-	var HelpM = $.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse("HUDElements").FindChildTraverse("HeroRelicProgress").FindChildTraverse("HelpM");
-	if (!HelpM.visible)
-	{
-		HelpM.visible = true;
-		$.Schedule( 5, function() {
-			HelpM.visible = false;
-		 } );
-	}
-}
-
 (function () {
 	GameEvents.Subscribe( "item_will_spawn", OnItemWillSpawn );
 	GameEvents.Subscribe( "item_has_spawned", OnItemHasSpawned );
@@ -173,7 +162,4 @@ function HelpView() {
     GameEvents.Subscribe( "time_remaining", AlertTimer );
     GameEvents.Subscribe( "overtime_alert", OnOvertimeStart );
     GameEvents.Subscribe( "kill_alert", OnLeaderKilled );
-    GameEvents.Subscribe( "help_view", HelpView );
-
-	$.GetContextPanel().GetParent().GetParent().GetParent().FindChildTraverse("HUDElements").FindChildTraverse("HeroRelicProgress").BCreateChildren('<MoviePanel id="HelpM" style="visibility:collapse;margin-bottom:155px;width:263px;height:150px;horizontal-align: right;vertical-align: bottom;" src="http://s1.webmshare.com/0oEPK.webm" repeat="true" autoplay="onload" />');
 })();

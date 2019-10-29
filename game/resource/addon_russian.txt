@@ -1,9 +1,26 @@
-﻿"lang"
+﻿﻿"lang"
 {
 	"Language"	"russian"
 	"Tokens"
 	{
 		"addon_game_name"	"Overthrow"
+
+		"cosemtics_header_abilities"								"Abilities"
+		"cosemtics_header_effects"									"Effects"
+		"cosemtics_header_kill_effects"								"Kill effects"
+		"cosemtics_header_pets"										"Pets"
+
+		"cosmetics_save_settings"									"Save settings"
+
+		"cosemtics_effects_header_hero"								"Hero"
+		"cosemtics_effects_header_pet"								"Pet"
+		"cosemtics_effects_header_courier"							"Courier"
+		"cosemtics_effects_header_wards"							"Wards"
+
+		"cosmetics_kill_effect_firework"							"Фейерверк"
+		"cosmetics_kill_effect_tombstone"							"Надгробие"
+		"cosmetics_kill_effect_incineration"						"Испепеление"
+		"cosmetics_kill_effect_halloween"							"Хэллоуин"
 
 		"new_stat_gpm"												"ЗВМ"
 		"new_stat_total_damage"										"УРОН"
@@ -146,7 +163,7 @@
 		"[english]DOTA_Tooltip_Ability_item_dust"	"Dust of Appearance (Modified)"
 		"DOTA_Tooltip_ability_necrolyte_reapers_scythe_Description"	"Оглушает выбранного вражеского героя, а затем наносит ему урон, пропорциональный количеству отсутствующего у него здоровья.\n\n<font color='#70EA72'>В этом режиме игры герой, убитый этой способностью, возрождается на 20 секунд дольше обычного.</font>\n\nУбийство врага под действием этой способности засчитывается её владельцу.\n\nУлучшается с Aghanim's Scepter."
 		"[english]DOTA_Tooltip_ability_necrolyte_reapers_scythe_Description"	"Stuns the target enemy hero, then deals damage based on how much life it is missing.\n\n<font color='#70EA72'>In Overthrow, heroes killed by Reaper's Scythe will have 20 seconds added to their respawn timer.</font>\n\nAny kill under this effect is credited to Necrophos.\n\nUpgradable by Aghanim's Scepter."
-		"DOTA_Tooltip_ability_riki_permanent_invisibility_Description"	"Герой уходит в тень, становясь невидимым. Каждая его атака со спины наносит дополнительный урон, который зависит от ловкости. Если атаковать врага, невидимость пропадёт.\n\n<font color='#70EA72'>В этом режиме игры увеличено время ухода в невидимость.</font>"
+		"DOTA_Tooltip_ability_riki_permanent_invisibility_Description"	"Герой уходит в тень, становясь невидимым и быстрее восстанавливая здоровье. Каждая его атака со спины наносит дополнительный урон, который зависит от ловкости. Если атаковать врага, невидимость пропадает.\n\n<font color='#70EA72'>В этом режиме игры увеличено время ухода в невидимость.</font>"
 		"[english]DOTA_Tooltip_ability_riki_permanent_invisibility_Description"	"Riki fades into the shadows, becoming invisible and gaining additional health regeneration.  If Riki attacks an enemy, he will become visible.\n\n<font color='#70EA72'>Cloak and Dagger's fade time and fade delay have been increased for Overthrow.</font>"
 		"DOTA_Tooltip_ability_silencer_glaives_of_wisdom_Description"	"Герой наполняет глефы своей мудростью, отчего они наносят дополнительный урон, зависящий от интеллекта владельца.\n\nGlaives of Wisdom — уникальный модификатор атаки, он не сочетается с другими уникальными модификаторами атаки.\n\n<font color='#70EA72'>В этом режиме игры уменьшены дополнительный урон и радиус действия.</font>"
 		"[english]DOTA_Tooltip_ability_silencer_glaives_of_wisdom_Description"	"Silencer enchants his glaives with his wisdom, dealing additional damage based on his Intelligence. \n\nGlaives of Wisdom is a Unique Attack Modifier, and does not stack with other Unique Attack Modifiers.\n\n<font color='#70EA72'>Glaives of Wisdom intelligence percentage and range is reduced in Overthrow.</font>"

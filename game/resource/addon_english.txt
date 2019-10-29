@@ -1,10 +1,27 @@
-﻿"lang"
+﻿﻿"lang"
 {
 	"Language"		"English"
 	"Tokens"
 	{
 		"addon_game_name"								"Overthrow"
 		"DOTA_GameMode_15"													"Overthrow"
+
+		"cosemtics_header_abilities"								"Abilities"
+		"cosemtics_header_effects"									"Effects"
+		"cosemtics_header_kill_effects"								"Kill effects"
+		"cosemtics_header_pets"										"Pets"
+
+		"cosmetics_save_settings"									"Save settings"
+
+		"cosemtics_effects_header_hero"								"Hero"
+		"cosemtics_effects_header_pet"								"Pet"
+		"cosemtics_effects_header_courier"							"Courier"
+		"cosemtics_effects_header_wards"							"Wards"
+
+		"cosmetics_kill_effect_firework"							"Firework"
+		"cosmetics_kill_effect_tombstone"							"Tombstone"
+		"cosmetics_kill_effect_incineration"						"Incineration"
+		"cosmetics_kill_effect_halloween"							"Halloween"
 
 		"new_stat_gpm"												"GPM"
 		"new_stat_total_damage"										"Total damage"

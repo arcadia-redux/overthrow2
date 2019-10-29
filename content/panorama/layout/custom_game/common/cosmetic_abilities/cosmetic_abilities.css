@@ -12,16 +12,13 @@
 }
 
 .Open #CosmeticMenu {
-	height: 400px;
+	height: 440px;
 }
 
 #CosmeticMenuButton {
 	horizontal-align: right;
 	width: 60px;
 	height: 30px;
-	border-radius: 5px 5px 0px 0px;
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f96854 ), to( #f96854 ) );
-	background-image: url( "s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex" );
 }
 
 #CosmeticMenuButtonText {
@@ -39,14 +36,77 @@
 	background-color: #263238;
 	background-image: url( "s2r://panorama/images/hud/reborn/ability_bg_psd.vtex" );
 	background-size: 100%;
-	padding: 30px 60px 60px;
+	padding: 30px 0px 60px;
+}
+
+#Header {
+	horizontal-align: center;
+	flow-children: right;
+	margin-bottom: 12px;
+}
+
+.MenuButton Label {
+	color: #768e8d;
+	transition-property: color, text-shadow;
+	transition-duration: 0.2s;
+	transition-timing-function: linear;
+}
+
+.MenuButton:Hover Label {
+	color: white;
+}
+
+.HeaderText {
+	color: #768e8d;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-family: Radiance;
+}
+
+.Abilities #AbilitiesMenuButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.HeroEffects #HeroEffectsMenuButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.KillEffects #KillEffectsMenuButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.Pets #PetsMenuButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+#SaveSettings {
+	horizontal-align: right;
+	margin-top: 1px;
+	margin-right: 8px;
+}
+
+#SaveSettings Label {
+	transition-duration: 0.1s;
+	color: #687d7c;
+	font-size: 16.6px;
+	letter-spacing: 0.3px;
+	text-transform: none;
+}
+
+#SaveSettings:Hover Label {
+	color: #d4d4d4;
 }
 
 #CosmeticContainer {
-	flow-children: right;
 	horizontal-align: center;
-	vertical-align: center;
-	height: 100%;
+	vertical-align: bottom;
+	height: 288px;
+	flow-children: right;
 }
 
 #AnimationPanel {
@@ -54,10 +114,20 @@
 	height: 280px;
 }
 
+.Pets #AnimationPanel {
+	visibility: collapse;
+}
+
 #AnimationContainer {
 	width: 100%;
 	height: 100%;
 	background-color: rgba( 8, 8, 8, 0.9 );
+}
+
+.Animation {
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: linear;
 }
 
 #BorderAnimation {
@@ -67,9 +137,23 @@
 	background-size: 100% 100%;
 }
 
-#CosmeticAbilitiesContainer {
+.Pets #Cosmetics {
+	width: 900px;
+}
+
+#Cosmetics {
+	height: 100%;
+	width: 360px;
+}
+
+#AbilitiesContainer {
+	visibility: collapse;
 	margin-left: 30px;
 	flow-children: down;
+}
+
+.Abilities #AbilitiesContainer {
+	visibility: visible;
 }
 
 .AbilitiesRow {
@@ -169,4 +253,239 @@
 
 .Open #DeleteButton {
 	visibility: visible;
+}
+
+#HeroEffects,
+#KillEffects {
+	visibility: collapse;
+	margin-left: 30px;
+	flow-children: down;
+}
+
+#EffectOwner {
+	flow-children: right;
+}
+
+#EffectOwner Label {
+	font-size: 18px;
+}
+
+.hero #HeroOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.pet #PetOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.courier #CourierOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.wards #WardsOwnButton Label {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.SelectedRow {
+	margin-top: 8px;
+	flow-children: right;
+	height: 20px;
+}
+
+.HeroEffects #HeroEffects {
+	visibility: visible;
+}
+
+.CurrentText {
+	color: #768e8d;
+	font-size: 17px;
+	letter-spacing: 1px;
+	font-family: Radiance;
+}
+
+#CurrentEffect,
+#CurrentColor,
+#CurrentKillEffect,
+#PetNone {
+	font-size: 15px;
+	letter-spacing: 1px;
+	font-family: Radiance;
+	vertical-align: bottom;
+}
+
+.None {
+	color: #566968;
+}
+
+.CurrentEffect {
+	color: white;
+	text-shadow: 0px 0px 8px #5d7070;
+}
+
+.HeroEffectDelete {
+	vertical-align: bottom;
+	margin-bottom: 1px;
+}
+
+.HeroEffectDelete Label {
+	color: #990000;
+	font-size: 14px;
+	text-shadow: 0px 0px 1px 1.1 black;
+	text-transform: lowercase;
+	font-family: Radiance;
+	vertical-align: bottom;
+	transition-property: color;
+	transition-duration: 0.1s;
+	transition-timing-function: linear;
+}
+
+.HeroEffectDelete:Hover Label {
+	color: #e50000;
+}
+
+#HeroEffectsContainer,
+#EffectColorsContainer,
+#KillEffectsContainer {
+	flow-children: right-wrap;
+	padding: 4px;
+	background-color: #1d1d27;
+	box-shadow: inset black 0px 0px 8px 0px;
+	width: 300px;
+}
+
+#HeroEffectsContainer {
+	height: 150px;
+	width: 310px;
+	overflow: squish scroll;
+}
+
+.HeroEffect {
+	margin: 3px;
+	background-color: #f96854;
+	background-image: url( "s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex" );
+	border-radius: 4px;
+	height: 35px;
+	width: 91px;
+}
+
+.HeroEffect Label {
+	color: #e1e1e1;
+	font-size: 14px;
+	letter-spacing: 1px;
+	font-family: Radiance;
+	vertical-align: center;
+	horizontal-align: center;
+	text-align: center;
+}
+
+.EffectColor {
+	width: 12px;
+	height: 12px;
+	margin: 2px;
+}
+
+#KillEffects {
+	visibility: collapse;
+}
+
+.KillEffects #KillEffects {
+	visibility: visible;
+}
+
+#PetsContainer {
+	width: 510px;
+	height: 245px;
+	flow-children: right-wrap;
+	overflow: squish scroll;
+	padding: 7px;
+	background-color: #1d1d27;
+	box-shadow: inset black 0px 0px 8px 0px;
+}
+
+.Pet {
+	width: 90px;
+	height: 70px;
+	margin: 4px;
+	box-shadow: black 0px 0px 8px 0px;
+}
+
+#PetScrollLeft,
+#PetScrollRight {
+	background-image: url( "s2r://panorama/images/control_icons/arrow_solid_right_png.vtex" );
+	vertical-align: center;
+	background-color: #90a3a8;
+	border-radius: 50%;
+	background-position: 63% 50%;
+	width: 23px;
+	background-repeat: no-repeat;
+	height: 23px;
+	background-size: 12px 12px;
+	horizontal-align: right;
+	opacity: 0.45;
+}
+
+#PetScrollLeft:hover,
+#PetScrollRight:hover {
+	opacity: 1;
+}
+
+#PetScrollLeft {
+	horizontal-align: left;
+	transform: scaleX( -1.0 );
+}
+
+#Pets {
+	horizontal-align: center;
+	vertical-align: center;
+	visibility: collapse;
+	flow-children: down;
+}
+
+.Pets #Pets {
+	visibility: visible;
+}
+
+#SelectedPet {
+	height: 44px;
+	margin-top: 2px;
+	margin-bottom: 4px;
+}
+
+#CurrentPetImage {
+	width: 60px;
+	height: 45px;
+	box-shadow: black 0px 0px 8px 0px;
+}
+
+#Pets .CurrentText {
+	vertical-align: bottom;
+}
+
+#DeletePet {
+	margin-left: 4px;
+	vertical-align: bottom;
+}
+
+#VerticalScrollBar {
+	horizontal-align: right;
+	height: 100%;
+	width: 12px;
+	padding: 2px;
+	vertical-align: center;
+	transition-duration: 0.2s;
+	transition-property: transform;
+	transition-timing-function: ease-in-out;
+}
+
+#ScrollThumb {
+	background-color: #f96854;
+	background-image: url( "s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex" );
+	border-radius: 4px;
+	transition-duration: 0.2s;
+	transition-property: transform;
+	transition-timing-function: ease-in-out;
 }

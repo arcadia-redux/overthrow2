@@ -28,11 +28,16 @@ center_block.style.height = "100%"
 buff_container.FindChild( "buffs" ).style.transform = "translateY( -50px )"
 buff_container.FindChild( "debuffs" ).style.transform = "translateY( -50px )"
 
-if ( !center_block.FindChild( "CosmeticAbilities" ) ) {
-	var newPanel = $.CreatePanel( "Panel", center_block, "CosmeticAbilities" )
-	newPanel.BLoadLayout( "file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml", false, false )
-	center_block.MoveChildBefore( newPanel, center_block.FindChild( "center_bg" ) )
+var cosmetics = center_block.FindChild( "CosmeticAbilities" )
+
+if ( !cosmetics ) {
+	cosmetics = $.CreatePanel( "Panel", center_block, "CosmeticAbilities" )
+	center_block.MoveChildBefore( cosmetics, center_block.FindChild( "center_bg" ) )
+} else {
+	cosmetics.RemoveAndDeleteChildren()
 }
+
+cosmetics.BLoadLayout( "file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml", false, false )
 
 center_block.FindChildrenWithClassTraverse( "TertiaryAbilityContainer" )[0].style.visibility = "collapse"
 

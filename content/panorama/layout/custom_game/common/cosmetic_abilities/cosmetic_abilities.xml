@@ -4,22 +4,106 @@
 	</styles>
 
 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/data.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.js" />
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_hero_effects.js" />
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_kill_effects.js" />
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_pets.js" />
+		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetics_main.js" />
 	</scripts>
 
 	<Panel style="width: 100%; height: 100%;" hittest="false">
 		<Panel id="CosmeticMenu">
 			<Button id="CosmeticMenuButton" onactivate="ToggleCosmeticMenu()">
-				<Label id="CosmeticMenuButtonText" text="Cosmetic" />
+				<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/button.png" />
 			</Button>
 			<Panel id="CosmeticMenuMain">
+				<Panel id="Header">
+					<Button id="AbilitiesMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'Abilities' )">
+						<Label class="HeaderText" text="#cosemtics_header_abilities" />
+					</Button>
+					<Label class="HeaderText" text=" / " />
+					<Button id="HeroEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'HeroEffects' )">
+						<Label class="HeaderText" text="#cosemtics_header_effects" />
+					</Button>
+					<Label class="HeaderText" text=" / " />
+					<Button id="KillEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'KillEffects' )">
+						<Label class="HeaderText" text="#cosemtics_header_kill_effects" />
+					</Button>
+					<Label class="HeaderText" text=" / " />
+					<Button id="PetsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'Pets' )">
+						<Label class="HeaderText" text="#cosemtics_header_pets" />
+					</Button>
+				</Panel>
 				<Panel id="CosmeticContainer">
 					<Panel id="AnimationPanel">
 						<Panel id="AnimationContainer"></Panel>
 						<Panel id="BorderAnimation" />
 					</Panel>
-					<Panel id="CosmeticAbilitiesContainer"></Panel>
+					<Panel id="Cosmetics">
+						<Panel id="AbilitiesContainer"></Panel>
+						<Panel id="HeroEffects">
+							<Panel id="EffectOwner">
+								<Button id="HeroOwnButton" class="MenuButton" onactivate="SetEffectType( 'hero' )">
+									<Label class="HeaderText" text="#cosemtics_effects_header_hero" />
+								</Button>
+								<Label class="HeaderText" text=" / " />
+								<Button id="PetOwnButton" class="MenuButton" onactivate="SetEffectType( 'pet' )">
+									<Label class="HeaderText" text="#cosemtics_effects_header_pet" />
+								</Button>
+								<Label class="HeaderText" text=" / " />
+								<Button id="CourierOwnButton" class="MenuButton" onactivate="SetEffectType( 'courier' )">
+									<Label class="HeaderText" text="#cosemtics_effects_header_courier" />
+								</Button>
+								<Label class="HeaderText" text=" / " />
+								<Button id="WardsOwnButton" class="MenuButton" onactivate="SetEffectType( 'wards' )">
+									<Label class="HeaderText" text="#cosemtics_effects_header_wards" />
+								</Button>
+							</Panel>
+							<Panel id="SelectedHeroEffect" class="SelectedRow">
+								<Label class="CurrentText" text="Effect: " />
+								<Label id="CurrentEffect" class="None" text="none" />
+								<Button id="DeleteEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteEffect()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="HeroEffectsContainer"></Panel>
+
+							<Panel id="SelectedEffectColor" class="SelectedRow">
+								<Label class="CurrentText" text="Color: " />
+								<Label id="CurrentColor" class="None" text="none" />
+								<Button id="DeleteColor" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteColor()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="EffectColorsContainer"></Panel>
+						</Panel>
+						<Panel id="KillEffects">
+							<Panel id="SelectedKillEffect" class="SelectedRow">
+								<Label class="CurrentText" text="Kill effect: " />
+								<Label id="CurrentKillEffect" class="None" text="none" />
+								<Button id="DeleteKillEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteKillEffect()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="KillEffectsContainer"></Panel>
+						</Panel>
+						<Panel id="Pets">
+							<Panel id="SelectedPet" class="SelectedRow">
+								<Label class="CurrentText" text="Pet: " />
+								<Label id="PetNone" class="None" text="none" />
+								<Image id="CurrentPetImage" style="visibility: collapse;" />
+								<Button id="DeletePet" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeletePet()">
+									<Label text="Delete" />
+								</Button>
+							</Panel>
+							<Panel id="PetsContainer"></Panel>
+						</Panel>
+					</Panel>
 				</Panel>
+				<Button id="SaveSettings" class="MenuButton" onactivate="SaveSettings()" style="visibility: collapse;">
+					<Label class="HeaderText" text="#cosmetics_save_settings" />
+				</Button>
 			</Panel>
 		</Panel>
 		<Panel id="BarOverAbilities" hittest="false">
