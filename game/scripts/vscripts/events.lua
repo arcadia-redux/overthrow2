@@ -137,17 +137,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	local psets = Patreons:GetPlayerSettings(playerId)
 
 	if psets.level > 1 and _G.personalCouriers[playerId] == nil then
-		Timers:CreateTimer(2, function()
-			local courier_spawn = spawnedUnit:GetAbsOrigin() + RandomVector(RandomFloat(100, 100))
-
-			local team = spawnedUnit:GetTeamNumber()
-
-			local cr = CreateUnitByName("npc_dota_courier", courier_spawn, true, nil, nil, team)
-			cr:AddNewModifier(cr, nil, "modifier_patreon_courier", {})
-			Timers:CreateTimer(.1, function()
-				cr:SetControllableByPlayer(spawnedUnit:GetPlayerID(), true)
-				_G.personalCouriers[playerId] = cr;
-			end)
+		Timers:CreateTimer(2.0, function()
+			CreatePrivateCourier(playerId, spawnedUnit, spawnedUnit:GetAbsOrigin())
 		end)
 	end
 
