@@ -27,6 +27,9 @@ _G.fastItemsWithoutCooldown =
 {
 	 --["item_banhammer"] = true, When teleporting, you can not change the size of the stack in the store.
 }
+local game_start = true
+_G.personalCouriers = {}
+_G.mainTeamCouriers = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -50,6 +53,7 @@ LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -276,7 +280,7 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "dota_team_kill_credit", Dynamic_Wrap( COverthrowGameMode, 'OnTeamKillCredit' ), self )
 	ListenToGameEvent( "entity_killed", Dynamic_Wrap( COverthrowGameMode, 'OnEntityKilled' ), self )
 	ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( COverthrowGameMode, "OnItemPickUp"), self )
-	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
+	--ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
@@ -702,6 +706,10 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		["item_mute_custom"] = true,
 	}
 
+	if _G.personalCouriers[playerId] then
+		filterTable = EditFilterToCourier(filterTable, playerId, ability)
+	end
+
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
 			ability:Destroy()
@@ -975,6 +983,10 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 					return false
 				end
 			end
+			if itemName == "item_patreon_courier" then
+				BlockToBuyCourier(plyID, hItem)
+				return false
+			end
 		else
 			local pitems = {
 				"item_patreonbundle_1",
@@ -989,6 +1001,10 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 							local prshID = prsh:GetPlayerID()
 							if not prshID then
 								UTIL_Remove(hItem)
+								return false
+							end
+							if itemName == "item_patreon_courier" then
+								BlockToBuyCourier(prshID, hItem)
 								return false
 							end
 							local psets = Patreons:GetPlayerSettings(prshID)

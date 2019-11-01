@@ -332,5 +332,10 @@
 		"DOTA_Tooltip_ability_item_mute_custom_Lore"					"Тишина - это золото"
 
 		"fast_buy_items"					                            "Вы пока не можете купить это"
+
+		"cannotgiveiteminthiscourier"			                        "Вы не можете поместить вещи в этого курьера."
+		"alreadyhaveprivatecourier"			                            "У Вас уже есть приватный курьер."
+		"DOTA_Tooltip_ability_item_patreon_courier"                     "Private Courier"
+		"DOTA_Tooltip_ability_item_patreon_courier_Description"         "<h1>Активируемая: Deploy Private Courier</h1> Призывает курьера для доставки вещей с базы или на базу вашей команды. Управлять эти курьером можете только Вы. Только высокоуровневые поддержавшие (25$) могут использовать этот предмет."
 	}
 }

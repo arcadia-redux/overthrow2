@@ -1,6 +1,8 @@
 <root>
 	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/selection.js" />
+		<include src="file://{resources}/layout/custom_game/common/override_courier_ui.js" />
 		<include src="file://{resources}/layout/custom_game/common/display_error.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/creator.js" />
 	</scripts>

@@ -125,7 +125,22 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		newStats[player_id][name] = newStats[player_id][name] + 1
 	end
 
+	if spawnedUnit:IsCourier() then
+		local team = spawnedUnit:GetTeamNumber()
+		if _G.mainTeamCouriers[team] == nil then
+			_G.mainTeamCouriers[team] = spawnedUnit
+		end
+	end
+
 	if not spawnedUnit:IsRealHero() then return end
+	local playerId = spawnedUnit:GetPlayerID()
+	local psets = Patreons:GetPlayerSettings(playerId)
+
+	if psets.level > 1 and _G.personalCouriers[playerId] == nil then
+		Timers:CreateTimer(2.0, function()
+			CreatePrivateCourier(playerId, spawnedUnit, spawnedUnit:GetAbsOrigin())
+		end)
+	end
 
 	Timers:CreateTimer(1, function()
 		if spawnedUnit:HasModifier("modifier_silencer_int_steal") then
