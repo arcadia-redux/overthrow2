@@ -148,7 +148,6 @@ function Cosmetics:OnThink()
 		local pet_pos = pet:GetAbsOrigin()
 		local distance = ( owner_pos - pet_pos ):Length2D()
 		local owner_dir = owner:GetForwardVector()
-		local spawn_ability = pet:FindAbilityByName( "cosmetic_pet_spawn_anim" )
 		local dir = owner_dir * RandomInt( 110, 140 )
 
 		if owner:IsInvisible() and not pet:HasModifier( "modifier_cosmetic_pet_invisible" ) then
@@ -168,14 +167,18 @@ function Cosmetics:OnThink()
 			nil,
 			300,
 			DOTA_UNIT_TARGET_TEAM_ENEMY,
-			DOTA_UNIT_TARGET_HERO,
+			DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_CREEP,
 			DOTA_UNIT_TARGET_FLAG_NO_INVIS,
 			FIND_CLOSEST,
 			false
 		)[1]
 
-		if near and ( near:GetAbsOrigin() - pet_pos ):Length2D() < 70 then
-			HidePet( pet, 100 )
+		if near then
+			enemy_dis = ( near:GetAbsOrigin() - pet_pos ):Length2D()
+
+			if enemy_dis < 70 then
+				HidePet( pet, 100 )
+			end
 		end
 
 		if distance > 900 then
@@ -193,6 +196,8 @@ function Cosmetics:OnThink()
 
 			pet:SetAbsOrigin( owner_pos + r )
 			pet:SetForwardVector( owner_dir )
+
+			FindClearSpaceForUnit( pet, owner_pos + r, true )
 		elseif distance > 150 then
 			local right = RotatePosition( Vector( 0, 0, 0 ), QAngle( 0, RandomInt( 70, 110 ) * -1, 0 ), dir ) + owner_pos
 			local left = RotatePosition( Vector( 0, 0, 0 ), QAngle( 0, RandomInt( 70, 110 ), 0 ), dir ) + owner_pos
@@ -314,7 +319,7 @@ function Cosmetics:OnEntityKilled( keys )
 	local victim = EntIndexToHScript( keys.entindex_killed )
 	local killer = EntIndexToHScript( keys.entindex_attacker or -1 )
 
-	if killer then
+	if killer and victim:IsRealHero() and not victim:IsReincarnating() then
 		local id = killer:GetPlayerOwnerID()
 
 		if Cosmetics.playerKillEffects[id] then
@@ -424,13 +429,14 @@ function Cosmetics.SetHeroEffect( keys )
 			ParticleManager:ReleaseParticleIndex( pet_effect.particle )
 		end
 
+		Cosmetics.playerPetEffects[id] = {
+			index = index
+		}
+
 		if pet then
 			local c = Cosmetics.playerPetColors[id]
 
-			Cosmetics.playerPetEffects[id] = {
-				particle = CreateEffect( pet, effect, c and c.color or nil ),
-				index = index
-			}
+			Cosmetics.playerPetEffects[id].particle = CreateEffect( pet, effect, c and c.color or nil )
 		end
 	elseif keys.type == "courier" then
 		local team = PlayerResource:GetTeam( id )

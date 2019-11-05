@@ -9,3 +9,11 @@ function modifier_cosmetic_pet:CheckState()
 		[MODIFIER_STATE_NOT_ON_MINIMAP] = true
 	}
 end
+
+function modifier_cosmetic_pet:DeclareFunctions()
+	return { MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE }
+end
+
+function modifier_cosmetic_pet:GetModifierMoveSpeed_Absolute()
+	return self:GetParent():GetOwner():GetIdealSpeed()
+end
