@@ -512,3 +512,13 @@ function COverthrowGameMode:OnItemPickUp( event )
 		UTIL_Remove(item)
 	end
 end
+
+--------------------------------------------------------------------------------
+-- Event: OnNpcGoalReached
+--------------------------------------------------------------------------------
+function COverthrowGameMode:OnNpcGoalReached( event )
+	local npc = EntIndexToHScript( event.npc_entindex )
+	if npc:GetUnitName() == "npc_dota_treasure_courier" then
+		COverthrowGameMode:TreasureDrop( npc )
+	end
+end
