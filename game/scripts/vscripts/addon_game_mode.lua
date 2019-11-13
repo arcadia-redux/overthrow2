@@ -1112,7 +1112,11 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 end)
 
 votimer = {}
+voused = {}
 SelectVO = function(keys)
+	local psets = Patreons:GetPlayerSettings(keys.PlayerID)
+	if voused[keys.PlayerID] ~= nil and psets.level == 0 then return end
+	voused[keys.PlayerID] = true
 	print(keys.num)
 	local heroes = {
 		"abaddon",
