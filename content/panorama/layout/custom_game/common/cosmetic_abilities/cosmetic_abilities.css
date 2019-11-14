@@ -397,8 +397,8 @@
 }
 
 #PetsContainer {
-	width: 510px;
-	height: 245px;
+	width: 490px;
+	height: 230px; //245px;
 	flow-children: right-wrap;
 	overflow: squish scroll;
 	padding: 7px;
@@ -407,8 +407,8 @@
 }
 
 .Pet {
-	width: 90px;
-	height: 70px;
+	width: 150px; //90px;
+	height: 100px; //70px;
 	margin: 4px;
 	box-shadow: black 0px 0px 8px 0px;
 }
@@ -450,20 +450,21 @@
 }
 
 #SelectedPet {
-	height: 44px;
+	horizontal-align: right;//
+	height: 15px;//44px;
 	margin-top: 2px;
 	margin-bottom: 4px;
 }
 
-#CurrentPetImage {
-	width: 60px;
-	height: 45px;
-	box-shadow: black 0px 0px 8px 0px;
-}
-
-#Pets .CurrentText {
-	vertical-align: bottom;
-}
+//#CurrentPetImage {
+//	width: 60px;
+//	height: 45px;
+//	box-shadow: black 0px 0px 8px 0px;
+//}
+//
+//#Pets .CurrentText {
+//	vertical-align: bottom;
+//}
 
 #DeletePet {
 	margin-left: 4px;

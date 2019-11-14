@@ -75,32 +75,28 @@ function DeletePet() {
 }
 
 function UpdateCurrentPet( index ) {
-	if ( index == currentPetIndex ) {
-		return
-	}
-
 	if ( index ) {
-		var current = $( "#CurrentPetImage" )
+		//var current = $( "#CurrentPetImage" )
 
-		for ( var data of petsData ) {
-			if ( index == data.index ) {
-				current.SetImage( "file://{images}/" + data.image + ".png" )
-			} else if ( data.styles ) {
-				for ( var style of data.styles ) {
-					if ( index == style.index ) {
-						current.SetImage( "file://{images}/" + style.image + ".png" )
-					}
-				}
-			}
-		}
+		//for ( var data of petsData ) {
+		//	if ( index == data.index ) {
+		//		current.SetImage( "file://{images}/" + data.image + ".png" )
+		//	} else if ( data.styles ) {
+		//		for ( var style of data.styles ) {
+		//			if ( index == style.index ) {
+		//				current.SetImage( "file://{images}/" + style.image + ".png" )
+		//			}
+		//		}
+		//	}
+		//}
 
-		current.style.visibility = "visible"
+		//current.style.visibility = "visible"
 
-		$( "#PetNone" ).style.visibility = "collapse"
+		//$( "#PetNone" ).style.visibility = "collapse"
 		$( "#DeletePet" ).style.visibility = "visible"
 	} else {
-		$( "#PetNone" ).style.visibility = "visible"
-		$( "#CurrentPetImage" ).style.visibility = "collapse"
+		//$( "#PetNone" ).style.visibility = "visible"
+		//$( "#CurrentPetImage" ).style.visibility = "collapse"
 		$( "#DeletePet" ).style.visibility = "collapse"
 	}
 }

@@ -90,9 +90,9 @@
 						</Panel>
 						<Panel id="Pets">
 							<Panel id="SelectedPet" class="SelectedRow">
-								<Label class="CurrentText" text="Pet: " />
+							<!--<Label class="CurrentText" text="Pet: " />
 								<Label id="PetNone" class="None" text="none" />
-								<Image id="CurrentPetImage" style="visibility: collapse;" />
+								<Image id="CurrentPetImage" style="visibility: collapse;" />-->
 								<Button id="DeletePet" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeletePet()">
 									<Label text="Delete" />
 								</Button>

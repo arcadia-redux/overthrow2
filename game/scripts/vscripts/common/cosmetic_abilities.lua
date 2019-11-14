@@ -176,7 +176,7 @@ function Cosmetics:OnThink()
 		if near then
 			enemy_dis = ( near:GetAbsOrigin() - pet_pos ):Length2D()
 
-			if enemy_dis < 70 then
+			if enemy_dis < 70 and not pet.isHidden then
 				HidePet( pet, 100 )
 			end
 		end
