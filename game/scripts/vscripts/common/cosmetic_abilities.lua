@@ -339,7 +339,7 @@ function Cosmetics.AddAbility( keys )
 	elseif unit:FindAbilityByName( keys.ability ) then
 		return
 	elseif not IsInToolsMode() and patreon.level < abilitiyPatreonLevel[keys.ability] then
-		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
+		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( keys.PlayerID ), "display_custom_error", { message = "#nopatreonerror" } )
 		return
 	end
 
@@ -384,7 +384,7 @@ function Cosmetics.TryCastAbility( keys )
 	local patreon = Patreons:GetPlayerSettings( keys.PlayerID )
 
 	if patreon.level < abilitiyPatreonLevel[keys.ability] then
-		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
+		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( keys.PlayerID ), "display_custom_error", { message = "#nopatreonerror" } )
 	end
 end
 
