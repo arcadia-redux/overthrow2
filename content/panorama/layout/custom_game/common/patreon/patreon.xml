@@ -33,11 +33,7 @@
 		</Panel>
  		<Panel hittest="true" hittestchildren="true" id="PatreonWindow">
 			<Panel class="PatreonHeader">
-				<TextButton
-					class="PatreonCloseButton"
-					text="✖"
-					onactivate="OnPatreonButtonPressed()"
-				/>
+				<Button class="PatreonCloseButtonX" onactivate="OnPatreonButtonPressed()" />
 				<Label id="HeaderLabel" class="PatreonLabel" text="#patreon_perks"/>
 			</Panel>
 			<Panel class="SupporterEmblem">
@@ -120,11 +116,7 @@
 			</Panel>
 		</Panel>
 		<Panel hittest="true" id="PaymentWindow">
-			<TextButton
-				class="PatreonCloseButton"
-				text="✖"
-				onactivate="setPaymentWindowVisible(false)"
-			/>
+			<Button class="PatreonCloseButtonX" onactivate="setPaymentWindowVisible(false)" />
 
 			<HTML id="PaymentWindowBody" acceptsinput="true" />
 			<Panel id="PaymentWindowLoader">

@@ -84,6 +84,21 @@
 	font-weight: bold;
 	text-overflow: clip;
 }
+
+.PatreonCloseButtonX {
+	horizontal-align: right;
+	width: 24px;
+	height: 24px;
+	background-size: 100%;
+	margin: 2px;
+	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+}
+
+.PatreonHeader .PatreonCloseButtonX {
+	vertical-align: center;
+	margin-right: 5px;
+}
+
 .PatreonHeader > .PatreonCloseButton,
 #PaymentWindow > .PatreonCloseButton {
 	vertical-align: middle;
