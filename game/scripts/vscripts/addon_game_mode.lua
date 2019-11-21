@@ -1113,6 +1113,7 @@ end)
 
 votimer = {}
 voused = {}
+vousedcol = {}
 SelectVO = function(keys)
 	local psets = Patreons:GetPlayerSettings(keys.PlayerID)
 	if voused[keys.PlayerID] ~= nil and psets.level == 0 then return end
@@ -2692,19 +2693,22 @@ SelectVO = function(keys)
 				"zuus_zuus_rival_13",
 			}
 		}
+		if vousedcol[keys.PlayerID] == nil then vousedcol[keys.PlayerID] = 0 end
 		if votimer[keys.PlayerID] ~= nil then
-			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 then
+			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + votimer[keys.PlayerID] then
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 				EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
 				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
 				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
+				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 			EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
 			Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
+			vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 		end
 	end
 end
