@@ -743,7 +743,7 @@ function Cosmetics.SelectPet( keys )
 
 	if not pet_data then
 		return
-	elseif not IsInToolsMode() and patreon.level < 2 then
+	elseif not IsInToolsMode() and patreon.level < 1 then
 		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
 		return
 	end
