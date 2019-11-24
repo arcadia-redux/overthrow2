@@ -1116,7 +1116,10 @@ voused = {}
 vousedcol = {}
 SelectVO = function(keys)
 	local psets = Patreons:GetPlayerSettings(keys.PlayerID)
-	if voused[keys.PlayerID] ~= nil and psets.level == 0 then return end
+	if voused[keys.PlayerID] ~= nil and psets.level == 0 then
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown" })
+		return
+	end
 	voused[keys.PlayerID] = true
 	Timers:CreateTimer( 240, function() voused[keys.PlayerID] = nil end)
 	print(keys.num)
@@ -2702,6 +2705,8 @@ SelectVO = function(keys)
 				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
+			else
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown" })
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")

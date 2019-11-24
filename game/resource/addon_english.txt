@@ -245,6 +245,7 @@
 		"DOTA_Tooltip_Ability_warlock_fatal_bonds_balanced_Lore"						"#DOTA_Tooltip_Ability_warlock_fatal_bonds_Lore"
 
 		//Chat Wheel
+		"wheel_cooldown"					"Cooldown"
 		"announcers"						"Announcers"
 		"englishannouncer"					"English Announcer"
 		"englishannouncer2"					"English Announcer 2"
