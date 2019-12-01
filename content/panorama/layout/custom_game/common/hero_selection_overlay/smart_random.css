@@ -9,30 +9,29 @@
 	brightness: 0.9;
 }
 
-.SmartRandomButton:not(.OnCooldown):hover
+.SmartRandomButton:not(.IsError):hover
 {
 	saturation: 1.4;
 	brightness: 1.3;
 }
 
-.SmartRandomButton:not(.OnCooldown):active
+.SmartRandomButton:not(.IsError):active
 {
 	saturation: 1.3;
 	brightness: 1.1;
 }
 
-/* FIXME: Potential exploit */
-#PreGame:not(.DOTA_GAMERULES_STATE_HERO_SELECTION) .SmartRandomButton,
-.IsInBanPhase .SmartRandomButton,
-.SmartRandomButton.NoStats
-{
-	visibility: collapse;
-}
-
-.SmartRandomButton.OnCooldown
+.SmartRandomButton.IsError
 {
 	saturation: 0.4;
 	brightness: 0.2;
+}
+
+/* FIXME: Potential exploit */
+#PreGame:not(.DOTA_GAMERULES_STATE_HERO_SELECTION) .SmartRandomButton,
+.IsInBanPhase .SmartRandomButton
+{
+	visibility: collapse;
 }
 
 .SmartRandomButton Label

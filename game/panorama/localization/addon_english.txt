@@ -7,6 +7,7 @@
 	"smart_random_button"							"SMART RANDOM"
 	"smart_random_tooltip_ready"					"Randomly pick from one of your most used heroes"
 	"smart_random_tooltip_cooldown"					"You can use Smart Random only once per 24 hours. Support us to remove the cooldown!"
+	"smart_random_tooltip_no_stats"					"You need to play at least 3 matches to have access to this feature"
 
 	"player_stats_title"							"Your statistics for {s:map_name}"
 	"player_stats_wins_loses"						"Wins/Loses: "

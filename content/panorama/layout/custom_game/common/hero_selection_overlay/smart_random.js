@@ -7,10 +7,10 @@ function getAllHeroCards() {
 var smartRandomStatus;
 
 function Activate() {
-	if (smartRandomStatus == 'cooldown') {
-		$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
-	} else {
+	if (Array.isArray(smartRandomStatus)) {
 		GameEvents.SendCustomGameEventToServer("smart_random_hero", {});
+	} else {
+		$.DispatchEvent('ExternalBrowserGoToURL', 'https://www.patreon.com/dota2unofficial');
 	}
 }
 
@@ -36,8 +36,7 @@ function OnMouseOut() {
 function updateSmartRandomStatus(newStatus) {
 	smartRandomStatus = newStatus;
 	if (typeof smartRandomStatus === 'object') smartRandomStatus = Object.values(smartRandomStatus);
-	$.GetContextPanel().SetHasClass('NoStats', smartRandomStatus === 'no_stats');
-	$.GetContextPanel().SetHasClass('OnCooldown', smartRandomStatus === 'cooldown');
+	$.GetContextPanel().SetHasClass('IsError', !Array.isArray(smartRandomStatus));
 }
 
 updateSmartRandomStatus('no_stats');
