@@ -94,7 +94,7 @@ function Ability( slot, abilityName ) {
 
 		deleteButton.SetPanelEvent( "onactivate", function() {
 			if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
-				GameEvents.SendCustomGameEventToServer( "cosmetic_abilities_delete", { unit: currentUnit, ability: abilityName } )
+				GameEvents.SendCustomGameEventToServer( "cosmetics_remove_ability", { unit: currentUnit, ability: abilityName } )
 			}
 		} )
 	} 
