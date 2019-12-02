@@ -51,9 +51,11 @@ WebApi.customGame = "Overthrow"
 
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
+
+LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -706,8 +708,8 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		["item_mute_custom"] = true,
 	}
 
-	if _G.personalCouriers[playerId] then
-		filterTable = EditFilterToCourier(filterTable, playerId, ability)
+	if filterTable then
+		filterTable = EditFilterToCourier(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
