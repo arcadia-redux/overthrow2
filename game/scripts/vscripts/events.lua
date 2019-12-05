@@ -147,6 +147,10 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			spawnedUnit:RemoveModifierByName('modifier_silencer_int_steal')
 			spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_silencer_new_int_steal", {})
 		end
+
+		if not spawnedUnit:FindAbilityByName("center_chest_channel") then
+			spawnedUnit:AddAbility("center_chest_channel"):SetLevel(1)
+		end
 	end)
 
 	if GetMapName() == "desert_octet" and spawnedUnit:GetName() == "npc_dota_hero_warlock" then
@@ -514,7 +518,14 @@ function COverthrowGameMode:OnItemPickUp( event )
 		if not owner:HasInventory() or owner:GetUnitName() == "npc_dota_hero_meepo" then
 			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
 		end
-		COverthrowGameMode:SpecialItemAdd(item, owner)
+		COverthrowGameMode:SpecialItemAdd(owner)
+		UTIL_Remove(item)
+	elseif event.itemname == "item_center_chest" then
+		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
+		if not owner:HasInventory() or owner:GetUnitName() == "npc_dota_hero_meepo" then
+			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
+		end
+		COverthrowGameMode:CenterItemAdd(owner)
 		UTIL_Remove(item)
 	elseif event.itemname == "item_core_pumpkin" then
 		for _, spawner in ipairs(self.pumpkin_spawns) do
