@@ -67,15 +67,9 @@ function COverthrowGameMode:AddGoldenCoin(owner)
 end
 
 function COverthrowGameMode:SpecialItemAdd(item, owner)
-	local hero = owner:GetClassname()
-	local ownerTeam = owner:GetTeamNumber()
+	local tier = {}
 
-	local sortedTeams = self:GetSortedTeams()
-	local leader = sortedTeams[1].team
-	local lastPlace = sortedTeams[#sortedTeams].team
-
-	local tier1 =
-	{
+	tier[1] =	{
 		"item_urn_of_shadows",
 		"item_ring_of_basilius",
 		"item_ring_of_aquila",
@@ -86,10 +80,15 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 		"item_medallion_of_courage",
 		"item_soul_ring",
 		"item_gem",
-		"item_orb_of_venom"
+		"item_orb_of_venom",
+
+		"item_grove_bow",
+		"item_imp_claw",
+		"item_nether_shawl",
+		"item_clumsy_net",
 	}
-	local tier2 =
-	{
+
+	tier[2] =	{
 		"item_blink",
 		"item_force_staff",
 		"item_cyclone",
@@ -107,9 +106,15 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 
 		"item_kaya",
 		"item_meteor_hammer",
+
+		"item_enchanted_quiver",
+		"item_helm_of_the_undying",
+		"item_paladin_sword",
+		"item_mind_breaker",
+		"item_titan_sliver",
 	}
-	local tier3 =
-	{
+
+	tier[3] =	{
 		"item_shivas_guard",
 		"item_sphere",
 		"item_diffusal_blade",
@@ -132,9 +137,15 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 		"item_aeon_disk",
 		"item_hurricane_pike",
 		"item_spirit_vessel",
+
+		"item_flicker",
+		"item_minotaur_horn",
+		"item_princes_knife",
+		"item_spell_prism",
+		"item_timeless_relic",
 	}
-	local tier4 =
-	{
+
+	tier[4] =	{
 		"item_skadi",
 		"item_sange_and_yasha",
 		"item_greater_crit",
@@ -153,32 +164,48 @@ function COverthrowGameMode:SpecialItemAdd(item, owner)
 		"item_rapier",
 
 		"item_bloodthorn",
+
+		"item_fusion_rune",
+		"item_force_boots",
+		"item_trident",
+		"item_fallen_sky",
+		"item_mirror_shield",
+		"item_pirate_hat",
+		"item_woodland_striders",
 	}
 
-	local group
-	if GetTeamHeroKills( leader ) > 5 and GetTeamHeroKills( leader ) <= 10 then
-		if ownerTeam == leader and ( self.leadingTeamScore - self.runnerupTeamScore > 3 ) then
-			group = tier1
-		elseif ownerTeam == lastPlace then
-			group = tier3
-		else
-			group = tier2
+	local hero = owner:GetClassname()
+	local ownerTeam = owner:GetTeamNumber()
+	local sortedTeams = self:GetSortedTeams()
+
+	local item_tier = 1
+
+	for i = 1, #sortedTeams do
+		if sortedTeams[i].team == ownerTeam then
+			if i <= (1 + math.max(#sortedTeams - 3, 0) / 3) then
+			elseif i >= (#sortedTeams - math.max(#sortedTeams - 3, 0) / 3) then
+				item_tier = item_tier + 2
+				print("+2 item tier: losing team")
+			else
+				item_tier = item_tier + 1
+				print("+1 item tier: not leading team")
+			end
 		end
-	elseif GetTeamHeroKills( leader ) > 10 and GetTeamHeroKills( leader ) <= 15 then
-		if ownerTeam == leader and ( self.leadingTeamScore - self.runnerupTeamScore > 3 ) then
-			group = tier2
-		elseif ownerTeam == lastPlace then
-			group = tier4
-		else
-			group = tier3
-		end
-	else
-		group = tier2
 	end
+
+	if self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN * 2 / 3) then
+		item_tier = item_tier + 2
+		print("+2 item tier: close to end")
+	elseif self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN / 3) then
+		item_tier = item_tier + 1
+		print("+1 item tier: not far from end")
+	end
+
+	item_tier = math.min(item_tier, 4)
 
 	local spawnedItem
 	while true do
-		spawnedItem = group[RandomInt(1, #group)]
+		spawnedItem = tier[item_tier][RandomInt(1, #tier[item_tier])]
 		if not owner:HasItemInInventory(spawnedItem) then break end
 	end
 
