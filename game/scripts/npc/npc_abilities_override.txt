@@ -441,4 +441,154 @@
 		"AbilityCastRange"				"300"
 		"AbilityCooldown"				"170 160 150 140"
 	}
+
+	//=================================================================================================================
+	//	Neutral items
+	//=================================================================================================================
+	"item_grove_bow"
+	{
+		"ItemCost"						"600"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_imp_claw"
+	{
+		"ItemCost"						"800"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_nether_shawl"
+	{
+		"ItemCost"						"750"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_clumsy_net"
+	{
+		"ItemCost"						"1000"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_enchanted_quiver"
+	{
+		"ItemCost"						"1200"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_helm_of_the_undying"
+	{
+		"ItemCost"						"2500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_paladin_sword"
+	{
+		"ItemCost"						"1500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_mind_breaker"
+	{
+		"ItemCost"						"2500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_titan_sliver"
+	{
+		"ItemCost"						"2250"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_flicker"
+	{
+		"ItemCost"						"3500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_minotaur_horn"
+	{
+		"ItemCost"						"2500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_princes_knife"
+	{
+		"ItemCost"						"3250"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_spell_prism"
+	{
+		"ItemCost"						"3500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_timeless_relic"
+	{
+		"ItemCost"						"3500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_fusion_rune"
+	{
+		"ItemCost"						"4000"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_force_boots"
+	{
+		"ItemCost"						"7500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_trident"
+	{
+		"ItemCost"						"7000"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_fallen_sky"
+	{
+		"ItemCost"						"7500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_mirror_shield"
+	{
+		"ItemCost"						"8000"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_pirate_hat"
+	{
+		"ItemCost"						"7500"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
+
+	"item_woodland_striders"
+	{
+		"ItemCost"						"7000"
+		"ItemPurchasable"				"0"
+		"ItemSellable"					"1"
+	}
 }
