@@ -36,9 +36,9 @@
 					</Button>
 				</Panel>
 				<Panel id="CosmeticContainer">
-					<Panel id="AnimationPanel">
-						<Panel id="AnimationContainer"></Panel>
-						<Panel id="BorderAnimation" />
+					<Panel id="Preview">
+						<Image id="PreviewImage" />
+						<Panel id="PreviewBorder" />
 					</Panel>
 					<Panel id="Cosmetics">
 						<Panel id="AbilitiesContainer"></Panel>
