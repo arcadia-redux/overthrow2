@@ -6,5 +6,10 @@ function ThrowCoin( args )
 		coinSpawn = args.caster:GetAttachmentOrigin( coinAttach )
 	end
 --	print( coinSpawn )
-	GameRules:GetGameModeEntity().COverthrowGameMode:SpawnGoldEntity( coinSpawn )
+
+	if RandomInt(1, 7) == 1 then
+		GameRules:GetGameModeEntity().COverthrowGameMode:LaunchCenterTreasure( coinSpawn )
+	else
+		GameRules:GetGameModeEntity().COverthrowGameMode:SpawnGoldEntity( coinSpawn )
+	end
 end

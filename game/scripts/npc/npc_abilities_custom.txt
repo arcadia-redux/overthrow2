@@ -981,7 +981,20 @@
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
 	}	
 
-	//-------------------------------------------------------------------------------------------------------------
+	"center_chest_channel"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"abilities/heroes/center_chest_channel"
+		"MaxLevel"						"1"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING"
+		"AbilityTextureName"			"attribute_bonus"
 
+		"MaxLevel"						"1"
+		"AbilityCastPoint"				"0.0"
+		"AbilityChannelTime"			"2.5"
+		"AbilityCooldown"				"0.01"
+		"AbilityManaCost"				"0"
 
+		"AbilityCastAnimation"			"ACT_DOTA_GENERIC_CHANNEL_1"
+	}
 }

@@ -31,6 +31,18 @@
 		"new_stat_wards"											"Wards sentries/obsrvrs"
 		"new_stat_killed_heroes"									"Killed enemies"
 
+		"pre_battleground_victory"									""
+		"post_battleground_victory"									" wins!"
+
+		"battleground_countdown_30"									"Game will be starting in 30 seconds!"
+		"battleground_countdown_20"									"Game will be starting in 20 seconds!"
+		"battleground_countdown_10"									"Game will be starting in 10 seconds!"
+		"battleground_countdown_5"									"5 seconds!"
+		"battleground_countdown_3"									"3..."
+		"battleground_countdown_2"									"2..."
+		"battleground_countdown_1"									"1..."
+		"battleground_countdown_start"								"Game starting!"
+
 		"DOTA_Tooltip_modifier_get_xp"					"Golden Aura"
 		"DOTA_Tooltip_modifier_get_xp_Description"		"Gaining more gold and experience!"
 
@@ -50,6 +62,7 @@
 
 		"DOTA_Tooltip_ability_item_bag_of_gold"			"300 Gold"
 		"DOTA_Tooltip_ability_item_treasure_chest"		"Treasure Chest"
+		"DOTA_Tooltip_ability_item_center_chest"		"Treasure Chest"
 		"DOTA_Tooltip_ability_item_core_pumpkin"		"Pumpkin"
 		"DOTA_Tooltip_modifier_core_pumpkin_regeneration"		"Pumpkin Regeneration"
 		"DOTA_Tooltip_modifier_core_pumpkin_regeneration_Description"		"Regenerates %dMODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE%%% health and %dMODIFIER_PROPERTY_MANA_REGEN_TOTAL_PERCENTAGE%%% mana per second."
@@ -245,7 +258,6 @@
 		"DOTA_Tooltip_Ability_warlock_fatal_bonds_balanced_Lore"						"#DOTA_Tooltip_Ability_warlock_fatal_bonds_Lore"
 
 		//Chat Wheel
-		"wheel_cooldown"					"Cooldown"
 		"announcers"						"Announcers"
 		"englishannouncer"					"English Announcer"
 		"englishannouncer2"					"English Announcer 2"

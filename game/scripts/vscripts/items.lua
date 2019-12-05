@@ -36,6 +36,15 @@ function COverthrowGameMode:SpawnGoldEntity( spawnPoint )
 	newItem:SetContextThink( "KillLoot", function() return self:KillLoot( newItem, drop ) end, 20 )
 end
 
+function COverthrowGameMode:LaunchCenterTreasure( spawnPoint )
+	EmitGlobalSound("Item.PickUpGemWorld")
+	local newItem = CreateItem( "item_center_chest", nil, nil )
+	local drop = CreateItemOnPositionForLaunch( spawnPoint, newItem )
+	local dropRadius = RandomFloat( self.m_GoldRadiusMin, self.m_GoldRadiusMax )
+	newItem:LaunchLootInitialHeight( false, 0, 500, 0.75, spawnPoint + RandomVector( dropRadius ) )
+	newItem:SetContextThink( "KillLoot", function() return self:KillLoot( newItem, drop ) end, 20 )
+end
+
 
 --Removes Bags of Gold after they expire
 function COverthrowGameMode:KillLoot( item, drop )
@@ -66,7 +75,28 @@ function COverthrowGameMode:AddGoldenCoin(owner)
 	SendOverheadEventMessage(owner, OVERHEAD_ALERT_GOLD, owner, gold, nil)
 end
 
-function COverthrowGameMode:SpecialItemAdd(item, owner)
+function COverthrowGameMode:CenterItemAdd(owner)
+	if owner:FindAbilityByName("center_chest_channel") and owner.GetPlayerID and owner:GetPlayerID() then
+		local ability = owner:FindAbilityByName("center_chest_channel")
+		local channel_time = 0
+		ability:SetChanneling(true)
+		owner:AddNewModifier(owner, nil, "modifier_center_chest_channel", {duration = 2.5})
+		Timers:CreateTimer(0.03, function()
+			if owner:IsStunned() or owner:IsSilenced() or owner:IsHexed() or owner:IsOutOfGame() or (not owner:IsAlive()) then
+				ability:EndChannel(true)
+			else
+				channel_time = channel_time + 0.03
+				if channel_time >= 2.5 then
+					ability:EndChannel(false)
+				else
+					return 0.03
+				end
+			end
+		end)
+	end
+end
+
+function COverthrowGameMode:SpecialItemAdd(owner)
 	local tier = {}
 
 	tier[1] =	{
