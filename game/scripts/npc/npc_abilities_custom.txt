@@ -991,7 +991,7 @@
 
 		"MaxLevel"						"1"
 		"AbilityCastPoint"				"0.0"
-		"AbilityChannelTime"			"2.5"
+		"AbilityChannelTime"			"5.0"
 		"AbilityCooldown"				"0.01"
 		"AbilityManaCost"				"0"
 

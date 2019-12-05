@@ -80,13 +80,13 @@ function COverthrowGameMode:CenterItemAdd(owner)
 		local ability = owner:FindAbilityByName("center_chest_channel")
 		local channel_time = 0
 		ability:SetChanneling(true)
-		owner:AddNewModifier(owner, nil, "modifier_center_chest_channel", {duration = 2.5})
+		owner:AddNewModifier(owner, nil, "modifier_center_chest_channel", {duration = 5.0})
 		Timers:CreateTimer(0.03, function()
 			if owner:IsStunned() or owner:IsSilenced() or owner:IsHexed() or owner:IsOutOfGame() or (not owner:IsAlive()) then
 				ability:EndChannel(true)
 			else
 				channel_time = channel_time + 0.03
-				if channel_time >= 2.5 then
+				if channel_time >= 5.0 then
 					ability:EndChannel(false)
 				else
 					return 0.03
