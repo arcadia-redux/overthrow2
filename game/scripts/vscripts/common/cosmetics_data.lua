@@ -227,6 +227,12 @@ Cosmetics.heroEffects = {
 		attach_type = "renderorigin_follow",
 		resource = "particles/econ/courier/courier_trail_orbit",
 		system = "particles/econ/courier/courier_trail_orbit/courier_trail_orbit.vpcf"
+	},
+	[23] = {
+		attach_entity = "parent",
+		attach_type = "absorigin_follow",
+		system = "particles/econ/events/ti8/custom_hero_effect.vpcf",
+		color_point = 9
 	}
 }
 
