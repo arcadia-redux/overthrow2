@@ -19,6 +19,7 @@ heroEffects[18] = "#Attrib_Particle157"
 heroEffects[20] = "#Attrib_Particle46"
 heroEffects[21] = "#Attrib_Particle74"
 heroEffects[22] = "#Attrib_Particle158"
+heroEffects[23] = "Supporter Emblem"
 
 var prismaticColors = []
 prismaticColors[1] = { name: "#UnusualShips", r: 25, g: 25, b: 112 }

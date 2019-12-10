@@ -774,6 +774,18 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		end
 	end
 
+	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM and unit and unit:IsRealHero() and ( Patreons:GetPlayerSettings( unit:GetPlayerID() ).level > 0 or IsInToolsMode() ) then
+		if ability and ability:IsItem() and target and target:HasInventory() then
+			unit:DropItemAtPositionImmediate( ability, target:GetAbsOrigin() + target:GetForwardVector() )
+			Timers:CreateTimer( 0, function()
+				ability:GetContainer():Destroy()
+				target:AddItem( ability )
+			end )
+
+			return false
+		end
+	end
+
 	return true
 end
 
