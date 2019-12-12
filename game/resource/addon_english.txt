@@ -31,6 +31,8 @@
 		"new_stat_wards"											"Wards sentries/obsrvrs"
 		"new_stat_killed_heroes"									"Killed enemies"
 
+		"item_choice_header"										"Choose an item!"
+
 		"pre_battleground_victory"									""
 		"post_battleground_victory"									" wins!"
 

@@ -23,6 +23,10 @@
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_TOP_BAR_BACKGROUND, false );
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_FLYOUT_SCOREBOARD, false );
 
+		if (Game.GetMapInfo().map_display_name == "battleground") {
+			//GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ACTION_MINIMAP, false );
+		}
+
 		GameUI.SetDefaultUIEnabled( DotaDefaultUIElement_t.DOTA_DEFAULT_UI_ENDGAME, false );
 
 		GameUI.CustomUIConfig().team_colors = {}
@@ -76,5 +80,6 @@
 		<CustomUIElement type="GameInfo" 			layoutfile="file://{resources}/layout/custom_game/overthrow_game_info.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/patreon/patreon.xml"/>
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/overthrow_item_choice.xml" />
 	</Panel>
 </root>
