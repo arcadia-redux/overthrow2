@@ -261,6 +261,9 @@ function COverthrowGameMode:SpecialItemAdd(owner)
 end
 
 function COverthrowGameMode:StartItemPick(owner, items)
+	if (not owner:IsRealHero()) and owner:GetOwnerEntity() then
+		owner = owner:GetOwnerEntity()
+	end
 	local player_id = owner:GetPlayerID()
 	if PlayerResource:IsValidPlayer(player_id) then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "overthrow_item_choice", items)
