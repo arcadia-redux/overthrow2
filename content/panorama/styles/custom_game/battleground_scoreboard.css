@@ -1,32 +1,20 @@
 #BGScore
 {
-	width: 180px;
-	x: 1810px;
-	y: 45px;
-	flow-children: down;
-	border-radius: 12px;
+	horizontal-align: center;
+	margin-top: 6px;
+	flow-children: right;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #000000B0 ), to( #000000E0 ) );
-	box-shadow: #000000ff -4px -4px 10px 8px;
+	box-shadow: #000000ff -5px -5px 10px 10px;
 	visibility: collapse;
-	z-index: -10;
-}
-
-.AspectRatio4x3  #BGScore
-{
-	x: 1330px;
-}
-
-.AspectRatio16x10  #BGScore
-{
-	x: 1618px;
 }
 
 .BGScoreRow
 {
 	margin-top: 4px;
-	margin-bottom: 4px;
-	margin-left: 6px;
-	flow-children: right;
+	margin-bottom: 2px;
+	margin-left: 4px;
+	margin-right: 4px;
+	flow-children: up;
 }
 
 #BGScoreLabel1
@@ -36,11 +24,12 @@
 
 .BGScoreLabel
 {
-	width: 38px;
+	margin-top: 4px;
 	color: #FFFFFFFF;
 	vertical-align: center;
+	horizontal-align: center;
 	text-align: center;
-	font-size: 24;
+	font-size: 18;
 	font-weight: bold;
 	font-family: "DejaVu Sans";
 	text-shadow: 2px 2px 8px 3.0 #000000FF;
@@ -48,11 +37,9 @@
 
 .BGScoreHeroIcon
 {
-	height: 30px;
-	margin-left: 6px;
-	horizontal-align: left;
+	height: 28px;
 	vertical-align: center;
-	box-shadow: #000000ff -2px -2px 4px 4px;
+	box-shadow: #000000ff -3px -3px 8px 6px;
 }
 
 .disconnected

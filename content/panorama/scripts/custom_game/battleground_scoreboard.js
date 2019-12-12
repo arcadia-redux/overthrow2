@@ -5,9 +5,6 @@
 		FindDotaHudElement("ToggleScoreboardButton").style.visibility = 'collapse';
 		GameEvents.Subscribe("battleground_show_scoreboard", ShowBattlegroundScoreboard);
 		CustomNetTables.SubscribeNetTableListener("battleground_scoreboard", UpdateBattlegroundScoreboard);
-
-		var shop_button = FindDotaHudElement("ShopButton");
-		$.RegisterEventHandler("DOTAHUDToggleShop", shop_button, ToggleScoreboardVisibility);
 	}
 })();
 
@@ -37,16 +34,6 @@ function UpdateBattlegroundScoreboard(keys) {
 			}
 		} else {
 			$('#BGScoreRow' + i).style.visibility = 'collapse'
-		}
-	}
-}
-
-function ToggleScoreboardVisibility() {
-	if (Game.GetDOTATime(false, true) > 0) {
-		if ($("#BGScore").style.visibility == 'visible') {
-			$("#BGScore").style.visibility = 'collapse';
-		} else {
-			$("#BGScore").style.visibility = 'visible';
 		}
 	}
 }

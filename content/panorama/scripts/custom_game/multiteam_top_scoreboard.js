@@ -4,9 +4,13 @@ var g_ScoreboardHandle = null;
 
 function UpdateScoreboard()
 {
-	ScoreboardUpdater_SetScoreboardActive( g_ScoreboardHandle, true );
+	if (Game.GetMapInfo().map_display_name == "battleground") {
+		$("#MultiteamScoreboard").style.visibility = 'collapse';
+	} else {
+		ScoreboardUpdater_SetScoreboardActive( g_ScoreboardHandle, true );
 
-	$.Schedule( 0.2, UpdateScoreboard );
+		$.Schedule( 0.2, UpdateScoreboard );
+	}
 }
 
 (function()
