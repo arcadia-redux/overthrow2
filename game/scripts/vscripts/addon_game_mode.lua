@@ -974,6 +974,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				"item_patreonbundle_2"
 			}
 
+			local psets = Patreons:GetPlayerSettings(plyID)
 			local pitem = false
 			for i=1,#pitems do
 				if itemName == pitems[i] then
@@ -982,7 +983,6 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 			end
 			if pitem == true then
-				local psets = Patreons:GetPlayerSettings(plyID)
 				if psets.level < 1 then
 					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
 					UTIL_Remove(hItem)
@@ -1000,6 +1000,20 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 			if itemName == "item_patreon_courier" then
 				BlockToBuyCourier(plyID, hItem)
 				return false
+			end
+			
+			if psets.level > 0 then
+				Timers:CreateTimer( 0.01, function()
+					for i=10,15 do
+						if hInventoryParent:GetItemInSlot(i) == hItem then
+							for x=0,9 do
+								if hInventoryParent:GetItemInSlot(x) == nil then
+									hInventoryParent:SwapItems(i,x)
+								end
+							end
+						end
+					end
+				end)
 			end
 		else
 			local pitems = {
