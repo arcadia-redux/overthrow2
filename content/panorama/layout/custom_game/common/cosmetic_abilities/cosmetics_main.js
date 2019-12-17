@@ -70,18 +70,15 @@ CustomNetTables.SubscribeNetTableListener( "cosmetics", function( _, k, v ) {
 		currentEffects.hero = v.hero_effect
 		currentEffects.pet = v.pet_effect
 		currentEffects.wards = v.wards_effect
+		currentEffects.courier = v.courier_effect
 		UpdateCurrentHeroEffect( currentEffects[selectedEffectType] )
 		currentColors.hero = v.hero_color
 		currentColors.pet = v.pet_color
 		currentColors.wards = v.wards_color
+		currentColors.courier = v.courier_color
 		UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 		UpdateCurrentKillEffect( v.kill_effects )
 		UpdateCurrentPet( v.pet )
 		UpdateSaveButton( v.saved )
-	} else if ( k == "team_" + Players.GetTeam( Players.GetLocalPlayer() ) ) {
-		currentEffects.courier = v.courier_effect
-		currentColors.courier = v.courier_color
-		UpdateCurrentHeroEffect( currentEffects[selectedEffectType] )
-		UpdateCurrentEffectColor( currentColors[selectedEffectType] )
 	}
 } )

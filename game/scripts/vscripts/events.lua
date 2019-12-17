@@ -232,30 +232,48 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		spawnedUnit:SetContextThink("AddCourier", function()
 			if self.couriers[unitTeam] then return end
 			self.couriers[unitTeam] = true
-			local firstSlotItem = spawnedUnit:GetItemInSlot(DOTA_ITEM_SLOT_1)
-			if firstSlotItem then spawnedUnit:TakeItem(firstSlotItem) end
+--			local firstSlotItem = spawnedUnit:GetItemInSlot(DOTA_ITEM_SLOT_1)
+--			if firstSlotItem then spawnedUnit:TakeItem(firstSlotItem) end
+--
+--			local playerId = spawnedUnit:GetPlayerID()
+--			local courier = spawnedUnit:AddItemByName("item_courier")
+--			if courier then
+--				spawnedUnit:CastAbilityImmediately(courier, playerId)
+--			end
 
-			local playerId = spawnedUnit:GetPlayerID()
-			local courier = spawnedUnit:AddItemByName("item_courier")
-			if courier then
-				spawnedUnit:CastAbilityImmediately(courier, playerId)
-			end
+			Timers:CreateTimer(2, function()
+				local courier_spawn = spawnedUnit:GetAbsOrigin() + RandomVector(RandomFloat(100, 100))
+				local cr = CreateUnitByName("npc_dota_courier", courier_spawn, true, nil, nil, unitTeam)
 
-			spawnedUnit:SetContextThink("AddCourierUpgrade", function()
 				if GetMapName() == "core_quartet" then
-					for _,courier in ipairs(Entities:FindAllByClassname("npc_dota_courier")) do
-						local owner = courier:GetOwner()
-						if IsValidEntity(owner) and owner:GetPlayerID() == playerId then
-							courier:SetOwner(nil)
-							courier:UpgradeToFlyingCourier()
-							courier:AddNewModifier(courier, nil, "modifier_core_courier", nil)
+					cr:AddNewModifier(cr, nil, "modifier_courier_quartet", nil)
+				else
+					cr:AddNewModifier(cr, nil, "modifier_core_courier", {})
+				end
+				Timers:CreateTimer(0.1, function()
+					for i = 0, 24 do
+						local temp_ply = PlayerResource:GetPlayer(i)
+						if (temp_ply and IsValidEntity(temp_ply)) then
+							Timers:CreateTimer(.1, function()
+								if (temp_ply:GetTeamNumber() == cr:GetTeamNumber()) then
+									cr:SetControllableByPlayer(i, true)
+								end
+							end)
 						end
 					end
-				end
-				if firstSlotItem then
-					spawnedUnit:AddItem(firstSlotItem)
-				end
-			end, 0)
+				end)
+			end)
+
+--			spawnedUnit:SetContextThink("AddCourierUpgrade", function()
+--				if GetMapName() == "core_quartet" then
+--					for _,courier in ipairs(Entities:FindAllByClassname("npc_dota_courier")) do
+--						courier:AddNewModifier(courier, nil, "modifier_courier_quartet", nil)
+--					end
+--				end
+--				if firstSlotItem then
+--					spawnedUnit:AddItem(firstSlotItem)
+--				end
+--			end, 0)
 		end, 0)
 
 		spawnedUnit.firstTimeSpawned = true

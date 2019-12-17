@@ -1,40 +1,73 @@
-var hasPatreonStatus = false;
+var hasPatreonStatus = true;
 var isPatron = false;
-var nowselected = $('#ColourWhite');
+var patreonLevel = 0
+var patreonPerks = []
+
+$( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
+
+class PatreonPerk {
+	constructor( name, level, overrideImage ) {
+		this.panel = $.CreatePanel( "Panel", $( "#PatreonPerksContainer" ), "" )
+		this.panel.BLoadLayoutSnippet( "PatreonPerk" )
+
+		this.panel.FindChildTraverse( "PatreonPerkImage" ).SetImage( overrideImage || "file://{resources}/layout/custom_game/common/patreon/perks/" + name + ".png" )
+
+		this.panel.FindChildTraverse( "PatreonPerkTitle" ).text = $.Localize( "#" + name )
+		this.panel.FindChildTraverse( "PateonPerkDescription" ).text = $.Localize( "#" + name + "_description" )
+
+		this.access = this.panel.FindChildTraverse( "PatreonPerkAccess" )
+		this.level = level
+		this.UpdateLevel()
+
+		patreonPerks.push( this )
+	}
+
+	UpdateLevel() {
+		if ( patreonLevel >= this.level ) {
+			this.access.text = $.Localize( "available_perk" )
+			this.access.SetHasClass( "Available", true )
+		} else {
+			if ( this.level < 2 ) {
+				this.access.text = ""
+			} else {
+				this.access.text = $.Localize( "high_tier_supporter_perk" )
+			}
+			this.access.SetHasClass( "Available", false )
+		}
+	}
+}
+
+class FreeBoots extends PatreonPerk {
+	constructor() {
+		super( "boots_free", 1 )
+
+		this.button = $.CreatePanel( "ToggleButton", this.panel.FindChildTraverse( "PatreonPerkAdditional" ), "" )
+		this.button.text = $.Localize( "#boots_enable" )
+		this.button.style["margin-top"] = "18px"
+
+		let btn = this.button
+
+		this.button.SetPanelEvent( "onactivate", function() {
+			if ( isPatron ) {
+				GameEvents.SendCustomGameEventToServer( "patreon_toggle_boots", { enabled: !!btn.checked } )
+			}
+		} )
+	}
+
+	Enable( bool ) {
+		this.button.checked = bool
+	}
+}
+
+function Divider() {
+	let panel = $.CreatePanel( "Panel", $( "#PatreonPerksContainer" ), "" )
+	panel.AddClass( "Divider" )
+}
 
 function OnPatreonButtonPressed() {
     var panel = $('#PatreonWindow');
 
     panel.visible = !panel.visible;
-}
-
-function ToggleEmblem() {
-	if (isPatron) {
-		var isEnabled = !!$('#SupporterEmblemEnableDisable').checked;
-        GameEvents.SendCustomGameEventToServer('patreon_toggle_emblem', {enabled: isEnabled});
-    }
-}
-
-function BootsEnableToggle() {
-	if (isPatron) {
-		var isEnabled = !!$('#FreeBootsEnableDisable').checked;
-        GameEvents.SendCustomGameEventToServer('patreon_toggle_boots', { enabled: isEnabled });
-    }
-}
-
-function OnColourPressed(text) {
-    if (isPatron) {
-        GameEvents.SendCustomGameEventToServer('patreon_update_emblem', { color: text });
-        SelectColor(text);
-    }
-}
-
-function SelectColor(colorName) {
-    if (nowselected != $('#Colour' + colorName)) {
-        nowselected.RemoveClass('SelecetedColor');
-        $('#Colour' + colorName).AddClass('SelecetedColor');
-        nowselected = $('#Colour' + colorName);
-    }
 }
 
 var shouldHideNewMethodsAnnouncement = false;
@@ -146,7 +179,54 @@ GameEvents.Subscribe('patreon:payments:update', function(response) {
 	}
 });
 
+function SetPatreonLevel( level ) {
+	patreonLevel = level
+
+	let visible1 = false
+	let visible2 = false
+	let visible3 = false
+	let visible4 = false
+	let visible5 = false
+
+	if ( level < 1 ) {
+		visible1 = true
+		visible2 = true
+	} else {
+		if ( level < 2 ) {
+			visible3 = true
+		} else {
+			visible4 = true
+		}
+
+		visible5 = true
+	}
+	$( "#IsNotPatreonText" ).visible = visible1
+	$( "#PatreonSupportButtons" ).visible = visible2
+	$( "#PatreonSupporter" ).visible = visible3
+	$( "#PatreonSupporterHigh" ).visible = visible4
+	$( "#ThanksText" ).visible = visible5
+}
+
 $.GetContextPanel().RemoveClass('IsPatron');
+
+var boots = new FreeBoots()
+Divider()
+new PatreonPerk( "random_unlimited", 1 )
+Divider()
+new PatreonPerk( "cosmetics_box", 1 )
+Divider()
+new PatreonPerk( "unlimited_chat_wheel", 1 )
+Divider()
+new PatreonPerk( "instant_transfer", 1 )
+Divider()
+new PatreonPerk( "immune_kick_troll", 1 )
+Divider()
+new PatreonPerk( "kick_troll", 2 )
+Divider()
+new PatreonPerk( "private_courier", 2, "s2r://panorama/images/items/courier_dire.png" )
+
+SetPatreonLevel( 0 )
+
 SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	var status = data[Game.GetLocalPlayerID()];
 	if (!status) return;
@@ -156,19 +236,21 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	$.GetContextPanel().SetHasClass('IsPatron', isPatron);
 	updatePatreonButton();
 
-	var isAutoControlled = status.endDate != null;
-	$('#PatreonSupporterUpgrade').visible = isAutoControlled && status.level < 2;
-	$('#PatreonSupporterStatusExpiriesIn').visible = isAutoControlled;
-	if (isAutoControlled) {
-		var endDate = new Date(status.endDate);
-		var daysLeft = Math.ceil((endDate - Date.now()) / 1000 / 60 / 60 / 24);
-		$('#PatreonSupporterStatus').SetDialogVariable('support_days_left', daysLeft);
-		$('#PatreonSupporterStatus').SetDialogVariable('support_end_date', formatDate(endDate));
-	}
+	SetPatreonLevel( status.level )
 
-	$('#FreeBootsEnableDisable').checked = !!status.bootsEnabled;
-	$('#SupporterEmblemEnableDisable').checked = !!status.emblemEnabled;
-	SelectColor(status.emblemColor);
+	var isAutoControlled = status.endDate != null;
+	//$('#PatreonSupporterUpgrade').visible = isAutoControlled && status.level < 2;
+
+	//$('#PatreonSupporterStatusExpiriesIn').visible = isAutoControlled;
+
+	//if (isAutoControlled) {
+	//	var endDate = new Date(status.endDate);
+	//	var daysLeft = Math.ceil((endDate - Date.now()) / 1000 / 60 / 60 / 24);
+	//	$('#PatreonSupporterStatus').SetDialogVariable('support_days_left', daysLeft);
+	//	$('#PatreonSupporterStatus').SetDialogVariable('support_end_date', formatDate(endDate));
+	//}
+
+	boots.Enable( !!status.bootsEnabled )
 });
 
 setInterval(updatePatreonButton, 1000);

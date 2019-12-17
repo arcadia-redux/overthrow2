@@ -8,15 +8,32 @@
 		<include src="file://{resources}/layout/custom_game/common/patreon/patreon.js" />
 		<include src="file://{resources}/layout/custom_game/common/kicks.js" />
 	</scripts>
+
+	<snippets>
+		<snippet name="PatreonPerk">
+			<Panel class="PatreonPerk">
+				<Image id="PatreonPerkImage" src="none" />
+				<Panel id="PatreonPerkRightColumn">
+					<Label id="PatreonPerkTitle" />
+					<Label id="PatreonPerkAccess" />
+					<Panel id="PatreonPerkAdditional">
+						<Label id="PateonPerkDescription" />
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+
  	<Panel hittest="false" class="PatreonRoot">
  		<Panel id="PatreonButtonPanel">
+			<!--<Image src="file://{resources}/layout/custom_game/common/patreon/perks/unlimited_chat_wheel.png" />-->
 			<Image id="VOIcon" src="file://{resources}/layout/custom_game/common/patreon/voicon.png" onmouseover='DOTAShowTextTooltip(#votooltip)' onmouseout='DOTAHideTextTooltip()'/>
 			<TextButton id="PatreonButton" onactivate="OnPatreonButtonPressed()" text="#patreon_perks" />
 			<Button id="PatreonButtonSmallerImage">
 				<Image src="file://{resources}/layout/custom_game/common/patreon/small_button.png" onactivate="OnPatreonButtonPressed()"/>
 			</Button>
 			<Panel id="NewMethodsAnnouncement" hittest="false">
-				<AnimatedImageStrip src="file://{resources}/layout/custom_game/common/patreon/new_methods_announcement.png" frametime="500ms" />
+				<Image id="NewMethodsAnnouncementImage" src="file://{resources}/layout/custom_game/common/patreon/new_methods_announcement.png" />
 				<Panel id="NewMethodsAnnouncementText">
 					<Label html="true" text="#patreon_new_methods_announcement" />
 					<Panel id="NewMethodsAnnouncementImages">
@@ -24,11 +41,7 @@
 						<Image onactivate="openPurchasePaymentWindow('Alipay')" src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
 					</Panel>
 				</Panel>
-				<TextButton
-					class="PatreonCloseButton"
-					text="✖"
-					onactivate="hideNewMethodsAnnouncement()"
-				/>
+				<Button class="PatreonCloseButtonX" onactivate="hideNewMethodsAnnouncement()" />
 			</Panel>
 		</Panel>
  		<Panel hittest="true" hittestchildren="true" id="PatreonWindow">
@@ -36,56 +49,12 @@
 				<Button class="PatreonCloseButtonX" onactivate="OnPatreonButtonPressed()" />
 				<Label id="HeaderLabel" class="PatreonLabel" text="#patreon_perks"/>
 			</Panel>
-			<Panel class="SupporterEmblem">
-				<Label id="SupporterEmblemTitle" class="SupporterEmblemTitle" text="#emblem_supporter"/>
-				<Label id="SupporterEmblemLabel" class="SupporterEmblemLabel" text="#emblem_supporter_description"/>
-				<MoviePanel id="SupporterEmblemImage" src="s2r://panorama/videos/emblem.webm" repeat="true" autoplay="onload" />
-				<ToggleButton id="SupporterEmblemEnableDisable" class="SupporterEmblemEnableDisableLabel" text="#emblem_enable" onactivate="ToggleEmblem()" />
-					<Label id="ChooseColourLabel" class="ChooseColourLabel" text="#color_choose"/>
-					<Panel class="SelectColourBackground" />
-					<Button id="ColourMaroon" onactivate="OnColourPressed('Maroon')"/>
-					<Button id="ColourBrown" onactivate="OnColourPressed('Brown')"/>
-					<Button id="ColourOlive" onactivate="OnColourPressed('Olive')"/>
-					<Button id="ColourTeal" onactivate="OnColourPressed('Teal')"/>
-					<Button id="ColourNavy" onactivate="OnColourPressed('Navy')"/>
-					<Button id="ColourBlack" onactivate="OnColourPressed('Black')"/>
-					<Button id="ColourRed" onactivate="OnColourPressed('Red')"/>
-					<Button id="ColourOrange" onactivate="OnColourPressed('Orange')"/>
-					<Button id="ColourYellow" onactivate="OnColourPressed('Yellow')"/>
-					<Button id="ColourLime" onactivate="OnColourPressed('Lime')"/>
-					<Button id="ColourGreen" onactivate="OnColourPressed('Green')"/>
-					<Button id="ColourCyan" onactivate="OnColourPressed('Cyan')"/>
-					<Button id="ColourBlue" onactivate="OnColourPressed('Blue')"/>
-					<Button id="ColourPurple" onactivate="OnColourPressed('Purple')"/>
-					<Button id="ColourMagenta" onactivate="OnColourPressed('Magenta')"/>
-					<Button id="ColourGrey" onactivate="OnColourPressed('Grey')"/>
-					<Button id="ColourPink" onactivate="OnColourPressed('Pink')"/>
-					<Button id="ColourApricot" onactivate="OnColourPressed('Apricot')"/>
-					<Button id="ColourBeige" onactivate="OnColourPressed('Beige')"/>
-					<Button id="ColourMint" onactivate="OnColourPressed('Mint')"/>
-					<Button id="ColourLavender" onactivate="OnColourPressed('Lavender')"/>
-					<Button id="ColourWhite" class="SelecetedColor" onactivate="OnColourPressed('White')"/>
-				<Panel class="PatreonFeatureLock" onactivate="">
-					<Image src="file://{images}/control_icons/lock_medium.png" />
-				</Panel>
-				<Panel class="Divider"/>
-			</Panel>
-			<Panel class="FreeBoots">
-				<Label id="FreeBootsTitle" class="FreeBootsTitle" text="#boots_free"/>
-				<Label id="FreeBootsLabel" class="FreeBootsLabel" text="#boots_free_description"/>
-				<MoviePanel id="FreeBootsImage" src="s2r://panorama/videos/boots.webm" repeat="true" autoplay="onload" />
-				<ToggleButton id="FreeBootsEnableDisable" class="FreeBootsEnableDisableLabel" text="#boots_enable" onactivate="BootsEnableToggle()" />
-				<Panel class="PatreonFeatureLock" onactivate="">
-					<Image src="file://{images}/control_icons/lock_medium.png" />
-				</Panel>
-				<Panel class="Divider2"/>
-			</Panel>
-			<Panel class="RandomButton">
-				<Label id="RandomButtonTitle" class="RandomButtonTitle" text="#random_unlimited"/>
-				<Label id="RandomButtonLabel" class="RandomButtonLabel" text="#random_unlimited_description"/>
-				<MoviePanel id="RandomButtonImage" src="s2r://panorama/videos/smart_random.webm" repeat="true" autoplay="onload" />
-			</Panel>
+			
+			<Panel id="PatreonPerksContainer" />
+
 			<Panel id="PatreonFooter">
+				<Label id="IsNotPatreonText" class="PatreonText" text="#not_supporter" />
+
 				<Panel id="PatreonSupportButtons">
 					<TextButton
 						id="SupportButtonPatreon"
@@ -101,18 +70,19 @@
 					/>
 				</Panel>
 
-				<Panel id="PatreonSupporterStatus">
-					<Panel id="PatreonSupporterMessages">
-						<Label text="Thank you for supporting us!" />
-						<Label id="PatreonSupporterStatusExpiriesIn" text="Supporter status experies in {s:support_days_left} days ({s:support_end_date})" />
-					</Panel>
+				<Panel id="PatreonSupporter">
+					<Label id="PatreonSupporterText" class="PatreonText" text="#standard_tier_supporter" />
 					<TextButton
 						id="PatreonSupporterUpgrade"
-						class="ButtonBevel"
+						class="SupportButton"
 						text="Upgrade to Advanced"
 						onactivate="openUpgradePaymentWindow()"
 					/>
 				</Panel>
+
+				<Label id="PatreonSupporterHigh" class="PatreonText" text="#high_tier_supporter" />
+
+				<Label id="ThanksText" class="PatreonText" text="#thanks_for_supporting" />
 			</Panel>
 		</Panel>
 		<Panel hittest="true" id="PaymentWindow">

@@ -37,20 +37,6 @@ var ABILITIES_CANT_BE_REMOVED = {
 	"high_five": true,
 	"seasonal_ti9_banner": true,
 }
-var abilityWebm = {
-	"seasonal_summon_cny_balloon":"40XJ9",
-	"seasonal_summon_dragon":"Ry9Mv",
-	"seasonal_summon_cny_tree":"rVY9D",
-	"seasonal_firecrackers":"Lxe64",
-	"seasonal_ti9_shovel":"b1dNv",
-	"seasonal_ti9_instruments":"5d1Rr",
-	"seasonal_ti9_monkey":"XEjX7",
-	"seasonal_summon_ti9_balloon":"BAEq9",
-	"seasonal_throw_snowball":"8mBLL",
-	"seasonal_festive_firework":"voBa5",
-	"seasonal_decorate_tree":"Px17L",
-	"seasonal_summon_snowman":"na38r"
-}
 
 var abilitySlots = []
 var abilityAnimations = {}
@@ -217,24 +203,26 @@ function CreateAbilityToTake( row, abilityName ) {
 	var image = $.CreatePanel( "Image", row, "ImagePreview" )
 	image.SetImage( cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
 
-	abilityAnimations[abilityName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-	abilityAnimations[abilityName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="s2r://panorama/videos/cosmetic_abilities/' + abilityWebm[abilityName] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
-	abilityAnimations[abilityName].style.opacity = "0"
-
 	image.SetPanelEvent( "onactivate", function() {
 		GameEvents.SendCustomGameEventToServer( "cosmetics_add_ability", { unit: currentUnit, ability: abilityName } )
 	} )
 
 	image.SetPanelEvent( "onmouseover", function() {
-		$.DispatchEvent( "DOTAShowAbilityTooltip", image, abilityName )
+		var preview = $( "#PreviewImage" )
 
-		abilityAnimations[abilityName].style.opacity = "1"
+		preview.SetImage( "file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/" + abilityName + ".png" )
+		preview.SetHasClass( "Visible", true )
+
+		$.DispatchEvent( "DOTAShowAbilityTooltip", image, abilityName )
 	} )
 
 	image.SetPanelEvent( "onmouseout", function() {
-		$.DispatchEvent( "DOTAHideAbilityTooltip", image )
+		var preview = $( "#PreviewImage" )
 
-		abilityAnimations[abilityName].style.opacity = "0"
+		preview.SetImage( "" )
+		preview.SetHasClass( "Visible", false )
+
+		$.DispatchEvent( "DOTAHideAbilityTooltip", image )
 	} )
 }
 

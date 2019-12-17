@@ -5,8 +5,6 @@ var killEffects = [
 	"halloween"
 ]
 
-var killEffectAnimations = {}
-
 function DeleteKillEffect() {
 	GameEvents.SendCustomGameEventToServer( "cosmetics_remove_kill_effect", {} )
 }
@@ -21,16 +19,18 @@ function CreateKillEffect( parent, effectName ) {
 		} )
 	} )
 
-	killEffectAnimations[effectName] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-	killEffectAnimations[effectName].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="s2r://panorama/videos/kill_effects/' + effectName + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
-	killEffectAnimations[effectName].style.opacity = "0"
-
 	hero_effect.SetPanelEvent( "onmouseover", function() {
-		killEffectAnimations[effectName].style.opacity = "1"
+		var preview = $( "#PreviewImage" )
+
+		preview.SetImage( "file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/" + effectName + ".png" )
+		preview.SetHasClass( "Visible", true )
 	} )
 
 	hero_effect.SetPanelEvent( "onmouseout", function() {
-		killEffectAnimations[effectName].style.opacity = "0"
+		var preview = $( "#PreviewImage" )
+
+		preview.SetImage( "" )
+		preview.SetHasClass( "Visible", false )
 	} )
 
 	$.CreatePanel( "Label", hero_effect, "" ).text = $.Localize( "cosmetics_kill_effect_" + effectName )

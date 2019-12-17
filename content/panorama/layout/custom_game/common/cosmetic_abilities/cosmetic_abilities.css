@@ -109,19 +109,17 @@
 	flow-children: right;
 }
 
-#AnimationPanel {
+#Preview {
 	width: 185px;
 	height: 280px;
+	background-color: rgba( 8, 8, 8, 0.9 );
 }
 
-.Pets #AnimationPanel {
+.Pets #Preview {
 	visibility: collapse;
 }
 
 #AnimationContainer {
-	width: 100%;
-	height: 100%;
-	background-color: rgba( 8, 8, 8, 0.9 );
 }
 
 .Animation {
@@ -130,7 +128,20 @@
 	transition-timing-function: linear;
 }
 
-#BorderAnimation {
+#PreviewImage {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: linear;
+}
+
+#PreviewImage.Visible {
+	opacity: 1;
+}
+
+#PreviewBorder {
 	width: 100%;
 	height: 100%;
 	background-image: url( "s2r://panorama/images/hud/passive_ability_border_png.vtex" );

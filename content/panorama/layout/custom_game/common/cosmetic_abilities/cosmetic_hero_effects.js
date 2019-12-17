@@ -19,28 +19,7 @@ heroEffects[18] = "#Attrib_Particle157"
 heroEffects[20] = "#Attrib_Particle46"
 heroEffects[21] = "#Attrib_Particle74"
 heroEffects[22] = "#Attrib_Particle158"
-
-var heroEffectsWebms = []
-heroEffectsWebms[1] = "KxeYA" // Spirit of Ember
-heroEffectsWebms[2] = "MxaAW" // Diretide Blight
-heroEffectsWebms[3] = "1ZVLV" // Champion's Aura 2013
-heroEffectsWebms[4] = "gLVQL" //
-heroEffectsWebms[5] = "Ry1YJ" //
-heroEffectsWebms[7] = "LxaJB" //
-heroEffectsWebms[8] = "rVgGQ" //
-heroEffectsWebms[9] = "Pxazg" //
-heroEffectsWebms[10] = "5do4Y" //
-heroEffectsWebms[11] = "vo98W" //
-heroEffectsWebms[12] = "KxxEq" // Champion aura 2012
-heroEffectsWebms[13] = "403WQ" //
-heroEffectsWebms[14] = "b16Ke" //
-heroEffectsWebms[15] = "BAvq1" //
-heroEffectsWebms[16] = "8mnLV" //
-heroEffectsWebms[17] = "naY8d" //
-heroEffectsWebms[18] = "yj9Qo" //
-heroEffectsWebms[20] = "z09V3" //
-heroEffectsWebms[21] = "93vWP" //
-heroEffectsWebms[22] = "NxYrm" //
+heroEffects[23] = "Supporter Emblem"
 
 var prismaticColors = []
 prismaticColors[1] = { name: "#UnusualShips", r: 25, g: 25, b: 112 }
@@ -86,7 +65,6 @@ prismaticColors[40] = { name: "#UnusualSwine", r: 255, g: 175, b: 0 }
 prismaticColors[41] = { name: "#UnusualDiretideOrange", r: 247, g: 157, b: 0 }
 prismaticColors[42] = { name: "#UnusualRubiline", r: 209, g: 31, b: 161 }
 
-var heroEffectAnimations = []
 var selectedEffectType = null
 var currentEffects = {}
 var currentColors = {}
@@ -122,19 +100,19 @@ function CreateHeroEffect( parent, heroEffectName, heroEffectIndex ) {
 		} )
 	} )
 
-	if ( heroEffectsWebms[heroEffectIndex] ) {
-		heroEffectAnimations[heroEffectIndex] = $.CreatePanel( "Panel", $( "#AnimationContainer" ), "" )
-		heroEffectAnimations[heroEffectIndex].BLoadLayoutFromString( '<root><Panel class="Animation"><MoviePanel src="s2r://panorama/videos/hero_effects/' + heroEffectsWebms[heroEffectIndex] + '.webm" repeat="true" autoplay="onload" /></Panel></root>', false, false )
-		heroEffectAnimations[heroEffectIndex].style.opacity = "0"
+	hero_effect.SetPanelEvent( "onmouseover", function() {
+		var preview = $( "#PreviewImage" )
 
-		hero_effect.SetPanelEvent( "onmouseover", function() {
-			heroEffectAnimations[heroEffectIndex].style.opacity = "1"
-		} )
+		preview.SetImage( "file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/" + heroEffectIndex + ".png" )
+		preview.SetHasClass( "Visible", true )
+	} )
 
-		hero_effect.SetPanelEvent( "onmouseout", function() {
-			heroEffectAnimations[heroEffectIndex].style.opacity = "0"
-		} )
-	}
+	hero_effect.SetPanelEvent( "onmouseout", function() {
+		var preview = $( "#PreviewImage" )
+
+		preview.SetImage( "file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/" + heroEffectIndex + ".png" )
+		preview.SetHasClass( "Visible", false )
+	} )
 
 	$.CreatePanel( "Label", hero_effect, "" ).text = $.Localize( heroEffectName )
 }

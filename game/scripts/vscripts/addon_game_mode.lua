@@ -51,9 +51,11 @@ WebApi.customGame = "Overthrow"
 
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_spawn_movespeed", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
+
+LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -708,8 +710,8 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		["item_mute_custom"] = true,
 	}
 
-	if _G.personalCouriers[playerId] then
-		filterTable = EditFilterToCourier(filterTable, playerId, ability)
+	if filterTable then
+		filterTable = EditFilterToCourier(filterTable)
 	end
 
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
@@ -771,6 +773,18 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 				-- CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#hud_error_courier_cant_order_item" })
 				return false
 			end
+		end
+	end
+
+	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM and unit and unit:IsRealHero() and ( Patreons:GetPlayerSettings( unit:GetPlayerID() ).level > 0 or IsInToolsMode() ) then
+		if ability and ability:IsItem() and target and target:HasInventory() then
+			unit:DropItemAtPositionImmediate( ability, target:GetAbsOrigin() + target:GetForwardVector() )
+			Timers:CreateTimer( 0, function()
+				ability:GetContainer():Destroy()
+				target:AddItem( ability )
+			end )
+
+			return false
 		end
 	end
 
@@ -962,6 +976,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				"item_patreonbundle_2"
 			}
 
+			local psets = Patreons:GetPlayerSettings(plyID)
 			local pitem = false
 			for i=1,#pitems do
 				if itemName == pitems[i] then
@@ -970,7 +985,6 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 			end
 			if pitem == true then
-				local psets = Patreons:GetPlayerSettings(plyID)
 				if psets.level < 1 then
 					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
 					UTIL_Remove(hItem)
@@ -988,6 +1002,20 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 			if itemName == "item_patreon_courier" then
 				BlockToBuyCourier(plyID, hItem)
 				return false
+			end
+			
+			if psets.level > 0 then
+				Timers:CreateTimer( 0.01, function()
+					for i=10,15 do
+						if hInventoryParent:GetItemInSlot(i) == hItem then
+							for x=0,9 do
+								if hInventoryParent:GetItemInSlot(x) == nil then
+									hInventoryParent:SwapItems(i,x)
+								end
+							end
+						end
+					end
+				end)
 			end
 		else
 			local pitems = {
