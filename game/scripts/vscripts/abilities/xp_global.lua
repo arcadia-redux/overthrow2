@@ -40,6 +40,9 @@ modifier_get_xp_global = {
 	GetTexture = function() return "alchemist_goblins_greed" end,
 	GetEffectName = function() return "particles/econ/courier/courier_greevil_yellow/courier_greevil_yellow_ambient_3_b.vpcf" end,
 }
+function modifier_get_xp_global:IsHidden()
+	return self:GetParent():HasModifier("modifier_get_xp")
+end
 
 if IsServer() then
 	function modifier_get_xp_global:OnCreated()
@@ -48,6 +51,7 @@ if IsServer() then
 
 	function modifier_get_xp_global:OnIntervalThink()
 		local parent = self:GetParent()
+		if parent:HasModifier("modifier_get_xp") then return end
 		local ability = self:GetAbility()
 
 		local xp = ability:GetSpecialValueFor("aura_xp")
