@@ -5,7 +5,7 @@ function center_chest_channel:OnChannelFinish(interrupted)
 		local newItem = CreateItem( "item_center_chest", nil, nil )
 		local drop = CreateItemOnPositionForLaunch( self:GetCaster():GetAbsOrigin(), newItem )
 		newItem:LaunchLootInitialHeight( false, 0, 300, 0.4, self:GetCaster():GetAbsOrigin() + RandomVector(200))
-		newItem:SetContextThink( "KillLoot", function() return self:KillLoot( newItem, drop ) end, 20 )
+		newItem:SetContextThink( "KillLoot", function() return COverthrowGameMode:KillLoot( newItem, drop ) end, 20 )
 	else
 		COverthrowGameMode:SpecialItemAdd(self:GetCaster())
 	end
