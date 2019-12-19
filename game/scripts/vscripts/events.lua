@@ -301,11 +301,13 @@ end
 function COverthrowGameMode:OnTeamKillCredit( event )
 --	print( "OnKillCredit" )
 --	DeepPrint( event )
+	print("kill")
 
 	local nKillerID = event.killer_userid
 	local nTeamID = event.teamnumber
 	local nTeamKills = event.herokills
 	local nKillsRemaining = self.TEAM_KILLS_TO_WIN - nTeamKills
+	print("kills remaining: "..nKillsRemaining)
 
 	local broadcast_kill_event =
 	{
@@ -519,13 +521,6 @@ function COverthrowGameMode:OnItemPickUp( event )
 			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
 		end
 		COverthrowGameMode:SpecialItemAdd(owner)
-		UTIL_Remove(item)
-	elseif event.itemname == "item_center_chest" then
-		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
-		if not owner:HasInventory() or owner:GetUnitName() == "npc_dota_hero_meepo" then
-			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
-		end
-		COverthrowGameMode:CenterItemAdd(owner)
 		UTIL_Remove(item)
 	elseif event.itemname == "item_core_pumpkin" then
 		for _, spawner in ipairs(self.pumpkin_spawns) do

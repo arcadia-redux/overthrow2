@@ -214,19 +214,19 @@ function COverthrowGameMode:SpecialItemAdd(owner)
 		if sortedTeams[i].team == ownerTeam then
 			if i <= (1 + math.max(#sortedTeams - 3, 0) / 3) then
 			elseif i >= (#sortedTeams - math.max(#sortedTeams - 3, 0) / 3) then
-				item_tier = item_tier + 2
-				print("+2 item tier: losing team")
-			else
 				item_tier = item_tier + 1
-				print("+1 item tier: not leading team")
+				print("+1 item tier: losing team")
+			else
+				--item_tier = item_tier + 1
+				--print("+1 item tier: not leading team")
 			end
 		end
 	end
 
-	if self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN * 2 / 3) then
+	if self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN * 3 / 4) then
 		item_tier = item_tier + 2
 		print("+2 item tier: close to end")
-	elseif self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN / 3) then
+	elseif self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN / 2) then
 		item_tier = item_tier + 1
 		print("+1 item tier: not far from end")
 	end
