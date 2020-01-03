@@ -233,21 +233,56 @@ function COverthrowGameMode:SpecialItemAdd(owner)
 
 	item_tier = math.min(item_tier, 4)
 
-	local spawnedItem
-	while true do
-		spawnedItem = tier[item_tier][RandomInt(1, #tier[item_tier])]
-		if not owner:HasItemInInventory(spawnedItem) then break end
+	local spawnedItem = {}
+	for i = 1, 4 do
+		while true do
+			local repeated_item = false
+			local potential_item = tier[item_tier][RandomInt(1, #tier[item_tier])]
+
+			if owner:HasItemInInventory(potential_item) then
+				repeated_item = true
+			end
+
+			for _, previous_item in pairs(spawnedItem) do
+				if previous_item == potential_item then
+					repeated_item = true
+				end
+			end
+
+			if not repeated_item then
+				spawnedItem[i] = potential_item
+				break
+			end
+		end
 	end
 
-	-- add the item to the inventory and broadcast
-	owner:AddItemByName( spawnedItem )
+	-- present item choices to the player
+	self:StartItemPick(owner, spawnedItem)
+end
+
+function COverthrowGameMode:StartItemPick(owner, items)
+	if (not owner:IsRealHero()) and owner:GetOwnerEntity() then
+		owner = owner:GetOwnerEntity()
+	end
+	local player_id = owner:GetPlayerID()
+	if PlayerResource:IsValidPlayer(player_id) then
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "overthrow_item_choice", items)
+	end
+end
+
+function COverthrowGameMode:FinishItemPick(keys)
+	local owner = EntIndexToHScript(keys.owner_entindex)
+	local hero = owner:GetClassname()
+
+	-- Add the item to the inventory and broadcast
+	owner:AddItemByName(keys.item)
 	EmitGlobalSound("powerup_04")
 	local overthrow_item_drop =
 	{
 		hero_id = hero,
-		dropped_item = spawnedItem
+		dropped_item = keys.item
 	}
-	CustomGameEventManager:Send_ServerToAllClients( "overthrow_item_drop", overthrow_item_drop )
+	CustomGameEventManager:Send_ServerToAllClients( "overthrow_item_drop", overthrow_item_drop)
 end
 
 function COverthrowGameMode:ThinkSpecialItemDrop()

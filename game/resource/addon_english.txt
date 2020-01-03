@@ -1,4 +1,4 @@
-﻿﻿"lang"
+﻿﻿﻿"lang"
 {
 	"Language"		"English"
 	"Tokens"
@@ -63,6 +63,8 @@
 		"standard_tier_supporter"									"You are standart tier supporter"
 		"high_tier_supporter"										"You are high tier supporter"
 		"thanks_for_supporting"										"Thank you for supporting us!"
+
+		"item_choice_header"										"Choose an item!"
 
 		"pre_battleground_victory"									""
 		"post_battleground_victory"									" wins!"
