@@ -270,6 +270,8 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
+	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
+
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
 	if IsInToolsMode() then
 		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
@@ -708,9 +710,9 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		["item_mute_custom"] = true,
 	}
 
-	if filterTable then
-		filterTable = EditFilterToCourier(filterTable)
-	end
+	--if filterTable then
+	--	filterTable = EditFilterToCourier(filterTable)
+	--end
 
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then

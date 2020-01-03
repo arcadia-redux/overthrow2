@@ -125,22 +125,22 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		newStats[player_id][name] = newStats[player_id][name] + 1
 	end
 
-	if spawnedUnit:IsCourier() then
-		local team = spawnedUnit:GetTeamNumber()
-		if _G.mainTeamCouriers[team] == nil then
-			_G.mainTeamCouriers[team] = spawnedUnit
-		end
-	end
+	--if spawnedUnit:IsCourier() then
+	--	local team = spawnedUnit:GetTeamNumber()
+	--	if _G.mainTeamCouriers[team] == nil then
+	--		_G.mainTeamCouriers[team] = spawnedUnit
+	--	end
+	--end
 
 	if not spawnedUnit:IsRealHero() then return end
 	local playerId = spawnedUnit:GetPlayerID()
 	local psets = Patreons:GetPlayerSettings(playerId)
 
-	if psets.level > 1 and _G.personalCouriers[playerId] == nil then
-		Timers:CreateTimer(2.0, function()
-			CreatePrivateCourier(playerId, spawnedUnit, spawnedUnit:GetAbsOrigin())
-		end)
-	end
+	--if psets.level > 1 and _G.personalCouriers[playerId] == nil then
+	--	Timers:CreateTimer(2.0, function()
+	--		CreatePrivateCourier(playerId, spawnedUnit, spawnedUnit:GetAbsOrigin())
+	--	end)
+	--end
 
 	Timers:CreateTimer(1, function()
 		if spawnedUnit:HasModifier("modifier_silencer_int_steal") then
@@ -241,28 +241,28 @@ function COverthrowGameMode:OnNPCSpawned( event )
 --				spawnedUnit:CastAbilityImmediately(courier, playerId)
 --			end
 
-			Timers:CreateTimer(2, function()
-				local courier_spawn = spawnedUnit:GetAbsOrigin() + RandomVector(RandomFloat(100, 100))
-				local cr = CreateUnitByName("npc_dota_courier", courier_spawn, true, nil, nil, unitTeam)
-
-				if GetMapName() == "core_quartet" then
-					cr:AddNewModifier(cr, nil, "modifier_courier_quartet", nil)
-				else
-					cr:AddNewModifier(cr, nil, "modifier_core_courier", {})
-				end
-				Timers:CreateTimer(0.1, function()
-					for i = 0, 24 do
-						local temp_ply = PlayerResource:GetPlayer(i)
-						if (temp_ply and IsValidEntity(temp_ply)) then
-							Timers:CreateTimer(.1, function()
-								if (temp_ply:GetTeamNumber() == cr:GetTeamNumber()) then
-									cr:SetControllableByPlayer(i, true)
-								end
-							end)
-						end
-					end
-				end)
-			end)
+			--Timers:CreateTimer(2, function()
+			--	local courier_spawn = spawnedUnit:GetAbsOrigin() + RandomVector(RandomFloat(100, 100))
+			--	local cr = CreateUnitByName("npc_dota_courier", courier_spawn, true, nil, nil, unitTeam)
+			--
+			--	if GetMapName() == "core_quartet" then
+			--		cr:AddNewModifier(cr, nil, "modifier_courier_quartet", nil)
+			--	else
+			--		cr:AddNewModifier(cr, nil, "modifier_core_courier", {})
+			--	end
+			--	Timers:CreateTimer(0.1, function()
+			--		for i = 0, 24 do
+			--			local temp_ply = PlayerResource:GetPlayer(i)
+			--			if (temp_ply and IsValidEntity(temp_ply)) then
+			--				Timers:CreateTimer(.1, function()
+			--					if (temp_ply:GetTeamNumber() == cr:GetTeamNumber()) then
+			--						cr:SetControllableByPlayer(i, true)
+			--					end
+			--				end)
+			--			end
+			--		end
+			--	end)
+			--end)
 
 --			spawnedUnit:SetContextThink("AddCourierUpgrade", function()
 --				if GetMapName() == "core_quartet" then

@@ -101,52 +101,52 @@ function SearchCorrectCourier(playerID, team)
 	return currentCourier
 end
 
-RegisterCustomEventListener("courier_custom_select", function(data)
-	local playerID = data.PlayerID
-	if not playerID then return end
-
-	local player = PlayerResource:GetPlayer(playerID)
-	local team = player:GetTeamNumber()
-	local currentCourier = SearchCorrectCourier(playerID, team)
-
-	if currentCourier and (not _G.trollList[playerID]) then
-		CustomGameEventManager:Send_ServerToPlayer(player, "selection_new", { entities = { currentCourier:GetEntityIndex() } })
-	elseif _G.trollList[playerID] then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#you_cannot_control_courier" })
-	end
-end)
-
-function unitMoveToPoint(unit, point)
-	ExecuteOrderFromTable({
-		UnitIndex = unit:entindex(),
-		OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
-		Position = point
-	})
-end
-
-RegisterCustomEventListener("courier_custom_select_deliever_items", function(data)
-	local playerID = data.PlayerID
-	if not playerID then return end
-	local player = PlayerResource:GetPlayer(playerID)
-	local team = player:GetTeamNumber()
-	local currentCourier = SearchCorrectCourier(playerID, team)
-
-	if currentCourier and (not _G.trollList[playerID]) then
-		local stashHasItems = false
-		for i = 10, 15 do
-			local item = player:GetAssignedHero():GetItemInSlot(i)
-			if item ~= nil then
-				stashHasItems = true
-			end
-		end
-
-		if stashHasItems then
-			currentCourier:CastAbilityNoTarget(currentCourier:GetAbilityByIndex(7), playerID)
-		else
-			unitMoveToPoint(currentCourier, player:GetAssignedHero():GetAbsOrigin())
-			currentCourier:CastAbilityNoTarget(currentCourier:GetAbilityByIndex(4), playerID)
-		end
-	elseif _G.trollList[playerID] then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#you_cannot_control_courier" })
-	end
-end)
+--RegisterCustomEventListener("courier_custom_select", function(data)
+--	local playerID = data.PlayerID
+--	if not playerID then return end
+--
+--	local player = PlayerResource:GetPlayer(playerID)
+--	local team = player:GetTeamNumber()
+--	local currentCourier = SearchCorrectCourier(playerID, team)
+--
+--	if currentCourier and (not _G.trollList[playerID]) then
+--		CustomGameEventManager:Send_ServerToPlayer(player, "selection_new", { entities = { currentCourier:GetEntityIndex() } })
+--	elseif _G.trollList[playerID] then
+--		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#you_cannot_control_courier" })
+--	end
+--end)
+--
+--function unitMoveToPoint(unit, point)
+--	ExecuteOrderFromTable({
+--		UnitIndex = unit:entindex(),
+--		OrderType = DOTA_UNIT_ORDER_MOVE_TO_POSITION,
+--		Position = point
+--	})
+--end
+--
+--RegisterCustomEventListener("courier_custom_select_deliever_items", function(data)
+--	local playerID = data.PlayerID
+--	if not playerID then return end
+--	local player = PlayerResource:GetPlayer(playerID)
+--	local team = player:GetTeamNumber()
+--	local currentCourier = SearchCorrectCourier(playerID, team)
+--
+--	if currentCourier and (not _G.trollList[playerID]) then
+--		local stashHasItems = false
+--		for i = 10, 15 do
+--			local item = player:GetAssignedHero():GetItemInSlot(i)
+--			if item ~= nil then
+--				stashHasItems = true
+--			end
+--		end
+--
+--		if stashHasItems then
+--			currentCourier:CastAbilityNoTarget(currentCourier:GetAbilityByIndex(7), playerID)
+--		else
+--			unitMoveToPoint(currentCourier, player:GetAssignedHero():GetAbsOrigin())
+--			currentCourier:CastAbilityNoTarget(currentCourier:GetAbilityByIndex(4), playerID)
+--		end
+--	elseif _G.trollList[playerID] then
+--		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#you_cannot_control_courier" })
+--	end
+--end)

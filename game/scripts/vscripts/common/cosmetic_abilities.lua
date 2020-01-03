@@ -464,22 +464,22 @@ function Cosmetics.SetHeroEffect( keys )
 
 		Cosmetics.playerPetEffects[id] = pet_effect
 	elseif keys.type == "courier" then
-		local team = PlayerResource:GetTeam( id )
-		local courier = SearchCorrectCourier( id, team )
-
-		if courier and courier.cosmeticEffect then
-			local e = courier.cosmeticEffect
-
-			ParticleManager:DestroyParticle( e.particle, true )
-			ParticleManager:ReleaseParticleIndex( e.particle )
-		end
-
-		local c = Cosmetics.playerCourierColors[id]
-
-		courier.cosmeticEffect = {
-			particle = CreateEffect( courier, effect, c and c.color or nil ),
-			index = index
-		}
+		--local team = PlayerResource:GetTeam( id )
+		--local courier = SearchCorrectCourier( id, team )
+		--
+		--if courier and courier.cosmeticEffect then
+		--	local e = courier.cosmeticEffect
+		--
+		--	ParticleManager:DestroyParticle( e.particle, true )
+		--	ParticleManager:ReleaseParticleIndex( e.particle )
+		--end
+		--
+		--local c = Cosmetics.playerCourierColors[id]
+		--
+		--courier.cosmeticEffect = {
+		--	particle = CreateEffect( courier, effect, c and c.color or nil ),
+		--	index = index
+		--}
 	elseif keys.type == "wards" then
 		local data = Cosmetics.playerWardEffects[id]
 
@@ -535,17 +535,17 @@ function Cosmetics.RemoveHeroEffect( keys )
 
 		Cosmetics.playerPetEffects[id] = nil
 	elseif keys.type == "courier" then
-		local team = PlayerResource:GetTeam( id )
-		local courier = SearchCorrectCourier( id, team )
-
-		if courier and courier.cosmeticEffect then
-			local e = courier.cosmeticEffect
-
-			ParticleManager:DestroyParticle( e.particle, true )
-			ParticleManager:ReleaseParticleIndex( e.particle )
-		end
-
-		courier.cosmeticEffect = nil
+		--local team = PlayerResource:GetTeam( id )
+		--local courier = SearchCorrectCourier( id, team )
+		--
+		--if courier and courier.cosmeticEffect then
+		--	local e = courier.cosmeticEffect
+		--
+		--	ParticleManager:DestroyParticle( e.particle, true )
+		--	ParticleManager:ReleaseParticleIndex( e.particle )
+		--end
+		--
+		--courier.cosmeticEffect = nil
 	elseif keys.type == "wards" then
 		local data = Cosmetics.playerWardEffects[id]
 
@@ -603,19 +603,19 @@ function Cosmetics.SetEffectColor( keys )
 			index = index
 		}
 	elseif keys.type == "courier" then
-		local team = PlayerResource:GetTeam( id )
-		local courier = SearchCorrectCourier( id, team )
-
-		if courier and courier.cosmeticEffect then
-			local e = courier.cosmeticEffect
-
-			SetEffectColor( e.particle, color, e.index )
-		end
-
-		Cosmetics.playerCourierColors[id] = {
-			index = index,
-			color = color
-		}
+		--local team = PlayerResource:GetTeam( id )
+		--local courier = SearchCorrectCourier( id, team )
+		--
+		--if courier and courier.cosmeticEffect then
+		--	local e = courier.cosmeticEffect
+		--
+		--	SetEffectColor( e.particle, color, e.index )
+		--end
+		--
+		--Cosmetics.playerCourierColors[id] = {
+		--	index = index,
+		--	color = color
+		--}
 	elseif keys.type == "wards" then
 		local data = Cosmetics.playerWardEffects[id]
 
@@ -660,16 +660,16 @@ function Cosmetics.RemoveEffectColor( keys )
 
 		Cosmetics.playerPetColors[id] = nil
 	elseif keys.type == "courier" then
-		local team = PlayerResource:GetTeam( id )
-		local courier = SearchCorrectCourier( id, team )
-
-		if courier and courier.cosmeticEffect then
-			local e = courier.cosmeticEffect
-
-			RemoveEffectColor( e.particle, e.index )
-		end
-
-		Cosmetics.playerCourierColors[id] = nil
+		--local team = PlayerResource:GetTeam( id )
+		--local courier = SearchCorrectCourier( id, team )
+		--
+		--if courier and courier.cosmeticEffect then
+		--	local e = courier.cosmeticEffect
+		--
+		--	RemoveEffectColor( e.particle, e.index )
+		--end
+		--
+		--Cosmetics.playerCourierColors[id] = nil
 	elseif keys.type == "wards" then
 		local data = Cosmetics.playerWardEffects
 
