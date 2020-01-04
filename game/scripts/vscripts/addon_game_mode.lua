@@ -2,6 +2,13 @@
 Overthrow Game Mode
 ]]
 
+debug.oldTraceback = debug.oldTraceback or debug.traceback
+debug.traceback = function()
+	local result = debug.oldTraceback()
+	CustomGameEventManager:Send_ServerToAllClients("DebugMessage", { msg = result })
+	return result
+end
+
 _G.nCOUNTDOWNTIMER = 901
 TRUSTED_HOSTS = {
 	["76561198036748162"] = true,
