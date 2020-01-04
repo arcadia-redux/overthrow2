@@ -124,7 +124,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 		newStats[player_id][name] = newStats[player_id][name] + 1
 	end
-
 	--if spawnedUnit:IsCourier() then
 	--	local team = spawnedUnit:GetTeamNumber()
 	--	if _G.mainTeamCouriers[team] == nil then
@@ -133,8 +132,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	--end
 
 	if not spawnedUnit:IsRealHero() then return end
-	local playerId = spawnedUnit:GetPlayerID()
-	local psets = Patreons:GetPlayerSettings(playerId)
+	--local playerId = spawnedUnit:GetPlayerID()
+	--local psets = Patreons:GetPlayerSettings(playerId)
 
 	--if psets.level > 1 and _G.personalCouriers[playerId] == nil then
 	--	Timers:CreateTimer(2.0, function()
@@ -146,10 +145,6 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		if spawnedUnit:HasModifier("modifier_silencer_int_steal") then
 			spawnedUnit:RemoveModifierByName('modifier_silencer_int_steal')
 			spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_silencer_new_int_steal", {})
-		end
-
-		if not spawnedUnit:FindAbilityByName("center_chest_channel") then
-			spawnedUnit:AddAbility("center_chest_channel"):SetLevel(1)
 		end
 	end)
 
@@ -298,16 +293,20 @@ end
 ---------------------------------------------------------------------------
 -- Event: OnTeamKillCredit, see if anyone won
 ---------------------------------------------------------------------------
+function print_d(text)
+    CustomGameEventManager:Send_ServerToAllClients("DebugMessage", { msg = text})
+end
+
 function COverthrowGameMode:OnTeamKillCredit( event )
 --	print( "OnKillCredit" )
 --	DeepPrint( event )
-	print("kill")
+	print_d("Unit kill")
 
 	local nKillerID = event.killer_userid
 	local nTeamID = event.teamnumber
 	local nTeamKills = event.herokills
 	local nKillsRemaining = self.TEAM_KILLS_TO_WIN - nTeamKills
-	print("kills remaining: "..nKillsRemaining)
+	print_d("Kills remaining: "..nKillsRemaining)
 
 	local broadcast_kill_event =
 	{
@@ -321,6 +320,7 @@ function COverthrowGameMode:OnTeamKillCredit( event )
 	}
 
 	if nKillsRemaining <= 0 then
+		print_d("KILL LIMIT --- End Game. Team Leader: "..nTeamID)
 		GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[nTeamID] )
 		WebApi:AfterMatch(nTeamID)
 		GameRules:SetGameWinner( nTeamID )

@@ -47,6 +47,8 @@ require("utility_functions")
 require("events")
 require("items")
 
+require("chat_commands/admin_commands")
+
 WebApi.customGame = "Overthrow"
 
 LinkLuaModifier("modifier_core_pumpkin_regeneration", LUA_MODIFIER_MOTION_NONE)
@@ -439,7 +441,7 @@ function COverthrowGameMode:EndGame( victoryTeam )
 			overBoss:CastAbilityNoTarget( celebrate, -1 )
 		end
 	end
-
+	print_d("FINALLY --- End Game. Team Leader: "..nTeamID)
 	WebApi:AfterMatch(victoryTeam)
 	GameRules:SetGameWinner( victoryTeam )
 end
@@ -544,9 +546,12 @@ function COverthrowGameMode:OnThink()
 			--Check to see if there's a tie
 			if self.isGameTied == false then
 				GameRules:SetCustomVictoryMessage( self.m_VictoryMessages[self.leadingTeam] )
-				COverthrowGameMode:EndGame( self.leadingTeam )
+				print_d("TIME OFF, BUT NOT KILL LIMIT --- End Game. Team Leader: "..self.leadingTeam)
+				WebApi:AfterMatch(self.leadingTeam)
+				GameRules:SetGameWinner( self.leadingTeam )
 				self.countdownEnabled = false
 			else
+				print_d("Need more time to end game")
 				self.TEAM_KILLS_TO_WIN = self.leadingTeamScore + 1
 				local broadcast_killcount =
 				{
@@ -921,6 +926,23 @@ function COverthrowGameMode:OnPlayerChat(keys)
 		data.num = tonumber(string.sub(text, 5))
 		data.PlayerID = playerid
 		SelectVO(data)
+	end
+
+	local player = PlayerResource:GetPlayer(keys.playerid)
+
+	local args = {}
+
+	for i in string.gmatch(text, "%S+") do -- split string
+		table.insert(args, i)
+	end
+
+	local command = args[1]
+	table.remove(args, 1)
+
+	local fixed_command = command.sub(command, 2)
+
+	if Commands[fixed_command] then
+		Commands[fixed_command](Commands, player, args)
 	end
 end
 
