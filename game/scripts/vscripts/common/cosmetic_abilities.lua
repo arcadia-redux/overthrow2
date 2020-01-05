@@ -823,13 +823,10 @@ end
 
 function Cosmetics:GetSettings( id )
 	local player = PlayerResource:GetPlayer( id )
-	if not player then return end
-	local hero = player:GetAssignedHero()
-	if not hero then return end
+	local hero = PlayerResource:GetSelectedHeroEntity( id )
 	local patreon = Patreons:GetPlayerSettings( id )
-	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 
-	if not IsInToolsMode() and patreon.level < 1 then
+	if not IsInToolsMode() and patreon.level < 1 and not hero then
 		return
 	end
 
@@ -843,7 +840,6 @@ function Cosmetics:GetSettings( id )
 	local h = self.playerKillEffects[id]
 
 	local data = {
-		steam_id = PlayerResource:GetSteamID( id ),
 		pet = a and a.index or -1,
 
 		hero_effect = b and b.index or -1,
