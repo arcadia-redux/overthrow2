@@ -823,7 +823,9 @@ end
 
 function Cosmetics:GetSettings( id )
 	local player = PlayerResource:GetPlayer( id )
+	if not player then return end
 	local hero = player:GetAssignedHero()
+	if not hero then return end
 	local patreon = Patreons:GetPlayerSettings( id )
 	local t = CustomNetTables:GetTableValue( "cosmetics", tostring( id ) ) or {}
 
