@@ -145,7 +145,7 @@ function WebApi:AfterMatch(winnerTeam)
 			}
 
 			local patreonSettings = Patreons:GetPlayerSettings(playerId)
-			--patreonSettings.cosmetics = Cosmetics:GetSettings( playerId )
+			patreonSettings.cosmetics = Cosmetics:GetSettings( playerId )
 			-- Always add an update, because chat wheel favorites is a public feature
 			playerData.patreonUpdate = patreonSettings
 
