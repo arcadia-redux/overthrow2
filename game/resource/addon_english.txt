@@ -45,16 +45,13 @@
 		"unlimited_chat_wheel_description"							"Use the chat wheel (L) without limits"
 
 		"instant_transfer"											"Instant item transfer"
-		"instant_transfer_description"								"Transfer items to players instantly wherever they are (Only for Overthrow)"
+		"instant_transfer_description"								"Transfer items to players instantly wherever they are"
 
 		"immune_kick_troll"											"Kick Troll Immunity"
 		"immune_kick_troll_description"								"Become immune to the Kick Troll"
 
 		"kick_troll"												"Kick Troll"
 		"kick_troll_description"									"Kick Trolls! Have access to kick allies that are trolling (WARNING: This perk will be removed from supporters that are found to be abusing it)"
-
-		"private_courier"											"Private courier"
-		"private_courier_description"								"Get your own courier who will deliver items only to you"
 
 		"high_tier_supporter_perk"									"Hi-tier supporter (25$) feature only"
 		"available_perk"											"Available"

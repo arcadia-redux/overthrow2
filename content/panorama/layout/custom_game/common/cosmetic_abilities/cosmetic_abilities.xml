@@ -110,5 +110,53 @@
 		</Panel>
 		<Panel id="BarOverItems" hittest="false">
 		</Panel>
+
+		<Panel style="visibility: collapse; width: 100%; height: 100%;">
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_cny_balloon.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_dragon.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_cny_tree.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_firecrackers.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_ti9_shovel.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_ti9_instruments.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_ti9_monkey.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_ti9_balloon.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_throw_snowball.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_festive_firework.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_decorate_tree.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_snowman.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/firework.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/tombstone.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/incineration.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/halloween.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/1.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/2.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/3.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/4.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/5.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/7.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/8.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/9.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/10.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/11.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/12.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/13.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/14.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/15.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/16.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/17.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/18.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/20.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/21.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/22.png" />
+			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/23.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/boots_free.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/random_unlimited.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/cosmetics_box.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/unlimited_chat_wheel.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/instant_transfer.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/immune_kick_troll.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/kick_troll.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/private_courier.png" />
+		</Panel>
 	</Panel>
 </root>
