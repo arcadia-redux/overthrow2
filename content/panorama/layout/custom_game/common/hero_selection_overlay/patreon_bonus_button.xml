@@ -7,13 +7,13 @@
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/hero_selection_overlay/patreon_bonus_button.js" />
 	</scripts>
-	<Panel class="PatreonBonusButtonContainer">
-		<ToggleButton
-			id="PatreonBonusButton"
-			text="#patreon_bonus_button_text"
-			onmouseover="OnMouseOver()"
-			onmouseout="DOTAHideTextTooltip()"
-			onactivate="TogglePatreonBonusButton()"
-		/>
-	</Panel>
+	<!--<Panel class="PatreonBonusButtonContainer">-->
+		<!--<ToggleButton-->
+			<!--id="PatreonBonusButton"-->
+			<!--text="#patreon_bonus_button_text"-->
+			<!--onmouseover="OnMouseOver()"-->
+			<!--onmouseout="DOTAHideTextTooltip()"-->
+			<!--onactivate="TogglePatreonBonusButton()"-->
+		<!--/>-->
+	<!--</Panel>-->
 </root>
