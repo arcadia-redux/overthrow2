@@ -106,6 +106,13 @@
 					<RadioButton group="Providers" value="Alipay" onactivate="updatePaymentWindow()">
 						<Image src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
 					</RadioButton>
+					<Panel id="PaymentWindowUserSelectorContainer">
+						<Label id="PaymentWindowDropdownLabel" text="Purchasing for:" />
+						<DropDown id="PaymentWindowDropDown" oninputsubmit="updatePaymentWindow()">
+							<Label text="Myself" id="entry1"/>
+						</DropDown>
+					</Panel>
+					<DOTAAvatarImage id="PaymentWindowAvatar" steamid="local" />
 				</Panel>
 
 				<Panel id="PaymentWindowPaymentKinds">

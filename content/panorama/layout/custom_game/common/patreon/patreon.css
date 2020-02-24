@@ -390,10 +390,38 @@
 	font-size: 24px;
 }
 
-#PaymentWindowPaymentKinds,
+#PaymentWindowPaymentKinds{
+	flow-children: right;
+	horizontal-align: center;
+}
+
 #PaymentWindowProviders {
 	flow-children: right;
 	horizontal-align: center;
+}
+
+#PaymentWindowUserSelectorContainer {
+	height: 100%;
+	flow-children: down;
+}
+
+#PaymentWindowDropdownLabel {
+	align: center center;
+	text-align: center;
+	color: white;
+	font-size: 18px;
+}
+
+#PaymentWindowDropDown {
+	margin-left: 5px;
+}
+
+#PaymentWindowAvatar {
+	margin-left: 5px;
+	height: 60px;
+	width: 60px;
+	border-radius: 4px;
+	border: 1px solid #D8D8D8FF;
 }
 
 #PaymentWindowPaymentKinds > RadioButton,
