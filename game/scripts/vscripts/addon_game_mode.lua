@@ -65,6 +65,7 @@ LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_alert_before_kick_lua", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -117,6 +118,10 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/custom_soundboard_soundevents.vsndevts", context )
+
+	--Cache for ban hammer
+		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sven.vsndevts", context )
+		PrecacheResource( "particle", "particles/alert_ban_hammer.vpcf", context )
 
 
 		local heroeskv = LoadKeyValues("scripts/heroes.txt")
@@ -809,6 +814,11 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 	local disableHelpResult = DisableHelp.ModifierGainedFilter(filterTable)
 	if disableHelpResult == false then
 		return false
+	end
+
+	if filterTable.name_const == "modifier_alert_before_kick" then
+		local unit = filterTable.entindex_parent_const ~= 0 and EntIndexToHScript(filterTable.entindex_parent_const)
+		unit:AddNewModifier(unit, unit, "modifier_alert_before_kick_lua", { duration = filterTable.duration })
 	end
 
 	return true

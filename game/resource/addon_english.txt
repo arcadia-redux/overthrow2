@@ -623,5 +623,13 @@
 		"patreon_perk_outcomming_heal_amplify_t2"				"Advanced Heal Amplify"
 		"patreon_perk_outcomming_heal_amplify_t2_tooltip"		"All heal skill restores 28% more health"
 		"DOTA_Tooltip_patreon_perk_outcomming_heal_amplify_t2"	"Personal Perk: Heal Amplify"
+
+		"alertforban"					                        		"Your team wants to disconnect you from the game. This is a warning."
+		"playerhasalertforban"					   						"This player is already warned. Try later."
+		"DOTA_Tooltip_modifier_alert_before_kick_lua"					"Alert for kick from this game."
+		"cannotkickotherpatreons"					               		"You cannot kick supporters"
+
+		"alert_for_ban_message_1"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> wants to kick this player:"
+		"alert_for_ban_message_2"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font>. He has 60sec to be better."
 	}
 }

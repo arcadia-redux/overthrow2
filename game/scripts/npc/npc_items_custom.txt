@@ -489,7 +489,7 @@
         "ItemPurchasable"	"1"
         "AbilityCastRange"	"999999"
         "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"0"
+        "AbilityCooldown"	"10"
         "AbilityManaCost"	"0"
         "ItemCost"	"0"
         "OnSpellStart"
@@ -500,6 +500,23 @@
                 "Function"	    "OnSpellStartBanHammer"
             }
         }
+		"precache"
+		{
+			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
+			"particle"			"particles/alert_ban_hammer.vpcf"
+		}
+		"Modifiers"
+		{
+			"modifier_alert_before_kick"
+			{
+				"IsDebuff"			"1"
+				"IsHidden"			"1"
+				"Duration"			"60"
+				"IsPurgable"		"0"
+				"RemoveOnDeath"		"0"
+				"TextureName" 		"banhammer2"
+			}
+		}
     }
 
 	"item_disable_help_custom"
