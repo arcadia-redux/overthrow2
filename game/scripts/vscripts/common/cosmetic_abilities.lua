@@ -1,18 +1,18 @@
 local abilitiyPatreonLevel = {
 	["high_five"] = 0,
-	["seasonal_ti9_banner"] = 1,
-	["seasonal_summon_cny_balloon"] = 1,
-	["seasonal_summon_dragon"] = 1,
-	["seasonal_summon_cny_tree"] = 1,
-	["seasonal_firecrackers"] = 1,
-	["seasonal_ti9_shovel"] = 1,
-	["seasonal_ti9_instruments"] = 1,
-	["seasonal_ti9_monkey"] = 1,
-	["seasonal_summon_ti9_balloon"] = 1,
-	["seasonal_throw_snowball"] = 1,
-	["seasonal_festive_firework"] = 1,
-	["seasonal_decorate_tree"] = 1,
-	["seasonal_summon_snowman"] = 1,
+	["seasonal_ti9_banner"] = 0,
+	["seasonal_summon_cny_balloon"] = 0,
+	["seasonal_summon_dragon"] = 0,
+	["seasonal_summon_cny_tree"] = 0,
+	["seasonal_firecrackers"] = 0,
+	["seasonal_ti9_shovel"] = 0,
+	["seasonal_ti9_instruments"] = 0,
+	["seasonal_ti9_monkey"] = 0,
+	["seasonal_summon_ti9_balloon"] = 0,
+	["seasonal_throw_snowball"] = 0,
+	["seasonal_festive_firework"] = 0,
+	["seasonal_decorate_tree"] = 0,
+	["seasonal_summon_snowman"] = 0,
 }
 
 local abilitiesCantBeRemoved = {
@@ -413,9 +413,9 @@ function Cosmetics.SetHeroEffect( keys )
 
 	if not effect then
 		return
-	elseif not IsInToolsMode() and patreon.level < 1 then
+	--[[elseif not IsInToolsMode() and patreon.level < 1 then
 		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
-		return
+		return]]
 	end
 
 	if keys.type == "hero" then
@@ -575,9 +575,9 @@ function Cosmetics.SetEffectColor( keys )
 
 	if not color then
 		return
-	elseif not IsInToolsMode() and patreon.level < 1 then
+	--[[elseif not IsInToolsMode() and patreon.level < 1 then
 		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
-		return
+		return]]
 	end
 
 	if keys.type == "hero" then
@@ -700,9 +700,9 @@ function Cosmetics.SetKillEffect( keys )
 		return
 	elseif effect == Cosmetics.playerKillEffects[id] then
 		return
-	elseif not IsInToolsMode() and patreon.level < 1 then
+	--[[elseif not IsInToolsMode() and patreon.level < 1 then
 		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
-		return
+		return]]
 	end
 
 	Cosmetics.playerKillEffects[id] = {
@@ -740,9 +740,9 @@ function Cosmetics.SelectPet( keys )
 
 	if not pet_data then
 		return
-	elseif not IsInToolsMode() and patreon.level < 1 then
+	--[[elseif not IsInToolsMode() and patreon.level < 1 then
 		CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( id ), "display_custom_error", { message = "#nopatreonerror" } )
-		return
+		return]]
 	end
 
 	if old_pet then
@@ -826,7 +826,7 @@ function Cosmetics:GetSettings( id )
 	local hero = PlayerResource:GetSelectedHeroEntity( id )
 	local patreon = Patreons:GetPlayerSettings( id )
 
-	if not IsInToolsMode() and patreon.level < 1 and not hero then
+	if --[[not IsInToolsMode() and patreon.level < 1 or ]]not hero then
 		return
 	end
 
