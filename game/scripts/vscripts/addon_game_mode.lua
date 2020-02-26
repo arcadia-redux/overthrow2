@@ -1183,16 +1183,9 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 end)
 
 votimer = {}
-voused = {}
 vousedcol = {}
 SelectVO = function(keys)
 	local psets = Patreons:GetPlayerSettings(keys.PlayerID)
-	if voused[keys.PlayerID] ~= nil and psets.level == 0 then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown" })
-		return
-	end
-	voused[keys.PlayerID] = true
-	Timers:CreateTimer( 240, function() voused[keys.PlayerID] = nil end)
 	print(keys.num)
 	local heroes = {
 		"abaddon",
