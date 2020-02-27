@@ -57,6 +57,12 @@ var patreons_game_perks = {
 "patreon_perk_outcomming_heal_amplify_t0": 0,
 "patreon_perk_outcomming_heal_amplify_t1": 1,
 "patreon_perk_outcomming_heal_amplify_t2": 2,
+"patreon_perk_debuff_time_t0": 0,
+"patreon_perk_debuff_time_t1": 1,
+"patreon_perk_debuff_time_t2": 2,
+"patreon_perk_bonus_gold_t0": 0,
+"patreon_perk_bonus_gold_t1": 1,
+"patreon_perk_bonus_gold_t2": 2,
 };
 
 var patreons_game_perks_have_only_low_tier = {

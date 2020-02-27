@@ -79,6 +79,12 @@
 				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_outcomming_heal_amplify_t0.png"/>
 				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_outcomming_heal_amplify_t1.png"/>
 				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_outcomming_heal_amplify_t2.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_debuff_time_t0.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_debuff_time_t1.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_debuff_time_t2.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t0.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t1.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t2.png"/>
 			</Panel>
 		</Panel>
 

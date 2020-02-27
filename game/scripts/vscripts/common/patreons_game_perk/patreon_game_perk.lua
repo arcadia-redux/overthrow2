@@ -56,6 +56,12 @@ local perksTierPatreon = {
 	["patreon_perk_outcomming_heal_amplify_t0"] = 0,
 	["patreon_perk_outcomming_heal_amplify_t1"] = 1,
 	["patreon_perk_outcomming_heal_amplify_t2"] = 2,
+	["patreon_perk_debuff_time_t0"] = 0,
+	["patreon_perk_debuff_time_t1"] = 1,
+	["patreon_perk_debuff_time_t2"] = 2,
+	["patreon_perk_bonus_gold_t0"] = 0,
+	["patreon_perk_bonus_gold_t1"] = 1,
+	["patreon_perk_bonus_gold_t2"] = 2,
 };
 
 for name in pairs(perksTierPatreon) do
