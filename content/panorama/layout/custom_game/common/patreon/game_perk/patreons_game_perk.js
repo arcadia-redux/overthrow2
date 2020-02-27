@@ -126,6 +126,7 @@ function ReloadSetttingButton(){
 
 function SetPatreonsPerkButtonAction(panel, perkName){
 	panel.SetPanelEvent( "onactivate", function() {
+		patreonCurrentPerk = perkName
 		var settingPerksButton = $("#SetPatreonGamePerkButton")
 
 		settingPerksButton.SetImage("file://{resources}/layout/custom_game/common/patreon/game_perk/icons/"+perkName+".png")
@@ -219,6 +220,14 @@ function CreatePatreonsGamePerks(){
 				HidePatreonsGamePerks()
 		}
 	}
+	$.Schedule(3, function() {
+		var perksPanel = $("#PatreonsGamePerkMenu");
+		var perksPanelClose = $("#ClosePatreonsPerks");
+		if (!perksPanel.visible && patreonCurrentPerk == null){
+			perksPanel.visible = true;
+			perksPanelClose.visible = true;
+		}
+	});
 }
 function PatreonsGamePerkInit(){
 	GameEvents.Subscribe('reload_patreon_perk_setings_button', ReloadSetttingButton);
