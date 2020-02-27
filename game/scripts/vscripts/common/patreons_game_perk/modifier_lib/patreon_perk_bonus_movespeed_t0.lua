@@ -2,8 +2,7 @@ patreon_perk_bonus_movespeed_t0 = class({})
 --------------------------------------------------------------------------------
 
 function patreon_perk_bonus_movespeed_t0:IsHidden()
-
-	return true
+	return false
 end
 
 --------------------------------------------------------------------------------
