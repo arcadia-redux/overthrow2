@@ -567,6 +567,6 @@
 		"cannotkickotherpatreons"					             "Нельзя выгнать других подддержавших"
 
 		"alert_for_ban_message_1"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
-		"alert_for_ban_message_2"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font>. У него есть 60 секунд для исправления."
+		"alert_for_ban_message_2"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> У игрока есть 60 секунд для исправления."
 	}
 }

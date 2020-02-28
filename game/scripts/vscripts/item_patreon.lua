@@ -55,7 +55,7 @@ function OnSpellStartBanHammer( event )
                         local all_heroes = HeroList:GetAllHeroes()
                         for _, hero in pairs(all_heroes) do
                             if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
-                                EmitSoundOn("Hero_Sven.StormBoltImpact" , hero)
+                                EmitSoundOn("Hero_Chen.HandOfGodHealHero" , hero)
                             end
                         end
 

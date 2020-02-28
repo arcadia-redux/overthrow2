@@ -650,6 +650,6 @@
 		"cannotkickotherpatreons"					               		"You cannot kick supporters"
 
 		"alert_for_ban_message_1"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> wants to kick this player:"
-		"alert_for_ban_message_2"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font>. He has 60sec to be better."
+		"alert_for_ban_message_2"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> Player has 60sec to be better."
 	}
 }
