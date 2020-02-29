@@ -38,6 +38,11 @@ local game_start = true
 _G.personalCouriers = {}
 _G.mainTeamCouriers = {}
 
+_G.chatWheelCooldownForPhrased = {
+	["skywrath_mage_4"] = 180
+}
+_G.personalCooldownForPhrase = {}
+
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
 ---------------------------------------------------------------------------
@@ -2769,11 +2774,19 @@ SelectVO = function(keys)
 		}
 		if vousedcol[keys.PlayerID] == nil then vousedcol[keys.PlayerID] = 0 end
 		if votimer[keys.PlayerID] ~= nil then
-			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + votimer[keys.PlayerID] then
+			local uniqueKey = PlayerResource:GetPlayer(keys.PlayerID):GetEntityIndex()..selectedstr
+			local personalCooldownForPhrase = _G.personalCooldownForPhrase[uniqueKey]
+			local cooldownForPhrase = _G.chatWheelCooldownForPhrased[selectedstr]
+			local phraseDoesntHasCooldown = cooldownForPhrase and (personalCooldownForPhrase == nil or ((GameRules:GetGameTime() - personalCooldownForPhrase) > cooldownForPhrase))
+
+			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + vousedcol[keys.PlayerID] and (phraseDoesntHasCooldown == nil or phraseDoesntHasCooldown == true) then
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
 				EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
 				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
 				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
+				if _G.chatWheelCooldownForPhrased[selectedstr] then
+					_G.personalCooldownForPhrase[uniqueKey] = GameRules:GetGameTime()
+				end
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 			else
