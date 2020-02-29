@@ -62,6 +62,9 @@ local perksTierPatreon = {
 	["patreon_perk_bonus_gold_t0"] = 0,
 	["patreon_perk_bonus_gold_t1"] = 1,
 	["patreon_perk_bonus_gold_t2"] = 2,
+	["patreon_perk_gpm_t0"] = 0,
+	["patreon_perk_gpm_t1"] = 1,
+	["patreon_perk_gpm_t2"] = 2,
 };
 
 for name in pairs(perksTierPatreon) do

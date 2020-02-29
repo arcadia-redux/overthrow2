@@ -85,6 +85,9 @@
 				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t0.png"/>
 				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t1.png"/>
 				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t2.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_gpm_t0.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_gpm_t1.png"/>
+				<Image src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_gpm_t2.png"/>
 			</Panel>
 		</Panel>
 

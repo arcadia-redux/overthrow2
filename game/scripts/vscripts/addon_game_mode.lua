@@ -53,6 +53,7 @@ require("common/init")
 require("utility_functions")
 require("events")
 require("items")
+require("gpm_lib")
 
 require("chat_commands/admin_commands")
 
@@ -823,7 +824,7 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 	local parent = filterTable.entindex_parent_const and filterTable.entindex_parent_const ~= 0 and EntIndexToHScript(filterTable.entindex_parent_const)
 	local caster = filterTable.entindex_caster_const and filterTable.entindex_caster_const ~= 0 and EntIndexToHScript(filterTable.entindex_caster_const)
 
-	if caster and parent and caster.bonusDebuffTime and (parent:GetTeamNumber() ~= caster:GetTeamNumber())then
+	if caster and parent and caster.bonusDebuffTime and (parent:GetTeamNumber() ~= caster:GetTeamNumber()) and filterTable.duration > 0 then
 		filterTable.duration = filterTable.duration/100*caster.bonusDebuffTime + filterTable.duration
 	end
 

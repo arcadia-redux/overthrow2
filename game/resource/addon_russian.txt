@@ -561,6 +561,16 @@
 		"patreon_perk_bonus_gold_t2_tooltip"			"+800 золота"
 		"DOTA_Tooltip_patreon_perk_bonus_gold_t2"		"Талант: Дополнительное золото"
 
+		"patreon_perk_gpm_t0"					"Базовая Прибыль"
+		"patreon_perk_gpm_t0_tooltip"			"+50 дополнительного золота в минуту"
+		"DOTA_Tooltip_patreon_perk_gpm_t0"		"Талант: Дополнительная Прибыль"
+		"patreon_perk_gpm_t1"					"Дополнительная Прибыль"
+		"patreon_perk_gpm_t1_tooltip"			"+100 дополнительного золота в минуту"
+		"DOTA_Tooltip_patreon_perk_gpm_t1"		"Талант: Дополнительная Прибыль"
+		"patreon_perk_gpm_t2"					"Большая Прибыль"
+		"patreon_perk_gpm_t2_tooltip"			"+150 дополнительного золота в минуту"
+		"DOTA_Tooltip_patreon_perk_gpm_t2"		"Талант: Дополнительная Прибыль"
+
 		"alertforban"					   						 "Ваша команда хочет отключить вас от игры. Это предупреждение."
 		"playerhasalertforban"					   				 "Игрок уже предупрежден. Попробуйте позже."
 		"DOTA_Tooltip_modifier_alert_before_kick_lua"			 "Предупреждение об отключении от этой игры."
