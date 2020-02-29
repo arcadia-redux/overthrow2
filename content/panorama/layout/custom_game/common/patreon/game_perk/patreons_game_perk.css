@@ -32,8 +32,8 @@
 
 #PatreonsGamePerkMenu {
 	width: 1275px;
-	height: 514px;
-	margin-bottom: 26%;
+	height: 550px;
+	margin-bottom: 25%;
 	align: center bottom;
 	background-color: gradient( linear, 0% 0%, 0% 100%, from( #404040 ), to( #000000 ) );
 	flow-children: down;
@@ -129,7 +129,7 @@
 	background-size: 22px 22px;
 	background-position: 4px 4px;
 	background-repeat: no-repeat;
-	margin-bottom: 71.9%;
+	margin-bottom: 74.2%;
 	margin-left: 1269px;
 	background-color: rgb(40, 40, 40);
 	border-radius: 100%;
