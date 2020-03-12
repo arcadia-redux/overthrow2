@@ -63,9 +63,9 @@ var patreons_game_perks = {
 "patreon_perk_bonus_gold_t0": 0,
 "patreon_perk_bonus_gold_t1": 1,
 "patreon_perk_bonus_gold_t2": 2,
-"patreon_perk_gpm_t0": 0,
-"patreon_perk_gpm_t1": 1,
-"patreon_perk_gpm_t2": 2,
+//"patreon_perk_gpm_t0": 0,
+//"patreon_perk_gpm_t1": 1,
+//"patreon_perk_gpm_t2": 2,
 };
 
 var patreons_game_perks_have_only_low_tier = {
@@ -107,8 +107,12 @@ function ShowPatreonsGamePerks(){
 function HidePatreonsGamePerks(){
 	var perksPanel = $("#PatreonsGamePerkMenu");
 	var perksPanelClose = $("#ClosePatreonsPerks");
-	perksPanel.visible = false;
-	perksPanelClose.visible = false;
+	if(perksPanel != null){
+		perksPanel.visible = false;
+	}
+	if(perksPanelClose != null){
+		perksPanelClose.visible = false;
+	}
 }
 
 function ReloadSetttingButton(){
@@ -143,7 +147,8 @@ function SetPatreonsPerkButtonAction(panel, perkName){
 			$.DispatchEvent( 'DOTAHideTextTooltip', settingPerksButton);
 		} )
 		settingPerksButton.SetPanelEvent( "onactivate", function() {} )
-		HidePatreonsGamePerks()
+		$("#PatreonsGamePerkMenu").DeleteAsync(0)
+		$("#ClosePatreonsPerks").DeleteAsync(0)
 	} )
 
 	panel.SetPanelEvent( "onmouseover", function() {

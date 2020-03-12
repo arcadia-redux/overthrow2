@@ -32,7 +32,7 @@ function patreon_perk_spell_lifesteal_t1:OnTakeDamage(params)
 	if self:GetParent() ~= params.attacker then return end
 	if params.damage <= 0 then return end
 	if params.infilctor or DOTA_DAMAGE_CATEGORY_ATTACK == params.damage_category then return end
-	local lifestealPct = GetPerkValue(8, self, 1, 0)
+	local lifestealPct = GetPerkValue(4, self, 1, 0)
 	local attacker = params.attacker
 	local steal = params.damage * (lifestealPct/100)
 	attacker:Heal(steal, self)

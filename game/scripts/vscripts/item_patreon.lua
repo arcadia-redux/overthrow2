@@ -83,3 +83,18 @@ function OnSpellStartBanHammer( event )
         end
     end
 end
+
+function OnSpellStartCustomMango( event )
+    local ability = event.ability
+    local caster = event.caster
+
+    local particleAgi = ParticleManager:CreateParticle("particles/items3_fx/mango_active.vpcf", PATTACH_ABSORIGIN_FOLLOW, caster)
+    ParticleManager:SetParticleControlEnt(particleAgi, 0, caster, PATTACH_ABSORIGIN_FOLLOW, "attach_hitloc", caster:GetAbsOrigin(), true)
+
+    caster:GiveMana(event.mana)
+    if ability:GetCurrentCharges() > 1 then
+        ability:SetCurrentCharges(ability:GetCurrentCharges()-1)
+    else
+        ability:RemoveSelf()
+    end
+end

@@ -596,4 +596,56 @@
 		"ItemPurchasable"				"1"
 		"IsTempestDoubleClonable"		"0"
 	}
+
+	"item_patreon_mango"
+	{
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"custom/item_patreon_mango"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"ItemCost"                      "2"
+		"ItemHideCharges"				"1"
+		"ItemInitialCharges"			"1"
+		"ItemQuality"					"artifact"
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "0"
+		"ItemPurchasable"				"0"
+		"IsTempestDoubleClonable"		"0"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"restore_mana"		"110"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"hp_regen"				"0.6"
+			}
+		}
+		"Modifiers"
+		{
+			"modifier_item_patreon_mango_regen"
+			{
+				"Passive"	"1"
+				"IsHidden"	"1"
+
+				"Properties"
+				{
+					"MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT" 		"%hp_regen"
+				}
+			}
+		}
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"mana"			"%restore_mana"
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStartCustomMango"
+			}
+		}
+	}
 }

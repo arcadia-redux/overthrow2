@@ -37,11 +37,7 @@ _G.fastItemsWithoutCooldown =
 local game_start = true
 _G.personalCouriers = {}
 _G.mainTeamCouriers = {}
-
-_G.chatWheelCooldownForPhrased = {
-	["skywrath_mage_4"] = 180
-}
-_G.personalCooldownForPhrase = {}
+_G.tPlayersMuted = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -2774,19 +2770,12 @@ SelectVO = function(keys)
 		}
 		if vousedcol[keys.PlayerID] == nil then vousedcol[keys.PlayerID] = 0 end
 		if votimer[keys.PlayerID] ~= nil then
-			local uniqueKey = PlayerResource:GetPlayer(keys.PlayerID):GetEntityIndex()..selectedstr
-			local personalCooldownForPhrase = _G.personalCooldownForPhrase[uniqueKey]
-			local cooldownForPhrase = _G.chatWheelCooldownForPhrased[selectedstr]
-			local phraseDoesntHasCooldown = cooldownForPhrase and (personalCooldownForPhrase == nil or ((GameRules:GetGameTime() - personalCooldownForPhrase) > cooldownForPhrase))
-
 			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + vousedcol[keys.PlayerID] and (phraseDoesntHasCooldown == nil or phraseDoesntHasCooldown == true) then
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-				EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+				--EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+				ChatSound(heroesvo[selectedid][selectedid2], keys.PlayerID)
 				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
 				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
-				if _G.chatWheelCooldownForPhrased[selectedstr] then
-					_G.personalCooldownForPhrase[uniqueKey] = GameRules:GetGameTime()
-				end
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 			else
@@ -2794,11 +2783,34 @@ SelectVO = function(keys)
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-			EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+			--EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+			ChatSound(heroesvo[selectedid][selectedid2], keys.PlayerID)
 			Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
 			vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 		end
 	end
 end
+
+function ChatSound(phrase, playerId)
+	local all_heroes = HeroList:GetAllHeroes()
+	for _, hero in pairs(all_heroes) do
+		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and hero:GetPlayerID() and (not _G.tPlayersMuted[hero:GetPlayerID()] or not _G.tPlayersMuted[hero:GetPlayerID()][playerId]) then
+			EmitAnnouncerSoundForPlayer(phrase, hero:GetPlayerID())
+		end
+	end
+end
+
 RegisterCustomEventListener("SelectVO", SelectVO)
+
+RegisterCustomEventListener("set_mute_player", function(data)
+	local fromId = data.PlayerID
+	local toId = data.toPlayerId
+	local disable = data.disable
+	_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
+	if disable == 0 then
+		_G.tPlayersMuted[fromId][toId] = nil
+	else
+		_G.tPlayersMuted[fromId][toId] = disable
+	end
+end)

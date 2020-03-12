@@ -512,13 +512,13 @@
 		"DOTA_Tooltip_patreon_perk_spell_amp_t2"		"Талант: Усиление Способностей"
 
 		"patreon_perk_spell_lifesteal_t0"				"Базовый Магический Вампиризм"
-		"patreon_perk_spell_lifesteal_t0_tooltip"		"+4% к краже здоровья от способностей"
+		"patreon_perk_spell_lifesteal_t0_tooltip"		"+2% к краже здоровья от способностей"
 		"DOTA_Tooltip_patreon_perk_spell_lifesteal_t0"	"Талант: Магический Вампиризм"
 		"patreon_perk_spell_lifesteal_t1"				"Магический Вампиризм"
-		"patreon_perk_spell_lifesteal_t1_tooltip"		"+8% к краже здоровья от способностей"
+		"patreon_perk_spell_lifesteal_t1_tooltip"		"+4% к краже здоровья от способностей"
 		"DOTA_Tooltip_patreon_perk_spell_lifesteal_t1"	"Талант: Магический Вампиризм"
 		"patreon_perk_spell_lifesteal_t2"				"Продвинутый Магический Вампиризм"
-		"patreon_perk_spell_lifesteal_t2_tooltip"		"+16% к краже здоровья от способностей"
+		"patreon_perk_spell_lifesteal_t2_tooltip"		"+8% к краже здоровья от способностей"
 		"DOTA_Tooltip_patreon_perk_spell_lifesteal_t2"	"Талант: Магический Вампиризм"
 
 		"patreon_perk_status_resistance_t0"					"Базовое Сопротивление Эффектам"
@@ -578,5 +578,9 @@
 
 		"alert_for_ban_message_1"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
 		"alert_for_ban_message_2"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> У игрока есть 60 секунд для исправления."
+
+		"DOTA_Tooltip_ability_item_patreon_mango"                        "Mango of Appreciation"
+		"DOTA_Tooltip_ability_item_patreon_mango_Description"            "Просим прощения, но поддерживающие нас игроки больше не получают бесплатные ботинки на старте игры. Это сделано в целях улучешния баланса игры. Мы надеемся, Вы не слишком против данного изменения. Мы хотим еще раз поблагодарить Вас за поддержку, мы это действительно ценим. Лучший манго специально для Вас."
+		"DOTA_Tooltip_ability_item_patreon_mango_Lore"                   "Когда меценат покупает у художника, которому нужны деньги, картину, он делает себя равным художнику. Он несет исскуство в мир. Он творит"
 	}
 }

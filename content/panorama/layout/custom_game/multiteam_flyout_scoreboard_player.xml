@@ -13,6 +13,8 @@
 				var newIsMuted = !Game.IsPlayerMuted( playerId );
 				Game.SetPlayerMuted( playerId, newIsMuted );
 				$.GetContextPanel().SetHasClass( "player_muted", newIsMuted );
+
+				GameEvents.SendCustomGameEventToServer("set_mute_player", { disable: newIsMuted, toPlayerId: playerId } );
 			}
 		}
 
@@ -35,6 +37,11 @@
 			var disableHelp = CustomNetTables.GetTableValue("disable_help", Players.GetLocalPlayer());
 			if (disableHelp && disableHelp[playerId]) {
 				$("#DisableHelpButton").checked = true;
+			}
+			var teamates = Game.GetAllTeamIDs()
+			for (var key in teamates) {
+				key = parseInt(key)
+				GameEvents.SendCustomGameEventToServer("set_mute_player", { disable: Game.IsPlayerMuted(key), toPlayerId: key } );
 			}
 		}
 
