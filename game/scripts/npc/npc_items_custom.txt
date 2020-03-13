@@ -609,7 +609,7 @@
 		"ItemStackable"					"0"
 		"ItemKillable"                  "1"
 		"ItemSellable"                  "1"
-		"ItemDroppable"                 "0"
+		"ItemDroppable"                 "1"
 		"ItemPurchasable"				"0"
 		"IsTempestDoubleClonable"		"0"
 		"AbilitySpecial"
