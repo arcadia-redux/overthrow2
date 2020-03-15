@@ -2,6 +2,7 @@ var hasPatreonStatus = true;
 var isPatron = false;
 var patreonLevel = 0
 var patreonPerks = []
+var paymentTargetID = Game.GetLocalPlayerID()
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
 
@@ -141,7 +142,7 @@ function updatePaymentWindow() {
 		}
 	}
 
-	var requestData = { provider: provider, paymentKind: paymentKind };
+	var requestData = { provider: provider, paymentKind: paymentKind, paymentTargetID: paymentTargetID };
 	paymentWindowUpdateListener = createPaymentRequest(requestData, function(response) {
 		if (response.url != null) {
 			$('#PaymentWindowBody').SetURL(response.url);
@@ -252,6 +253,30 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 
 	boots.Enable( !!status.bootsEnabled )
 });
+
+SubscribeToNetTableKey('player_info', 'steam_ids', function (data) {
+	UpdatePaymentTargetList(data)
+});
+
+function UpdatePaymentTargetList(data) {
+	var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
+	var donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
+	var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
+
+	for(var id = 0; id <= 40; id++) {
+		if (Players.IsValidPlayerID(id)) {
+			layout_string = layout_string + '<Label text="' + Players.GetPlayerName(id) +'" id="PatreonOption' + id + '" onmouseover="UpdatePaymentTarget(' + id + ')" />';
+		}
+	}
+	layout_string = layout_string + '</DropDown></root>';
+	donation_target_dropdown.BLoadLayoutFromString(layout_string, false, true);
+}
+
+function UpdatePaymentTarget(id) {
+	var payment_target_data = CustomNetTables.GetTableValue('player_info', 'steam_ids');
+	$('#PaymentWindowAvatar').steamid = payment_target_data[id];
+	paymentTargetID = id;
+}
 
 setInterval(updatePatreonButton, 1000);
 $('#PatreonWindow').visible = false;

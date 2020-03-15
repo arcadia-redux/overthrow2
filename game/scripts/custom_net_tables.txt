@@ -4,6 +4,7 @@
 	[
 		"game_state",
 		"disable_help",
+		"player_info",
 
 		"custom_stats",
 		"cosmetics"

@@ -282,11 +282,12 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
-	if IsInToolsMode() then
-		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
-	end
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
+	if IsInToolsMode() then
+		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
+		GameRules:SetCustomGameSetupAutoLaunchDelay(10)
+	end
 
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
@@ -356,6 +357,8 @@ function COverthrowGameMode:InitGameMode()
 			end
 		end
 	end, nil)
+
+	-- Player information for patreon purchase window
 	ListenToGameEvent("player_connect_full", function(data)
 		local playerId = data.PlayerID
 		local player = PlayerResource:GetPlayer(playerId)
@@ -567,6 +570,10 @@ function COverthrowGameMode:OnThink()
 				CustomGameEventManager:Send_ServerToAllClients( "overtime_alert", broadcast_killcount )
 			end
 		end
+	end
+
+	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
+		COverthrowGameMode:InitializePatreonWindow()
 	end
 
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -1151,6 +1158,20 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		end
 	end
 	return true
+end
+
+function COverthrowGameMode:InitializePatreonWindow()
+	if not self.initialized_patreon then
+		self.initialized_patreon = true
+
+		local player_info = {}
+		for id = 0, 40 do
+			if PlayerResource:IsValidPlayer(id) then
+				player_info[id] = PlayerResource:GetSteamID(id)
+			end
+		end
+		CustomNetTables:SetTableValue("player_info", "steam_ids", player_info)
+	end
 end
 
 RegisterCustomEventListener("GetKicks", function(data)

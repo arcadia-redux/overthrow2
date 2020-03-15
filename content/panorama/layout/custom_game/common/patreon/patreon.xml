@@ -108,9 +108,6 @@
 					</RadioButton>
 					<Panel id="PaymentWindowUserSelectorContainer">
 						<Label id="PaymentWindowDropdownLabel" text="Purchasing for:" />
-						<DropDown id="PaymentWindowDropDown" oninputsubmit="updatePaymentWindow()">
-							<Label text="Myself" id="entry1"/>
-						</DropDown>
 					</Panel>
 					<DOTAAvatarImage id="PaymentWindowAvatar" steamid="local" />
 				</Panel>

@@ -127,7 +127,7 @@ RegisterGameEventListener("player_disconnect", function(args)
 end)
 
 RegisterCustomEventListener("patreon:payments:create", function(args)
-	local playerId = args.PlayerID
+	local playerId = args.paymentTargetID
 	local steamId = tostring(PlayerResource:GetSteamID(playerId))
 	local matchId = tonumber(tostring(GameRules:GetMatchID()))
 	WebApi:Send(
