@@ -263,7 +263,7 @@ function UpdatePaymentTargetList(data) {
 
 	for(var id = 0; id <= 40; id++) {
 		if (Players.IsValidPlayerID(id)) {
-			layout_string = layout_string + '<Label text="' + Players.GetPlayerName(id) +'" id="PatreonOption' + id + '" onmouseover="UpdatePaymentTarget(' + id + ')" />';
+			layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
 		}
 	}
 	layout_string = layout_string + '</DropDown></root>';
