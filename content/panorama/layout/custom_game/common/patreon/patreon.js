@@ -2,7 +2,8 @@ var hasPatreonStatus = true;
 var isPatron = false;
 var patreonLevel = 0
 var patreonPerks = []
-var paymentTargetID = Game.GetLocalPlayerID()
+var paymentTargetID = Game.GetLocalPlayerID();
+var patreonData = CustomNetTables.GetTableValue('game_state', 'patreon_bonuses');
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
 
@@ -263,7 +264,9 @@ function UpdatePaymentTargetList() {
 
 	for(var id = 0; id <= 63; id++) {
 		if (Players.IsValidPlayerID(id)) {
-			layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
+			if (!patreonData[id] || patreonData[id].level <= 0) {
+				layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
+			}
 		}
 	}
 	layout_string = layout_string + '</DropDown></root>';
@@ -274,6 +277,10 @@ function UpdatePaymentTarget(id) {
 	$('#PaymentWindowAvatar').steamid = Game.GetPlayerInfo(id).player_steamid;;
 	paymentTargetID = id;
 }
+
+SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
+	patreonData = patreonBonuses;
+});
 
 UpdatePaymentTargetList();
 setInterval(updatePatreonButton, 1000);
