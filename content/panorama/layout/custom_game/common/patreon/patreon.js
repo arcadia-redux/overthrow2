@@ -254,14 +254,14 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	boots.Enable( !!status.bootsEnabled )
 });
 
-SubscribeToNetTableKey('player_info', 'steam_ids', UpdatePaymentTargetList);
+//SubscribeToNetTableKey('player_info', 'steam_ids', UpdatePaymentTargetList);
 
-function UpdatePaymentTargetList(data) {
+function UpdatePaymentTargetList() {
 	var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
 	var donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
 	var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
 
-	for(var id = 0; id <= 40; id++) {
+	for(var id = 0; id <= 63; id++) {
 		if (Players.IsValidPlayerID(id)) {
 			layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
 		}
@@ -271,11 +271,11 @@ function UpdatePaymentTargetList(data) {
 }
 
 function UpdatePaymentTarget(id) {
-	var payment_target_data = CustomNetTables.GetTableValue('player_info', 'steam_ids');
-	$('#PaymentWindowAvatar').steamid = payment_target_data[id];
+	$('#PaymentWindowAvatar').steamid = Game.GetPlayerInfo(id).player_steamid;;
 	paymentTargetID = id;
 }
 
+UpdatePaymentTargetList();
 setInterval(updatePatreonButton, 1000);
 $('#PatreonWindow').visible = false;
 setPaymentWindowVisible(false);

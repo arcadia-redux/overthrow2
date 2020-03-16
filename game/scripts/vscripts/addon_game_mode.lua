@@ -572,10 +572,6 @@ function COverthrowGameMode:OnThink()
 		end
 	end
 
-	if GameRules:State_Get() == DOTA_GAMERULES_STATE_PRE_GAME then
-		COverthrowGameMode:InitializePatreonWindow()
-	end
-
 	if GameRules:State_Get() == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
 		--Spawn Gold Bags
 		COverthrowGameMode:ThinkGoldDrop()
@@ -1158,20 +1154,6 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		end
 	end
 	return true
-end
-
-function COverthrowGameMode:InitializePatreonWindow()
-	if not self.initialized_patreon then
-		self.initialized_patreon = true
-
-		local player_info = {}
-		for id = 0, 40 do
-			if PlayerResource:IsValidPlayer(id) then
-				player_info[id] = PlayerResource:GetSteamID(id)
-			end
-		end
-		CustomNetTables:SetTableValue("player_info", "steam_ids", player_info)
-	end
 end
 
 RegisterCustomEventListener("GetKicks", function(data)
