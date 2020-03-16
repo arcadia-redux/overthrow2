@@ -254,9 +254,7 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	boots.Enable( !!status.bootsEnabled )
 });
 
-SubscribeToNetTableKey('player_info', 'steam_ids', function (data) {
-	UpdatePaymentTargetList(data)
-});
+SubscribeToNetTableKey('player_info', 'steam_ids', UpdatePaymentTargetList);
 
 function UpdatePaymentTargetList(data) {
 	var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
