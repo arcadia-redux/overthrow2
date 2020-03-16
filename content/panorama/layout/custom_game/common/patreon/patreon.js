@@ -280,6 +280,7 @@ function UpdatePaymentTarget(id) {
 
 SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
 	patreonData = patreonBonuses;
+	UpdatePaymentTargetList();
 });
 
 UpdatePaymentTargetList();
