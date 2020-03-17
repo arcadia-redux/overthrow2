@@ -145,7 +145,7 @@ function updatePaymentWindow() {
 		}
 	}
 
-	var requestData = { provider: provider, paymentKind: paymentKind, paymentTargetID: paymentTargetID, paymentOriginID: Game.GetLocalPlayerID() };
+	var requestData = { provider: provider, paymentKind: paymentKind, paymentTargetID: paymentTargetID };
 	paymentWindowUpdateListener = createPaymentRequest(requestData, function(response) {
 		if (response.url != null) {
 			$('#PaymentWindowBody').SetURL(response.url);
