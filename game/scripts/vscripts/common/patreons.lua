@@ -128,7 +128,7 @@ end)
 
 RegisterCustomEventListener("patreon:payments:create", function(args)
 	local targetId = args.paymentTargetID
-	local originId = args.id
+	local originId = args.PlayerID
 	local targetSteamId = tostring(PlayerResource:GetSteamID(targetId))
 	local originSteamId = tostring(PlayerResource:GetSteamID(originId))
 	local matchId = tonumber(tostring(GameRules:GetMatchID()))
