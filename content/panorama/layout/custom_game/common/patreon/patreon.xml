@@ -25,6 +25,14 @@
 	</snippets>
 
  	<Panel hittest="false" class="PatreonRoot">
+ 		<Panel id="GiftNotificationPanel" hittest="false" hittestchildren="false">
+ 			<Label html="true" id="GiftNotificationLabel" text="#received_gift_1" />
+ 			<Panel id="GiftNotificationUserContainer">
+ 				<DOTAAvatarImage id="GiftNotificationAvatar" steamid="local" />
+ 				<Label id="GiftNotificationName" text="" />
+ 			</Panel>
+ 		</Panel>
+
  		<Panel id="PatreonButtonPanel">
 			<!--<Image src="file://{resources}/layout/custom_game/common/patreon/perks/unlimited_chat_wheel.png" />-->
 			<Image id="VOIcon" src="file://{resources}/layout/custom_game/common/patreon/voicon.png" onmouseover='DOTAShowTextTooltip(#votooltip)' onmouseout='DOTAHideTextTooltip()'/>

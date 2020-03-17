@@ -5,6 +5,49 @@
 	z-index: -1;
 }
 
+#GiftNotificationPanel {
+	align: left bottom;
+	margin-left: 60px;
+	margin-bottom: 460px;
+	flow-children: up;
+	transition-property: opacity;
+	transition-duration: 0.3s;
+	opacity: 0;
+}
+
+#GiftNotificationLabel {
+	color: white;
+	font-size: 24px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+}
+
+#GiftNotificationUserContainer {
+	horizontal-align: center;
+	flow-children: right;
+}
+
+#GiftNotificationAvatar {
+	height: 80px;
+	width: 80px;
+	margin-bottom: 10px;
+	border-radius: 8px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #ffffffff;
+}
+
+#GiftNotificationName {
+	margin-left: 10px;
+	vertical-align: center;
+	color: white;
+	font-size: 30px;
+	text-shadow: 2px 2px 2px black;
+	font-weight: bold;
+	text-overflow: clip;
+}
+
 .PatreonPerk {
 	width: 100%;
 	flow-children: right;

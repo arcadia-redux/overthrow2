@@ -2,6 +2,8 @@ var hasPatreonStatus = true;
 var isPatron = false;
 var patreonLevel = 0
 var patreonPerks = []
+var giftNotificationRemainingTime = 0;
+var giftNotificationScheduler = false;
 var paymentTargetID = Game.GetLocalPlayerID();
 var patreonData = CustomNetTables.GetTableValue('game_state', 'patreon_bonuses');
 
@@ -143,7 +145,7 @@ function updatePaymentWindow() {
 		}
 	}
 
-	var requestData = { provider: provider, paymentKind: paymentKind, paymentTargetID: paymentTargetID };
+	var requestData = { provider: provider, paymentKind: paymentKind, paymentTargetID: paymentTargetID, paymentOriginID: Game.GetLocalPlayerID() };
 	paymentWindowUpdateListener = createPaymentRequest(requestData, function(response) {
 		if (response.url != null) {
 			$('#PaymentWindowBody').SetURL(response.url);
@@ -255,7 +257,37 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	boots.Enable( !!status.bootsEnabled )
 });
 
-//SubscribeToNetTableKey('player_info', 'steam_ids', UpdatePaymentTargetList);
+GameEvents.Subscribe('patreon:gift:notification', function(data) {
+	$('#GiftNotificationAvatar').steamid =  Game.GetPlayerInfo(data.playerId).player_steamid
+	$('#GiftNotificationName').text = Players.GetPlayerName(data.playerId)
+	$('#GiftNotificationLabel').text = $.Localize('#received_gift_' + data.level)
+	$('#GiftNotificationPanel').style.opacity = 1;
+
+	Particles.CreateParticle("particles/patreon_gift_tier_" + data.level + ".vpcf", ParticleAttachment_t.PATTACH_EYES_FOLLOW, 1)
+	if (data.level == 1) {
+		Game.EmitSound("Waitingforplayers_Boost_Shared")
+		Game.EmitSound("Loot_Drop_Stinger_Rare")
+	} else if (data.level == 2) {
+		Game.EmitSound("Waitingforplayers_Boost_Shared")
+		Game.EmitSound("Loot_Drop_Stinger_Ancient")
+	} 
+
+	giftNotificationRemainingTime = 8;
+	if (giftNotificationScheduler) {
+		$.CancelScheduled(giftNotificationScheduler);
+	}
+	giftNotificationScheduler = $.Schedule(0.1, GiftNotificationTick);
+});
+
+function GiftNotificationTick() {
+	giftNotificationRemainingTime -= 0.1;
+	if (giftNotificationRemainingTime > 0) {
+		giftNotificationScheduler = $.Schedule(0.1, GiftNotificationTick);
+	} else {
+		$('#GiftNotificationPanel').style.opacity = 0;
+		giftNotificationScheduler = false;
+	}
+}
 
 function UpdatePaymentTargetList() {
 	var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
@@ -274,12 +306,13 @@ function UpdatePaymentTargetList() {
 }
 
 function UpdatePaymentTarget(id) {
-	$('#PaymentWindowAvatar').steamid = Game.GetPlayerInfo(id).player_steamid;;
+	$('#PaymentWindowAvatar').steamid = Game.GetPlayerInfo(id).player_steamid;
 	paymentTargetID = id;
 }
 
 SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
 	patreonData = patreonBonuses;
+	UpdatePaymentTargetList();
 });
 
 UpdatePaymentTargetList();

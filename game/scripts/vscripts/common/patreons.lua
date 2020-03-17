@@ -130,9 +130,10 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 	local playerId = args.paymentTargetID
 	local steamId = tostring(PlayerResource:GetSteamID(playerId))
 	local matchId = tonumber(tostring(GameRules:GetMatchID()))
+	local isGift = (playerId ~= args.paymentOriginID)
 	WebApi:Send(
 		"payment/create",
-		{ steamId = steamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
+		{ steamId = steamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider, isGift = isGift },
 		function(response)
 			local player = PlayerResource:GetPlayer(playerId)
 			if not player then return end
@@ -174,6 +175,10 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 
 		if not isUpgrade then
 			Patreons:GiveOnSpawnBonus(playerId)
+		end
+
+		if response.isGift then
+			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = playerId, level = response.level})
 		end
 	end
 end
