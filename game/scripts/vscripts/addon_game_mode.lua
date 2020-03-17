@@ -358,7 +358,6 @@ function COverthrowGameMode:InitGameMode()
 		end
 	end, nil)
 
-	-- Player information for patreon purchase window
 	ListenToGameEvent("player_connect_full", function(data)
 		local playerId = data.PlayerID
 		local player = PlayerResource:GetPlayer(playerId)

@@ -5,7 +5,7 @@ var patreonPerks = []
 var giftNotificationRemainingTime = 0;
 var giftNotificationScheduler = false;
 var paymentTargetID = Game.GetLocalPlayerID();
-var patreonData = CustomNetTables.GetTableValue('game_state', 'patreon_bonuses');
+var patreonData;
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
 
@@ -315,7 +315,6 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses)
 	UpdatePaymentTargetList();
 });
 
-UpdatePaymentTargetList();
 setInterval(updatePatreonButton, 1000);
 $('#PatreonWindow').visible = false;
 setPaymentWindowVisible(false);
