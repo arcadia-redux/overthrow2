@@ -135,7 +135,7 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 
 	WebApi:Send(
 		"payment/create",
-		{ originSteamId = originSteamId, targetSteamId = targetSteamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
+		{ steamId = steamId, payerSteamId = payerSteamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
 		function(response)
 			local player = PlayerResource:GetPlayer(targetId)
 			if not player then return end
