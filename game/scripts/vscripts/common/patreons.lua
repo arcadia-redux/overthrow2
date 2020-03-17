@@ -160,6 +160,7 @@ end)
 MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 	local steamId = response.steamId
 	local playerId = GetPlayerIdBySteamId(steamId)
+
 	if playerId == -1 then return end
 
 	local player = PlayerResource:GetPlayer(playerId)
