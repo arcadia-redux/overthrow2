@@ -127,15 +127,17 @@ RegisterGameEventListener("player_disconnect", function(args)
 end)
 
 RegisterCustomEventListener("patreon:payments:create", function(args)
-	local playerId = args.paymentTargetID
-	local steamId = tostring(PlayerResource:GetSteamID(playerId))
+	local targetId = args.paymentTargetID
+	local originId = args.id
+	local targetSteamId = tostring(PlayerResource:GetSteamID(targetId))
+	local originSteamId = tostring(PlayerResource:GetSteamID(originId))
 	local matchId = tonumber(tostring(GameRules:GetMatchID()))
-	local isGift = (playerId ~= args.paymentOriginID)
+
 	WebApi:Send(
 		"payment/create",
-		{ steamId = steamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider, isGift = isGift },
+		{ originSteamId = originSteamId, targetSteamId = targetSteamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
 		function(response)
-			local player = PlayerResource:GetPlayer(playerId)
+			local player = PlayerResource:GetPlayer(targetId)
 			if not player then return end
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "patreon:payments:create", {
@@ -144,7 +146,7 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 			})
 		end,
 		function(error)
-			local player = PlayerResource:GetPlayer(playerId)
+			local player = PlayerResource:GetPlayer(targetId)
 			if not player then return end
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "patreon:payments:create", {
@@ -156,8 +158,8 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 end)
 
 MatchEvents.ResponseHandlers.paymentUpdate = function(response)
-	local steamId = response.steamId
-	local playerId = GetPlayerIdBySteamId(steamId)
+	local targetSteamId = response.targetSteamId
+	local playerId = GetPlayerIdBySteamId(targetSteamId)
 	if playerId == -1 then return end
 
 	local player = PlayerResource:GetPlayer(playerId)
@@ -177,7 +179,7 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 			Patreons:GiveOnSpawnBonus(playerId)
 		end
 
-		if response.isGift then
+		if targetSteamId ~= response.originSteamId then
 			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = playerId, level = response.level})
 		end
 	end
