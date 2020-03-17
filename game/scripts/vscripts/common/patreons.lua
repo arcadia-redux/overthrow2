@@ -179,7 +179,7 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 			Patreons:GiveOnSpawnBonus(playerId)
 		end
 
-		if targetSteamId ~= response.originSteamId then
+		if targetSteamId ~= response.payerSteamId then
 			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = playerId, level = response.level})
 		end
 	end
