@@ -446,6 +446,7 @@
 #PaymentWindowUserSelectorContainer {
 	height: 100%;
 	flow-children: down;
+	visibility: collapse;
 }
 
 #PaymentWindowDropdownLabel {
@@ -461,6 +462,7 @@
 	width: 60px;
 	border-radius: 4px;
 	border: 1px solid #D8D8D8FF;
+	visibility: collapse;
 }
 
 #PaymentWindowPaymentKinds > RadioButton,

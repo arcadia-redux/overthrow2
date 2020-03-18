@@ -137,7 +137,7 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 		"payment/create",
 		{ steamId = steamId, payerSteamId = payerSteamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
 		function(response)
-			local player = PlayerResource:GetPlayer(targetId)
+			local player = PlayerResource:GetPlayer(payerId)
 			if not player then return end
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "patreon:payments:create", {
@@ -146,7 +146,7 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 			})
 		end,
 		function(error)
-			local player = PlayerResource:GetPlayer(targetId)
+			local player = PlayerResource:GetPlayer(payerId)
 			if not player then return end
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "patreon:payments:create", {
@@ -158,8 +158,8 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 end)
 
 MatchEvents.ResponseHandlers.paymentUpdate = function(response)
-	local steamId = response.steamId
-	local playerId = GetPlayerIdBySteamId(steamId)
+	local payerSteamId = response.payerSteamId
+	local playerId = GetPlayerIdBySteamId(payerSteamId)
 
 	if playerId == -1 then return end
 
@@ -180,8 +180,8 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 			Patreons:GiveOnSpawnBonus(playerId)
 		end
 
-		if steamId ~= response.payerSteamId then
-			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = playerId, level = response.level})
+		if payerSteamId ~= response.steamId then
+			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = GetPlayerIdBySteamId(response.steamId), level = response.level})
 		end
 	end
 end

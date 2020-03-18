@@ -315,6 +315,11 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses)
 	UpdatePaymentTargetList();
 });
 
+GameEvents.Subscribe('patreon:test:enable', function(data) {
+	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
+	$('#PaymentWindowAvatar').style.visibility = 'visible';
+});
+
 setInterval(updatePatreonButton, 1000);
 $('#PatreonWindow').visible = false;
 setPaymentWindowVisible(false);

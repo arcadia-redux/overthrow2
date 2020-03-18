@@ -303,6 +303,7 @@ function COverthrowGameMode:InitGameMode()
 	Convars:RegisterCommand( "overthrow_force_gold_drop", function(...) self:ForceSpawnGold() end, "Force gold drop.", FCVAR_CHEAT )
 	Convars:RegisterCommand( "overthrow_set_timer", function(...) return SetTimer( ... ) end, "Set the timer.", FCVAR_CHEAT )
 	Convars:RegisterCommand( "overthrow_force_end_game", function(...) return self:EndGame( DOTA_TEAM_GOODGUYS ) end, "Force the game to end.", FCVAR_CHEAT )
+	Convars:RegisterCommand( "enable_patreon_test", function(...) return self:EnablePatreonTest( ... ) end, "Enables gift feature testing", 0)
 	Convars:SetInt( "dota_server_side_animation_heroesonly", 0 )
 
 	COverthrowGameMode:SetUpFountains()
@@ -380,6 +381,10 @@ function COverthrowGameMode:InitGameMode()
 		false,
 		false
 	}
+end
+
+function COverthrowGameMode:EnablePatreonTest()
+	CustomGameEventManager:Send_ServerToAllClients("patreon:test:enable", {})
 end
 
 ---------------------------------------------------------------------------
