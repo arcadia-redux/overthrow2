@@ -1,4 +1,5 @@
 var hasPatreonStatus = true;
+var isNewPatreonPanelVisible = Game.IsInToolsMode();
 var isPatron = false;
 var patreonLevel = 0
 var patreonPerks = []
@@ -8,6 +9,11 @@ var paymentTargetID = Game.GetLocalPlayerID();
 var patreonData;
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
+
+Game.AddCommand("enable_patreon_test", function() {
+	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
+	$('#PaymentWindowAvatar').style.visibility = 'visible';
+}, "", 0);
 
 class PatreonPerk {
 	constructor( name, level, overrideImage ) {
@@ -313,11 +319,6 @@ function UpdatePaymentTarget(id) {
 SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
 	patreonData = patreonBonuses;
 	UpdatePaymentTargetList();
-});
-
-GameEvents.Subscribe('patreon:test:enable', function(data) {
-	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
-	$('#PaymentWindowAvatar').style.visibility = 'visible';
 });
 
 setInterval(updatePatreonButton, 1000);
