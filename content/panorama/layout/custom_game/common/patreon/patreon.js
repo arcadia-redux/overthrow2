@@ -6,12 +6,12 @@ var giftNotificationRemainingTime = 0;
 var giftNotificationScheduler = false;
 var paymentTargetID = Game.GetLocalPlayerID();
 var donation_target_dropdown = false;
-var patreonData;
 
 var local_steam_id = Game.GetPlayerInfo(Game.GetLocalPlayerID()).player_steamid
 if (local_steam_id == 76561198054179075 || local_steam_id == 76561198988961452) {
 	$.Msg("patreon test should be working")
 	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
+	$('#PaymentWindowAvatar').style.visibility = 'visible';
 }
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
@@ -239,6 +239,8 @@ new PatreonPerk( "private_courier", 2, "s2r://panorama/images/items/courier_dire
 SetPatreonLevel( 0 )
 
 SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
+	UpdatePaymentTargetList(data);
+
 	var status = data[Game.GetLocalPlayerID()];
 	if (!status) return;
 
@@ -250,6 +252,7 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	SetPatreonLevel( status.level )
 
 	var isAutoControlled = status.endDate != null;
+
 	//$('#PatreonSupporterUpgrade').visible = isAutoControlled && status.level < 2;
 
 	//$('#PatreonSupporterStatusExpiriesIn').visible = isAutoControlled;
@@ -277,7 +280,7 @@ GameEvents.Subscribe('patreon:gift:notification', function(data) {
 	} else if (data.level == 2) {
 		Game.EmitSound("Waitingforplayers_Boost_Shared")
 		Game.EmitSound("Loot_Drop_Stinger_Ancient")
-	}
+	} 
 
 	giftNotificationRemainingTime = 8;
 	if (giftNotificationScheduler) {
@@ -296,9 +299,9 @@ function GiftNotificationTick() {
 	}
 }
 
-function UpdatePaymentTargetList() {
+function UpdatePaymentTargetList(patreonData) {
 	if (donation_target_dropdown) {
-		for(var id = 0; id <= 63; id++) {
+		for(var id = 0; id <= 23; id++) {
 			if (Players.IsValidPlayerID(id)) {
 				if (patreonData[id] && patreonData[id].level > 0) {
 					var this_player_option = $('#PatreonOption' + id);
@@ -313,7 +316,7 @@ function UpdatePaymentTargetList() {
 		donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
 		var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
 
-		for(var id = 0; id <= 63; id++) {
+		for(var id = 0; id <= 23; id++) {
 			if (Players.IsValidPlayerID(id)) {
 				if (!patreonData[id] || patreonData[id].level <= 0) {
 					layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
@@ -329,11 +332,6 @@ function UpdatePaymentTarget(id) {
 	$('#PaymentWindowAvatar').steamid = Game.GetPlayerInfo(id).player_steamid;
 	paymentTargetID = id;
 }
-
-SubscribeToNetTableKey('game_state', 'patreon_bonuses', function(patreonBonuses) {
-	patreonData = patreonBonuses;
-	UpdatePaymentTargetList();
-});
 
 setInterval(updatePatreonButton, 1000);
 $('#PatreonWindow').visible = false;
