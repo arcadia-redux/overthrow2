@@ -9,7 +9,7 @@ var donation_target_dropdown = false;
 var patreonData;
 
 var local_steam_id = Game.GetPlayerInfo(Game.GetLocalPlayerID()).player_steamid
-if (local_steam_id == 76561198054179075 || local_steam_id == 76561198007141460) {
+if (local_steam_id == 76561198054179075 || local_steam_id == 76561198988961452) {
 	$.Msg("patreon test should be working")
 	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
 }
@@ -277,7 +277,7 @@ GameEvents.Subscribe('patreon:gift:notification', function(data) {
 	} else if (data.level == 2) {
 		Game.EmitSound("Waitingforplayers_Boost_Shared")
 		Game.EmitSound("Loot_Drop_Stinger_Ancient")
-	} 
+	}
 
 	giftNotificationRemainingTime = 8;
 	if (giftNotificationScheduler) {
