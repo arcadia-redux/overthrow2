@@ -1,5 +1,5 @@
 var hasPatreonStatus = true;
-var isNewPatreonPanelVisible = Game.IsInToolsMode();
+var isNewPatreonPanelVisible = false;
 var isPatron = false;
 var patreonLevel = 0
 var patreonPerks = []
@@ -297,6 +297,12 @@ function GiftNotificationTick() {
 
 function UpdatePaymentTargetList() {
 	var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
+
+	var old_panel = $('#PaymentWindowDropDown')
+	if (old_panel) {
+		old_panel.DeleteAsync(0);
+	}
+
 	var donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
 	var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
 
