@@ -1,19 +1,20 @@
 var hasPatreonStatus = true;
-var isNewPatreonPanelVisible = false;
 var isPatron = false;
 var patreonLevel = 0
 var patreonPerks = []
 var giftNotificationRemainingTime = 0;
 var giftNotificationScheduler = false;
 var paymentTargetID = Game.GetLocalPlayerID();
+var donation_target_dropdown = false;
 var patreonData;
 
-$( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
-
-Game.AddCommand("enable_patreon_test", function() {
+var local_steam_id = Game.GetPlayerInfo(Game.GetLocalPlayerID()).player_steamid
+if (local_steam_id == 76561198054179075 || local_steam_id == 76561198007141460) {
+	$.Msg("patreon test should be working")
 	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
-	$('#PaymentWindowAvatar').style.visibility = 'visible';
-}, "", 0);
+}
+
+$( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
 
 class PatreonPerk {
 	constructor( name, level, overrideImage ) {
@@ -296,25 +297,32 @@ function GiftNotificationTick() {
 }
 
 function UpdatePaymentTargetList() {
-	var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
-
-	var old_panel = $('#PaymentWindowDropDown')
-	if (old_panel) {
-		old_panel.DeleteAsync(0);
-	}
-
-	var donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
-	var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
-
-	for(var id = 0; id <= 63; id++) {
-		if (Players.IsValidPlayerID(id)) {
-			if (!patreonData[id] || patreonData[id].level <= 0) {
-				layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
+	if (donation_target_dropdown) {
+		for(var id = 0; id <= 63; id++) {
+			if (Players.IsValidPlayerID(id)) {
+				if (patreonData[id] && patreonData[id].level > 0) {
+					var this_player_option = $('#PatreonOption' + id);
+					if (this_player_option) {
+						this_player_option.DeleteAsync(0)
+					}
+				}
 			}
 		}
+	} else {
+		var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
+		donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
+		var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
+
+		for(var id = 0; id <= 63; id++) {
+			if (Players.IsValidPlayerID(id)) {
+				if (!patreonData[id] || patreonData[id].level <= 0) {
+					layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
+				}
+			}
+		}
+		layout_string = layout_string + '</DropDown></root>';
+		donation_target_dropdown.BLoadLayoutFromString(layout_string, false, true);
 	}
-	layout_string = layout_string + '</DropDown></root>';
-	donation_target_dropdown.BLoadLayoutFromString(layout_string, false, true);
 }
 
 function UpdatePaymentTarget(id) {
