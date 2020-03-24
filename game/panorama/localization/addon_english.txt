@@ -27,21 +27,19 @@
 	"patreon_support_payment"						"Support with WeChat Pay or Alipay"
 	"patreon_new_methods_announcement"				"Now you can support us with"
 	"patreon_support_tier_1"						"Basic (¥50)"
-	"patreon_support_tier_1_tooltip"				"- Our Thanks and Appreciation<br>
-- Free Boots! Start every match with free Boots of Speed.<br>
-- Unlimited Use of Smart Random<br>
-- Unlimited Use of Chat Wheel<br>
-- Cosmetics and cosmetic abilities! Hero particle effects, pet/wards effects, on kill effects (like Fireworks!) and Pets Several cosmetic abilities to cast during the game<br>
-- Immunity to Kick Troll Item"
-	"patreon_support_tier_2"						"Advanced (¥200)"
-	"patreon_support_tier_2_tooltip"				"- Our Thanks and Appreciation<br>
-- Free Boots! Start every match with free Boots of Speed.<br>
-- Unlimited Use of Smart Random<br>
-- Unlimited Use of Chat Wheel<br>
-- Cosmetics and cosmetic abilities! Hero particle effects, pet/wards effects, on kill effects (like Fireworks!) and Pets Several cosmetic abilities to cast during the game<br>
-- Private Courier! Have a special courier that only delivers items for you.<br>
+		"patreon_support_tier_1_tooltip"				"- Our Thanks and Appreciation<br>
+		- Items instantly transfer to your inventory when purchased<br>
+- Immunity to kick Troll Item<br>
+- Choose your hero before other players<br>
+- Better Perks! Get Tier One Perks, twice as good as Basic Perks"
+
+		"patreon_support_tier_2"						"Advanced (¥200)"
+		"patreon_support_tier_2_tooltip"				"- Our Thanks and Appreciation<br>
+		- Items instantly transfer to your inventory when purchased<br>
 - Immunity to Kick Troll Item<br>
-- Kick Trolls from the game! Have access to an item that can be used to kick allied players that are trolling (WARNING: This perk will be removed from supporters that are found to be abusing it)"
+- Choose your hero before other players, <font color='#70EA72'>even before basic supporters</font><br>
+- Best Perks! Get <font color='#70EA72'>Tier Two Perks</font>, twice as good as Tier One Perks<br>
+<font color='#70EA72'>- Kick Trolls from the game! Have access to an item that can be used to kick allied players that are trolling (WARNING: This perk will be removed from supporters that are found to be abusing it)</font>"
 	// Common end
 
 	"custom_hud_error_no_coins"						"Ability Can't Be Used Without Coins"

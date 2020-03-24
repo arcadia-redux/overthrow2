@@ -282,10 +282,12 @@ function StopWheel() {
         $("#PhrasesContainer").RemoveAndDeleteChildren();
         for ( var i = 0; i < 8; i++ )
         {
-            $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")' />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
-            $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
-            $("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[0][1][i];
-            $("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[0][0][i]);
+        	if(rings[0][0][i] != "#dota_chatwheel_label_skywrath_mage_4"){
+				$("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")' />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
+				$("#Phrase"+i).BLoadLayoutSnippet("Phrase");
+				$("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[0][1][i];
+				$("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[0][0][i]);
+            }
         }
         nowselect = 0;
     }
@@ -302,15 +304,17 @@ function OnSelect(num) {
         $("#PhrasesContainer").RemoveAndDeleteChildren();
         for ( var i = 0; i < 8; i++ )
         {
-            var dopstr = "";
-            if (rings[newnum][1][i])
-            {
-                dopstr = " oncontextmenu='AddOnFavourites("+i+")'"
+        	if(rings[newnum][0][i] != "#dota_chatwheel_label_skywrath_mage_4"){
+				var dopstr = "";
+				if (rings[newnum][1][i])
+				{
+					dopstr = " oncontextmenu='AddOnFavourites("+i+")'"
+				}
+				$("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")'"+dopstr+" />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
+				$("#Phrase"+i).BLoadLayoutSnippet("Phrase");
+				$("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[newnum][1][i];
+				$("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[newnum][0][i]);
             }
-            $("#PhrasesContainer").BCreateChildren("<Button id='Phrase"+i+"' class='MyPhrases' onmouseactivate='OnSelect("+i+")' onmouseover='OnMouseOver("+i+")' onmouseout='OnMouseOut("+i+")'"+dopstr+" />");//class='Phrase HasSound RequiresHeroBadgeTier BronzeTier'
-            $("#Phrase"+i).BLoadLayoutSnippet("Phrase");
-            $("#Phrase"+i).GetChild(0).GetChild(0).visible = rings[newnum][1][i];
-            $("#Phrase"+i).GetChild(0).GetChild(1).text = $.Localize(rings[newnum][0][i]);
         }
         nowselect = newnum;
     }

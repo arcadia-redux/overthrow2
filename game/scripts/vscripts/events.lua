@@ -96,6 +96,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
+		GPM_Init()
 		--print( "OnGameRulesStateChange: Game In Progress" )
 		self.countdownEnabled = true
 		CustomGameEventManager:Send_ServerToAllClients( "show_timer", {} )

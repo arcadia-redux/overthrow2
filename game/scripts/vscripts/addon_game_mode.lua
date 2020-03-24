@@ -37,6 +37,7 @@ _G.fastItemsWithoutCooldown =
 local game_start = true
 _G.personalCouriers = {}
 _G.mainTeamCouriers = {}
+_G.tPlayersMuted = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -53,6 +54,7 @@ require("common/init")
 require("utility_functions")
 require("events")
 require("items")
+require("gpm_lib")
 
 require("chat_commands/admin_commands")
 
@@ -65,6 +67,7 @@ LinkLuaModifier("modifier_silencer_new_int_steal", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_alert_before_kick_lua", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -117,6 +120,10 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/custom_soundboard_soundevents.vsndevts", context )
+
+	--Cache for ban hammer
+		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_chen", context )
+		PrecacheResource( "particle", "particles/alert_ban_hammer.vpcf", context )
 
 
 		local heroeskv = LoadKeyValues("scripts/heroes.txt")
@@ -813,6 +820,17 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 		return false
 	end
 
+	if filterTable.name_const == "modifier_alert_before_kick" then
+		local unit = filterTable.entindex_parent_const ~= 0 and EntIndexToHScript(filterTable.entindex_parent_const)
+		unit:AddNewModifier(unit, unit, "modifier_alert_before_kick_lua", { duration = filterTable.duration })
+	end
+	local parent = filterTable.entindex_parent_const and filterTable.entindex_parent_const ~= 0 and EntIndexToHScript(filterTable.entindex_parent_const)
+	local caster = filterTable.entindex_caster_const and filterTable.entindex_caster_const ~= 0 and EntIndexToHScript(filterTable.entindex_caster_const)
+
+	if caster and parent and caster.bonusDebuffTime and (parent:GetTeamNumber() ~= caster:GetTeamNumber()) and filterTable.duration > 0 then
+		filterTable.duration = filterTable.duration/100*caster.bonusDebuffTime + filterTable.duration
+	end
+
 	return true
 end
 
@@ -924,6 +942,10 @@ function COverthrowGameMode:GetCoreTeleportTarget(teamId)
 	end
 end
 
+local blockedChatPhraseCode = {
+	[796] = true,
+}
+
 function COverthrowGameMode:OnPlayerChat(keys)
 	local text = keys.text
 	local playerid = keys.playerid
@@ -933,8 +955,10 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if string.sub(text, 0,4) == "-ch " then
 		local data = {}
 		data.num = tonumber(string.sub(text, 5))
-		data.PlayerID = playerid
-		SelectVO(data)
+		if not blockedChatPhraseCode[data.num] then
+			data.PlayerID = playerid
+			SelectVO(data)
+		end
 	end
 
 	local player = PlayerResource:GetPlayer(keys.playerid)
@@ -1175,16 +1199,9 @@ RegisterCustomEventListener("OnTimerClick", function(keys)
 end)
 
 votimer = {}
-voused = {}
 vousedcol = {}
 SelectVO = function(keys)
 	local psets = Patreons:GetPlayerSettings(keys.PlayerID)
-	if voused[keys.PlayerID] ~= nil and psets.level == 0 then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown" })
-		return
-	end
-	voused[keys.PlayerID] = true
-	Timers:CreateTimer( 240, function() voused[keys.PlayerID] = nil end)
 	print(keys.num)
 	local heroes = {
 		"abaddon",
@@ -2761,9 +2778,10 @@ SelectVO = function(keys)
 		}
 		if vousedcol[keys.PlayerID] == nil then vousedcol[keys.PlayerID] = 0 end
 		if votimer[keys.PlayerID] ~= nil then
-			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + votimer[keys.PlayerID] then
+			if GameRules:GetGameTime() - votimer[keys.PlayerID] > 5 + vousedcol[keys.PlayerID] and (phraseDoesntHasCooldown == nil or phraseDoesntHasCooldown == true) then
 				local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-				EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+				--EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+				ChatSound(heroesvo[selectedid][selectedid2], keys.PlayerID)
 				--GameRules:SendCustomMessage("<font color='#70EA72'>".."test".."</font>",-1,0)
 				Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
@@ -2773,11 +2791,34 @@ SelectVO = function(keys)
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
-			EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+			--EmitAnnouncerSound(heroesvo[selectedid][selectedid2])
+			ChatSound(heroesvo[selectedid][selectedid2], keys.PlayerID)
 			Say(PlayerResource:GetPlayer(keys.PlayerID), chat["dota_chatwheel_message_"..selectedstr], false)
 			votimer[keys.PlayerID] = GameRules:GetGameTime()
 			vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 		end
 	end
 end
+
+function ChatSound(phrase, playerId)
+	local all_heroes = HeroList:GetAllHeroes()
+	for _, hero in pairs(all_heroes) do
+		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and hero:GetPlayerID() and (not _G.tPlayersMuted[hero:GetPlayerID()] or not _G.tPlayersMuted[hero:GetPlayerID()][playerId]) then
+			EmitAnnouncerSoundForPlayer(phrase, hero:GetPlayerID())
+		end
+	end
+end
+
 RegisterCustomEventListener("SelectVO", SelectVO)
+
+RegisterCustomEventListener("set_mute_player", function(data)
+	local fromId = data.PlayerID
+	local toId = data.toPlayerId
+	local disable = data.disable
+	_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
+	if disable == 0 then
+		_G.tPlayersMuted[fromId][toId] = nil
+	else
+		_G.tPlayersMuted[fromId][toId] = disable
+	end
+end)

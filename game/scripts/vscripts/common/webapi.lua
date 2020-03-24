@@ -113,6 +113,10 @@ function WebApi:AfterMatch(winnerTeam)
 	if not isTesting then
 		if GameRules:IsCheatMode() then return end
 		if GameRules:GetDOTATime(false, true) < 60 then return end
+
+		-- TODO: Temporary workaround, `WebApi:AfterMatch` shouldn't be called multiple times
+		if WebApi._sentAfterMatch then return end
+		WebApi._sentAfterMatch = true
 	end
 
 	if winnerTeam < DOTA_TEAM_FIRST or winnerTeam > DOTA_TEAM_CUSTOM_MAX then return end
