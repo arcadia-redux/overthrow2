@@ -46,5 +46,11 @@
 			"Command"   "+WheelButton"
 			"Name"      "CustomCommand"
 		}
+		"02"
+		{
+			"Key"       "="
+			"Command"   "+TestGift"
+			"Name"      "TestGift"
+		}
 	}
 }

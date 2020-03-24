@@ -8,13 +8,26 @@ var paymentTargetID = Game.GetLocalPlayerID();
 var donation_target_dropdown = false;
 
 var local_steam_id = Game.GetPlayerInfo(Game.GetLocalPlayerID()).player_steamid
+
 if (local_steam_id == 76561198054179075 || local_steam_id == 76561198988961452) {
-	$.Msg("patreon test should be working")
 	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
 	$('#PaymentWindowAvatar').style.visibility = 'visible';
 }
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
+
+var test_level = 2;
+Game.AddCommand("+TestGift", TestGift, "", 0);
+
+function TestGift() {
+	if (test_level == 1) {
+		test_level = 2;
+	} else {
+		test_level = 1;
+	}
+
+	GameEvents.SendCustomGameEventToServer("patreon_gift_test", {level: test_level});
+}
 
 class PatreonPerk {
 	constructor( name, level, overrideImage ) {
@@ -105,6 +118,9 @@ function setPaymentWindowVisible(visible) {
 	$('#SupportButtonPaymentWindow').checked = visible;
 	if (visible) {
 		updatePaymentWindow();
+		$('#PaymentWindowDropDown').enabled = true;
+	} else {
+		$('#PaymentWindowDropDown').enabled = false;
 	}
 }
 
