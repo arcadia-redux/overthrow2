@@ -940,6 +940,10 @@ function COverthrowGameMode:GetCoreTeleportTarget(teamId)
 	end
 end
 
+local blockedChatPhraseCode = {
+	[796] = true,
+}
+
 function COverthrowGameMode:OnPlayerChat(keys)
 	local text = keys.text
 	local playerid = keys.playerid
@@ -949,8 +953,10 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	if string.sub(text, 0,4) == "-ch " then
 		local data = {}
 		data.num = tonumber(string.sub(text, 5))
-		data.PlayerID = playerid
-		SelectVO(data)
+		if not blockedChatPhraseCode[data.num] then
+			data.PlayerID = playerid
+			SelectVO(data)
+		end
 	end
 
 	local player = PlayerResource:GetPlayer(keys.playerid)
