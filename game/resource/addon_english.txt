@@ -668,5 +668,20 @@
 
 		"HighSupportersOnly"					"High Supporters Only"
 		"SupportersOnly"						"Supporters Only"
+
+		"our_thanks_and_appreciation"				"Our Thanks and Appreciation"
+		"our_thanks_and_appreciation_description"	"We are grateful to all the players who play in our project and support us"
+
+		"supporter_perks_low"						"Supporter Perks"
+		"supporter_perks_low_description"			"Supporters have improved versions of common personal perks"
+
+		"first_pick_low"							"Pick Hero First"
+		"first_pick_low_description"				"You can choose hero before other players"
+
+		"first_pick_high"							"Pick Heros Before Even Supporters"
+		"first_pick_high_description"				"You can choose hero before other players and even supporters"
+
+		"supporter_perks_high"						"High-Supporter Perks"
+		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
 	}
 }

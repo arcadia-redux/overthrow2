@@ -211,19 +211,23 @@ $.GetContextPanel().RemoveClass('IsPatron');
 
 //var boots = new FreeBoots()
 //Divider()
-new PatreonPerk( "random_unlimited", 1 )
+new PatreonPerk( "our_thanks_and_appreciation", 1 )
 Divider()
-new PatreonPerk( "cosmetics_box", 1 )
+new PatreonPerk( "supporter_perks_low", 1 )
 Divider()
-new PatreonPerk( "unlimited_chat_wheel", 1 )
+new PatreonPerk( "first_pick_low", 1 )
 Divider()
 new PatreonPerk( "instant_transfer", 1 )
 Divider()
 new PatreonPerk( "immune_kick_troll", 1 )
 Divider()
-new PatreonPerk( "kick_troll", 2 )
+
+new PatreonPerk( "first_pick_high", 2 )
 Divider()
-new PatreonPerk( "private_courier", 2, "s2r://panorama/images/items/courier_dire.png" )
+new PatreonPerk( "supporter_perks_high", 2 )
+Divider()
+new PatreonPerk( "kick_troll", 2 )
+//Divider()
 
 SetPatreonLevel( 0 )
 
