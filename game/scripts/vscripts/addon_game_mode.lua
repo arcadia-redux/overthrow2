@@ -1058,8 +1058,20 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				BlockToBuyCourier(plyID, hItem)
 				return false
 			end
-			
-			if psets.level > 0 then
+			local notFastItems = {
+				["item_ward_observer"] = true,
+				["item_ward_sentry"] = true,
+				["item_smoke_of_deceit"] = true,
+				["item_clarity"] = true,
+				["item_flask"] = true,
+				["item_greater_mango"] = true,
+				["item_enchanted_mango"] = true,
+				["item_tango"] = true,
+				["item_faerie_fire"] = true,
+				["item_tpscroll"] = true,
+				["item_dust"] = true,
+			}
+			if psets.level > 0 and (not notFastItems[hItem:GetName()])then
 				Timers:CreateTimer( 0.01, function()
 					for i=10,15 do
 						if hInventoryParent:GetItemInSlot(i) == hItem then
