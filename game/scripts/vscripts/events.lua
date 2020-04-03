@@ -188,7 +188,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		end
 
-		if not GameRules:IsDaytime() then
+		if not GameRules:IsDaytime() and spawnedUnit.isKilled then
 			local unit = spawnedUnit
 			local position = COverthrowGameMode:GetCoreTeleportTarget(unit:GetTeamNumber())
 			local triggerPosition = unit:GetAbsOrigin()
@@ -214,6 +214,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			unit:RemoveModifierByName("modifier_core_spawn_movespeed")
 			unit:AddNewModifier(unit, nil, "modifier_core_spawn_movespeed", { xp = isMainHero })
 		end
+		spawnedUnit.isKilled = false
 	end
 
 	-- Destroys the last hit effects
@@ -367,6 +368,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 	end
 
 	if killedUnit:IsRealHero() and not killedUnit:IsReincarnating() then
+		killedUnit.isKilled = true
 		local player_id = -1
 		if hero and hero:IsRealHero() and hero.GetPlayerID then
 			player_id = hero:GetPlayerID()
@@ -443,6 +445,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 		end
 
 		if not killedUnit:IsReincarnating() then
+			killedUnit.isKilled = true
 			COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		end
 	end
