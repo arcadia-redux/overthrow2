@@ -1060,8 +1060,20 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				BlockToBuyCourier(plyID, hItem)
 				return false
 			end
-			
-			if psets.level > 0 then
+			local notFastItems = {
+				["item_ward_observer"] = true,
+				["item_ward_sentry"] = true,
+				["item_smoke_of_deceit"] = true,
+				["item_clarity"] = true,
+				["item_flask"] = true,
+				["item_greater_mango"] = true,
+				["item_enchanted_mango"] = true,
+				["item_tango"] = true,
+				["item_faerie_fire"] = true,
+				["item_tpscroll"] = true,
+				["item_dust"] = true,
+			}
+			if psets.level > 0 and (not notFastItems[hItem:GetName()])then
 				Timers:CreateTimer( 0.01, function()
 					for i=10,15 do
 						if hInventoryParent:GetItemInSlot(i) == hItem then
@@ -1292,6 +1304,7 @@ SelectVO = function(keys)
 		"skywrath_mage",
 		"slardar",
 		"slark",
+		"snapfire",
 		"sniper",
 		"spectre",
 		"spirit_breaker",
@@ -1314,6 +1327,7 @@ SelectVO = function(keys)
 		"venomancer" ,
 		"viper",
 		"visage",
+		"void_spirit",
 		"warlock",
 		"weaver",
 		"windrunner",
@@ -2486,6 +2500,16 @@ SelectVO = function(keys)
 				"slark_slark_happy_07",
 				},
 				{
+				"snapfire_snapfire_laugh_02_02",
+				"snapfire_snapfire_wheel_thanks_02",
+				"snapfire_snapfire_spawn_25",
+				"snapfire_snapfire_wheel_all_03",
+				"snapfire_snapfire_wheel_all_07",
+				"snapfire_snapfire_whawiz_01",
+				"snapfire_snapfire_rival_67",
+				"snapfire_snapfire_spawn_24",
+				},
+				{
 				"sniper_snip_laugh_08",
 				"sniper_snip_level_06",
 				"sniper_snip_ability_fail_04",
@@ -2704,6 +2728,16 @@ SelectVO = function(keys)
 				"visage_visa_rival_02",
 				"visage_visa_spawn_05",
 				"visage_visa_happy_03",
+				},
+				{
+				"void_spirit_voidspir_laugh_05",
+				"void_spirit_voidspir_thanks_04",
+				"void_spirit_voidspir_spawn_14",
+				"void_spirit_voidspir_rival_114",
+				"void_spirit_voidspir_rival_113",
+				"void_spirit_voidspir_rival_72",
+				"void_spirit_voidspir_rival_71",
+				"void_spirit_voidspir_wheel_all_10_02",
 				},
 				{
 				"warlock_warl_laugh_06",

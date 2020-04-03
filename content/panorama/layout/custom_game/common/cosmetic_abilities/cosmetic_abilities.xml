@@ -157,6 +157,11 @@
 			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/immune_kick_troll.png" />
 			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/kick_troll.png" />
 			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/private_courier.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/supporter_perks_low.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/supporter_perks_high.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/first_pick_low.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/first_pick_high.png" />
+			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/our_thanks_and_appreciation.png" />
 		</Panel>
 	</Panel>
 </root>
