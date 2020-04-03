@@ -29,13 +29,13 @@
 		"patreon_support_payment"						"支持微信支付或支付宝"
 		"patreon_new_methods_announcement"				"现在你可以支持我们了"
 		"patreon_support_tier_1"						"基本 (¥50)"
-		"patreon_support_tier_1_tooltip"				"- 我们的感谢和赞赏<br>
+		"patreon_support_tier_1_tooltip"				"- 购买后可在30天内使用该特性<br>
 - 完成购买后物品会立即递送至你的物品栏中<br>
 - 免杀踢巨魔物品<br>
 - 在其他玩家之前选择英雄<br>
 - 更好的强化！获得初级强化，两倍优于基础强化"
 		"patreon_support_tier_2"						"高级 (¥200)"
-		"patreon_support_tier_2_tooltip"				"- 我们的感谢和赞赏<br>
+		"patreon_support_tier_2_tooltip"				"- 购买后可在30天内使用该特性<br>
 - 完成购买后物品会立即递送至你的物品栏中<br>
 - 免杀踢巨魔物品<<br>
 - 在其他玩家之前选择英雄，<font color='#70EA72'>可优先于基础支持者进行选择</font><br>
