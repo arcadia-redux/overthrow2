@@ -27,14 +27,14 @@
 	"patreon_support_payment"						"Support with WeChat Pay or Alipay"
 	"patreon_new_methods_announcement"				"Now you can support us with"
 	"patreon_support_tier_1"						"Basic (¥50)"
-		"patreon_support_tier_1_tooltip"				"- Our Thanks and Appreciation<br>
+		"patreon_support_tier_1_tooltip"				"- Benefits last for 30 days<br>
 		- Items instantly transfer to your inventory when purchased<br>
 - Immunity to kick Troll Item<br>
 - Choose your hero before other players<br>
 - Better Perks! Get Tier One Perks, twice as good as Basic Perks"
 
 		"patreon_support_tier_2"						"Advanced (¥200)"
-		"patreon_support_tier_2_tooltip"				"- Our Thanks and Appreciation<br>
+		"patreon_support_tier_2_tooltip"				"- Benefits last for 30 days<br>
 		- Items instantly transfer to your inventory when purchased<br>
 - Immunity to Kick Troll Item<br>
 - Choose your hero before other players, <font color='#70EA72'>even before basic supporters</font><br>
