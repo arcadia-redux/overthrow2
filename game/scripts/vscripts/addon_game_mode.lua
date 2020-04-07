@@ -125,6 +125,10 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_chen", context )
 		PrecacheResource( "particle", "particles/alert_ban_hammer.vpcf", context )
 
+	--Cache for gift messages
+		PrecacheResource( "particle", "particles/patreon_gift_tier_1.vpcf", context )
+		PrecacheResource( "particle", "particles/patreon_gift_tier_2.vpcf", context )
+		PrecacheResource( "soundfile", "soundevents/game_sounds_ui_imported.vsndevts", context )
 
 		local heroeskv = LoadKeyValues("scripts/heroes.txt")
 		for hero, _ in pairs(heroeskv) do
