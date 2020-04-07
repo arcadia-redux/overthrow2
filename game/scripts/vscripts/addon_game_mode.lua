@@ -364,10 +364,12 @@ function COverthrowGameMode:InitGameMode()
 
 		if data.text == "-testgift1" then
 			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.playerid, level = 1})
+			print("server sent event")
 		end
 
 		if data.text == "-testgift2" then
 			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.playerid, level = 2})
+			print("server sent event")
 		end
 
 		if data.text == "-imout" then
