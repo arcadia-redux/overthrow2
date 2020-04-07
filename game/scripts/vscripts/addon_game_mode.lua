@@ -358,6 +358,14 @@ function COverthrowGameMode:InitGameMode()
 			GameRules:SendCustomMessage(message, PlayerResource:GetTeam(playerId), -1)
 		end
 
+		if data.text == "-testgift1" then
+			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.playerid, level = 1})
+		end
+
+		if data.text == "-testgift2" then
+			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.playerid, level = 2})
+		end
+
 		if data.text == "-imout" then
 			if tostring(PlayerResource:GetSteamID(data.playerid)) == "76561198054179075" then
 				GameRules:SetSafeToLeave(true)

@@ -52,10 +52,6 @@ function Patreons:GiveOnSpawnBonus(playerId)
 	hero:AddItemByName("item_patreon_mango")
 end
 
-RegisterCustomEventListener("patreon_gift_test", function(data)
-	CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.PlayerID, level = data.level})
-end)
-
 RegisterCustomEventListener("patreon_toggle_boots", function(data)
 	local playerId = data.PlayerID
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)

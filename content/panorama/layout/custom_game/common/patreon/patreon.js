@@ -16,19 +16,6 @@ if (local_steam_id == 76561198054179075 || local_steam_id == 76561198988961452) 
 
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
 
-var test_level = 2;
-Game.AddCommand("+TestGift", TestGift, "", 0);
-
-function TestGift() {
-	if (test_level == 1) {
-		test_level = 2;
-	} else {
-		test_level = 1;
-	}
-
-	GameEvents.SendCustomGameEventToServer("patreon_gift_test", {level: test_level});
-}
-
 class PatreonPerk {
 	constructor( name, level, overrideImage ) {
 		this.panel = $.CreatePanel( "Panel", $( "#PatreonPerksContainer" ), "" )
@@ -300,7 +287,7 @@ GameEvents.Subscribe('patreon:gift:notification', function(data) {
 	} else if (data.level == 2) {
 		Game.EmitSound("Waitingforplayers_Boost_Shared")
 		Game.EmitSound("Loot_Drop_Stinger_Ancient")
-	} 
+	}
 
 	giftNotificationRemainingTime = 8;
 	if (giftNotificationScheduler) {
