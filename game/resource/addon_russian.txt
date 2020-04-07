@@ -334,6 +334,23 @@
 
 		"fast_buy_items"					                            "Вы пока не можете купить это"
 
+		"our_thanks_and_appreciation"                "Наша благодарность и признательность"
+		"our_thanks_and_appreciation_description"    "Мы благодарим всех игроков, которые играют в наш проект и поддерживают его"
+		"supporter_perks_low"                        "Улучшенные персональные таланты"
+		"supporter_perks_low_description"            "Поддержавшие игроки могут выбрать улучшенные версии обычных персональных талантов в начале игры"
+		"first_pick_low"                            "Первый выбор героя"
+		"first_pick_low_description"                "Вы можете выбрать героя раньше других игроков"
+		"instant_transfer"                            "Моментальное перемещение купленных предметов"
+		"instant_transfer_description"                "Переносит предметы вам в инвентарь сразу после покупки"
+		"immune_kick_troll"                            "Иммунитет к изгнанию из игры"
+		"immune_kick_troll_description"                "Другие игроки не могут выгнать вас из игры"
+		"first_pick_high"                            "Абсолютное первенство в выборе героя"
+		"first_pick_high_description"                "Вы можете выбрать героя раньше любых других игроков, даже поддержавших"
+		"supporter_perks_high"                        "Абсолютные персональные таланты"
+		"supporter_perks_high_description"            "Вы сможете выбрать лучшие версии персональных талантов"
+		"kick_troll"                                "Изгнание Тролля"
+		"kick_troll_description"                    "Выгнать тролля! Вы можете исключить из игры союзника, который мешает играть вашей команде (ВНИМАНИЕ: эта функция может быть отключена, если начать использовать ее безраздумно)"
+
 		"cannotgiveiteminthiscourier"			                        "Вы не можете поместить вещи в этого курьера."
 		"alreadyhaveprivatecourier"			                            "У Вас уже есть приватный курьер."
 		"DOTA_Tooltip_ability_item_patreon_courier"                     "Private Courier"
