@@ -7,13 +7,6 @@ var giftNotificationScheduler = false;
 var paymentTargetID = Game.GetLocalPlayerID();
 var donation_target_dropdown = false;
 
-var local_steam_id = Game.GetPlayerInfo(Game.GetLocalPlayerID()).player_steamid
-
-if (local_steam_id == 76561198054179075 || local_steam_id == 76561198988961452) {
-	$('#PaymentWindowUserSelectorContainer').style.visibility = 'visible';
-	$('#PaymentWindowAvatar').style.visibility = 'visible';
-}
-
 $( "#PatreonPerksContainer" ).RemoveAndDeleteChildren()
 
 class PatreonPerk {
@@ -275,7 +268,6 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 });
 
 GameEvents.Subscribe('patreon:gift:notification', function(data) {
-	$.Msg("client received event")
 	$('#GiftNotificationAvatar').steamid =  Game.GetPlayerInfo(data.playerId).player_steamid
 	$('#GiftNotificationName').text = Players.GetPlayerName(data.playerId)
 	$('#GiftNotificationLabel').text = $.Localize('#received_gift_' + data.level)
