@@ -281,7 +281,7 @@ GameEvents.Subscribe('patreon:gift:notification', function(data) {
 	$('#GiftNotificationLabel').text = $.Localize('#received_gift_' + data.level)
 	$('#GiftNotificationPanel').style.opacity = 1;
 
-	Particles.CreateParticle("particles/patreon_gift_tier_" + data.level + ".vpcf", ParticleAttachment_t.PATTACH_EYES_FOLLOW, 1)
+	Particles.CreateParticle("particles/patreon_gift_tier_" + data.level + ".vpcf", ParticleAttachment_t.PATTACH_EYES_FOLLOW, 0)
 	if (data.level == 1) {
 		Game.EmitSound("Waitingforplayers_Boost_Shared")
 		Game.EmitSound("Loot_Drop_Stinger_Rare")
