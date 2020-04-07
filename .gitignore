@@ -3,7 +3,6 @@ game/*.cfg
 game/*.tmp
 game/rich_presence_persistent_data.txt
 
-*.vpcf_c
 *.vtex_c
 *.vsndevts_c
 *.vmat_c
