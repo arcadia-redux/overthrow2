@@ -3,7 +3,7 @@
 	"Language"	"russian"
 	"Tokens"
 	{
-		"addon_game_name"	"Overthrow"
+		"addon_game_name"	"Overthrow 2.0"
 
 		"cosemtics_header_abilities"								"Abilities"
 		"cosemtics_header_effects"									"Effects"
@@ -30,7 +30,7 @@
 		"new_stat_wards"											"ВАРДЫ СЕНТРИ/ОБСЫ"
 		"new_stat_killed_heroes"									"УБИТО ПРОТИВНИКОВ"
 		
-		"[english]addon_game_name"	"Overthrow"
+		"[english]addon_game_name"	"Overthrow 2.0"
 		"DOTA_Tooltip_modifier_get_xp"	"Аура богатства"
 		"[english]DOTA_Tooltip_modifier_get_xp"	"Golden Aura"
 		"DOTA_Tooltip_modifier_get_xp_Description"	"Получает больше золота и опыта!"
@@ -59,8 +59,8 @@
 		"[english]PointsToWin_VeryCloseToVictory"	"+{d:points_to_win} more!"
 		"PointsToWin_Victory"	"Победа!"
 		"[english]PointsToWin_Victory"	"Victory!"
-		"InstructionsTitle"	"OVERTHROW"
-		"[english]InstructionsTitle"	"OVERTHROW"
+		"InstructionsTitle"	"OVERTHROW 2.0"
+		"[english]InstructionsTitle"	"OVERTHROW 2.0"
 		"InstructionsObjective"	"ЦЕЛЬ"
 		"[english]InstructionsObjective"	"OBJECTIVE"
 		"InstructionsObjectiveText"	"Уничтожайте врагов! Наберите необходимое число убийств первыми или совершите наибольшее число убийств к концу раунда, и победа будет за вами."
@@ -123,8 +123,8 @@
 		"[english]KillMessageText"	"HAS KILLED THE LEADER"
 		"KillMessageBounty"	"И ПОЛУЧАЕТ 500 ЗОЛОТА СВЕРХУ!"
 		"[english]KillMessageBounty"	"FOR 500 BONUS GOLD!"
-		"addonname"	"Overthrow"
-		"[english]addonname"	"Overthrow"
+		"addonname"	"Overthrow 2.0"
+		"[english]addonname"	"Overthrow 2.0"
 		"overthrow_game_info_header_objective"	"Цель:"
 		"[english]overthrow_game_info_header_objective"	"Objective:"
 		"overthrow_brief_description"	"Уничтожайте врагов! Первый, кто наберет достаточно убийств, победит!"
@@ -175,8 +175,8 @@
 		"[english]DOTA_Tooltip_ability_item_ward_sentry_Description"	"Use: Plants a Sentry Ward, an invisible watcher that grants True Sight, the ability to see invisible enemy units and wards, to any existing allied vision within its range. Lasts %duration_minutes_tooltip% minutes.\n\nHold Control to give one Sentry Ward to an allied hero.\n\n<font color='#70EA72'>In Overthrow, Sentry Wards cost 100 gold and last 6 minutes.</font>"
 		"DOTA_Tooltip_ability_item_dust_Description"	"Использование: делает всех невидимых героев поблизости видимыми и замедляет их.\n\n<font color='#70EA72'>Стоит 90 золота и перезаряжается быстрее.</font>"
 		"[english]DOTA_Tooltip_ability_item_dust_Description"	"Use: Reveals and slows invisible Heroes in a nearby area.\n\n<font color='#70EA72'>In Overthrow, Dust of Appearance costs 90 gold and has a reduced cooldown.</font>"
-		"DOTA_GameMode_15"	"Overthrow"
-		"[english]DOTA_GameMode_15"	"Overthrow"
+		"DOTA_GameMode_15"	"Overthrow 2.0"
+		"[english]DOTA_GameMode_15"	"Overthrow 2.0"
 
 		"npc_dota_hero_alchemist"				"Alchemist (изм.)"
 		"DOTA_Tooltip_ability_alchemist_goblins_greed_custom"		"Greevil's Greed"
@@ -324,15 +324,32 @@
 
 		//////////////////////////////////////////////////////////////////
 
-		"DOTA_Tooltip_ability_item_disable_help_custom"					"Disable Help"
-		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Use: Disable Help</h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
+		"DOTA_Tooltip_ability_item_disable_help_custom"					"Отключить помощь"
+		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Использование: Отключить помощь</h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
 		"DOTA_Tooltip_ability_item_disable_help_custom_Lore"			"Кому нужны враги с такими союзниками?"
 
-		"DOTA_Tooltip_ability_item_mute_custom"					        "Mute Player"
-		"DOTA_Tooltip_ability_item_mute_custom_Description"				"<h1>Use: Mute Player</h1> При использовании предмета на союзника вы перестанете слышать его в голосовом чате. Голос союзника также можно отключить на табло."
+		"DOTA_Tooltip_ability_item_mute_custom"					        "Заглушить игрока"
+		"DOTA_Tooltip_ability_item_mute_custom_Description"				"<h1>Использование: Заглушить игрока</h1> При использовании предмета на союзника вы перестанете слышать его в голосовом чате. Голос союзника также можно отключить на табло."
 		"DOTA_Tooltip_ability_item_mute_custom_Lore"					"Тишина - это золото"
 
 		"fast_buy_items"					                            "Вы пока не можете купить это"
+
+		"our_thanks_and_appreciation"                "Наша благодарность и признательность"
+		"our_thanks_and_appreciation_description"    "Мы благодарим всех игроков, которые играют в наш проект и поддерживают его"
+		"supporter_perks_low"                        "Улучшенные персональные таланты"
+		"supporter_perks_low_description"            "Поддержавшие игроки могут выбрать улучшенные версии обычных персональных талантов в начале игры"
+		"first_pick_low"                            "Первый выбор героя"
+		"first_pick_low_description"                "Вы можете выбрать героя раньше других игроков"
+		"instant_transfer"                            "Моментальное перемещение купленных предметов"
+		"instant_transfer_description"                "Переносит предметы вам в инвентарь сразу после покупки"
+		"immune_kick_troll"                            "Иммунитет к изгнанию из игры"
+		"immune_kick_troll_description"                "Другие игроки не могут выгнать вас из игры"
+		"first_pick_high"                            "Абсолютное первенство в выборе героя"
+		"first_pick_high_description"                "Вы можете выбрать героя раньше любых других игроков, даже поддержавших"
+		"supporter_perks_high"                        "Абсолютные персональные таланты"
+		"supporter_perks_high_description"            "Вы сможете выбрать лучшие версии персональных талантов"
+		"kick_troll"                                "Изгнание Тролля"
+		"kick_troll_description"                    "Выгнать тролля! Вы можете исключить из игры союзника, который мешает играть вашей команде (ВНИМАНИЕ: эта функция может быть отключена, если начать использовать ее безраздумно)"
 
 		"cannotgiveiteminthiscourier"			                        "Вы не можете поместить вещи в этого курьера."
 		"alreadyhaveprivatecourier"			                            "У Вас уже есть приватный курьер."
@@ -575,6 +592,10 @@
 		"playerhasalertforban"					   				 "Игрок уже предупрежден. Попробуйте позже."
 		"DOTA_Tooltip_modifier_alert_before_kick_lua"			 "Предупреждение об отключении от этой игры."
 		"cannotkickotherpatreons"					             "Нельзя выгнать других подддержавших"
+
+		"purchase_for"                                               "Покупка для:"
+		"received_gift_1"                                            "Получена подарочная подписка <font color='#ff4040'>1 уровня</font>!"
+		"received_gift_2"                                            "Получена подарочная подписка <font color='#ff4040'>2 уровня</font>!"
 
 		"alert_for_ban_message_1"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
 		"alert_for_ban_message_2"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> У игрока есть 60 секунд для исправления."

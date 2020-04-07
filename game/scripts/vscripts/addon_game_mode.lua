@@ -125,6 +125,10 @@ function Precache( context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_chen", context )
 		PrecacheResource( "particle", "particles/alert_ban_hammer.vpcf", context )
 
+	--Cache for gift messages
+		PrecacheResource( "particle", "particles/patreon_gift_tier_1.vpcf", context )
+		PrecacheResource( "particle", "particles/patreon_gift_tier_2.vpcf", context )
+		PrecacheResource( "soundfile", "soundevents/game_sounds_ui_imported.vsndevts", context )
 
 		local heroeskv = LoadKeyValues("scripts/heroes.txt")
 		for hero, _ in pairs(heroeskv) do
@@ -289,11 +293,12 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 
 	GameRules:GetGameModeEntity():SetDraftingHeroPickSelectTimeOverride( 60 )
-	if IsInToolsMode() then
-		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
-	end
 	GameRules:LockCustomGameSetupTeamAssignment(true)
 	GameRules:SetCustomGameSetupAutoLaunchDelay(1)
+	if IsInToolsMode() then
+		GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
+		GameRules:SetCustomGameSetupAutoLaunchDelay(10)
+	end
 
 	ListenToGameEvent( "game_rules_state_change", Dynamic_Wrap( COverthrowGameMode, 'OnGameRulesStateChange' ), self )
 	ListenToGameEvent( "npc_spawned", Dynamic_Wrap( COverthrowGameMode, "OnNPCSpawned" ), self )
@@ -343,6 +348,7 @@ function COverthrowGameMode:InitGameMode()
 	self.core_torches_side = Entities:FindAllByName("torch_side_entrance")
 
 	ListenToGameEvent("player_chat", function(data)
+
 		if data.text == "-goblinsgreed" then
 			local playerId = data.playerid
 			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
@@ -363,6 +369,7 @@ function COverthrowGameMode:InitGameMode()
 			end
 		end
 	end, nil)
+
 	ListenToGameEvent("player_connect_full", function(data)
 		local playerId = data.PlayerID
 		local player = PlayerResource:GetPlayer(playerId)

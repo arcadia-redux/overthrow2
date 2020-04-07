@@ -3,8 +3,8 @@
 	"Language"		"English"
 	"Tokens"
 	{
-		"addon_game_name"								"Overthrow"
-		"DOTA_GameMode_15"													"Overthrow"
+		"addon_game_name"								"Overthrow 2.0"
+		"DOTA_GameMode_15"													"Overthrow 2.0"
 
 		"cosemtics_header_abilities"								"Abilities"
 		"cosemtics_header_effects"									"Effects"
@@ -60,6 +60,9 @@
 		"standard_tier_supporter"									"You are standart tier supporter"
 		"high_tier_supporter"										"You are high tier supporter"
 		"thanks_for_supporting"										"Thank you for supporting us!"
+		"purchase_for"												"Purchasing for:"
+		"received_gift_1"											"Has been gifted a <font color='#ff4040'>level 1</font> subscription!"
+		"received_gift_2"											"Has been gifted a <font color='#40ff40'>level 2</font> subscription!"
 
 		"item_choice_header"										"Choose an item!"
 

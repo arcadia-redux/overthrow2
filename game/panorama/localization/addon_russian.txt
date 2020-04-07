@@ -10,6 +10,7 @@
 		"smart_random_button"							"СЛУЧ. ИЗ ЛУЧШИХ"
 		"smart_random_tooltip_ready"					"Выбирает случайного героя из наиболее используемых вами"
 		"smart_random_tooltip_cooldown"					"Вы не можете использовать эту функцию чаще чем раз в 24 часа. Поддержите нас чтобы снять это ограничение!"
+		"smart_random_tooltip_no_stats"                    "Вам необходимо сыграть хотя-бы 3 матча для доступа к этой функции"
 
 		"player_stats_title"							"Ваша статистика на {s:map_name}"
 		"player_stats_wins_loses"						"Побед/Порожений: "

@@ -121,14 +121,17 @@ RegisterGameEventListener("player_disconnect", function(args)
 end)
 
 RegisterCustomEventListener("patreon:payments:create", function(args)
-	local playerId = args.PlayerID
-	local steamId = tostring(PlayerResource:GetSteamID(playerId))
+	local targetId = args.paymentTargetID
+	local payerId = args.PlayerID
+	local steamId = tostring(PlayerResource:GetSteamID(targetId))
+	local payerSteamId = tostring(PlayerResource:GetSteamID(payerId))
 	local matchId = tonumber(tostring(GameRules:GetMatchID()))
+
 	WebApi:Send(
 		"payment/create",
-		{ steamId = steamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
+		{ steamId = steamId, payerSteamId = payerSteamId, matchId = matchId, paymentKind = args.paymentKind, provider = args.provider },
 		function(response)
-			local player = PlayerResource:GetPlayer(playerId)
+			local player = PlayerResource:GetPlayer(payerId)
 			if not player then return end
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "patreon:payments:create", {
@@ -137,7 +140,7 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 			})
 		end,
 		function(error)
-			local player = PlayerResource:GetPlayer(playerId)
+			local player = PlayerResource:GetPlayer(payerId)
 			if not player then return end
 
 			CustomGameEventManager:Send_ServerToPlayer(player, "patreon:payments:create", {
@@ -149,8 +152,9 @@ RegisterCustomEventListener("patreon:payments:create", function(args)
 end)
 
 MatchEvents.ResponseHandlers.paymentUpdate = function(response)
-	local steamId = response.steamId
-	local playerId = GetPlayerIdBySteamId(steamId)
+	local payerSteamId = response.payerSteamId
+	local playerId = GetPlayerIdBySteamId(payerSteamId)
+
 	if playerId == -1 then return end
 
 	local player = PlayerResource:GetPlayer(playerId)
@@ -159,15 +163,21 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 	end
 
 	if not response.error then
-		local patreonSettings = table.clone(Patreons:GetPlayerSettings(playerId))
+		local targetId = GetPlayerIdBySteamId(response.steamId)
+
+		local patreonSettings = table.clone(Patreons:GetPlayerSettings(targetId))
 		local isUpgrade = patreonSettings.level > 0 and response.level > patreonSettings.level
 
 		patreonSettings.level = response.level
 		patreonSettings.endDate = response.endDate
-		Patreons:SetPlayerSettings(playerId, patreonSettings)
+		Patreons:SetPlayerSettings(targetId, patreonSettings)
 
 		if not isUpgrade then
-			Patreons:GiveOnSpawnBonus(playerId)
+			Patreons:GiveOnSpawnBonus(targetId)
+		end
+
+		if payerSteamId ~= response.steamId then
+			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = targetId, level = response.level})
 		end
 	end
 end
