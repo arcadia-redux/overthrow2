@@ -324,12 +324,12 @@
 
 		//////////////////////////////////////////////////////////////////
 
-		"DOTA_Tooltip_ability_item_disable_help_custom"					"Disable Help"
-		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Use: Disable Help</h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
+		"DOTA_Tooltip_ability_item_disable_help_custom"					"Отключить помощь"
+		"DOTA_Tooltip_ability_item_disable_help_custom_Description"		"<h1>Использование: Отключить помощь</h1> Использование предмета запрещает применять союзнику на вас некоторые умения. Помощь также можно отключить на табло."
 		"DOTA_Tooltip_ability_item_disable_help_custom_Lore"			"Кому нужны враги с такими союзниками?"
 
-		"DOTA_Tooltip_ability_item_mute_custom"					        "Mute Player"
-		"DOTA_Tooltip_ability_item_mute_custom_Description"				"<h1>Use: Mute Player</h1> При использовании предмета на союзника вы перестанете слышать его в голосовом чате. Голос союзника также можно отключить на табло."
+		"DOTA_Tooltip_ability_item_mute_custom"					        "Заглушить игрока"
+		"DOTA_Tooltip_ability_item_mute_custom_Description"				"<h1>Использование: Заглушить игрока</h1> При использовании предмета на союзника вы перестанете слышать его в голосовом чате. Голос союзника также можно отключить на табло."
 		"DOTA_Tooltip_ability_item_mute_custom_Lore"					"Тишина - это золото"
 
 		"fast_buy_items"					                            "Вы пока не можете купить это"
@@ -575,6 +575,10 @@
 		"playerhasalertforban"					   				 "Игрок уже предупрежден. Попробуйте позже."
 		"DOTA_Tooltip_modifier_alert_before_kick_lua"			 "Предупреждение об отключении от этой игры."
 		"cannotkickotherpatreons"					             "Нельзя выгнать других подддержавших"
+
+		"purchase_for"                                               "Покупка для:"
+		"received_gift_1"                                            "Получена подарочная подписка <font color='#ff4040'>1 уровня</font>!"
+		"received_gift_2"                                            "Получена подарочная подписка <font color='#ff4040'>2 уровня</font>!"
 
 		"alert_for_ban_message_1"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
 		"alert_for_ban_message_2"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> У игрока есть 60 секунд для исправления."
