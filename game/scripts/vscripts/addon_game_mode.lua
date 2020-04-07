@@ -348,6 +348,7 @@ function COverthrowGameMode:InitGameMode()
 	self.core_torches_side = Entities:FindAllByName("torch_side_entrance")
 
 	ListenToGameEvent("player_chat", function(data)
+
 		if data.text == "-goblinsgreed" then
 			local playerId = data.playerid
 			local hero = PlayerResource:GetSelectedHeroEntity(playerId)
@@ -363,13 +364,23 @@ function COverthrowGameMode:InitGameMode()
 		end
 
 		if data.text == "-testgift1" then
-			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.playerid, level = 1})
-			print("server sent event")
+			print("command acknowledged: "..data.text)
+			local player = PlayerInstanceFromIndex(data.userid)
+			if player then
+				local player_id = player:GetPlayerID()
+				print("sending event to player:"..player_id)
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "patreon:gift:notification", {playerId = data.playerid, level = 1})
+			end
 		end
 
 		if data.text == "-testgift2" then
-			CustomGameEventManager:Send_ServerToAllClients("patreon:gift:notification", {playerId = data.playerid, level = 2})
-			print("server sent event")
+			print("command acknowledged: "..data.text)
+			local player = PlayerInstanceFromIndex(data.userid)
+			if player then
+				local player_id = player:GetPlayerID()
+				print("sending event to player:"..player_id)
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "patreon:gift:notification", {playerId = data.playerid, level = 2})
+			end
 		end
 
 		if data.text == "-imout" then

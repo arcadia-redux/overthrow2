@@ -271,7 +271,7 @@ SubscribeToNetTableKey('game_state', 'patreon_bonuses', function (data) {
 	//	$('#PatreonSupporterStatus').SetDialogVariable('support_end_date', formatDate(endDate));
 	//}
 
-	boots.Enable( !!status.bootsEnabled )
+	//boots.Enable( !!status.bootsEnabled )
 });
 
 GameEvents.Subscribe('patreon:gift:notification', function(data) {
