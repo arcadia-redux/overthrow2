@@ -328,6 +328,9 @@ function UpdatePaymentTargetList(patreonData) {
 		}
 		layout_string = layout_string + '</DropDown></root>';
 		donation_target_dropdown.BLoadLayoutFromString(layout_string, false, true);
+
+		donation_target_dropdown.SetSelected("PatreonOption" + local_id);
+		UpdatePaymentTarget(local_id);
 	}
 }
 
