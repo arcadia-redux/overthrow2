@@ -315,9 +315,12 @@ function UpdatePaymentTargetList(patreonData) {
 		var dropdown_parent = $('#PaymentWindowUserSelectorContainer');
 		donation_target_dropdown = $.CreatePanel('DropDown', dropdown_parent, 'PaymentWindowDropDown');
 		var layout_string = '<root><DropDown style="margin-left: 5px;" oninputsubmit="updatePaymentWindow()" >';
+		var local_id = Game.GetLocalPlayerID();
+
+		layout_string += `<Label text="${Players.GetPlayerName(local_id)}" id="PatreonOption${local_id}" onmouseover="UpdatePaymentTarget(${local_id})" />`;
 
 		for(var id = 0; id <= 23; id++) {
-			if (Players.IsValidPlayerID(id)) {
+			if (Players.IsValidPlayerID(id) && id != local_id) {
 				if (!patreonData[id] || patreonData[id].level <= 0) {
 					layout_string += `<Label text="${Players.GetPlayerName(id)}" id="PatreonOption${id}" onmouseover="UpdatePaymentTarget(${id})" />`;
 				}
