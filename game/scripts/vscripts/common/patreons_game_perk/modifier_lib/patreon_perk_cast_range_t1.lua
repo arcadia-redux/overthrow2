@@ -22,13 +22,13 @@ end
 
 function patreon_perk_cast_range_t1:DeclareFunctions()
 	local funcs = {
-		MODIFIER_PROPERTY_CAST_RANGE_BONUS,
+		MODIFIER_PROPERTY_CAST_RANGE_BONUS_STACKING,
 	}
 	return funcs
 end
 --------------------------------------------------------------------------------
 
-function patreon_perk_cast_range_t1:GetModifierCastRangeBonus(params)
+function patreon_perk_cast_range_t1:GetModifierCastRangeBonusStacking(params)
 	return GetPerkValue(100, self, 1, 0)
 end
 
