@@ -60,6 +60,17 @@ function COverthrowGameMode:OnGameRulesStateChange()
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
+		
+		Convars:SetFloat("host_timescale", 0.07)
+		Timers:CreateTimer({
+			useGameTime = false,
+			endTime = 2.1,
+			callback = function()
+				Convars:SetFloat("host_timescale", 1)
+				return nil
+			end
+		})
+		
 		self.heroSelectionStage = 5
 		local numberOfPlayers = PlayerResource:GetPlayerCount()
 		if numberOfPlayers > 16 then
