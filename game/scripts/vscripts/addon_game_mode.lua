@@ -308,55 +308,6 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
 
-	Convars:SetInt("dota_wait_for_players_to_load", 0)
-	ListenToGameEvent("game_rules_state_change", function()
-	    if GameRules:State_Get() ~= DOTA_GAMERULES_STATE_HERO_SELECTION then return end
-
-	    local function getPlayerCounts()
-	        local failed = 0
-	        local loading = 0
-	        for playerId = 0, 23 do
-	            if PlayerResource:IsValidPlayerID(playerId) then
-	                local connectionState = PlayerResource:GetConnectionState(playerId)
-	                if connectionState == DOTA_CONNECTION_STATE_ABANDONED or connectionState == DOTA_CONNECTION_STATE_FAILED then
-	                    failed = failed + 1
-	                elseif connectionState ~= DOTA_CONNECTION_STATE_CONNECTED then
-	                    loading = loading + 1
-	                end
-	            end
-	        end
-	        return { loading = loading, failed = failed }
-	    end
-
-	    local loadingEndTime = Time() + Convars:GetInt("dota_wait_for_players_to_load_timeout")
-	    local messageTimer = Timers:CreateTimer({
-	        useGameTime = false,
-	        callback = function()
-	            local timeRemaining = math.ceil(loadingEndTime - Time())
-	            local counts = getPlayerCounts()
-	            local failedPlayersMessage = counts.failed > 0 and (counts.failed .. " failed to load, ") or ""
-	            GameRules:SendCustomMessage("Waiting for " .. counts.loading .. " players (" .. failedPlayersMessage .. timeRemaining .. " seconds remaining)", 0, 0)
-	            return 10
-	        end
-	    })
-
-	    Timers:CreateTimer({
-	        useGameTime = false,
-	        callback = function()
-	            GameRules:SetSafeToLeave(false)
-
-	            if getPlayerCounts().loading == 0 or Time() > loadingEndTime then
-	                PauseGame(false)
-	                Timers:RemoveTimer(messageTimer)
-	                return
-	            end
-	            
-	            PauseGame(true)
-	            return 0
-	        end
-	    })
-	end, nil)
-
 	CustomGameEventManager:RegisterListener("overthrow_item_choice_made", Dynamic_Wrap(COverthrowGameMode, "FinishItemPick"))
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
