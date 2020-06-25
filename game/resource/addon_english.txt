@@ -686,8 +686,5 @@
 
 		"supporter_perks_high"						"High-Supporter Perks"
 		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
-		
-		"new_link"						"Recently Valve banned a lot of accounts in a sweep, it has banned 'Dota 2 Unofficial' account in this sweep, we don't know why. Unfortunately we are now limited in our control over this custom game, so we have to migrate to a new entry, please stop playing this entry, and move to this entry instead, sorry for the inconvenience"
-		"new_link_tip"					"---  PRESS HERE TO GO TO NEW MAP  ---"
 	}
 }
