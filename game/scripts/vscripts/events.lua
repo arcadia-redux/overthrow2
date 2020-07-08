@@ -82,7 +82,9 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		else
 			nCOUNTDOWNTIMER = 601
 		end
-		if GetMapName() == "forest_solo" then
+		if GetMapName() == "core_ffa" then
+			self.TEAM_KILLS_TO_WIN = 25
+		elseif GetMapName() == "forest_solo" then
 			self.TEAM_KILLS_TO_WIN = 25
 		elseif GetMapName() == "desert_duo" then
 			self.TEAM_KILLS_TO_WIN = 30
@@ -104,6 +106,10 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
 
 		self._fPreGameStartTime = GameRules:GetGameTime()
+
+		if GetMapName() == "core_ffa" then
+			FFA:Init()
+		end
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -173,7 +179,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		end
 	end
 
-	if GetMapName() == "core_quartet" then
+	if (GetMapName() == "core_quartet" or GetMapName() == "core_ffa") then
 		local sortedTeams = self:GetSortedTeams()
 		local teamNumber = spawnedUnit:GetTeam()
 		local TeamsKills = GetTeamHeroKills(teamNumber)
@@ -199,10 +205,39 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		end
 
-		if not GameRules:IsDaytime() and spawnedUnit.isKilled then
+		if GetMapName() == "core_quartet" and (not GameRules:IsDaytime()) and spawnedUnit.isKilled then
 			local unit = spawnedUnit
 			local position = COverthrowGameMode:GetCoreTeleportTarget(unit:GetTeamNumber())
 			local triggerPosition = unit:GetAbsOrigin()
+
+			EmitSoundOnLocationWithCaster(triggerPosition, "Portal.Hero_Appear", unit)
+			local startParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_WORLDORIGIN, nil)
+			ParticleManager:SetParticleControl(startParticleId, 0, triggerPosition)
+
+			FindClearSpaceForUnit(unit, position, true)
+			unit:Stop()
+
+			unit:EmitSound("Portal.Hero_Appear")
+			local endParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_ABSORIGIN, unit)
+			ParticleManager:SetParticleControlEnt(endParticleId, 0, unit, PATTACH_ABSORIGIN, "attach_origin", unit:GetAbsOrigin(), true)
+
+			local playerId = unit:GetPlayerOwnerID()
+			local isMainHero = PlayerResource:GetSelectedHeroEntity(playerId) == unit
+			if isMainHero then
+				PlayerResource:SetCameraTarget(playerId, unit)
+				unit:SetContextThink("CoreTeleportUnlockCamera", function() return PlayerResource:SetCameraTarget(playerId, nil) end, 0.1)
+			end
+
+			unit:RemoveModifierByName("modifier_core_spawn_movespeed")
+			unit:AddNewModifier(unit, nil, "modifier_core_spawn_movespeed", { xp = isMainHero })
+		elseif GetMapName() == "core_ffa" and spawnedUnit.isKilled then
+			local unit = spawnedUnit
+			local position = FFA:GetBestRespawnPosition()
+			local triggerPosition = unit:GetAbsOrigin()
+			print("original position:")
+			print(triggerPosition)
+			print("new position:")
+			print(position)
 
 			EmitSoundOnLocationWithCaster(triggerPosition, "Portal.Hero_Appear", unit)
 			local startParticleId = ParticleManager:CreateParticle("particles/econ/events/fall_major_2015/teleport_end_fallmjr_2015_ground_flash.vpcf", PATTACH_WORLDORIGIN, nil)

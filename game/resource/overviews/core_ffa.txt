@@ -1,0 +1,8 @@
+core_quartet
+{
+	material materials/overviews/core_ffa.vmat
+	pos_x -7992
+	pos_y 7992
+	scale 15.609
+}
+

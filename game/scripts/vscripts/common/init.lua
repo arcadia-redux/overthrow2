@@ -4,6 +4,7 @@ require("common/match_events")
 require("common/webapi")
 require("common/patreons")
 require("common/courier")
+require("common/ffa")
 
 require("common/disable_help")
 require("common/smart_random")
