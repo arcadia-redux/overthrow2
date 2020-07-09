@@ -655,7 +655,7 @@ function COverthrowGameMode:GatherAndRegisterValidTeams()
 	for _, playerStart in pairs( Entities:FindAllByClassname( "info_player_start_dota" ) ) do
 		foundTeams[  playerStart:GetTeam() ] = true
 	end
-
+	self.teams = foundTeams
 	local numTeams = TableCount(foundTeams)
 	print( "GatherValidTeams - Found spawns for a total of " .. numTeams .. " teams" )
 

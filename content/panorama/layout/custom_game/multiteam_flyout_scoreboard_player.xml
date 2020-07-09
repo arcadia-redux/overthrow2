@@ -58,8 +58,23 @@
 			}
 		}
 
+		function ShowPlayerPerk( event_data )
+		{
+			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
+			if (playerId == event_data.playerId){
+				const perkImage = $("#PerkForPlayer");
+				perkImage.SetImage("file://{resources}/layout/custom_game/common/patreon/game_perk/icons/"+event_data.perkName+".png");
+				perkImage.SetPanelEvent( "onmouseover", function() {
+					$.DispatchEvent( 'DOTAShowTextTooltip', perkImage, $.Localize("DOTA_Tooltip_"+event_data.perkName));
+				})
+			}
+		}
+
 		GameEvents.Subscribe("set_disable_help_refresh", RefreshMuteAndDisableHelpList);
 		GameEvents.Subscribe("set_mute_refresh", ToggleMuteItem);
+		GameEvents.Subscribe("show_player_perk", ShowPlayerPerk);
+
+		GameEvents.SendCustomGameEventToServer("check_perks_for_players", {});
 
 	</script>
 	<Panel class="PlayerRow">
@@ -85,6 +100,12 @@
 			</Panel>
 			<Panel id="AssistsContainer" class="ScoreCol_Assists ScoreboardPanel">
 				<Label id="Assists" text="999" />
+			</Panel>
+			<Panel id="NeutralItemWrap" class="ScoreboardPanel">
+				<DOTAItemImage id="NeutralItem"/>
+			</Panel>
+			<Panel id="PerkForPlayerWrap" class="ScoreboardPanel">
+				<Image id="PerkForPlayer" onmouseover="DOTAShowTextTooltip(#cannot_see_perk_now)" onmouseout="DOTAHideTextTooltip()"/>
 			</Panel>
 		</Panel>
 		<Panel id="UltimateIndicatorBG" class="UltimateIndicatorShared" />

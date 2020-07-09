@@ -349,3 +349,20 @@
 	text-align: center;
 }
 
+#NeutralItemWrap,
+#PerkForPlayerWrap {
+	height: 100%;
+	width: 29px;
+}
+#NeutralItem,
+#PerkForPlayer {
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
+	align: center center;
+}
+#PerkForPlayer {
+	background-image: url("s2r://panorama/images/items/emptyitembg_png.vtex");
+	background-repeat: no-repeat;
+	background-size: 100% 99%;
+}

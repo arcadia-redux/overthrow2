@@ -142,17 +142,13 @@ RegisterCustomEventListener("set_patreon_game_perk", function(data)
 	end
 end)
 
-function StartTrackPerks()
-	local teamlist = {
-		DOTA_TEAM_GOODGUYS,
-		DOTA_TEAM_BADGUYS,
-	}
+function StartTrackPerks(teamlist)
 	local maxPlayerForThisMode = 0
-	for _, teamId in pairs(teamlist) do
+	for teamId, _ in pairs(teamlist) do
 		maxPlayerForThisMode = maxPlayerForThisMode + GameRules:GetCustomGameTeamMaxPlayers(teamId)
 	end
 	local beaconPlayers = {}
-	for _, teamId in pairs(teamlist) do
+	for teamId, _ in pairs(teamlist) do
 		for playerId = 0, maxPlayerForThisMode do
 			if not beaconPlayers[teamId] and PlayerResource:GetTeam(playerId) == teamId then
 				_G.VisiblePerksForEnemyTeam[teamId] = {}
@@ -163,7 +159,7 @@ function StartTrackPerks()
 
 	Timers:CreateTimer(0, function()
 		local anyUntrack = false
-		for _, teamId in pairs(teamlist) do
+		for teamId, _ in pairs(teamlist) do
 			for playerId = 0, maxPlayerForThisMode do
 				if _G.PlayersPatreonsPerk[playerId] then
 					if PlayerResource:GetTeam(playerId) == teamId then
@@ -190,6 +186,7 @@ function StartTrackPerks()
 		end
 	end)
 end
+
 RegisterCustomEventListener("check_perks_for_players", function(data)
 	if not data.PlayerID then return end
 	local playerTeam = PlayerResource:GetTeam(data.PlayerID)
