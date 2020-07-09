@@ -1,5 +1,7 @@
 --[[ events.lua ]]
 
+_G.lastHeroKillers = {}
+_G.lastHerosPlaceLastDeath = {}
 ---------------------------------------------------------------------------
 -- Event: Game state change handler
 ---------------------------------------------------------------------------
@@ -61,7 +63,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		
-		Convars:SetFloat("host_timescale", 0.07)
+		--Convars:SetFloat("host_timescale", 0.07)
 		Timers:CreateTimer({
 			useGameTime = false,
 			endTime = 2.1,
@@ -123,7 +125,33 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 	local owner = spawnedUnit:GetOwner()
 	local name = spawnedUnit:GetUnitName()
-
+	
+	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn and _G.lastHeroKillers[spawnedUnit] then
+		local killersTeam = _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()
+		if killersTeam ~=spawnedUnit:GetTeamNumber() and killersTeam~= DOTA_TEAM_NEUTRALS then
+			for i = 0, 20 do
+				local item = spawnedUnit:GetItemInSlot(i)
+				if item then
+					local cooldown_remaining = item:GetCooldownTimeRemaining()
+					if cooldown_remaining > 0 then
+						item:EndCooldown()
+						item:StartCooldown(cooldown_remaining-(cooldown_remaining/100*spawnedUnit.reduceCooldownAfterRespawn))
+					end
+				end
+			end
+			for i = 0, 30 do
+				local ability = spawnedUnit:GetAbilityByIndex(i)
+				if ability then
+					local cooldown_remaining = ability:GetCooldownTimeRemaining()
+					if cooldown_remaining > 0 then
+						ability:EndCooldown()
+						ability:StartCooldown(cooldown_remaining-(cooldown_remaining/100*spawnedUnit.reduceCooldownAfterRespawn))
+					end
+				end
+			end
+		end
+	end
+	
 	if owner and owner.GetPlayerID and ( name == "npc_dota_sentry_wards" or name == "npc_dota_observer_wards" ) then
 		local player_id = owner:GetPlayerID()
 
@@ -459,6 +487,10 @@ function COverthrowGameMode:OnEntityKilled( event )
 			killedUnit.isKilled = true
 			COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		end
+	end
+
+	if killedUnit and killedUnit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(killedUnit:GetPlayerID())) then
+		_G.lastHeroKillers[killedUnit] = hero
 	end
 end
 

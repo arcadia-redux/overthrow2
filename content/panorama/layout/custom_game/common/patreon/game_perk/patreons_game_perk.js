@@ -1,5 +1,23 @@
 var patreons_levels = 3;
 var patreons_game_perks = {
+"patreon_perk_str_for_kill_t0": 0,
+"patreon_perk_str_for_kill_t1": 1,
+"patreon_perk_str_for_kill_t2": 2,
+"patreon_perk_agi_for_kill_t0": 0,
+"patreon_perk_agi_for_kill_t1": 1,
+"patreon_perk_agi_for_kill_t2": 2,
+"patreon_perk_int_for_kill_t0": 0,
+"patreon_perk_int_for_kill_t1": 1,
+"patreon_perk_int_for_kill_t2": 2,
+"patreon_perk_cleave_t0": 0,
+"patreon_perk_cleave_t1": 1,
+"patreon_perk_cleave_t2": 2,
+"patreon_perk_cd_after_deadth_t0": 0,
+"patreon_perk_cd_after_deadth_t1": 1,
+"patreon_perk_cd_after_deadth_t2": 2,
+"patreon_perk_manaburn_t0": 0,
+"patreon_perk_manaburn_t1": 1,
+"patreon_perk_manaburn_t2": 2,
 "patreon_perk_mp_regen_t0": 0,
 "patreon_perk_mp_regen_t1": 1,
 "patreon_perk_mp_regen_t2": 2,
@@ -67,10 +85,6 @@ var patreons_game_perks = {
 //"patreon_perk_gpm_t1": 1,
 //"patreon_perk_gpm_t2": 2,
 };
-
-var patreons_game_perks_have_only_low_tier = {
-	//"patreon_perk_bonus_agi_10": true,
-}
 
 var patreonLevel = 0;
 var patreonCurrentPerk;
@@ -147,6 +161,7 @@ function SetPatreonsPerkButtonAction(panel, perkName){
 			$.DispatchEvent( 'DOTAHideTextTooltip', settingPerksButton);
 		} )
 		settingPerksButton.SetPanelEvent( "onactivate", function() {} )
+
 		$("#PatreonsGamePerkMenu").DeleteAsync(0)
 		$("#ClosePatreonsPerks").DeleteAsync(0)
 	} )
@@ -184,12 +199,6 @@ function CreatePatreonsGamePerks(){
 		var perkPanelListForTier = $.CreatePanel("Panel", patreonGamePerksTier, "");
 		perkPanelListForTier.AddClass("PerkPanelListForTier");
 
-		for (var key in patreons_game_perks_have_only_low_tier) {
-			if (patreons_game_perks[key] < patreonLevel){
-				patreons_game_perks[key] = patreonLevel
-			}
-		}
-
 		for (var key in patreons_game_perks) {
 			if (patreons_game_perks[key] == tier){
 				var perkPanel = $.CreatePanel("Panel", perkPanelListForTier, "");
@@ -225,17 +234,20 @@ function CreatePatreonsGamePerks(){
 					$.DispatchEvent( 'DOTAHideTextTooltip', settingPerksButton);
 				} )
 				settingPerksButton.SetPanelEvent( "onactivate", function() {} )
-				HidePatreonsGamePerks()
+				$("#PatreonsGamePerkMenu").DeleteAsync(0)
+				$("#ClosePatreonsPerks").DeleteAsync(0)
 		}
 	}
-	$.Schedule(3, function() {
-		var perksPanel = $("#PatreonsGamePerkMenu");
-		var perksPanelClose = $("#ClosePatreonsPerks");
-		if (!perksPanel.visible && patreonCurrentPerk == null){
-			perksPanel.visible = true;
-			perksPanelClose.visible = true;
-		}
-	});
+	if (patreonCurrentPerk == null){
+		$.Schedule(3, function() {
+			var perksPanel = $("#PatreonsGamePerkMenu");
+			var perksPanelClose = $("#ClosePatreonsPerks");
+			if (!perksPanel.visible){
+				perksPanel.visible = true;
+				perksPanelClose.visible = true;
+			}
+		});
+    }
 }
 function PatreonsGamePerkInit(){
 	GameEvents.Subscribe('reload_patreon_perk_setings_button', ReloadSetttingButton);
