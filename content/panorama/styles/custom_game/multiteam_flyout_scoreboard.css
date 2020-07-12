@@ -219,7 +219,6 @@
 
 #PlayerName
 {
-	color: white;
 	font-size: 14px;
 	margin-bottom: -4px;
 	margin-top: 0px;
@@ -365,4 +364,56 @@
 	background-image: url("s2r://panorama/images/items/emptyitembg_png.vtex");
 	background-repeat: no-repeat;
 	background-size: 100% 99%;
+}
+
+.Party_1 {
+	color: #01df3a;
+}
+
+.Party_2 {
+	color: #d7df01;
+}
+
+.Party_3 {
+	color: #df0101;
+}
+
+.Party_4 {
+	color: #2e2efe;
+}
+
+.Party_5 {
+	color: #58d3f7;
+}
+
+.Party_6 {
+	color: #ff8000;
+}
+
+.Party_7 {
+	color: #00ffff;
+}
+
+.Party_8 {
+	color: #04b404;
+}
+
+.Party_9 {
+	color: #bf00ff;
+}
+
+.Party_10 {
+	color: #088a68;
+}
+
+.Party_11 {
+	color: #86b404;
+}
+
+.Party_12 {
+	color: #82fa58;
+}
+
+.NoParty {
+	color: #ffffff;
 }

@@ -5,6 +5,7 @@ require("common/webapi")
 require("common/patreons")
 require("common/courier")
 
+require("common/items_limits")
 require("common/disable_help")
 require("common/smart_random")
 require("common/cosmetic_abilities")

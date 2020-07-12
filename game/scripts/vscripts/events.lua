@@ -63,6 +63,38 @@ function COverthrowGameMode:OnGameRulesStateChange()
 
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		
+		local parties = {}
+		local party_indicies = {}
+		local party_members_count = {}
+		local party_index = 1
+		-- Set up player colors
+		for id = 0, 23 do
+			if PlayerResource:IsValidPlayer(id) then
+				local party_id = tonumber(tostring(PlayerResource:GetPartyID(id)))
+				if party_id and party_id > 0 then
+					if not party_indicies[party_id] then
+						party_indicies[party_id] = party_index
+						party_index = party_index + 1
+					end
+					party_index = party_indicies[party_id]
+					parties[id] = party_index
+					if not party_members_count[party_index] then
+						party_members_count[party_index] = 0
+					end
+					party_members_count[party_index] = party_members_count[party_index] + 1
+				end
+			end
+		end
+		for id, party in pairs(parties) do
+			-- at least 2 ppl in party!
+			if party_members_count[party] and party_members_count[party] < 2 then
+				parties[id] = nil
+			end
+		end
+		if parties then
+			CustomNetTables:SetTableValue("game_state", "parties", parties)
+		end
+		
 		--Convars:SetFloat("host_timescale", 0.07)
 		Timers:CreateTimer({
 			useGameTime = false,
@@ -173,7 +205,12 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	--end
 
 	if not spawnedUnit:IsRealHero() then return end
-	--local playerId = spawnedUnit:GetPlayerID()
+	local playerId = spawnedUnit:GetPlayerID()
+
+	if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
+		CreateDummyInventoryForPlayer(playerId, spawnedUnit)
+	end
+	
 	--local psets = Patreons:GetPlayerSettings(playerId)
 
 	--if psets.level > 1 and _G.personalCouriers[playerId] == nil then
