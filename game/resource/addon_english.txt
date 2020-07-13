@@ -686,5 +686,8 @@
 
 		"supporter_perks_high"						"High-Supporter Perks"
 		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
+		
+		"summer_feedback_link_header"			"Overthrow 2.0 Feedback Summer 2020"
+		"summer_feedback_open_in_browser"		"Open in browser"
 	}
 }

@@ -214,3 +214,55 @@
 	{
 	}
 }
+
+.FormLinkContainer {
+	margin-top: 570px;
+	margin-left: 95px;
+	width: 30%;
+	border: 2px solid #32383677;
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#272d2e), to(#131617));
+	flow-children: down;
+}
+
+.LinkHeader {
+	width: 90%;
+	height: 45px;
+	font-size: 45px;
+	font-family: Goudy Trajan Medium, FZKai-Z03, TH Sarabun New, YDYGO 540;
+	font-weight: bold;
+	horizontal-align: center;
+	text-overflow: shrink;
+	text-transform: uppercase;
+	text-align: center;
+	color: #e2e2e2;
+}
+
+.LinkButton {
+	width: 80%;
+	horizontal-align: center;
+	padding: 5px;
+	margin: 5px;
+
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#5aa15e), to(#87d69533));
+	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+	background-size: 328px 50px;
+	border-top: 1px solid #ffffff44;
+	border-right: 1px solid #00000088;
+	border-left: 1px solid #ffffff44;
+	border-bottom: 1px solid #00000088;
+
+	transition-property: background-color, box-shadow;
+	transition-duration: 0.2s;
+}
+
+.LinkButton:hover {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#5aa15e), to(#87d695));
+	box-shadow: fill #87d69533 -4px -4px 9px 10px;
+}
+
+.LinkButtonText {
+	color: white;
+	font-weight: bold;
+	horizontal-align: center;
+	font-size: 24px;
+}

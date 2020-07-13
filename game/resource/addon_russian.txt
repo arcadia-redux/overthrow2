@@ -606,5 +606,8 @@
 
 		"HighSupportersOnly"					"Для высокоуровневых поддержавших"
 		"SupportersOnly"						"Для поддержавших"
+		
+		"summer_feedback_link_header"			"Летний опрос об Overthrow 2.0 в 2020"
+		"summer_feedback_open_in_browser"		"Открыть в браузере"
 	}
 }
