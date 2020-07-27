@@ -73,6 +73,7 @@ function patreon_perk_cleave_t0:OnAttackLanded(params)
 				"modifier_monkey_king_boundless_strike_crit",
 				"modifier_tidehunter_anchor_smash_caster",
 				"modifier_mars_gods_rebuke_crit",
+				"modifier_void_spirit_astral_step_caster",
 			}
 			for _, modifier_name in pairs(forbidden_modifiers) do
 				if params.attacker:HasModifier(modifier_name) then return end
