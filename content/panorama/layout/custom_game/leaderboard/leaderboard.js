@@ -54,60 +54,6 @@ function addMenuButton() {
 	attachMenuButton(button);
 }
 
-function testLeaderboard(ratingMap) {
-	for (var mapName in ratingMap) {
-		var leaderboard = [];
-		ratingMap[mapName].forEach((playerData, rank) => {
-			leaderboard.push({
-				rank: rank + 1,
-				steamId: playerData.steamId,
-				rating: playerData.rating,
-			});
-		});
-		updateTable(leaderboard, mapName);
-	}
-	updateMapSelection(Game.GetMapInfo().map_display_name);
-}
-
-const testMapForMMR = {
-	core_quartet: [
-		{
-			steamId: "76561198064622537",
-			rating: 1004,
-		},
-		{
-			steamId: "76561198064622537",
-			rating: 1003,
-		},
-		{
-			steamId: "76561198064622537",
-			rating: 1002,
-		},
-		{
-			steamId: "76561198064622537",
-			rating: 1001,
-		},
-	],
-	mines_trio: [
-		{
-			steamId: "76561198064622537",
-			rating: 104,
-		},
-		{
-			steamId: "76561198064622537",
-			rating: 103,
-		},
-		{
-			steamId: "76561198064622537",
-			rating: 102,
-		},
-		{
-			steamId: "76561198064622537",
-			rating: 101,
-		},
-	],
-};
-
 function updateMapSelection(mapName) {
 	$("#RatingsTable")
 		.Children()
@@ -130,6 +76,4 @@ function updateMapSelection(mapName) {
 
 		updateTable(leaderboard);
 	});
-
-	testLeaderboard(testMapForMMR);
 })();
