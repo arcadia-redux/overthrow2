@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256mm"
+   height="256mm"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="leaderboard_icon.svg"
+   inkscape:export-filename="D:\.dota_proj\12v12\content\panorama\images\custom_game\leaderboard_icon.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.5"
+     inkscape:cx="253.42658"
+     inkscape:cy="484.3237"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="false">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3735" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-41)"
+     style="opacity:1">
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3271099px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 11.73812,64.166674 c 0,0 -16.9487198,120.229486 6.181605,173.084926 11.246003,25.69842 55.634441,57.10258 55.634441,57.10258 0,0 44.388424,-31.40416 55.634434,-57.10258 23.13033,-52.85544 6.18161,-173.084926 6.18161,-173.084926 0,0 -10.48501,24.634898 -30.90803,24.726422 -21.107468,0.09458 -30.908014,-24.726422 -30.908014,-24.726422 0,0 -10.453053,24.711401 -30.908023,24.726422 C 20.539616,88.909296 11.73812,64.166674 11.73812,64.166674 Z"
+       id="path3733"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscscscsc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.3271099px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 203.36786,42.479544 v 45.795392 h -37.08963 v 13.084384 h 18.54481 v 144.54653 l 24.72642,35.36393 24.72641,-35.36393 V 101.35932 h 18.54482 V 88.274936 H 215.73106 V 42.479544 Z"
+       id="path4546"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     style="opacity:1" />
+</svg>

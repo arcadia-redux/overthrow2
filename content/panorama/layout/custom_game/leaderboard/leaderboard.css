@@ -1,0 +1,203 @@
+.Background {
+    width: 100%;
+    height: 100%;
+}
+
+.BackgroundPanel {
+    background-color: gradient( linear, 0% 0%, 0% 25%, from( #232326 ), to( #1c1d20 ) );
+    box-shadow: #00000099 -4px -4px 8px 8px;
+    border: 2px solid #32383677;
+}
+
+.BackgroundPanelHeader {
+    width: 100%;
+    height: 32px;
+
+    background-color: #00000077;
+    padding: 0px 8px;
+}
+
+.BackgroundPanelHeader Label {
+    color: #cccccc;
+    font-size: 20px;
+    vertical-align: middle;
+    text-transform: uppercase;
+}
+
+.BackgroundPanelBody {
+    width: fit-children;
+    height: fill-parent-flow(1.0);
+
+    padding: 0 38px;
+}
+
+
+.Leaderboard {
+    width: fit-children;
+    max-height: 80%;
+
+    horizontal-align: center;
+    vertical-align: center;
+    
+    flow-children: down;
+    z-index: 80000;
+}
+
+.BackgroundPanelHeader .CloseButton {
+    horizontal-align: right;
+    vertical-align: center;
+}
+
+.table {
+    width: fit-children;
+    height: fill-parent-flow(1.0);
+
+    flow-children: down;
+}
+
+.table Label {
+    font-size: 20px;
+}
+
+#TableHeader {
+    width: fit-children;
+}
+
+#TableHeader Label {
+    color: #cccccc;
+    text-transform: uppercase;
+}
+
+.TableBody {
+    width: fit-children;
+    height: fill-parent-flow(1.0);
+
+    flow-children: down;
+    overflow: clip scroll;
+}
+
+#LocalPlayer {
+    margin-top: 8px;
+    margin-bottom: 16px; 
+
+    border-top: 1px solid #364140;
+}
+
+.TableRecord {
+    width: fit-children;
+    height: 50px;
+
+    border-bottom: 1px solid #364140;
+
+    flow-children: right;
+}
+
+.TableRecord.local {
+    background-color: #3d3d42;
+}
+
+.TableRecord > Label {
+    width: fill-parent-flow(1.0);
+    text-align: center;
+    vertical-align: middle;
+}
+
+.TableRecord > Panel {
+    height: 100%;
+}
+
+#Rank {
+    width: 100px;
+}
+
+#Player {
+    width: 300px;    
+}
+
+#Player > Panel {
+    vertical-align: middle;
+}
+
+#Rating {
+    width: 100px;
+    
+    flow-children: right;
+}
+
+#Rating > Panel,
+#Rating > Label {
+    vertical-align: middle;
+}
+
+.rating-info {
+    width: 20px;
+    height: 20px;
+
+    margin-left: 8px;
+
+    background-image: url("s2r://panorama/images/status_icons/information_psd.vtex");
+    background-position: 50% 50%;
+    background-size: contain;
+}
+
+.playerInfo {
+    flow-children: right;
+    horizontal-align: left;
+}
+
+#PlayerAvatar {
+    width: 40px;
+    height: width-percentage(100%);
+
+    border-radius: 50%;
+    border: 2px solid #32383677;
+    padding: -2px;
+}
+
+#Player DOTAAvatarImage,
+#Player DOTAUserName {
+    vertical-align: middle;
+}
+
+#Player DOTAUserName { 
+    width: fit-children;
+    margin-left: 8px;
+}
+
+#OpenLeaderboard {
+    background-image: url('file://{resources}/images/custom_game/leaderboard_icon.png');
+    background-size: 28px;
+}
+
+#LeaderboardMapChoose {
+	horizontal-align: center;
+	width: 250px;
+	height: 40px;
+	color: #ffffffff;
+	margin-bottom: 8px;
+	background-color: rgba(0, 0, 0, 0.37);
+	transition: brightness 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
+	margin-bottom: 2px;
+	margin-top: 7px;
+}
+#LeaderboardMapChoose:hover{
+	brightness: 1.7;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+#LeaderboardMapChooseDropDownMenu{
+	width: 250px;
+}
+#LeaderboardMapChooseDropDownMenu Label {
+	background-color: rgba(0, 0, 0, 0.73);
+	padding-right: 10px;
+	transition: brightness 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
+	padding-top: 4px;
+}
+#LeaderboardMapChooseDropDownMenu Label:hover {
+	brightness: 1.7;
+	background-color: rgba(0, 0, 0, 0.60);
+}
+.LeaderboardMapDrop{
+	text-align: center;
+	padding-left: 20px;
+}

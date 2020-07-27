@@ -757,5 +757,11 @@
 		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
 		
 		"cannot_see_perk_now"					"For now you don't know this player's personal perk"
+		
+		"leaderboard"			"Leaderboard"
+		"leaderboard_rank"		"Rank"
+		"leaderboard_player"	"Player"
+		"leaderboard_rating"	"Rating"
+		"leaderboard_info"		"Additional info"
 	}
 }
