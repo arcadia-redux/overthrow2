@@ -734,7 +734,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	end
 
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
-		if target:GetName() == "npc_dota_seasonal_ti9_drums" and ability:GetName() == "clinkz_death_pact" then
+		if target:GetName() == "npc_dota_seasonal_ti9_drums" then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#dota_hud_error_cant_cast_on_other" })
 			return
 		end
