@@ -31,5 +31,11 @@
 		<Panel id="TitlePanel">
 			<Label id="OverthrowTitle" text="#addon_game_name" style="" />
 		</Panel>
+		<Panel class="FormLinkContainer">
+			<Label class="LinkHeader" text="#summer_feedback_link_header"/>
+			<Button class="LinkButton" onactivate="$.DispatchEvent('ExternalBrowserGoToURL', 'https://docs.google.com/forms/d/e/1FAIpQLSeNt1RsCXTnh0xAKF6OwPu5E4IZ5-laH07neJg-ldVwmpFRmg/viewform')">
+				<Label class="LinkButtonText" text="#summer_feedback_open_in_browser"/>
+			</Button>
+		</Panel>
 	</Panel>
 </root>

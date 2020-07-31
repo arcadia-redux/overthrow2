@@ -764,5 +764,9 @@
 		"leaderboard_player"	"Player"
 		"leaderboard_rating"	"Rating"
 		"leaderboard_info"		"Additional info"
+
+		"summer_feedback_link_header"			"Overthrow 2.0 Feedback Summer 2020"
+		"summer_feedback_open_in_browser"		"Open in browser"
+
 	}
 }

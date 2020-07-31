@@ -681,5 +681,8 @@
 		"SupportersOnly"						"Для поддержавших"
 		
 		"cannot_see_perk_now"					"Вы пока не знаете какой персональный талант выбрал этот игрок"
+
+		"summer_feedback_link_header"			"Летний опрос об Overthrow 2.0 в 2020"
+		"summer_feedback_open_in_browser"		"Открыть в браузере"
 	}
 }
