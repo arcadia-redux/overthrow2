@@ -734,10 +734,6 @@
 		"alert_for_ban_message_1"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> wants to kick this player:"
 		"alert_for_ban_message_2"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> Player has 60sec to be better."
 
-		"DOTA_Tooltip_ability_item_patreon_mango"						"Mango of Appreciation"
-		"DOTA_Tooltip_ability_item_patreon_mango_Description"			"Sorry but there is no more free boots for supporters, we removed them in the interest of balance. We hope you will not mind this change too much. Thank you again for supporting us and this mod, we truly do appreciate it. Take this mango as a token of our appreciation."
-		"DOTA_Tooltip_ability_item_patreon_mango_Lore"					"If a patron buys from an artist who needs money, the patron then makes himself equal to the artist; he is building art into the world; he creates."
-
 		"HighSupportersOnly"					"High Supporters Only"
 		"SupportersOnly"						"Supporters Only"
 

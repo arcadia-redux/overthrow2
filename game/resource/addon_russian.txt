@@ -669,10 +669,6 @@
 		"alert_for_ban_message_1"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> хочет выгнать из игры:"
 		"alert_for_ban_message_2"					             "<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> У игрока есть 60 секунд для исправления."
 
-		"DOTA_Tooltip_ability_item_patreon_mango"                        "Mango of Appreciation"
-		"DOTA_Tooltip_ability_item_patreon_mango_Description"            "Просим прощения, но поддерживающие нас игроки больше не получают бесплатные ботинки на старте игры. Это сделано в целях улучешния баланса игры. Мы надеемся, Вы не слишком против данного изменения. Мы хотим еще раз поблагодарить Вас за поддержку, мы это действительно ценим. Лучший манго специально для Вас."
-		"DOTA_Tooltip_ability_item_patreon_mango_Lore"                   "Когда меценат покупает у художника, которому нужны деньги, картину, он делает себя равным художнику. Он несет исскуство в мир. Он творит"
-
 		"HighSupportersOnly"					"Для высокоуровневых поддержавших"
 		"SupportersOnly"						"Для поддержавших"
 		
