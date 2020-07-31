@@ -17,6 +17,7 @@ function patreon_perk_bonus_gold_t2:IsPurgable()
 end
 --------------------------------------------------------------------------------
 function patreon_perk_bonus_gold_t2:OnCreated()
+	if not IsServer() then return end
 	self:GetParent():ModifyGold(GetPerkValue(800, self, 1, 0), true, 0)
 end
 ----------------------------------------------------------------------------------
