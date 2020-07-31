@@ -112,6 +112,7 @@
 		"npc_dota_creature_basic_zombie"	"Zombie"
 		"npc_dota_creature_berserk_zombie"	"Berserk Zombie"
 		"npc_dota_hero_doom_bringer"        "Doom (Modified)"
+		"npc_dota_hero_lone_druid"       	"Lone Druid (Modified)"
 
 		"DOTA_Tooltip_modifier_invis_revealed"		"Invisibility Revealed"
 
@@ -234,9 +235,13 @@
 
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff"				"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"Mana Regeneration increased."
-	
+		
+		"DOTA_Tooltip_ability_doom_bringer_doom"					"Doom (Modified)"
+		"DOTA_Tooltip_ability_doom_bringer_doom_Description"		"Inflicts a curse that dispels an enemy Hero and prevents an them from casting spells or using items, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown, duration and 3 charges</font>"
 
 		//////////////////////////////////////////////////////////////////
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear"								"Summon Spirit Bear (Modified)"
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear_Description"					"Summons a powerful Spirit Bear companion that can equip items.  If the bear moves 1100 distance away from the Lone Druid, it cannot attack.  Lone Druid suffers %backlash_damage%%% of his max health as backlash damage if the Spirit Bear dies. Spirit Bear does not benefit from attributes.\nSpirit Bear has the Return, Demolish and Entangling Roots abilities.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
 
 		"donator_label_1"			"Patron"
 		"donator_label_2"			"Team Member"
