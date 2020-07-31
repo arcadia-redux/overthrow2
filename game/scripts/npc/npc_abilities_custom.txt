@@ -987,7 +987,16 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"0"
 		"AbilityCharges"				"3"
-		"AbilityChargeRestoreTime"		"145.0"
+		"AbilityChargeRestoreTime"		"45.0"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"duration"				"10.0"
+				"LinkedSpecialBonus"	"special_bonus_unique_doom_7"
+			}
+		}
 	}
 	"lone_druid_spirit_bear"
 	{    
