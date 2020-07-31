@@ -95,15 +95,22 @@ function COverthrowGameMode:OnGameRulesStateChange()
 			CustomNetTables:SetTableValue("game_state", "parties", parties)
 		end
 		
-		--Convars:SetFloat("host_timescale", 0.07)
-		Timers:CreateTimer({
-			useGameTime = false,
-			endTime = 2.1,
-			callback = function()
-				Convars:SetFloat("host_timescale", 1)
-				return nil
-			end
-		})
+		local mapsForSlow = {
+			["desert_octet"] = true
+		}
+		
+		if mapsForSlow[GetMapName()] then
+			Convars:SetFloat("host_timescale", 0.07)
+			
+			Timers:CreateTimer({
+				useGameTime = false,
+				endTime = 2.1,
+				callback = function()
+					Convars:SetFloat("host_timescale", 1)
+					return nil
+				end
+			})
+		end
 		
 		self.heroSelectionStage = 5
 		local numberOfPlayers = PlayerResource:GetPlayerCount()
