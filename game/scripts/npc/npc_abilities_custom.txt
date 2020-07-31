@@ -979,5 +979,20 @@
 			}
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_2"
-	}	
+	}
+	
+	"doom_bringer_doom"
+	{
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"0"
+		"AbilityCharges"				"3"
+		"AbilityChargeRestoreTime"		"145.0"
+	}
+	"lone_druid_spirit_bear"
+	{    
+		// Time		
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilityCooldown"				"60.0"
+	}
 }
