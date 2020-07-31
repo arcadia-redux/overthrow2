@@ -1,0 +1,71 @@
+<root>
+    <styles>
+        <include src="file://{resources}/styles/dotastyles.css" />
+        <include src="file://{resources}/layout/custom_game/leaderboard/leaderboard.css" />
+    </styles>
+
+    <scripts>
+        <include src="file://{resources}/layout/custom_game/common/utils.js" />
+        <include src="file://{resources}/layout/custom_game/leaderboard/leaderboard.js"/>
+    </scripts>
+
+    <snippets>
+        <snippet name="TableRecord">
+            <Panel class="TableRecord">
+                <Label id="Rank" />
+                <Panel id="Player">
+                    <Panel class="playerInfo">
+                        <DOTAAvatarImage id="PlayerAvatar" />
+                        <DOTAUserName id="PlayerUserName" />
+                    </Panel>
+                </Panel>
+                <Label id="Rating" />
+            </Panel>
+        </snippet>
+    </snippets>
+
+    <Panel hittest="false" class="Background">
+        <Panel class="BackgroundPanel Leaderboard" id="Leaderboard">
+            <Panel class="BackgroundPanelHeader">
+                <Label text="#leaderboard"/>
+                <Button id="Close" class="CloseButton" onactivate="onClose()">
+                    <Image src="s2r://panorama/images/control_icons/x_close_png.vtex" />
+                </Button>
+            </Panel>
+            <Panel class="BackgroundPanelBody">
+                <Panel class="table">
+					<DropDown id="LeaderboardMapChoose" >
+						<Label id="core_quartet_dropdown_option" class="LeaderboardMapDrop" text="Core Quartet" onmouseover="updateMapSelection('core_quartet')" />
+						<Label id="desert_duo_dropdown_option" class="LeaderboardMapDrop" text="Desert Duo" onmouseover="updateMapSelection('desert_duo')" />
+						<Label id="desert_octet_dropdown_option" class="LeaderboardMapDrop" text="Desert Octet" onmouseover="updateMapSelection('desert_octet')" />
+						<Label id="desert_quintet_dropdown_option" class="LeaderboardMapDrop" text="Desert Quintet" onmouseover="updateMapSelection('desert_quintet')" />
+						<Label id="forest_solo_dropdown_option" class="LeaderboardMapDrop" text="Forest Solo" onmouseover="updateMapSelection('forest_solo')" />
+						<Label id="mines_trio_dropdown_option" class="LeaderboardMapDrop" text="Mines Trio" onmouseover="updateMapSelection('mines_trio')" />
+						<Label id="temple_quartet_dropdown_option" class="LeaderboardMapDrop" text="Temple Quartet" onmouseover="updateMapSelection('temple_quartet')" />
+					</DropDown>
+                    <Panel id="TableHeader">
+                        <Panel class="TableRecord">
+                            <Label text="#leaderboard_rank" id="Rank" />
+                            <Label text="#leaderboard_player" id="Player" />
+                            <Panel id="Rating">
+                                <Label text="#leaderboard_rating" />
+                                <Panel class="rating-info" onmouseover="DOTAShowTextTooltip(#leaderboard_info)" onmouseout="DOTAHideTextTooltip()" />
+                            </Panel>
+                        </Panel>
+                    </Panel>
+					<Panel id="RatingsTable">
+						<Panel id="TableBody_core_quartet" class="TableBody"/>
+						<Panel id="TableBody_desert_duo" class="TableBody"/>
+						<Panel id="TableBody_desert_octet" class="TableBody"/>
+						<Panel id="TableBody_desert_quintet" class="TableBody"/>
+						<Panel id="TableBody_forest_solo" class="TableBody"/>
+						<Panel id="TableBody_mines_trio" class="TableBody"/>
+						<Panel id="TableBody_temple_quartet" class="TableBody"/>
+						<Panel id="LocalPlayer" />
+					</Panel>
+
+                </Panel>
+            </Panel>
+        </Panel>
+    </Panel>
+</root>

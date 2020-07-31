@@ -48,8 +48,6 @@ function Patreons:GiveOnSpawnBonus(playerId)
 	if patreonSettings.level >= 1 then
 		hero:AddNewModifier(hero, nil, "modifier_donator", { patron_level = patreonSettings.level })
 	end
-
-	hero:AddItemByName("item_patreon_mango")
 end
 
 RegisterCustomEventListener("patreon_toggle_boots", function(data)

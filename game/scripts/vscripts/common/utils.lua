@@ -58,6 +58,14 @@ function table.shuffled(t)
 	return t
 end
 
+function table.contains(t, v)
+	for _, _v in pairs(t) do
+		if _v == v then
+			return true
+		end
+	end
+end
+
 function GetConnectionState(playerId)
 	return PlayerResource:IsFakeClient(playerId) and DOTA_CONNECTION_STATE_CONNECTED or PlayerResource:GetConnectionState(playerId)
 end

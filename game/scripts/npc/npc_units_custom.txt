@@ -647,4 +647,18 @@
 		//----------------------------------------------------------------
 		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
 	}
+	
+	"npc_dummy_inventory"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Level"						"1"
+		"ModelScale"				"0.6"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"CanBeDominated"			"0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"0"
+		"MovementTurnRate"			"0"
+		"StatusHealth"				"1"
+		"HasInventory"				"1"
+	}
 }

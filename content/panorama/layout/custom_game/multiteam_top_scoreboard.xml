@@ -4,9 +4,11 @@
 		<include src="file://{resources}/styles/custom_game/multiteam_top_scoreboard.css" />
 		<include src="file://{resources}/styles/custom_game/shared_scoreboard_styles.css" />
 		<include src="file://{resources}/styles/custom_game/battleground_scoreboard.css" />
+		<include src="file://{resources}/layout/custom_game/common/party_highlighter/party_highlighter.css" />
 	</styles>
 
 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/party_highlighter/party_highlighter.js" />
 		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
 		<include src="file://{resources}/scripts/custom_game/multiteam_top_scoreboard.js" />
 		<include src="file://{resources}/scripts/custom_game/battleground_scoreboard.js" />

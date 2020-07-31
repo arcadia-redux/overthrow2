@@ -65,6 +65,24 @@ local perksTierPatreon = {
 	["patreon_perk_gpm_t0"] = 0,
 	["patreon_perk_gpm_t1"] = 1,
 	["patreon_perk_gpm_t2"] = 2,
+	["patreon_perk_str_for_kill_t0"] = 0,
+	["patreon_perk_str_for_kill_t1"] = 1,
+	["patreon_perk_str_for_kill_t2"] = 2,
+	["patreon_perk_agi_for_kill_t0"] = 0,
+	["patreon_perk_agi_for_kill_t1"] = 1,
+	["patreon_perk_agi_for_kill_t2"] = 2,
+	["patreon_perk_int_for_kill_t0"] = 0,
+	["patreon_perk_int_for_kill_t1"] = 1,
+	["patreon_perk_int_for_kill_t2"] = 2,
+	["patreon_perk_cleave_t0"] = 0,
+	["patreon_perk_cleave_t1"] = 1,
+	["patreon_perk_cleave_t2"] = 2,
+	["patreon_perk_cd_after_deadth_t0"] = 0,
+	["patreon_perk_cd_after_deadth_t1"] = 1,
+	["patreon_perk_cd_after_deadth_t2"] = 2,
+	["patreon_perk_manaburn_t0"] = 0,
+	["patreon_perk_manaburn_t1"] = 1,
+	["patreon_perk_manaburn_t2"] = 2,
 };
 
 for name in pairs(perksTierPatreon) do
@@ -72,6 +90,8 @@ for name in pairs(perksTierPatreon) do
 end
 
 _G.PlayersPatreonsPerk = {}
+_G.VisiblePerksForEnemyTeam = {}
+_G.timerForCheckerPerks = false
 
 RegisterCustomEventListener("check_patreon_level_and_perks", function(data)
 	local patreon = Patreons:GetPlayerSettings(data.PlayerID)
@@ -86,6 +106,7 @@ end)
 RegisterCustomEventListener("set_patreon_game_perk", function(data)
 	local playerID = data.PlayerID
 	if not playerID then return end
+	if _G.PlayersPatreonsPerk[playerID] then return end
 	local player = PlayerResource:GetPlayer(playerID)
 	local newModifierName = data.newPerkName
 	local patreon = Patreons:GetPlayerSettings(playerID)
@@ -111,7 +132,68 @@ RegisterCustomEventListener("set_patreon_game_perk", function(data)
 	else
 		Timers:CreateTimer(3, function()
 			hero = player:GetAssignedHero()
-			hero:AddNewModifier(hero, nil, newModifierName, {duration = -1})
+			if hero then
+				hero:AddNewModifier(hero, nil, newModifierName, {duration = -1})
+				return nil
+			else
+				return 1
+			end
 		end)
+	end
+end)
+
+function StartTrackPerks(teamlist)
+	local maxPlayerForThisMode = 0
+	for teamId, _ in pairs(teamlist) do
+		maxPlayerForThisMode = maxPlayerForThisMode + GameRules:GetCustomGameTeamMaxPlayers(teamId)
+	end
+	local beaconPlayers = {}
+	for teamId, _ in pairs(teamlist) do
+		for playerId = 0, maxPlayerForThisMode do
+			if not beaconPlayers[teamId] and PlayerResource:GetTeam(playerId) == teamId then
+				_G.VisiblePerksForEnemyTeam[teamId] = {}
+				beaconPlayers[teamId] = playerId
+			end
+		end
+	end
+
+	Timers:CreateTimer(0, function()
+		local anyUntrack = false
+		for teamId, _ in pairs(teamlist) do
+			for playerId = 0, maxPlayerForThisMode do
+				if _G.PlayersPatreonsPerk[playerId] then
+					if PlayerResource:GetTeam(playerId) == teamId then
+						for insepctionTeamId, beaconPlayerIdFromEnemyTeam in pairs(beaconPlayers) do
+							if not table.contains(_G.VisiblePerksForEnemyTeam[insepctionTeamId], playerId) and beaconPlayers[insepctionTeamId] then
+								if PlayerResource:GetSelectedHeroEntity(beaconPlayerIdFromEnemyTeam):CanEntityBeSeenByMyTeam(PlayerResource:GetSelectedHeroEntity(playerId)) then
+									CustomGameEventManager:Send_ServerToTeam(insepctionTeamId, "show_player_perk", { playerId = playerId, perkName = _G.PlayersPatreonsPerk[playerId]:gsub("_t%d*", "_t0")})
+									table.insert(_G.VisiblePerksForEnemyTeam[insepctionTeamId], playerId)
+								else
+									anyUntrack = true
+								end
+							end
+						end
+					end
+				else
+					anyUntrack = true
+				end
+			end
+		end
+		if anyUntrack then
+			return 1
+		else
+			return nil
+		end
+	end)
+end
+
+RegisterCustomEventListener("check_perks_for_players", function(data)
+	if not data.PlayerID then return end
+	local playerTeam = PlayerResource:GetTeam(data.PlayerID)
+	if not _G.VisiblePerksForEnemyTeam[playerTeam] then return end
+	for _, playerId in pairs(_G.VisiblePerksForEnemyTeam[playerTeam]) do
+		if _G.PlayersPatreonsPerk[playerId] then
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "show_player_perk", { playerId = playerId, perkName = _G.PlayersPatreonsPerk[playerId]:gsub("_t%d*", "")})
+		end
 	end
 end)

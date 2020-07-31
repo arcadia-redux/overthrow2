@@ -112,6 +112,7 @@
 		"npc_dota_creature_basic_zombie"	"Zombie"
 		"npc_dota_creature_berserk_zombie"	"Berserk Zombie"
 		"npc_dota_hero_doom_bringer"        "Doom (Modified)"
+		"npc_dota_hero_lone_druid"       	"Lone Druid (Modified)"
 
 		"DOTA_Tooltip_modifier_invis_revealed"		"Invisibility Revealed"
 
@@ -234,9 +235,13 @@
 
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff"				"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"Mana Regeneration increased."
-	
+		
+		"DOTA_Tooltip_ability_doom_bringer_doom"					"Doom (Modified)"
+		"DOTA_Tooltip_ability_doom_bringer_doom_Description"		"Inflicts a curse that dispels an enemy Hero and prevents an them from casting spells or using items, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown, duration and 3 charges</font>"
 
 		//////////////////////////////////////////////////////////////////
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear"								"Summon Spirit Bear (Modified)"
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear_Description"					"Summons a powerful Spirit Bear companion that can equip items.  If the bear moves 1100 distance away from the Lone Druid, it cannot attack.  Lone Druid suffers %backlash_damage%%% of his max health as backlash damage if the Spirit Bear dies. Spirit Bear does not benefit from attributes.\nSpirit Bear has the Return, Demolish and Entangling Roots abilities.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
 
 		"donator_label_1"			"Patron"
 		"donator_label_2"			"Team Member"
@@ -656,6 +661,75 @@
 		"patreon_perk_gpm_t2"					"Advanced Gold Per Minute"
 		"patreon_perk_gpm_t2_tooltip"			"+150 additional gold per minute"
 		"DOTA_Tooltip_patreon_perk_gpm_t2"		"Personal Perk: Gold Per Minute"
+		
+		"patreon_perk_str_for_kill_t0"								"Plush Butcher"
+		"patreon_perk_str_for_kill_t0_tooltip"						"+1 strength per kill"
+		"DOTA_Tooltip_patreon_perk_str_for_kill_t0"					"Personal Perk: Butcher"
+		"DOTA_Tooltip_patreon_perk_str_for_kill_t0_Description"		"Strength increased by %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%"
+		"patreon_perk_str_for_kill_t1"								"Butcher"
+		"patreon_perk_str_for_kill_t1_tooltip"						"+2 strength per kill"
+		"DOTA_Tooltip_patreon_perk_str_for_kill_t1"					"Personal Perk: Butcher"
+		"DOTA_Tooltip_patreon_perk_str_for_kill_t1_Description"		"Strength increased by %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%"
+		"patreon_perk_str_for_kill_t2"								"Butcher Professional"
+		"patreon_perk_str_for_kill_t2_tooltip"						"+3 strength per kill"
+		"DOTA_Tooltip_patreon_perk_str_for_kill_t2"					"Personal Perk: Butcher"
+		"DOTA_Tooltip_patreon_perk_str_for_kill_t2_Description"		"Strength increased by %dMODIFIER_PROPERTY_STATS_STRENGTH_BONUS%"
+
+		"patreon_perk_agi_for_kill_t0"								"Little Ranger"
+		"patreon_perk_agi_for_kill_t0_tooltip"						"+1 agility per kill"
+		"DOTA_Tooltip_patreon_perk_agi_for_kill_t0"					"Personal Perk: Ranger"
+		"DOTA_Tooltip_patreon_perk_agi_for_kill_t0_Description"		"Agility increased by %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%"
+		"patreon_perk_agi_for_kill_t1"								"Ranger"
+		"patreon_perk_agi_for_kill_t1_tooltip"						"+2 agility per kill"
+		"DOTA_Tooltip_patreon_perk_agi_for_kill_t1"					"Personal Perk: Ranger"
+		"DOTA_Tooltip_patreon_perk_agi_for_kill_t1_Description"		"Agility increased by %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%"
+		"patreon_perk_agi_for_kill_t2"								"Ranger Assassin"
+		"patreon_perk_agi_for_kill_t2_tooltip"						"+3 agility per kill"
+		"DOTA_Tooltip_patreon_perk_agi_for_kill_t2"					"Personal Perk: Ranger"
+		"DOTA_Tooltip_patreon_perk_agi_for_kill_t2_Description"		"Agility increased by %dMODIFIER_PROPERTY_STATS_AGILITY_BONUS%"
+
+		"patreon_perk_int_for_kill_t0"								"Mage's Apprentice"
+		"patreon_perk_int_for_kill_t0_tooltip"						"+1 intellect per kill"
+		"DOTA_Tooltip_patreon_perk_int_for_kill_t0"					"Personal Perk: Battle Mage"
+		"DOTA_Tooltip_patreon_perk_int_for_kill_t0_Description"		"Intellect increased by %dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%"
+		"patreon_perk_int_for_kill_t1"								"Battle Mage"
+		"patreon_perk_int_for_kill_t1_tooltip"						"+2 intellect per kill"
+		"DOTA_Tooltip_patreon_perk_int_for_kill_t1"					"Personal Perk: Battle Mage"
+		"DOTA_Tooltip_patreon_perk_int_for_kill_t1_Description"		"Intellect increased by %dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%"
+		"patreon_perk_int_for_kill_t2"								"Archmage"
+		"patreon_perk_int_for_kill_t2_tooltip"						"+3 intellect per kill"
+		"DOTA_Tooltip_patreon_perk_int_for_kill_t2"					"Personal Perk: Battle Mage"
+		"DOTA_Tooltip_patreon_perk_int_for_kill_t2_Description"		"Intellect increased by %dMODIFIER_PROPERTY_STATS_INTELLECT_BONUS%"
+
+		"patreon_perk_cleave_t0"								"Light Weapon"
+		"patreon_perk_cleave_t0_tooltip"						"Grants 15% (7.5% for ranged hero) splash damage in 300 radius"
+		"DOTA_Tooltip_patreon_perk_cleave_t0"					"Personal Perk: Heavy Weapon"
+		"patreon_perk_cleave_t1"								"Heavy Weapon"
+		"patreon_perk_cleave_t1_tooltip"						"Grants 25% (12.5% for ranged hero) splash damage in 300 radius"
+		"DOTA_Tooltip_patreon_perk_cleave_t1"					"Personal Perk: Heavy Weapon"
+		"patreon_perk_cleave_t2"								"Monster Weapon"
+		"patreon_perk_cleave_t2_tooltip"						"Grants 45% (22.5% for ranged hero) splash damage in 300 radius"
+		"DOTA_Tooltip_patreon_perk_cleave_t2"					"Personal Perk: Heavy Weapon"
+
+		"patreon_perk_cd_after_deadth_t0"						"Basic Combat Readiness"
+		"patreon_perk_cd_after_deadth_t0_tooltip"				"When enemy hero killed you, after respawn, your cooldowns for items and skills will be reduced by 25%"
+		"DOTA_Tooltip_patreon_perk_cd_after_deadth_t0"			"Personal Perk: Combat Readiness"
+		"patreon_perk_cd_after_deadth_t1"						"Combat Readiness"
+		"patreon_perk_cd_after_deadth_t1_tooltip"				"When enemy hero killed you, after respawn, your cooldowns for items and skills will be reduced by 35%"
+		"DOTA_Tooltip_patreon_perk_cd_after_deadth_t1"			"Personal Perk: Combat Readiness"
+		"patreon_perk_cd_after_deadth_t2"						"Advanced Combat Readiness"
+		"patreon_perk_cd_after_deadth_t2_tooltip"				"When enemy hero killed you, after respawn, your cooldowns for items and skills will be reduced by 50%"
+		"DOTA_Tooltip_patreon_perk_cd_after_deadth_t2"			"Personal Perk: Combat Readiness"
+
+		"patreon_perk_manaburn_t0"								"Basic Manaburn"
+		"patreon_perk_manaburn_t0_tooltip"						"Each attack burns 4 mana from the target. Deals damage according to burned mana"
+		"DOTA_Tooltip_patreon_perk_manaburn_t0"					"Personal Perk: Manaburn"
+		"patreon_perk_manaburn_t1"								"Manaburn"
+		"patreon_perk_manaburn_t1_tooltip"						"Each attack burns 8 mana from the target. Deals damage according to burned mana"
+		"DOTA_Tooltip_patreon_perk_manaburn_t1"					"Personal Perk: Manaburn"
+		"patreon_perk_manaburn_t2"								"Advanced Manaburn"
+		"patreon_perk_manaburn_t2_tooltip"						"Each attack burns 16 mana from the target. Deals damage according to burned mana"
+		"DOTA_Tooltip_patreon_perk_manaburn_t2"					"Personal Perk: Manaburn"
 
 		"alertforban"					                        		"Your team wants to disconnect you from the game. This is a warning."
 		"playerhasalertforban"					   						"This player is already warned. Try later."
@@ -664,10 +738,6 @@
 
 		"alert_for_ban_message_1"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> wants to kick this player:"
 		"alert_for_ban_message_2"					               		"<font color='#FF1111'>[</font>%s1<font color='#FF1111'>]</font> Player has 60sec to be better."
-
-		"DOTA_Tooltip_ability_item_patreon_mango"						"Mango of Appreciation"
-		"DOTA_Tooltip_ability_item_patreon_mango_Description"			"Sorry but there is no more free boots for supporters, we removed them in the interest of balance. We hope you will not mind this change too much. Thank you again for supporting us and this mod, we truly do appreciate it. Take this mango as a token of our appreciation."
-		"DOTA_Tooltip_ability_item_patreon_mango_Lore"					"If a patron buys from an artist who needs money, the patron then makes himself equal to the artist; he is building art into the world; he creates."
 
 		"HighSupportersOnly"					"High Supporters Only"
 		"SupportersOnly"						"Supporters Only"
@@ -687,7 +757,16 @@
 		"supporter_perks_high"						"High-Supporter Perks"
 		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
 		
+		"cannot_see_perk_now"					"For now you don't know this player's personal perk"
+		
+		"leaderboard"			"Leaderboard"
+		"leaderboard_rank"		"Rank"
+		"leaderboard_player"	"Player"
+		"leaderboard_rating"	"Rating"
+		"leaderboard_info"		"Additional info"
+
 		"summer_feedback_link_header"			"Overthrow 2.0 Feedback Summer 2020"
 		"summer_feedback_open_in_browser"		"Open in browser"
+
 	}
 }

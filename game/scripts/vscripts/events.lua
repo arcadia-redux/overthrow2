@@ -1,5 +1,7 @@
 --[[ events.lua ]]
 
+_G.lastHeroKillers = {}
+_G.lastHerosPlaceLastDeath = {}
 ---------------------------------------------------------------------------
 -- Event: Game state change handler
 ---------------------------------------------------------------------------
@@ -61,15 +63,54 @@ function COverthrowGameMode:OnGameRulesStateChange()
 
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
 		
-		Convars:SetFloat("host_timescale", 0.07)
-		Timers:CreateTimer({
-			useGameTime = false,
-			endTime = 2.1,
-			callback = function()
-				Convars:SetFloat("host_timescale", 1)
-				return nil
+		local parties = {}
+		local party_indicies = {}
+		local party_members_count = {}
+		local party_index = 1
+		-- Set up player colors
+		for id = 0, 23 do
+			if PlayerResource:IsValidPlayer(id) then
+				local party_id = tonumber(tostring(PlayerResource:GetPartyID(id)))
+				if party_id and party_id > 0 then
+					if not party_indicies[party_id] then
+						party_indicies[party_id] = party_index
+						party_index = party_index + 1
+					end
+					party_index = party_indicies[party_id]
+					parties[id] = party_index
+					if not party_members_count[party_index] then
+						party_members_count[party_index] = 0
+					end
+					party_members_count[party_index] = party_members_count[party_index] + 1
+				end
 			end
-		})
+		end
+		for id, party in pairs(parties) do
+			-- at least 2 ppl in party!
+			if party_members_count[party] and party_members_count[party] < 2 then
+				parties[id] = nil
+			end
+		end
+		if parties then
+			CustomNetTables:SetTableValue("game_state", "parties", parties)
+		end
+		
+		local mapsForSlow = {
+			["desert_octet"] = true
+		}
+		
+		if mapsForSlow[GetMapName()] then
+			Convars:SetFloat("host_timescale", 0.07)
+			
+			Timers:CreateTimer({
+				useGameTime = false,
+				endTime = 2.1,
+				callback = function()
+					Convars:SetFloat("host_timescale", 1)
+					return nil
+				end
+			})
+		end
 		
 		self.heroSelectionStage = 5
 		local numberOfPlayers = PlayerResource:GetPlayerCount()
@@ -104,6 +145,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
 
 		self._fPreGameStartTime = GameRules:GetGameTime()
+		StartTrackPerks(self.teams)
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
@@ -123,7 +165,33 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 	local owner = spawnedUnit:GetOwner()
 	local name = spawnedUnit:GetUnitName()
-
+	
+	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn and _G.lastHeroKillers[spawnedUnit] then
+		local killersTeam = _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()
+		if killersTeam ~=spawnedUnit:GetTeamNumber() and killersTeam~= DOTA_TEAM_NEUTRALS then
+			for i = 0, 20 do
+				local item = spawnedUnit:GetItemInSlot(i)
+				if item then
+					local cooldown_remaining = item:GetCooldownTimeRemaining()
+					if cooldown_remaining > 0 then
+						item:EndCooldown()
+						item:StartCooldown(cooldown_remaining-(cooldown_remaining/100*spawnedUnit.reduceCooldownAfterRespawn))
+					end
+				end
+			end
+			for i = 0, 30 do
+				local ability = spawnedUnit:GetAbilityByIndex(i)
+				if ability then
+					local cooldown_remaining = ability:GetCooldownTimeRemaining()
+					if cooldown_remaining > 0 then
+						ability:EndCooldown()
+						ability:StartCooldown(cooldown_remaining-(cooldown_remaining/100*spawnedUnit.reduceCooldownAfterRespawn))
+					end
+				end
+			end
+		end
+	end
+	
 	if owner and owner.GetPlayerID and ( name == "npc_dota_sentry_wards" or name == "npc_dota_observer_wards" ) then
 		local player_id = owner:GetPlayerID()
 
@@ -144,7 +212,12 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	--end
 
 	if not spawnedUnit:IsRealHero() then return end
-	--local playerId = spawnedUnit:GetPlayerID()
+	local playerId = spawnedUnit:GetPlayerID()
+
+	if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
+		CreateDummyInventoryForPlayer(playerId, spawnedUnit)
+	end
+	
 	--local psets = Patreons:GetPlayerSettings(playerId)
 
 	--if psets.level > 1 and _G.personalCouriers[playerId] == nil then
@@ -459,6 +532,10 @@ function COverthrowGameMode:OnEntityKilled( event )
 			killedUnit.isKilled = true
 			COverthrowGameMode:SetRespawnTime(killedTeam, killedUnit, extraTime)
 		end
+	end
+
+	if killedUnit and killedUnit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(killedUnit:GetPlayerID())) then
+		_G.lastHeroKillers[killedUnit] = hero
 	end
 end
 
