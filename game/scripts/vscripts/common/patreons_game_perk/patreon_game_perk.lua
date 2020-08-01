@@ -193,7 +193,7 @@ RegisterCustomEventListener("check_perks_for_players", function(data)
 	if not _G.VisiblePerksForEnemyTeam[playerTeam] then return end
 	for _, playerId in pairs(_G.VisiblePerksForEnemyTeam[playerTeam]) do
 		if _G.PlayersPatreonsPerk[playerId] then
-			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "show_player_perk", { playerId = playerId, perkName = _G.PlayersPatreonsPerk[playerId]:gsub("_t%d*", "")})
+			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "show_player_perk", { playerId = playerId, perkName = _G.PlayersPatreonsPerk[playerId]:gsub("_t%d*", "_t0")})
 		end
 	end
 end)

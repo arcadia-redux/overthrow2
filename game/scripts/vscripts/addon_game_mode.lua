@@ -373,6 +373,10 @@ function COverthrowGameMode:InitGameMode()
 				GameRules:GetGameModeEntity():SetDraftingBanningTimeOverride(0)
 			end
 		end
+		local playerHero = PlayerResource:GetSelectedHeroEntity(playerId)
+		if playerHero then
+			CreateDummyInventoryForPlayer(playerId, playerHero)
+		end
 	end, nil)
 
 	_G.kicks = {

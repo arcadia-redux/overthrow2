@@ -62,7 +62,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_PRE_GAME then
-		
+
 		local parties = {}
 		local party_indicies = {}
 		local party_members_count = {}
@@ -76,7 +76,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 						party_indicies[party_id] = party_index
 						party_index = party_index + 1
 					end
-					party_index = party_indicies[party_id]
+					local party_index = party_indicies[party_id]
 					parties[id] = party_index
 					if not party_members_count[party_index] then
 						party_members_count[party_index] = 0

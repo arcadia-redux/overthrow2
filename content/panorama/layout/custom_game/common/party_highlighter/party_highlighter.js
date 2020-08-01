@@ -2,7 +2,7 @@ var parties;
 
 function HighlightByParty(player_id, label) {
 	let party_id = parties[player_id];
-	
+
 	if (party_id != undefined) {
 		label.SetHasClass("Party_" + party_id, true);
 	} else {
@@ -19,5 +19,6 @@ function SubscribeToNetTableKey(tableName, key, callback) {
 }
 
 SubscribeToNetTableKey("game_state", "parties", (value) => {
+	$.Msg("Received party data: ", value);
 	parties = value;
 });
