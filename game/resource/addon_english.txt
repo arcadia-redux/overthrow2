@@ -769,5 +769,9 @@
 		"summer_feedback_open_in_browser"		"Open in browser"
 		
 		"npc_dummy_inventory"					"Dummy Inventory"
+		
+		"npc_dota_hero_nevermore"										"Shadow Fiend (Modified)"
+		"DOTA_Tooltip_ability_nevermore_necromastery"					"Necromastery (Modified)"
+		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"Shadow Fiend steals the soul from units he kills, gaining bonus damage. On death, he releases half of them from bondage.\n\n<font color='#70EA72'>In Overthrow Shadow Fiend will get 1 soul every <b>5</b> seconds.</font>"
 	}
 }

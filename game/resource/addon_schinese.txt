@@ -574,5 +574,9 @@
 
 		"HighSupportersOnly"					"仅限于高级支持者"
 		"SupportersOnly"						"仅限于支持者"
+		
+		"npc_dota_hero_nevermore"										"影魔 (微调)"
+		"DOTA_Tooltip_ability_nevermore_necromastery"					"支配死灵 (微调)"
+		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"影魔每杀死一个单位都会窃取其灵魂，获得额外攻击力。影魔死亡时一半灵魂将逃离他的束缚。\n\n<font color='#70EA72'>在Overthrow中，影魔每 <b>5</b> 秒将获得1个灵魂。</font>"
 	}
 }

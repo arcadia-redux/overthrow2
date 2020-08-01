@@ -684,5 +684,9 @@
 
 		"summer_feedback_link_header"			"Летний опрос об Overthrow 2.0 в 2020"
 		"summer_feedback_open_in_browser"		"Открыть в браузере"
+		
+		"npc_dota_hero_nevermore"										"Shadow Fiend (Изм.)"
+		"DOTA_Tooltip_ability_nevermore_necromastery"					"Necromastery (Изм.)"
+		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"Герой крадет душу каждого убитого врага, получая бонус к атаке. После смерти выпускает половину из них.\n\n<font color='#70EA72'>В Overthrow Shadow Fiend получает 1 душу каждые <b>5</b> сек.</font>"
 	}
 }
