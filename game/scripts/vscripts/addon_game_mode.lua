@@ -57,6 +57,7 @@ LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier",
 LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_alert_before_kick_lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_dummy_inventory", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
