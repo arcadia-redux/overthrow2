@@ -250,7 +250,7 @@ function Cosmetics:OnNPCSpawned( keys )
 		local cosmetics = Patreons:GetPlayerSettings( id ).cosmetics
 
 		if cosmetics then
-			for _, ability in pairs( cosmetics.abilities ) do
+			for _, ability_name in pairs( cosmetics.abilities ) do
 				if not unit:FindAbilityByName( ability_name ) then
 					local ability = unit:AddAbility( ability_name )
 
