@@ -1004,4 +1004,63 @@
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"45.0"
 	}
+	
+	"chen_soul_persuasion"
+	{
+		"BaseClass"						"ability_lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+		"MaxLevel"						"4"
+		"AbilityTextureName"			"chen_soul_persuasion"
+		"ScriptFile"	                "abilities/heroes/chen/chen_soul_persuasion"
+	
+		"AbilityCastPoint"				"0.3"
+		"AbilityManaCost"				"100 120 140 160"
+	
+		"AbilityCooldown"				"15"
+	
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_tick_rate"		"1"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_per_second"		"1"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_per_kill"	    "10"
+			}
+			//SOULS FOR SUMMON
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_summon_little"	"1"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_summon_middle"	"3"
+			}
+			"06"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_summon_big"		"8"
+			}
+			"07"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_summon_ancient"	"20"
+			}
+			"08"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"souls_limit"	        "10 20 30 40"
+			}
+		}
+	}
 }

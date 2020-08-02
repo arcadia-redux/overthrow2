@@ -9,4 +9,8 @@
 		"Ability1"	"doom_bringer_devour_custom"
 		"Ability15"	"special_bonus_gold_income_30"
 	}
+	"npc_dota_hero_chen"
+	{
+		"Ability2"		"chen_soul_persuasion"
+	}
 }

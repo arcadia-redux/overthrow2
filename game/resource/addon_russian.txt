@@ -688,5 +688,14 @@
 		"npc_dota_hero_nevermore"										"Shadow Fiend (Изм.)"
 		"DOTA_Tooltip_ability_nevermore_necromastery"					"Necromastery (Изм.)"
 		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"Герой крадет душу каждого убитого врага, получая бонус к атаке. После смерти выпускает половину из них.\n\n<font color='#70EA72'>В Overthrow Shadow Fiend получает 1 душу каждые <b>5</b> сек.</font>"
+		
+		"npc_dota_hero_chen"												"Chen (Изм.)"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"Soul Persuasion"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen получает</font> %souls_per_second% <font color='#70EA72'>душу каждые</font> %souls_tick_rate% <font color='#70EA72'>секунды и</font> %souls_per_kill% <font color='#70EA72'>душ за убйиство вражеского героя. Chen может призвать случайного нейтрального крипа, тип которого зависит от количества имеющихся душ.</font>"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_little"		"МАЛЕНЬКИЙ КРИП:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_middle"		"СРЕДНИЙ КРИП:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_big"		"БОЛЬШОЙ КРИП:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_ancient"	"ДРЕВНИЙ КРИП:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_souls_limit"		"ЛИМИТ ДУШ:"
 	}
 }

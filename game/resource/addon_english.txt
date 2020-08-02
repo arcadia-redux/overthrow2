@@ -773,5 +773,15 @@
 		"npc_dota_hero_nevermore"										"Shadow Fiend (Modified)"
 		"DOTA_Tooltip_ability_nevermore_necromastery"					"Necromastery (Modified)"
 		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"Shadow Fiend steals the soul from units he kills, gaining bonus damage. On death, he releases half of them from bondage.\n\n<font color='#70EA72'>In Overthrow Shadow Fiend will get 1 soul every <b>5</b> seconds.</font>"
+		
+		"npc_dota_hero_chen"												"Chen (Modified)"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"Soul Persuasion"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen will gain</font> %souls_per_second% <font color='#70EA72'>souls every</font> %souls_tick_rate% <font color='#70EA72'>seconds and</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep depends on count of souls.</font>"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_little"		"LITTLE CREEP:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_middle"		"MIDDLE CREEP:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_big"		"BIG CREEP:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_ancient"	"ANCIENT CREEP:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_souls_limit"		"LIMIT OF SOULS:"
+		
 	}
 }

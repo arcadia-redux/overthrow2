@@ -66,6 +66,15 @@ function table.contains(t, v)
 	end
 end
 
+function table.random(t)
+	local keys = {}
+	for k, _ in pairs(t) do
+		table.insert(keys, k)
+	end
+	local key = keys[RandomInt(1, # keys)]
+	return t[key], key
+end
+
 function GetConnectionState(playerId)
 	return PlayerResource:IsFakeClient(playerId) and DOTA_CONNECTION_STATE_CONNECTED or PlayerResource:GetConnectionState(playerId)
 end
