@@ -743,6 +743,10 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	--	filterTable = EditFilterToCourier(filterTable)
 	--end
 
+	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM then
+		if unit:IsTempestDouble() then return false end
+	end
+	
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
 			ability:Destroy()
