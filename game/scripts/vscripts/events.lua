@@ -212,21 +212,25 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	--end
 
 	if not spawnedUnit:IsRealHero() then return end
-	
-	Timers:CreateTimer(0, function()
-		if spawnedUnit:HasModifier("modifier_nevermore_necromastery") and spawnedUnit:IsAlive() then
-			local modifier = spawnedUnit:FindModifierByName("modifier_nevermore_necromastery")
-			local ability = spawnedUnit:FindAbilityByName("nevermore_necromastery")
-			local maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls", ability:GetLevel() - 1)
-			if spawnedUnit:HasScepter() then
-				maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls_scepter", ability:GetLevel() - 1)
+
+	Timers:CreateTimer("auto_necromastery", {
+		useGameTime = true,
+		endTime = 5,
+		callback = function()
+			if spawnedUnit:HasModifier("modifier_nevermore_necromastery") and spawnedUnit:IsAlive() then
+				local modifier = spawnedUnit:FindModifierByName("modifier_nevermore_necromastery")
+				local ability = spawnedUnit:FindAbilityByName("nevermore_necromastery")
+				local maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls", ability:GetLevel() - 1)
+				if spawnedUnit:HasScepter() then
+					maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls_scepter", ability:GetLevel() - 1)
+				end
+				if modifier:GetStackCount() < maxSouls then
+					modifier:IncrementStackCount();
+				end
 			end
-			if modifier:GetStackCount() < maxSouls then
-				modifier:IncrementStackCount();
-			end
+			return 5
 		end
-		return 5
-	end)
+	})
 	
 	local playerId = spawnedUnit:GetPlayerID()
 
