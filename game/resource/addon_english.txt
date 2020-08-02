@@ -776,12 +776,8 @@
 		
 		"npc_dota_hero_chen"												"Chen (Modified)"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"Soul Persuasion"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen will gain</font> %souls_per_second% <font color='#70EA72'>souls every</font> %souls_tick_rate% <font color='#70EA72'>seconds and</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep depends on count of souls.</font>"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_little"		"LITTLE CREEP:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_middle"		"MIDDLE CREEP:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_big"		"BIG CREEP:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_ancient"	"ANCIENT CREEP:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_souls_limit"		"LIMIT OF SOULS:"
-		
+		"DOTA_Tooltip_chen_soul_persuasion_passive"							"Soul Persuasion"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen will gain</font> %souls_per_second% <font color='#70EA72'>souls every</font> %souls_tick_rate% <font color='#70EA72'>seconds and</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep, manacost and cooldown depends on count of souls.</font><br><br><font color='#819af7'>LITTLE CREEP</font>: %souls_summon_little% souls, %cooldown_little%s cooldown, %manacost_little% manacost<br><font color='#9e63f7'>MIDDLE CREEP</font>: %souls_summon_middle% souls, %cooldown_middle%s cooldown, %manacost_middle% manacost<br><font color='#d52222'>BIG CREEP</font>: %souls_summon_big% souls, %cooldown_big%s cooldown, %manacost_big% manacost<br><font color='#f8c71b'>ANCIENT CREEP</font>: %souls_summon_ancient% souls, %cooldown_ancient%s cooldown, %manacost_ancient% manacost"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"				"LIMIT OF SOULS:"
 	}
 }

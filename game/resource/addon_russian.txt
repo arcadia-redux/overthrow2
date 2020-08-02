@@ -689,13 +689,9 @@
 		"DOTA_Tooltip_ability_nevermore_necromastery"					"Necromastery (Изм.)"
 		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"Герой крадет душу каждого убитого врага, получая бонус к атаке. После смерти выпускает половину из них.\n\n<font color='#70EA72'>В Overthrow Shadow Fiend получает 1 душу каждые <b>5</b> сек.</font>"
 		
-		"npc_dota_hero_chen"												"Chen (Изм.)"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"Soul Persuasion"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen получает</font> %souls_per_second% <font color='#70EA72'>душу каждые</font> %souls_tick_rate% <font color='#70EA72'>секунды и</font> %souls_per_kill% <font color='#70EA72'>душ за убйиство вражеского героя. Chen может призвать случайного нейтрального крипа, тип которого зависит от количества имеющихся душ.</font>"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_little"		"МАЛЕНЬКИЙ КРИП:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_middle"		"СРЕДНИЙ КРИП:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_big"		"БОЛЬШОЙ КРИП:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_summon_ancient"	"ДРЕВНИЙ КРИП:"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_souls_limit"		"ЛИМИТ ДУШ:"
+		"npc_dota_hero_chen"										"Chen (Изм.)"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion"					"Soul Persuasion"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"		"<font color='#70EA72'>Chen получает</font> %souls_per_second% <font color='#70EA72'>душу каждые</font> %souls_tick_rate% <font color='#70EA72'>секунды и</font> %souls_per_kill% <font color='#70EA72'>душ за убйиство вражеского героя. При активации умения Chen призывает случайного нейтрального крипа. </font><br><br><font color='#819af7'>МАЛЕНЬКИЙ КРИП</font>: %souls_summon_little% душ(и), перезарядка - %cooldown_little% сек., стомость - %manacost_little% маны<br><font color='#9e63f7'>СРЕДНИЙ КРИП</font>: %souls_summon_middle% душ(и), перезарядка - %cooldown_middle% сек., %manacost_middle% маны<br><font color='#d52222'>БОЛЬШИЙ КРИП</font>: %souls_summon_big% душ(и), перезарядка - %cooldown_big% сек., %manacost_big% маны<br><font color='#f8c71b'>ДРЕВНИЙ КРИП</font>: %souls_summon_ancient% душ(и), перезарядка - %cooldown_ancient% сек., %manacost_ancient% маны"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"		"ЛИМИТ ДУШ:"
 	}
 }

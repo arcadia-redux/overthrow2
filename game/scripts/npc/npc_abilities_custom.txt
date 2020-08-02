@@ -1014,9 +1014,6 @@
 		"ScriptFile"	                "abilities/heroes/chen/chen_soul_persuasion"
 	
 		"AbilityCastPoint"				"0.3"
-		"AbilityManaCost"				"100 120 140 160"
-	
-		"AbilityCooldown"				"15"
 	
 		"AbilitySpecial"
 		{
@@ -1059,7 +1056,48 @@
 			"08"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"souls_limit"	        "10 20 30 40"
+				"souls_limit"			"10 20 30 40"
+			}
+			//DATA
+			"09"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"manacost_little"		"50"
+			}
+			"10"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"manacost_middle"		"100"
+			}
+			"11"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"manacost_big"			"150"
+			}
+			"12"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"manacost_ancient"		"200"
+			}
+			"13"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cooldown_little"		"5"
+			}
+			"14"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cooldown_middle"		"10"
+			}
+			"15"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cooldown_big"			"15"
+			}
+			"16"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"cooldown_ancient"		"20"
 			}
 		}
 	}
