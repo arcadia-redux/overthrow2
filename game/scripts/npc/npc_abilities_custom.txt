@@ -1023,7 +1023,7 @@
 			"01"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"souls_tick_rate"		"1"
+				"souls_tick_rate"		"4"
 			}
 			"02"
 			{
