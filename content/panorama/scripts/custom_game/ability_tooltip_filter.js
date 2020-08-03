@@ -5,6 +5,7 @@ function HideTooltip() {
 	const itemImage = tooltipPanel.GetChild(1).GetChild(1).GetChild(0).GetChild(0).GetChild(0); //ID ItemImage
 	if (itemImage && itemImage.itemname && BLACK_LIST_FOR_TOOLTIPS_ITEMS.indexOf(itemImage.itemname) > -1) {
 		$.DispatchEvent("DOTAHideAbilityTooltip");
+		itemImage.itemname = "";
 	}
 }
 
