@@ -83,9 +83,8 @@ function ScheduleCheckMinimizeP3Button() {
 	SubscribeToNetTableKey("game_state", "players_who_acted_on_victory_condition", function(data) {
 		if (data) {
 			var localPlayedAlreadyAddedToVictoryCondition = !!data[Game.GetLocalPlayerID()];
-
 			if (localPlayedAlreadyAddedToVictoryCondition) {
-                $( "#P3Button" ).AddClass( "OffP3Button" );
+                $( "#P3Button" ).SetHasClass( "OffP3Button" , localPlayedAlreadyAddedToVictoryCondition);
 			}
 		}
 	});

@@ -102,7 +102,7 @@ function chen_soul_persuasion:OnSpellStart()
 	
 	parent:SetModifierStackCount(souldModifierName, self, soulsCount - summonSouls)
 	local minDistance, maxDistance = 90, 180
-	local randX, randY = RandomInt(-maxDistance, maxDistance), RandomInt(-180, maxDistance)
+	local randX, randY = RandomInt(-maxDistance, maxDistance), RandomInt(-maxDistance, maxDistance)
 	while(math.abs(randX) < minDistance) do
 		randX = RandomInt(-maxDistance, maxDistance)
 	end

@@ -1003,6 +1003,15 @@
 		// Time		
 		//-------------------------------------------------------------------------------------------------------------
 		"AbilityCooldown"				"45.0"
+		"AbilitySpecial"
+		{
+			"06"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"cooldown_scepter"			"45.0"
+				"RequiresScepter"			"1"
+			}
+		}
 	}
 	
 	"chen_soul_persuasion"

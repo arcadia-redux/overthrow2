@@ -994,16 +994,27 @@ RegisterCustomEventListener("P3ButtonClick", function(keys)
 end)
 
 function COverthrowGameMode:P3Act(playerid)
-	if GameRules:GetDOTATime(false,false) < 180 then
-		if p3bonus[playerid] ~= true then
-			p3bonus[playerid] = true
-			_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
-			self.TEAM_KILLS_TO_WIN = self.TEAM_KILLS_TO_WIN + 2
-			CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
-			CustomNetTables:SetTableValue( "game_state", "players_who_acted_on_victory_condition", p3bonus );
-			GameRules:SendCustomMessage("#time_extended", -1, 0)
-			EmitGlobalSound("Hero_Sniper.Tutorial_Intro_c")
+	if p3bonus[playerid] ~= true then
+		p3bonus[playerid] = true
+		_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
+		self.TEAM_KILLS_TO_WIN = self.TEAM_KILLS_TO_WIN + 2
+		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
+		CustomNetTables:SetTableValue( "game_state", "players_who_acted_on_victory_condition", p3bonus );
+		GameRules:SendCustomMessage("#time_extended", -1, 0)
+		EmitGlobalSound("Hero_Sniper.Tutorial_Intro_c")
+	end
+	local allPlayersVoted = true
+	for playerId,state in pairs(p3bonus) do
+		local playerConnectionState = PlayerResource:GetConnectionState(playerId)
+		if state == false and (playerConnectionState == DOTA_CONNECTION_STATE_CONNECTED or playerConnectionState == DOTA_CONNECTION_STATE_NOT_YET_CONNECTED) then
+			allPlayersVoted = false
 		end
+	end
+	if allPlayersVoted then
+		for playerId,_ in pairs(p3bonus) do
+			p3bonus[playerId] = false
+		end
+		CustomNetTables:SetTableValue( "game_state", "players_who_acted_on_victory_condition", p3bonus );
 	end
 end
 
