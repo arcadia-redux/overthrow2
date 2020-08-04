@@ -790,4 +790,12 @@
 		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"Passively provides an aura that grants increased health regeneration and amplifies all health restore by a percentage.\n\nCan be cast on allies to teleport them to Chen. If cast on Chen, all units controlled by Chen will be teleported to him. Taking damage will dispel the buff.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
 		"DOTA_Tooltip_ability_chen_hand_of_god"						"Hand of God (Modified)"
 		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"Heals all allied heroes on the map as well as all units under Chen's control.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
+		
+		"npc_dota_hero_treant"											"Treant Protector (Modified)"
+		"DOTA_Tooltip_ability_treant_natures_guise"						"Nature's Guise (Modified)"
+		"DOTA_Tooltip_ability_treant_natures_guise_Description"			"Provides Treant with Tree Walking whenever he hasn't taken damage for %cooldown_time% seconds. While active, Treant gains movement speed bonus and amplified healing and regeneration on himself.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
+		
+		"DOTA_Tooltip_ability_treant_living_armor"						"Living Armor (Modified)"
+		"DOTA_Tooltip_ability_treant_living_armor_Description"			"Infuses the target hero or structure with a protective coating which heals the target and provides bonus armor.\n\n<font color='#70EA72'>In Overthrow, this ability has doubled stats</font>"
+		
 }

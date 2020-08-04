@@ -1134,4 +1134,42 @@
 			}
 		}
 	}
+	"treant_natures_guise"
+	{
+		"AbilitySpecial"
+		{
+			"03"
+			{
+				"var_type"					"FIELD_FLOAT"
+				"cooldown_time"				"0.5"
+			}
+		}
+	}
+	"treant_living_armor"
+	{
+		"AbilityCooldown"				"13 11 9 7"
+		"AbilityManaCost"				"50"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"total_heal"			"120 200 280 360"
+				"LinkedSpecialBonus"	"special_bonus_unique_treant_8"
+			}
+			"02"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"bonus_armor"		"10 12 14 16"
+			}
+			"03"
+			{
+				"var_type"			"FIELD_FLOAT"
+				"duration"			"6.0"
+			}
+
+		}
+		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
+	}
 }

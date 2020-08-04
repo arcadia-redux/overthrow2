@@ -595,5 +595,12 @@
         "DOTA_Tooltip_ability_chen_divine_favor_Description"		"被动光环效果，提供生命恢复加成，并且所有生命回复效果增强一定百分比。\n\n可以对友军施放，将他们传送至陈身边。如果对陈施放，陈控制的所有单位将被传送至他身边。施放目标受到伤害将驱散传送效果。\n\n<font color='#70EA72'>在 Overthrow有 此能力降低了冷却时间"
         "DOTA_Tooltip_ability_chen_hand_of_god"						"上帝之手 (微调)"
         "DOTA_Tooltip_ability_chen_hand_of_god_Description"			"治疗地图上的所有友军英雄以及陈控制的所有单位。\n\n<font color='#70EA72'>在 Overthrow有 此能力降低了冷却时间"
+        
+        "npc_dota_hero_treant"					"树精卫士 (微调)"
+		"DOTA_Tooltip_ability_treant_natures_guise"						"自然蔽护 (微调)"
+		"DOTA_Tooltip_ability_treant_natures_guise_Description"			"树精卫士只要靠近一棵树木，%cooldown_time%秒内不受到伤害就会获得树木穿行。获得后移动速度得到提升，对自身的治疗和恢复效果得到增强。\n\n<font color='#70EA72'>在 Overthrow有 此能力降低了冷却时间"
+		
+		"DOTA_Tooltip_ability_treant_living_armor"						"活体护甲 (微调)"
+		"DOTA_Tooltip_ability_treant_living_armor_Description"			"将目标英雄或建筑笼罩在保护性外壳中，治疗目标并提供护甲加成。n\n<font color='#70EA72'>在 Overthrow中，此技能的属性提高了一倍"
 	}
 }

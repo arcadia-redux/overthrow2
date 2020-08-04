@@ -701,9 +701,17 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} к мин. здоровью крипов от Soul Persuasion"
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value} к доп. урону от атак у Soul Persuasion"
 		
-		"DOTA_Tooltip_ability_chen_divine_favor"					"Divine Favor(Изм.)"
+		"DOTA_Tooltip_ability_chen_divine_favor"					"Divine Favor (Изм.)"
 		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"Аура увеличивает восстановление здоровья и всё получаемое лечение, а также даёт союзным героям дополнительный урон. Подконтрольные существа, не являющиеся героями, получают удвоенный бонус к урону.\n\nПрименив способность на союзника, владелец способности телепортирует его к себе после небольшой задержки. Применив способность на себя, он перенесёт к себе всех своих подконтрольных крипов. Если получить урон во время задержки, телепортация прервётся.\n\n<font color='#70EA72'>В Overthrow это умение имеет уменьшенное время восстановления</font>"
-		"DOTA_Tooltip_ability_chen_hand_of_god"						"Hand of God(Изм.)"
+		"DOTA_Tooltip_ability_chen_hand_of_god"						"Hand of God (Изм.)"
 		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"Лечит всех союзных героев и подконтрольных крипов.\n\n<font color='#70EA72'>В Overthrow это умение имеет уменьшенное время восстановления</font>"
+		
+		"npc_dota_hero_treant"					"Treant Protector (Изм.)"
+		
+		"DOTA_Tooltip_ability_treant_natures_guise"						"Nature's Guise (Изм.)"
+		"DOTA_Tooltip_ability_treant_natures_guise_Description"			"Позволяет ходить сквозь деревья, если герой не получал урон последние %cooldown_time% сек. При этом он будет быстрее передвигаться и иметь усиленное лечение и восстановление здоровья.\n\n<font color='#70EA72'>В Overthrow это умение имеет уменьшенное время восстановления</font>"
+		
+		"DOTA_Tooltip_ability_treant_living_armor"						"Living Armor (Изм.)"
+		"DOTA_Tooltip_ability_treant_living_armor_Description"			"Накладывает на выбранного героя или постройку защитный покров, увеличивающий регенерацию здоровья и броню.\n\n<font color='#70EA72'>В Overthrow все характеристики этого умения удвоены</font>"
 	}
 }
