@@ -1,5 +1,7 @@
 local lastTimeBuyItemWithCooldown = {}
 local maximumItemsForPlayersData = {}
+LinkLuaModifier("modifier_dummy_inventory_custom", LUA_MODIFIER_MOTION_VERTICAL)
+
 -------------------------------------------------------------------------
 local itemsCooldownForPlayer = {
 	["item_disable_help_custom"] = 10,
@@ -162,7 +164,7 @@ function CreateDummyInventoryForPlayer(playerId, unit)
 	local startPointSpawn = unit:GetAbsOrigin() + (RandomFloat(100, 100))
 	local dInventory = CreateUnitByName("npc_dummy_inventory", startPointSpawn, true, unit, unit, PlayerResource:GetTeam(playerId))
 	dInventory:SetControllableByPlayer(playerId, true)
-	dInventory:AddNewModifier(dInventory, nil, "modifier_dummy_inventory", {duration = -1})
+	dInventory:AddNewModifier(dInventory, nil, "modifier_dummy_inventory_custom", {duration = -1})
 	PlayerResource:GetPlayer(playerId).dummyInventory = dInventory
 end
 -------------------------------------------------------------------------

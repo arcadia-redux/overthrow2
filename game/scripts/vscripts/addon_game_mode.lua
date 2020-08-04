@@ -57,7 +57,6 @@ LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier",
 LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_alert_before_kick_lua", LUA_MODIFIER_MOTION_NONE)
-LinkLuaModifier("modifier_dummy_inventory", LUA_MODIFIER_MOTION_NONE)
 
 ---------------------------------------------------------------------------
 -- Precache
@@ -840,7 +839,11 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 	if caster and parent and caster.bonusDebuffTime and (parent:GetTeamNumber() ~= caster:GetTeamNumber()) and filterTable.duration > 0 then
 		filterTable.duration = filterTable.duration/100*caster.bonusDebuffTime + filterTable.duration
 	end
-
+	
+	if parent and parent:GetUnitName() == "npc_dummy_inventory" and filterTable.name_const ~= "modifier_dummy_inventory_custom" then
+		return false
+	end
+	
 	return true
 end
 
