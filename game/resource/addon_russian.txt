@@ -713,5 +713,12 @@
 		
 		"DOTA_Tooltip_ability_treant_living_armor"						"Living Armor (Изм.)"
 		"DOTA_Tooltip_ability_treant_living_armor_Description"			"Накладывает на выбранного героя или постройку защитный покров, увеличивающий регенерацию здоровья и броню.\n\n<font color='#70EA72'>В Overthrow все характеристики этого умения удвоены</font>"
+		
+		"DOTA_Tooltip_Ability_treant_generating_tree"					"Life Seed"
+		"DOTA_Tooltip_Ability_treant_generating_tree_Description"		"<font color='#70EA72'>Посадить дерево в указанное место.<br><br>Если включено автоматическое применение и Treant Protector имеет максималькое количество зарядов Life Seed, он сам посадит дерево недалеко от себя</font>"
+		
+		"DOTA_Tooltip_Ability_treant_generating_tree_max_charges"		"МАКС. ЗАРЯДОВ:"
+		"DOTA_Tooltip_Ability_treant_generating_tree_charge_cooldown"	"ВОССТАНОВЛЕНИЕ ЗАРЯДА:"
+		"DOTA_Tooltip_Ability_treant_generating_tree_tree_duration"		"ВРЕМЯ ЖИЗНИ ДЕРЕВА:"
 	}
 }

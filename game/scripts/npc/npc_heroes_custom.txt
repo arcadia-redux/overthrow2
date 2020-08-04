@@ -14,4 +14,14 @@
 		"Ability2"		"chen_soul_persuasion"
 		"Ability16"		"special_chen_soul_persuasion_tickrate"
 	}
+	"npc_dota_hero_treant"
+	{
+		"Ability1"		"treant_natures_grasp"
+		"Ability2"		"treant_leech_seed"
+		"Ability3"		"treant_living_armor"
+		"Ability4"		"treant_eyes_in_the_forest"
+		"Ability5"		"treant_generating_tree"
+		"Ability6"		"treant_overgrowth"
+		"Ability7"		"treant_natures_guise"
+	}
 }

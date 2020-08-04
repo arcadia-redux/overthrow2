@@ -1172,4 +1172,44 @@
 		}
 		"AbilityCastAnimation"		"ACT_DOTA_CAST_ABILITY_3"
 	}
+	"treant_generating_tree"
+	{
+		"BaseClass"						"ability_lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AUTOCAST"
+		"MaxLevel"						"4"
+		"AbilityTextureName"			"treant_generating_tree"
+		"ScriptFile"	                "abilities/heroes/treant/treant_generating_tree"
+	
+    	"AbilityCastRange"				"350"
+    	"AbilityManaCost"				"40"
+    	
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"max_charges"			"3"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"charge_cooldown"		"8 7 6 5"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"auto_cast_tick_rate"	"1"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"min_distance"			"100"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"tree_duration"			"600"
+			}
+		}
+	}
 }

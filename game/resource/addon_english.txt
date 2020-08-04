@@ -797,5 +797,12 @@
 		
 		"DOTA_Tooltip_ability_treant_living_armor"						"Living Armor (Modified)"
 		"DOTA_Tooltip_ability_treant_living_armor_Description"			"Infuses the target hero or structure with a protective coating which heals the target and provides bonus armor.\n\n<font color='#70EA72'>In Overthrow, this ability has doubled stats</font>"
+	
+	
+		"DOTA_Tooltip_Ability_treant_generating_tree"					"Life Seed"
+		"DOTA_Tooltip_Ability_treant_generating_tree_Description"		"<font color='#70EA72'>Place tree at a traget point.<br><br>If ability in auto-cast and Treant Protector has maximum charges of Life Seed, he will place tree in random place near him</font>"
 		
+		"DOTA_Tooltip_Ability_treant_generating_tree_max_charges"		"MAX CHARGES:"
+		"DOTA_Tooltip_Ability_treant_generating_tree_charge_cooldown"	"CHARGE COOLDOWN:"
+		"DOTA_Tooltip_Ability_treant_generating_tree_tree_duration"		"TREE LIFE TIME:"
 }
