@@ -12,5 +12,6 @@
 	"npc_dota_hero_chen"
 	{
 		"Ability2"		"chen_soul_persuasion"
+		"Ability16"		"special_chen_soul_persuasion_tickrate"
 	}
 }

@@ -578,5 +578,22 @@
 		"npc_dota_hero_nevermore"										"影魔 (微调)"
 		"DOTA_Tooltip_ability_nevermore_necromastery"					"支配死灵 (微调)"
 		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"影魔每杀死一个单位都会窃取其灵魂，获得额外攻击力。影魔死亡时一半灵魂将逃离他的束缚。\n\n<font color='#70EA72'>在Overthrow中，影魔每 <b>5</b> 秒将获得1个灵魂。</font>"
+		
+		"npc_dota_hero_chen"							"陈 (微调)"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion"		"灵魂说服"
+		"DOTA_Tooltip_chen_soul_persuasion_passive"		"灵魂说服"
+		
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen periodically gain</font> %souls_per_second% <font color='#70EA72'>soul or</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep, manacost and cooldown depends on count of souls.</font><br><br><font color='#819af7'>LITTLE CREEP</font>: %souls_summon_little% souls, %cooldown_little%s cooldown, %manacost_little% manacost<br><font color='#9e63f7'>MIDDLE CREEP</font>: %souls_summon_middle% souls, %cooldown_middle%s cooldown, %manacost_middle% manacost<br><font color='#d52222'>BIG CREEP</font>: %souls_summon_big% souls, %cooldown_big%s cooldown, %manacost_big% manacost<br><font color='#f8c71b'>ANCIENT CREEP</font>: %souls_summon_ancient% souls, %cooldown_ancient%s cooldown, %manacost_ancient% manacost"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"				"LIMIT OF SOULS:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_tick_rate"			"INTERVAL FOR GAIN SOULS:"
+		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"		"{s:value} seconds for soul gain interval for Soul Persuasion"
+		
+		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} Soul Persuasion Minimum Health"
+		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value} Soul Persuasion Damage"
+        
+        "DOTA_Tooltip_ability_chen_divine_favor"					"神力恩泽 (微调)"
+        "DOTA_Tooltip_ability_chen_divine_favor_Description"		"被动光环效果，提供生命恢复加成，并且所有生命回复效果增强一定百分比。\n\n可以对友军施放，将他们传送至陈身边。如果对陈施放，陈控制的所有单位将被传送至他身边。施放目标受到伤害将驱散传送效果。\n\n<font color='#70EA72'>在 Overthrow有 此能力降低了冷却时间"
+        "DOTA_Tooltip_ability_chen_hand_of_god"						"上帝之手 (微调)"
+        "DOTA_Tooltip_ability_chen_hand_of_god_Description"			"治疗地图上的所有友军英雄以及陈控制的所有单位。\n\n<font color='#70EA72'>在 Overthrow有 此能力降低了冷却时间"
 	}
 }

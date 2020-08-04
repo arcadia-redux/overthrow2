@@ -5,7 +5,17 @@ function chen_soul_persuasion_passive:OnCreated()
 	self.souls_limit = self:GetAbility():GetSpecialValueFor("souls_limit")
 	self.souls_per_kill = self:GetAbility():GetSpecialValueFor("souls_per_kill")
 	self.souls_per_second = self:GetAbility():GetSpecialValueFor("souls_per_second")
+	self.hasTalent = false
+	self:CheckIntervalTime()
+end
+----------------------------------------------------
+function chen_soul_persuasion_passive:CheckIntervalTime()
 	self.souls_tick_rate = self:GetAbility():GetSpecialValueFor("souls_tick_rate")
+	local talentForTickRate = self:GetParent():FindAbilityByName("special_chen_soul_persuasion_tickrate")
+	if talentForTickRate and talentForTickRate:GetLevel() > 0 then
+		self.hasTalent = true
+		self.souls_tick_rate = self.souls_tick_rate + talentForTickRate:GetSpecialValueFor("value")
+	end
 	self:StartIntervalThink(self.souls_tick_rate)
 end
 ----------------------------------------------------
@@ -23,6 +33,9 @@ end
 function chen_soul_persuasion_passive:OnIntervalThink()
 	if not IsServer() then return end
 	self:IncreaseSoulsStacks(self.souls_per_second)
+	if not self.hasTalent then
+		self:CheckIntervalTime()
+	end
 end
 ----------------------------------------------------
 function chen_soul_persuasion_passive:DeclareFunctions()

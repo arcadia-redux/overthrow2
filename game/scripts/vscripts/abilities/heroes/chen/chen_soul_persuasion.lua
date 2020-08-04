@@ -30,15 +30,12 @@ function chen_soul_persuasion:OnSpellStart()
 			creeps = {
 				"npc_dota_neutral_kobold",
 				"npc_dota_neutral_kobold_tunneler",
-				"npc_dota_neutral_kobold_taskmaster",
 				"npc_dota_neutral_centaur_outrunner",
 				"npc_dota_neutral_fel_beast",
 				"npc_dota_neutral_giant_wolf",
 				"npc_dota_neutral_wildkin",
-				"npc_dota_neutral_satyr_soulstealer",
 				"npc_dota_neutral_gnoll_assassin",
 				"npc_dota_neutral_ghost",
-				"npc_dota_neutral_dark_troll_warlord",
 				"npc_dota_neutral_satyr_trickster",
 				"npc_dota_neutral_forest_troll_berserker",
 			},
@@ -52,6 +49,8 @@ function chen_soul_persuasion:OnSpellStart()
 				"npc_dota_neutral_ogre_mauler",
 				"npc_dota_neutral_polar_furbolg_champion",
 				"npc_dota_neutral_forest_troll_high_priest",
+				"npc_dota_neutral_kobold_taskmaster",
+				"npc_dota_neutral_satyr_soulstealer",
 			},
 			manacost = self.manacost_middle,
 			cooldown = self.cooldown_middle,
@@ -67,6 +66,7 @@ function chen_soul_persuasion:OnSpellStart()
 				"npc_dota_neutral_satyr_hellcaller",
 				"npc_dota_neutral_small_thunder_lizard",
 				"npc_dota_neutral_black_drake",
+				"npc_dota_neutral_dark_troll_warlord",
 			},
 			manacost = self.manacost_big,
 			cooldown = self.cooldown_big,
@@ -85,8 +85,8 @@ function chen_soul_persuasion:OnSpellStart()
 	}
 	
 	local parent = self:GetCaster()
-	local souldModifierName = "chen_soul_persuasion_passive"
-	local soulsCount = parent:GetModifierStackCount(souldModifierName, parent)
+	local soulsModifierName = "chen_soul_persuasion_passive"
+	local soulsCount = parent:GetModifierStackCount(soulsModifierName, parent)
 	local summonSouls = self:CheckSummonType(soulsCount)
 	if summonSouls == 0 then
 		self:EndCooldown()
@@ -100,7 +100,7 @@ function chen_soul_persuasion:OnSpellStart()
 		return
 	end
 	
-	parent:SetModifierStackCount(souldModifierName, self, soulsCount - summonSouls)
+	parent:SetModifierStackCount(soulsModifierName, self, soulsCount - summonSouls)
 	local minDistance, maxDistance = 90, 180
 	local randX, randY = RandomInt(-maxDistance, maxDistance), RandomInt(-maxDistance, maxDistance)
 	while(math.abs(randX) < minDistance) do
@@ -114,6 +114,24 @@ function chen_soul_persuasion:OnSpellStart()
 	local unit = CreateUnitByName(table.random(currentData.creeps), spawnPoint, false, parent, parent, parent:GetTeamNumber())
 	FindClearSpaceForUnit(unit, spawnPoint, true)
 	unit:SetControllableByPlayer(parent:GetPlayerOwnerID(), true)
+	
+	local talentForHP = parent:FindAbilityByName("special_bonus_unique_chen_4")
+	
+	if talentForHP and talentForHP:GetLevel() > 0 then
+		local newHP = unit:GetMaxHealth() + talentForHP:GetSpecialValueFor("value")
+		unit:SetBaseMaxHealth(newHP)
+		unit:SetMaxHealth(newHP)
+		unit:SetHealth(newHP)
+	end
+	
+	local talentForDamage = parent:FindAbilityByName("special_bonus_unique_chen_5")
+
+	if talentForDamage and talentForDamage:GetLevel() > 0 then
+		local bonusDamage = talentForDamage:GetSpecialValueFor("value")
+		local currentMinDamage, currentMaxDamage = unit:GetBaseDamageMin(), unit:GetBaseDamageMax()
+		unit:SetBaseDamageMin(currentMinDamage + bonusDamage)
+		unit:SetBaseDamageMax(currentMaxDamage + bonusDamage)
+	end
 	
 	local spawnParticle = ParticleManager:CreateParticle("particles/econ/items/pets/pet_frondillo/pet_spawn_frondillo.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(spawnParticle, 0, spawnPoint)

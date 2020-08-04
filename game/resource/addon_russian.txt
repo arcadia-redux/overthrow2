@@ -691,7 +691,19 @@
 		
 		"npc_dota_hero_chen"										"Chen (Изм.)"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion"					"Soul Persuasion"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"		"<font color='#70EA72'>Chen получает</font> %souls_per_second% <font color='#70EA72'>душу каждые</font> %souls_tick_rate% <font color='#70EA72'>секунды и</font> %souls_per_kill% <font color='#70EA72'>душ за убйиство вражеского героя. При активации умения Chen призывает случайного нейтрального крипа. </font><br><br><font color='#819af7'>МАЛЕНЬКИЙ КРИП</font>: %souls_summon_little% душ(и), перезарядка - %cooldown_little% сек., стомость - %manacost_little% маны<br><font color='#9e63f7'>СРЕДНИЙ КРИП</font>: %souls_summon_middle% душ(и), перезарядка - %cooldown_middle% сек., %manacost_middle% маны<br><font color='#d52222'>БОЛЬШИЙ КРИП</font>: %souls_summon_big% душ(и), перезарядка - %cooldown_big% сек., %manacost_big% маны<br><font color='#f8c71b'>ДРЕВНИЙ КРИП</font>: %souls_summon_ancient% душ(и), перезарядка - %cooldown_ancient% сек., %manacost_ancient% маны"
+		"DOTA_Tooltip_chen_soul_persuasion_passive"					"Soul Persuasion"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"		"<font color='#70EA72'>Chen периодически получает</font> %souls_per_second% <font color='#70EA72'>душу или</font> %souls_per_kill% <font color='#70EA72'>душ за убйиство вражеского героя. При активации умения Chen призывает случайного нейтрального крипа. </font><br><br><font color='#819af7'>МАЛЕНЬКИЙ КРИП</font>: %souls_summon_little% душ(и), перезарядка - %cooldown_little% сек., стомость - %manacost_little% маны<br><font color='#9e63f7'>СРЕДНИЙ КРИП</font>: %souls_summon_middle% душ(и), перезарядка - %cooldown_middle% сек., %manacost_middle% маны<br><font color='#d52222'>БОЛЬШИЙ КРИП</font>: %souls_summon_big% душ(и), перезарядка - %cooldown_big% сек., %manacost_big% маны<br><font color='#f8c71b'>ДРЕВНИЙ КРИП</font>: %souls_summon_ancient% душ(и), перезарядка - %cooldown_ancient% сек., %manacost_ancient% маны"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"		"ЛИМИТ ДУШ:"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_tick_rate"	"ИНТЕРВАЛ ПОЛУЧЕНИЯ ДУШ:"
+		
+		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"	"{s:value} сек. к интервалу получения душ от Soul Persuasion"
+		
+		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} к мин. здоровью крипов от Soul Persuasion"
+		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value} к доп. урону от атак у Soul Persuasion"
+		
+		"DOTA_Tooltip_ability_chen_divine_favor"					"Divine Favor(Изм.)"
+		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"Аура увеличивает восстановление здоровья и всё получаемое лечение, а также даёт союзным героям дополнительный урон. Подконтрольные существа, не являющиеся героями, получают удвоенный бонус к урону.\n\nПрименив способность на союзника, владелец способности телепортирует его к себе после небольшой задержки. Применив способность на себя, он перенесёт к себе всех своих подконтрольных крипов. Если получить урон во время задержки, телепортация прервётся.\n\n<font color='#70EA72'>В Overthrow это умение имеет уменьшенное время восстановления</font>"
+		"DOTA_Tooltip_ability_chen_hand_of_god"						"Hand of God(Изм.)"
+		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"Лечит всех союзных героев и подконтрольных крипов.\n\n<font color='#70EA72'>В Overthrow это умение имеет уменьшенное время восстановления</font>"
 	}
 }

@@ -1014,6 +1014,14 @@
 		}
 	}
 	
+	"chen_divine_favor"
+	{
+		"AbilityCooldown"				"45"
+	}
+	"chen_hand_of_god"
+	{
+    	"AbilityCooldown"				"60"
+	}
 	"chen_soul_persuasion"
 	{
 		"BaseClass"						"ability_lua"
@@ -1030,6 +1038,7 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"souls_tick_rate"		"4"
+				"LinkedSpecialBonus"	"special_chen_soul_persuasion_tickrate"
 			}
 			"02"
 			{
@@ -1107,6 +1116,21 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"cooldown_ancient"		"20"
+			}
+		}
+	}
+	"special_chen_soul_persuasion_tickrate"
+	{
+		"BaseClass"						"special_bonus_unique_earth_spirit"
+		"AbilityType"					"DOTA_ABILITY_TYPE_ATTRIBUTES"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"			"FIELD_INTEGER"
+				"value"				"-3"
 			}
 		}
 	}

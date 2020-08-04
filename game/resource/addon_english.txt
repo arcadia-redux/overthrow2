@@ -777,7 +777,17 @@
 		"npc_dota_hero_chen"												"Chen (Modified)"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"Soul Persuasion"
 		"DOTA_Tooltip_chen_soul_persuasion_passive"							"Soul Persuasion"
-		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen will gain</font> %souls_per_second% <font color='#70EA72'>souls every</font> %souls_tick_rate% <font color='#70EA72'>seconds and</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep, manacost and cooldown depends on count of souls.</font><br><br><font color='#819af7'>LITTLE CREEP</font>: %souls_summon_little% souls, %cooldown_little%s cooldown, %manacost_little% manacost<br><font color='#9e63f7'>MIDDLE CREEP</font>: %souls_summon_middle% souls, %cooldown_middle%s cooldown, %manacost_middle% manacost<br><font color='#d52222'>BIG CREEP</font>: %souls_summon_big% souls, %cooldown_big%s cooldown, %manacost_big% manacost<br><font color='#f8c71b'>ANCIENT CREEP</font>: %souls_summon_ancient% souls, %cooldown_ancient%s cooldown, %manacost_ancient% manacost"
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen periodically gain</font> %souls_per_second% <font color='#70EA72'>soul or</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep, manacost and cooldown depends on count of souls.</font><br><br><font color='#819af7'>LITTLE CREEP</font>: %souls_summon_little% souls, %cooldown_little%s cooldown, %manacost_little% manacost<br><font color='#9e63f7'>MIDDLE CREEP</font>: %souls_summon_middle% souls, %cooldown_middle%s cooldown, %manacost_middle% manacost<br><font color='#d52222'>BIG CREEP</font>: %souls_summon_big% souls, %cooldown_big%s cooldown, %manacost_big% manacost<br><font color='#f8c71b'>ANCIENT CREEP</font>: %souls_summon_ancient% souls, %cooldown_ancient%s cooldown, %manacost_ancient% manacost"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"				"LIMIT OF SOULS:"
-	}
+		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_tick_rate"			"INTERVAL FOR GAIN SOULS:"
+		
+		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"		"{s:value} seconds for soul gain interval for Soul Persuasion"
+		
+		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} Soul Persuasion Minimum Health"
+		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value} Soul Persuasion Damage"
+		
+		"DOTA_Tooltip_ability_chen_divine_favor"					"Divine Favor (Modified)"
+		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"Passively provides an aura that grants increased health regeneration and amplifies all health restore by a percentage.\n\nCan be cast on allies to teleport them to Chen. If cast on Chen, all units controlled by Chen will be teleported to him. Taking damage will dispel the buff.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
+		"DOTA_Tooltip_ability_chen_hand_of_god"						"Hand of God (Modified)"
+		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"Heals all allied heroes on the map as well as all units under Chen's control.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
 }
