@@ -998,6 +998,11 @@
 			}
 		}
 	}
+
+	"treant_overgrowth"
+	{
+		"AbilityCooldown"				"45"
+	}
 	"lone_druid_spirit_bear"
 	{    
 		// Time		
@@ -1181,7 +1186,7 @@
 		"ScriptFile"	                "abilities/heroes/treant/treant_generating_tree"
 	
     	"AbilityCastRange"				"350"
-    	"AbilityManaCost"				"40"
+    	"AbilityManaCost"				"0"
     	
 		"AbilitySpecial"
 		{
@@ -1193,7 +1198,7 @@
 			"02"
 			{
 				"var_type"				"FIELD_INTEGER"
-				"charge_cooldown"		"8 7 6 5"
+				"charge_cooldown"		"12 10 8 5"
 			}
 			"03"
 			{

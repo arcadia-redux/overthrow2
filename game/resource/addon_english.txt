@@ -239,6 +239,12 @@
 		"DOTA_Tooltip_ability_doom_bringer_doom"					"Doom (Modified)"
 		"DOTA_Tooltip_ability_doom_bringer_doom_Description"		"Inflicts a curse that dispels an enemy Hero and prevents an them from casting spells or using items, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown, duration and 3 charges</font>"
 
+		
+		"DOTA_Tooltip_ability_treant_overgrowth_Description"		"Inflicts a curse that dispels an enemy Hero and prevents an them from casting spells or using items, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown, duration and 3 charges</font>"
+
+		"DOTA_Tooltip_ability_treant_overgrowth"					"Overgrowth (Modified)"
+		"DOTA_Tooltip_ability_treant_overgrowth_Description"			"Summons an overgrowth of vines and branches around Treant that prevent afflicted enemies from moving, blinking, going invisible, or attacking.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
+
 		//////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_lone_druid_spirit_bear"								"Summon Spirit Bear (Modified)"
 		"DOTA_Tooltip_ability_lone_druid_spirit_bear_Description"					"Summons a powerful Spirit Bear companion that can equip items.  If the bear moves 1100 distance away from the Lone Druid, it cannot attack.  Lone Druid suffers %backlash_damage%%% of his max health as backlash damage if the Spirit Bear dies. Spirit Bear does not benefit from attributes.\nSpirit Bear has the Return, Demolish and Entangling Roots abilities.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
