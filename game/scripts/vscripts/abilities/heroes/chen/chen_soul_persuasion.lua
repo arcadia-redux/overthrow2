@@ -109,7 +109,7 @@ function chen_soul_persuasion:OnSpellStart()
 	end
 	
 	parent:ReduceMana(currentData.manacost)
-	self:StartCooldown(currentData.cooldown)
+	self:StartCooldown(currentData.cooldown * parent:GetCooldownReduction())
 end
 
 function chen_soul_persuasion:CreateCreep(creepsData)
