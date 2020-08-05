@@ -1036,7 +1036,8 @@
 		"ScriptFile"	                "abilities/heroes/chen/chen_soul_persuasion"
 	
 		"AbilityCastPoint"				"0.3"
-	
+		"HasScepterUpgrade"			"1"
+		
 		"AbilitySpecial"
 		{
 			"01"
@@ -1121,6 +1122,12 @@
 			{
 				"var_type"				"FIELD_INTEGER"
 				"cooldown_ancient"		"20"
+			}
+			"17"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"creeps_with_aghanim"	"2"
+				"RequiresScepter"		"1"
 			}
 		}
 	}

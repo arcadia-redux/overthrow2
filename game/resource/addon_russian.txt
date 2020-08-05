@@ -698,6 +698,9 @@
 		
 		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"	"{s:value} сек. к интервалу получения душ от Soul Persuasion"
 		
+		"DOTA_Tooltip_ability_chen_soul_persuasion_aghanim_description"		"Chen призывается несколько существ вместо одного"
+		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_with_aghanim" 	"СУЩЕСТВ СО СКИПЕТРОМ:"
+        		
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} к мин. здоровью крипов от Soul Persuasion"
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value} к доп. урону от атак у Soul Persuasion"
 		
@@ -715,6 +718,7 @@
 		"DOTA_Tooltip_ability_treant_living_armor_Description"			"Накладывает на выбранного героя или постройку защитный покров, увеличивающий регенерацию здоровья и броню.\n\n<font color='#70EA72'>В Overthrow все характеристики этого умения удвоены</font>"
 		
 		"DOTA_Tooltip_Ability_treant_generating_tree"					"Life Seed"
+		"DOTA_Tooltip_treant_generating_tree_charges"					"Life Seed"
 		"DOTA_Tooltip_Ability_treant_generating_tree_Description"		"<font color='#70EA72'>Посадить дерево в указанное место.<br><br>Если включено автоматическое применение и Treant Protector имеет максималькое количество зарядов Life Seed, он сам посадит дерево недалеко от себя</font>"
 		
 		"DOTA_Tooltip_Ability_treant_generating_tree_max_charges"		"МАКС. ЗАРЯДОВ:"

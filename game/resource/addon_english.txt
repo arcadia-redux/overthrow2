@@ -787,6 +787,10 @@
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"				"LIMIT OF SOULS:"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_tick_rate"			"INTERVAL FOR GAIN SOULS:"
 		
+		"DOTA_Tooltip_ability_chen_soul_persuasion_aghanim_description"		"Chen summon several creeps for one cast ability"
+		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_with_aghanim" 	"CREEPS WITH SCEPTER:"
+
+		
 		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"		"{s:value} seconds for soul gain interval for Soul Persuasion"
 		
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} Soul Persuasion Minimum Health"
@@ -806,6 +810,8 @@
 	
 	
 		"DOTA_Tooltip_Ability_treant_generating_tree"					"Life Seed"
+		"DOTA_Tooltip_treant_generating_tree_charges"					"Life Seed"
+		
 		"DOTA_Tooltip_Ability_treant_generating_tree_Description"		"<font color='#70EA72'>Place tree at a traget point.<br><br>If ability in auto-cast and Treant Protector has maximum charges of Life Seed, he will place tree in random place near him</font>"
 		
 		"DOTA_Tooltip_Ability_treant_generating_tree_max_charges"		"MAX CHARGES:"

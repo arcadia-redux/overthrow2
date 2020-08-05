@@ -20,6 +20,7 @@ function chen_soul_persuasion:OnSpellStart()
 		"cooldown_middle",
 		"cooldown_big",
 		"cooldown_ancient",
+		"creeps_with_aghanim",
 	}
 	for _, param in pairs(paramsList) do
 		self[param] = self:GetSpecialValueFor(param)
@@ -101,29 +102,42 @@ function chen_soul_persuasion:OnSpellStart()
 	end
 	
 	parent:SetModifierStackCount(soulsModifierName, self, soulsCount - summonSouls)
+	local creepsCount = parent:HasScepter() and self.creeps_with_aghanim or 1
+
+	for _ = 1, creepsCount do
+		self:CreateCreep(currentData.creeps)
+	end
+	
+	parent:ReduceMana(currentData.manacost)
+	self:StartCooldown(currentData.cooldown)
+end
+
+function chen_soul_persuasion:CreateCreep(creepsData)
+	local parent = self:GetCaster()	
 	local minDistance, maxDistance = 90, 180
 	local randX, randY = RandomInt(-maxDistance, maxDistance), RandomInt(-maxDistance, maxDistance)
+	
 	while(math.abs(randX) < minDistance) do
 		randX = RandomInt(-maxDistance, maxDistance)
 	end
 	while(math.abs(randY) < minDistance) do
 		randY = RandomInt(-maxDistance, maxDistance)
 	end
-	
+
 	local spawnPoint = parent:GetAbsOrigin() + Vector(randX, randY, 0)
-	local unit = CreateUnitByName(table.random(currentData.creeps), spawnPoint, false, parent, parent, parent:GetTeamNumber())
+	local unit = CreateUnitByName(table.random(creepsData), spawnPoint, false, parent, parent, parent:GetTeamNumber())
 	FindClearSpaceForUnit(unit, spawnPoint, true)
 	unit:SetControllableByPlayer(parent:GetPlayerOwnerID(), true)
-	
+
 	local talentForHP = parent:FindAbilityByName("special_bonus_unique_chen_4")
-	
+
 	if talentForHP and talentForHP:GetLevel() > 0 then
 		local newHP = unit:GetMaxHealth() + talentForHP:GetSpecialValueFor("value")
 		unit:SetBaseMaxHealth(newHP)
 		unit:SetMaxHealth(newHP)
 		unit:SetHealth(newHP)
 	end
-	
+
 	local talentForDamage = parent:FindAbilityByName("special_bonus_unique_chen_5")
 
 	if talentForDamage and talentForDamage:GetLevel() > 0 then
@@ -132,13 +146,10 @@ function chen_soul_persuasion:OnSpellStart()
 		unit:SetBaseDamageMin(currentMinDamage + bonusDamage)
 		unit:SetBaseDamageMax(currentMaxDamage + bonusDamage)
 	end
-	
+
 	local spawnParticle = ParticleManager:CreateParticle("particles/econ/items/pets/pet_frondillo/pet_spawn_frondillo.vpcf", PATTACH_CUSTOMORIGIN, nil)
 	ParticleManager:SetParticleControl(spawnParticle, 0, spawnPoint)
 	ParticleManager:ReleaseParticleIndex( spawnParticle )
-	
-	parent:ReduceMana(currentData.manacost)
-	self:StartCooldown(currentData.cooldown)
 end
 
 function chen_soul_persuasion:CheckSummonType(stacksCount)
