@@ -37,16 +37,10 @@ function treant_generating_tree_auto_cast:OnIntervalThink()
 	if manacost > parent:GetMana() then return end
 	
 	local maxDistance = self.original_distance + parent:GetCastRangeBonus()
-	local randX, randY = RandomInt(-maxDistance, maxDistance), RandomInt(-maxDistance, maxDistance)
-
-	while(math.abs(randX) < self.min_distance) do
-		randX = RandomInt(-maxDistance, maxDistance)
+	local getRandomValue = function() 
+		return (RandomInt(0, 1) * 2 - 1) * ( self.minDistance + RandomInt(0, maxDistance - self.minDistance ) )
 	end
-	while(math.abs(randY) < self.min_distance) do
-		randY = RandomInt(-maxDistance, maxDistance)
-	end
-	
-	self.ability:CreateTree(parent:GetAbsOrigin() + Vector(randX, randY, 0))
+	self.ability:CreateTree(parent:GetAbsOrigin() + Vector(getRandomValue(), getRandomValue(), 0))
 	self.ability.charges:DecrementStackCount()
 	parent:ReduceMana(manacost)
 end

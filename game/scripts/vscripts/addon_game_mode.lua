@@ -743,7 +743,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	--end
 
 	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM then
-		if unit:IsTempestDouble() then return false end
+		if unit:IsTempestDouble() or target:IsTempestDouble() then return false end
 	end
 	
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then

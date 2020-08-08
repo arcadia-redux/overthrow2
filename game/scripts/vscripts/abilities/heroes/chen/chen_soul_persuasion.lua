@@ -115,16 +115,12 @@ end
 function chen_soul_persuasion:CreateCreep(creepsData)
 	local parent = self:GetCaster()	
 	local minDistance, maxDistance = 90, 180
-	local randX, randY = RandomInt(-maxDistance, maxDistance), RandomInt(-maxDistance, maxDistance)
 	
-	while(math.abs(randX) < minDistance) do
-		randX = RandomInt(-maxDistance, maxDistance)
+	local getRandomValue = function()
+		return (RandomInt(0, 1) * 2 - 1) * ( minDistance + RandomInt(0, maxDistance - minDistance ) )
 	end
-	while(math.abs(randY) < minDistance) do
-		randY = RandomInt(-maxDistance, maxDistance)
-	end
-
-	local spawnPoint = parent:GetAbsOrigin() + Vector(randX, randY, 0)
+	
+	local spawnPoint = parent:GetAbsOrigin() + Vector(getRandomValue(), getRandomValue(), 0)
 	local unit = CreateUnitByName(table.random(creepsData), spawnPoint, false, parent, parent, parent:GetTeamNumber())
 	FindClearSpaceForUnit(unit, spawnPoint, true)
 	unit:SetControllableByPlayer(parent:GetPlayerOwnerID(), true)
