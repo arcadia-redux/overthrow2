@@ -1143,7 +1143,9 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		local purchaser = hItem:GetPurchaser()
 		if purchaser then
 			local prshID = purchaser:GetPlayerID()
-			local correctInventory = hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier()
+			local correctInventory = 
+			(hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier())
+				and not hInventoryParent:IsTempestDouble()
 
 			if (filterTable["item_parent_entindex_const"] > 0) and hItem and correctInventory then
 				if not purchaser:CheckPersonalCooldown(hItem) then
