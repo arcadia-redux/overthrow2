@@ -1032,7 +1032,7 @@
 		"BaseClass"						"ability_lua"
 		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
 		"MaxLevel"						"4"
-		"AbilityTextureName"			"chen_soul_persuasion"
+		"AbilityTextureName"			"chen_soul_persuasion_3"
 		"ScriptFile"	                "abilities/heroes/chen/chen_soul_persuasion"
 	
 		"AbilityCastPoint"				"0.3"

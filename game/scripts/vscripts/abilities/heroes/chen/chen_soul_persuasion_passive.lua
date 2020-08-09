@@ -1,10 +1,12 @@
 chen_soul_persuasion_passive = class({})
 ----------------------------------------------------
 function chen_soul_persuasion_passive:OnCreated()
+	local ability = self:GetAbility()
+	ability:DataInit()
 	if not IsServer() then return end
-	self.souls_limit = self:GetAbility():GetSpecialValueFor("souls_limit")
-	self.souls_per_kill = self:GetAbility():GetSpecialValueFor("souls_per_kill")
-	self.souls_per_second = self:GetAbility():GetSpecialValueFor("souls_per_second")
+	self.souls_limit = ability:GetSpecialValueFor("souls_limit")
+	self.souls_per_kill = ability:GetSpecialValueFor("souls_per_kill")
+	self.souls_per_second = ability:GetSpecialValueFor("souls_per_second")
 	self.hasTalent = false
 	self:CheckIntervalTime()
 end

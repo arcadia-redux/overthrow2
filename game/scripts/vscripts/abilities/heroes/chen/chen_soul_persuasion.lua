@@ -7,84 +7,6 @@ end
 
 function chen_soul_persuasion:OnSpellStart()
 	if not IsServer() then return end
-	local paramsList = {
-		"souls_summon_little",
-		"souls_summon_middle",
-		"souls_summon_big",
-		"souls_summon_ancient",
-		"manacost_little",
-		"manacost_middle",
-		"manacost_big",
-		"manacost_ancient",
-		"cooldown_little",
-		"cooldown_middle",
-		"cooldown_big",
-		"cooldown_ancient",
-		"creeps_with_aghanim",
-	}
-	for _, param in pairs(paramsList) do
-		self[param] = self:GetSpecialValueFor(param)
-	end
-	
-	self.abilityData = {
-		[self.souls_summon_little] = {
-			creeps = {
-				"npc_dota_neutral_kobold",
-				"npc_dota_neutral_kobold_tunneler",
-				"npc_dota_neutral_centaur_outrunner",
-				"npc_dota_neutral_fel_beast",
-				"npc_dota_neutral_giant_wolf",
-				"npc_dota_neutral_wildkin",
-				"npc_dota_neutral_gnoll_assassin",
-				"npc_dota_neutral_ghost",
-				"npc_dota_neutral_satyr_trickster",
-				"npc_dota_neutral_forest_troll_berserker",
-			},
-			manacost = self.manacost_little,
-			cooldown = self.cooldown_little,
-		},
-		[self.souls_summon_middle] = {
-			creeps = {
-				"npc_dota_neutral_dark_troll",
-				"npc_dota_wraith_ghost",
-				"npc_dota_neutral_ogre_mauler",
-				"npc_dota_neutral_polar_furbolg_champion",
-				"npc_dota_neutral_forest_troll_high_priest",
-				"npc_dota_neutral_kobold_taskmaster",
-				"npc_dota_neutral_satyr_soulstealer",
-			},
-			manacost = self.manacost_middle,
-			cooldown = self.cooldown_middle,
-		},
-		[self.souls_summon_big] = {
-			creeps = {
-				"npc_dota_neutral_centaur_khan",
-				"npc_dota_neutral_polar_furbolg_ursa_warrior",
-				"npc_dota_neutral_mud_golem",
-				"npc_dota_neutral_ogre_magi",
-				"npc_dota_neutral_alpha_wolf",
-				"npc_dota_neutral_enraged_wildkin",
-				"npc_dota_neutral_satyr_hellcaller",
-				"npc_dota_neutral_small_thunder_lizard",
-				"npc_dota_neutral_black_drake",
-				"npc_dota_neutral_dark_troll_warlord",
-			},
-			manacost = self.manacost_big,
-			cooldown = self.cooldown_big,
-		},
-		[self.souls_summon_ancient] = {
-			creeps = {
-				"npc_dota_neutral_prowler_shaman",
-				"npc_dota_neutral_rock_golem",
-				"npc_dota_neutral_granite_golem",
-				"npc_dota_neutral_big_thunder_lizard",
-				"npc_dota_neutral_black_dragon",
-			},
-			manacost = self.manacost_ancient,
-			cooldown = self.cooldown_ancient,
-		}		
-	}
-	
 	local parent = self:GetCaster()
 	local soulsModifierName = "chen_soul_persuasion_passive"
 	local soulsCount = parent:GetModifierStackCount(soulsModifierName, parent)
@@ -162,4 +84,99 @@ function chen_soul_persuasion:CheckSummonType(stacksCount)
 		return self.souls_summon_little
 	end
 	return 0
+end
+
+function chen_soul_persuasion:GetAbilityTextureName()
+	if self.abilityData then
+		local caster = self:GetCaster()
+		return self.abilityData[self:CheckSummonType(caster:GetModifierStackCount("chen_soul_persuasion_passive", caster))].icon
+	end
+	return "chen_soul_persuasion_1"
+end
+
+function chen_soul_persuasion:DataInit()
+	local paramsList = {
+		"souls_summon_little",
+		"souls_summon_middle",
+		"souls_summon_big",
+		"souls_summon_ancient",
+		"manacost_little",
+		"manacost_middle",
+		"manacost_big",
+		"manacost_ancient",
+		"cooldown_little",
+		"cooldown_middle",
+		"cooldown_big",
+		"cooldown_ancient",
+		"creeps_with_aghanim",
+	}
+	for _, param in pairs(paramsList) do
+		self[param] = self:GetSpecialValueFor(param)
+	end
+
+	self.abilityData = {
+		[0] = {
+			icon = "chen_soul_persuasion_1",
+		},
+		[self.souls_summon_little] = {
+			creeps = {
+				"npc_dota_neutral_kobold",
+				"npc_dota_neutral_kobold_tunneler",
+				"npc_dota_neutral_centaur_outrunner",
+				"npc_dota_neutral_fel_beast",
+				"npc_dota_neutral_giant_wolf",
+				"npc_dota_neutral_wildkin",
+				"npc_dota_neutral_gnoll_assassin",
+				"npc_dota_neutral_ghost",
+				"npc_dota_neutral_satyr_trickster",
+				"npc_dota_neutral_forest_troll_berserker",
+			},
+			manacost = self.manacost_little,
+			cooldown = self.cooldown_little,
+			icon = "chen_soul_persuasion_1",
+		},
+		[self.souls_summon_middle] = {
+			creeps = {
+				"npc_dota_neutral_dark_troll",
+				"npc_dota_wraith_ghost",
+				"npc_dota_neutral_ogre_mauler",
+				"npc_dota_neutral_polar_furbolg_champion",
+				"npc_dota_neutral_forest_troll_high_priest",
+				"npc_dota_neutral_kobold_taskmaster",
+				"npc_dota_neutral_satyr_soulstealer",
+			},
+			manacost = self.manacost_middle,
+			cooldown = self.cooldown_middle,
+			icon = "chen_soul_persuasion_2",
+		},
+		[self.souls_summon_big] = {
+			creeps = {
+				"npc_dota_neutral_centaur_khan",
+				"npc_dota_neutral_polar_furbolg_ursa_warrior",
+				"npc_dota_neutral_mud_golem",
+				"npc_dota_neutral_ogre_magi",
+				"npc_dota_neutral_alpha_wolf",
+				"npc_dota_neutral_enraged_wildkin",
+				"npc_dota_neutral_satyr_hellcaller",
+				"npc_dota_neutral_small_thunder_lizard",
+				"npc_dota_neutral_black_drake",
+				"npc_dota_neutral_dark_troll_warlord",
+			},
+			manacost = self.manacost_big,
+			cooldown = self.cooldown_big,
+			icon = "chen_soul_persuasion_3",
+		},
+		[self.souls_summon_ancient] = {
+			creeps = {
+				"npc_dota_neutral_prowler_shaman",
+				"npc_dota_neutral_rock_golem",
+				"npc_dota_neutral_granite_golem",
+				"npc_dota_neutral_big_thunder_lizard",
+				"npc_dota_neutral_black_dragon",
+			},
+			manacost = self.manacost_ancient,
+			cooldown = self.cooldown_ancient,
+			icon = "chen_soul_persuasion_4",
+		}
+	}
 end 
