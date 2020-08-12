@@ -289,7 +289,8 @@
 
 		"nopatreonerror"											"This item for Patrons only"
 		"nopatreonerror2"											"Only Hi-Level Patrons (25$) can use this item"
-
+		"notyettime"												"Cannot kick trolls in the first 5 minutes"
+		
 		"DOTA_Tooltip_modifier_silencer_new_int_steal"					"Stolen Intelligence"
 		"DOTA_Tooltip_modifier_silencer_new_int_steal_Description"		"Silencer steals intelligent when he kills or assists a kill."
 		"DOTA_Tooltip_ability_special_bonus_unique_silencer_2"			"+1 Intelligence Steal"
@@ -430,7 +431,8 @@
 		"DOTA_Tooltip_ability_item_mute_custom_Lore"							"Silence is golden"
 
 		"fast_buy_items"					                            "Cannot Buy Yet"
-
+		"you_cannot_buy_more_items_this_type"							"You cannot buy more items this type"
+		
 		"cannotgiveiteminthiscourier"			                        "You cannot give item in this courier."
 		"alreadyhaveprivatecourier"			                            "You already have a private courier."
 		"DOTA_Tooltip_ability_item_patreon_courier"			            "Private Courier"

@@ -1,5 +1,5 @@
 local lastTimeBuyItemWithCooldown = {}
-local maximumItemsForPlayersData = {}
+local maxItemsForPlayersData = {}
 LinkLuaModifier("modifier_dummy_inventory_custom", LUA_MODIFIER_MOTION_VERTICAL)
 
 -------------------------------------------------------------------------
@@ -8,8 +8,8 @@ local itemsCooldownForPlayer = {
 	["item_mute_custom"] = 10,
 }
 -------------------------------------------------------------------------
-local maximumItemsForPlayers = {
-	--["item_banhammer"] = 2,
+local maxItemsForPlayers = {
+	["item_banhammer"] = 1,
 }
 -------------------------------------------------------------------------
 local notFastItems = {
@@ -60,14 +60,14 @@ function CDOTA_BaseNPC:IsMaxItemsForPlayer(item)
 	local itemName = item:GetAbilityName()
 	local unique_key = itemName .. "_" .. buyerEntIndex
 	local playerID = self:GetPlayerID()
-	if not maximumItemsForPlayers[itemName] or item.isTransfer then return true end
+	if not maxItemsForPlayers[itemName] or item.isTransfer then return true end
 
 	local isPlayerBoughtMaxItems = item:CheckMaxItemsForPlayer(unique_key)
 
 	if isPlayerBoughtMaxItems then
-		maximumItemsForPlayersData[unique_key] = maximumItemsForPlayersData[unique_key] + 1
+		maxItemsForPlayersData[unique_key] = maxItemsForPlayersData[unique_key] + 1
 	else
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "you_cannot_buy_more_items_this_type" })
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "display_custom_error", { message = "#you_cannot_buy_more_items_this_type" })
 		return false
 	end
 
@@ -148,11 +148,11 @@ end
 -------------------------------------------------------------------------
 
 function CDOTA_Item:CheckMaxItemsForPlayer(unique_key)
-	if not maximumItemsForPlayers[self:GetAbilityName()] then return true end
-	if not maximumItemsForPlayersData[unique_key] then
-		maximumItemsForPlayersData[unique_key] = 1
+	if not maxItemsForPlayers[self:GetAbilityName()] then return true end
+	if not maxItemsForPlayersData[unique_key] then
+		maxItemsForPlayersData[unique_key] = 1
 	end
-	return maximumItemsForPlayersData[unique_key] <= maximumItemsForPlayers[self:GetAbilityName()]
+	return maxItemsForPlayersData[unique_key] <= maxItemsForPlayers[self:GetAbilityName()]
 end
 
 -------------------------------------------------------------------------
@@ -166,5 +166,13 @@ function CreateDummyInventoryForPlayer(playerId, unit)
 	dInventory:SetControllableByPlayer(playerId, true)
 	dInventory:AddNewModifier(dInventory, nil, "modifier_dummy_inventory_custom", {duration = -1})
 	PlayerResource:GetPlayer(playerId).dummyInventory = dInventory
+end
+-------------------------------------------------------------------------
+function CDOTA_BaseNPC:IsMonkeyClone()
+	return (self:HasModifier("modifier_monkey_king_fur_army_soldier") or self:HasModifier("modifier_wukongs_command_warrior"))
+end
+-------------------------------------------------------------------------
+function CDOTA_BaseNPC:IsMainHero()
+	return self and (not self:IsNull()) and self:IsRealHero() and (not self:IsTempestDouble()) and (not self:IsMonkeyClone()) and (not self:IsClone())
 end
 -------------------------------------------------------------------------

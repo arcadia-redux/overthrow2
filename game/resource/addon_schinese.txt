@@ -260,7 +260,8 @@
 		
 		"nopatreonerror"											"仅适用于Patreon支持者"
 		"nopatreonerror2"											"此项目仅适用于高级支持者（25美元）"
-
+		"notyettime"												"在头5分钟内尚无法剔除不良玩家"
+		
 		"DOTA_Tooltip_ability_item_banhammer"						"踢巨魔"
 		"DOTA_Tooltip_ability_item_banhammer_Description"			"<h1>使用</h1>将破坏他人游戏体验的玩家踢出本局游戏。 该物品只可用于对付真正破坏他人游戏的玩家。该物品仅供高级赞助商（25 $ Tier）。 如果发现赞助商滥用权力，该赞助商将永久失去使用该物品的权利。玩家将无法使用不良玩家踢除工具来移除对本模式进行资金资助的玩家。"
 		"DOTA_Tooltip_ability_item_banhammer_Lore"					"拥有权利也是一项重大责任。"
@@ -334,7 +335,8 @@
 		"DOTA_Tooltip_ability_item_mute_custom_Lore"							"沉默是金"
 
 		"fast_buy_items"					                            "尚不可购买"
-
+		"you_cannot_buy_more_items_this_type"							"你无法购买更多此类物品"
+		
 		"cannotgiveiteminthiscourier"			                        "你不可以移动该信使携带的物品。"
 		"alreadyhaveprivatecourier"			                            "你已经拥有一个私人信使。"
 		"DOTA_Tooltip_ability_item_patreon_courier"			            "个人信使"

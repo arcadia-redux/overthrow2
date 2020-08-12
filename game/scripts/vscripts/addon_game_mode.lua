@@ -1073,11 +1073,16 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 			end
 			if itemName == "item_banhammer" then
-				local psets = Patreons:GetPlayerSettings(plyID)
 				if psets.level < 2 then
 					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
 					UTIL_Remove(hItem)
 					return false
+				else
+					if GameRules:GetDOTATime(false,false) < 300 then
+						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#notyettime" })
+						UTIL_Remove(hItem)
+						return false
+					end
 				end
 			end
 			if itemName == "item_patreon_courier" then
@@ -1143,10 +1148,8 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		local purchaser = hItem:GetPurchaser()
 		if purchaser then
 			local prshID = purchaser:GetPlayerID()
-			local correctInventory = 
-			(hInventoryParent:IsRealHero() or (hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear") or hInventoryParent:IsCourier())
-				and not hInventoryParent:IsTempestDouble()
-
+			local correctInventory = hInventoryParent:IsMainHero() or hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear" or hInventoryParent:IsCourier()
+			
 			if (filterTable["item_parent_entindex_const"] > 0) and hItem and correctInventory then
 				if not purchaser:CheckPersonalCooldown(hItem) then
 					purchaser:RefundItem(hItem)
