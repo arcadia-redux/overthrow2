@@ -1,5 +1,7 @@
 capture_point_area = class({})
 
+local tTeamsItems = {}
+
 function capture_point_area:IsHidden() return false end
 function capture_point_area:IsPurgable() return false end
 function capture_point_area:DestroyOnExpire() return false end
@@ -42,7 +44,6 @@ end
 ------------------------------------------------------------------------------
 function capture_point_area:OnIntervalThink()
 	if not IsServer() then return end
-	local hParent = self:GetParent()
 	
 	local tTargets = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, self.vPosition, nil, RADIUS_CAPTURE_POINT, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
 	local tPlayersInTeamsInRadius = {}
@@ -196,8 +197,24 @@ function capture_point_area:GiveItemToTeam()
 	nItemTier = math.min(nItemTier, 5)
 	if not NEUTRAL_ITEMS[nItemTier] then return end
 
-	local sItemName = table.random(NEUTRAL_ITEMS[nItemTier])
+	tTeamsItems[self.nCapturingTeam] = tTeamsItems[self.nCapturingTeam] or {}
+	local tBasicItemsList = table.deepcopy(NEUTRAL_ITEMS[nItemTier])
+	local bUseBasicList = false
+	for nIndex, sItemName in pairs(tBasicItemsList) do
+		if tTeamsItems[self.nCapturingTeam][sItemName] then
+			tBasicItemsList[nIndex] = nil
+		else
+			bUseBasicList = true
+		end
+	end
+	
+	local tItemsTable = bUseBasicList and tBasicItemsList or NEUTRAL_ITEMS[nItemTier]
+	local sItemName = table.random(tItemsTable)
 
+	if not tTeamsItems[self.nCapturingTeam][sItemName] then
+		tTeamsItems[self.nCapturingTeam][sItemName] = true
+	end
+	
 	if hPlayer and hPlayer.dummyInventory then
 		local hItem = hPlayer.dummyInventory:AddItemByName(sItemName)
 		ExecuteOrderFromTable({

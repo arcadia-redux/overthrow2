@@ -593,4 +593,8 @@
 		"ItemPurchasable"				"1"
 		"IsTempestDoubleClonable"		"0"
 	}
+	"item_dimensional_doorway"
+	{
+		"AbilityCooldown"				"20.0"
+	}
 }

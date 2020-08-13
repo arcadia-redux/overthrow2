@@ -37,6 +37,8 @@ NEUTRAL_ITEMS = {
 		"item_trusty_shovel",
 		"item_faded_broach",
 		"item_arcane_ring",
+		"item_third_eye",
+		"item_phoenix_ash",
 	},
 	[2] = {
 		"item_grove_bow",
@@ -50,6 +52,8 @@ NEUTRAL_ITEMS = {
 		"item_essence_ring",
 		"item_clumsy_net",
 		"item_vambrace",
+		"item_tome_of_aghanim",
+		"item_dimensional_doorway",
 	},
 	[3] = {
 		"item_helm_of_the_undying",
@@ -61,8 +65,8 @@ NEUTRAL_ITEMS = {
 		"item_enchanted_quiver",
 		"item_paladin_sword",
 		"item_orb_of_destruction",
-		"item_third_eye",
 		"item_titan_sliver",
+		"item_horizon",
 	},
 	[4] = {
 		"item_witless_shako",
@@ -78,7 +82,6 @@ NEUTRAL_ITEMS = {
 	[5] = {
 		"item_force_boots",
 		"item_desolator_2",
-		"item_phoenix_ash",
 		"item_seer_stone",
 		"item_mirror_shield",
 		"item_fusion_rune",
@@ -89,5 +92,6 @@ NEUTRAL_ITEMS = {
 		"item_pirate_hat",
 		"item_ex_machina",
 		"item_apex",
+		"item_greater_mango",
 	}
 }
