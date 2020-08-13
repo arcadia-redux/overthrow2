@@ -44,6 +44,7 @@ require("utility_functions")
 require("events")
 require("items")
 require("gpm_lib")
+require("capture_points/capture_points_const")
 
 require("chat_commands/admin_commands")
 
@@ -221,6 +222,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 12
+		self.m_NeutralItemDropPercent = 8
 	elseif GetMapName() == "desert_octet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 8 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 8 )
@@ -228,6 +230,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 12
+		self.m_NeutralItemDropPercent = 8
 	elseif GetMapName() == "desert_quintet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
@@ -235,6 +238,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 8
+		self.m_NeutralItemDropPercent = 6
 	elseif GetMapName() == "temple_quartet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 4 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 4 )
@@ -243,6 +247,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 10
+		self.m_NeutralItemDropPercent = 5
 	elseif GetMapName() == "temple_sextet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 6 )
@@ -251,10 +256,12 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 12
+		self.m_NeutralItemDropPercent = 8
 	else
 		self.m_GoldRadiusMin = 250
 		self.m_GoldRadiusMax = 550
 		self.m_GoldDropPercent = 4
+		self.m_NeutralItemDropPercent = 4
 	end
 
 	-- Show the ending scoreboard immediately
@@ -1078,7 +1085,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 					UTIL_Remove(hItem)
 					return false
 				else
-					if GameRules:GetDOTATime(false,false) < 300 then
+					if GameRules:GetDOTATime(false,false) < 1 then
 						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#notyettime" })
 						UTIL_Remove(hItem)
 						return false
@@ -1120,7 +1127,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 									UTIL_Remove(hItem)
 									return false
 								else
-									if GameRules:GetDOTATime(false,false) < 300 then
+									if GameRules:GetDOTATime(false,false) < 1 then
 										CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
 										UTIL_Remove(hItem)
 										return false

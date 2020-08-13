@@ -7,6 +7,7 @@
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/patreon/game_perk/patreons_game_perk.js" />
 		<include src="file://{resources}/scripts/custom_game/ability_tooltip_filter.js" />
+		<include src="file://{resources}/scripts/custom_game/override_dota_ui.js" />
 	</scripts>
 
  	<Panel hittest="false" class="PatreonGamePerkRoot">

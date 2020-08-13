@@ -819,4 +819,6 @@
 		"DOTA_Tooltip_Ability_treant_generating_tree_max_charges"		"MAX CHARGES:"
 		"DOTA_Tooltip_Ability_treant_generating_tree_charge_cooldown"	"CHARGE COOLDOWN:"
 		"DOTA_Tooltip_Ability_treant_generating_tree_tree_duration"		"TREE LIFE TIME:"
+		
+		"npc_dummy_capture"	"Just Capture Point"
 }
