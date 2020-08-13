@@ -8,7 +8,7 @@ function COverthrowGameMode:ThinkGoldDrop()
 		self:SpawnDropInMiddle(DROP_GOLD)
 	else
 		r = RandomInt( 1, 100 )
-		if r > ( 100 - self.m_NeutralItemDropPercent ) then
+		if r > ( 100 - 25 ) then
 			self:SpawnDropInMiddle(DROP_NEUTRAL_ITEM)
 		end
 	end 

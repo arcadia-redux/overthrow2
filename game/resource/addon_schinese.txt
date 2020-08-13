@@ -831,5 +831,13 @@
 		"DOTA_Tooltip_ability_item_winter_embrace_Lore"					"现在是谁麻了？"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_intelligence"			"智力加成："
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_armor"					"护甲加成："
+		
+		"inventory_full_custom_message"		"您无法获得物品。 库存已满"
+		"neutral_item_keep"					"保持"
+		"neutral_item_drop"					"落基"
+		"neutral_item_take"					"采取"
+		"neutral_item_took"					"拿"
+		"player_still_have_a_lot_of_neutral_items"	"您仍然有2个中立物品"
+		"unit_still_have_a_lot_of_neutral_items"	"单位仍然有2件中性物品"
 	}
 }

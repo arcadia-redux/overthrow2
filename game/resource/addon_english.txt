@@ -1047,5 +1047,12 @@
 		"DOTA_Tooltip_ability_item_winter_embrace_Lore"						"Who's the number one now?"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_intelligence"		"BONUS INTELLIGENCE:"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_armor"				"BONUS ARMOR:"
+		
+		"inventory_full_custom_message"				"You cannot get item. Inventory is full"
+		"neutral_item_keep"							"Keep"
+		"neutral_item_drop"							"Drop on base"
+		"neutral_item_take"							"Take"
+		"player_still_have_a_lot_of_neutral_items"	"You still have 2 neutral items"
+		"unit_still_have_a_lot_of_neutral_items"	"Unit still have 2 neutral items"
 	}
 }

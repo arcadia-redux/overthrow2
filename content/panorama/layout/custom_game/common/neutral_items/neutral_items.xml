@@ -1,0 +1,48 @@
+<root>
+	<styles>
+		<include src="file://{resources}/layout/custom_game/common/neutral_items/neutral_items.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/neutral_items/neutral_items.js" />
+	</scripts>
+
+	<snippets>
+		<snippet name="NewItem">
+			<Panel class="NewItem">
+				<Panel class="Main">
+					<DOTAItemImage id="ItemImage" /> 
+					<Panel class="Buttons">
+						<TextButton id="ButtonKeep" class="Button" text="#neutral_item_keep" />
+						<TextButton id="ButtonDrop" class="Button" text="#neutral_item_drop" />
+					</Panel>
+				</Panel>
+				<Panel id="Countdown" />
+			</Panel>
+		</snippet>
+
+		<snippet name="TakeItem">
+			<Panel class="NewItem">
+				<Panel class="Main">
+					<DOTAItemImage id="ItemImage" /> 
+					<TextButton id="ButtonTake" class="Button" text="#neutral_item_take" />
+				</Panel>
+				<Panel id="CloseButton" />
+				<Panel id="Countdown" />
+			</Panel>
+		</snippet>
+
+		<snippet name="WhoTakedItem">
+			<Panel class="NewItem" style="flow-children: right;">
+				<DOTAHeroImage id="HeroImage" />
+				<Image id="NeutralItemTakedPointer" src="file://{resources}/images/custom_game/pointer.png"/>
+				<DOTAItemImage id="ItemImage" />
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="Hud">
+		<Panel id="ItemsContainer">
+		</Panel>
+	</Panel>
+</root>

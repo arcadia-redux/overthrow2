@@ -226,13 +226,10 @@ function capture_point_area:GiveItemToTeam()
 		tTeamsItems[self.nCapturingTeam][sItemName] = true
 	end
 	
-	if hPlayer and hPlayer.dummyInventory then
+	if hPlayer and hPlayer.dummyInventory and sItemName then
 		local hItem = hPlayer.dummyInventory:AddItemByName(sItemName)
-		ExecuteOrderFromTable({
-			UnitIndex = hPlayer.dummyInventory:entindex(),
-			OrderType = 37,
-			AbilityIndex = hItem:entindex(),
-		})
+		hPlayer.dummyInventory:TakeItem(hItem)
+		DropItem({item = hItem:GetEntityIndex(), PlayerID = hPlayer:GetPlayerID() })
 	end
 end
 ------------------------------------------------------------------------------

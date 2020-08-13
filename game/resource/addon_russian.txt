@@ -950,5 +950,12 @@
 		"DOTA_Tooltip_ability_item_winter_embrace_Lore"						"Ну и кто вышел победителем?"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_intelligence"		"ДОП. ИНТЕЛЛЕКТ:"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_armor"				"ДОП. БРОНЯ:"
+		
+		"inventory_full_custom_message"				"Вы не можете получить предмет. Инвентарь полон"
+		"neutral_item_keep"							"Забрать"
+		"neutral_item_drop"							"Выложить на базе"
+		"neutral_item_take"							"Взять"
+		"player_still_have_a_lot_of_neutral_items"	"У Вас уже есть 2 нейтральных предмета"
+		"unit_still_have_a_lot_of_neutral_items"	"Цель уже имеет 2 нейтральных предмета"
 	}
 }

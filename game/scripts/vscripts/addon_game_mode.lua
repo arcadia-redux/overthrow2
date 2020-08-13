@@ -45,6 +45,7 @@ require("events")
 require("items")
 require("gpm_lib")
 require("capture_points/capture_points_const")
+require("neutral_items_drop_choice")
 
 require("chat_commands/admin_commands")
 
@@ -751,6 +752,16 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 
 	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM then
 		if unit:IsTempestDouble() or target:IsTempestDouble() then return false end
+
+		if ItemIsNeutral(ability:GetAbilityName()) then
+			local targetID = target:GetPlayerOwnerID()
+			if targetID and targetID~=playerId then
+				if CheckCountOfNeutralItemsForPlayer(targetID) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+					DisplayError(playerId, "#unit_still_have_a_lot_of_neutral_items")
+					return
+				end
+			end
+		end
 	end
 	
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
@@ -798,8 +809,24 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 				return true
 			end
 		end
-	end
 
+		if ItemIsNeutral(itemName) then
+			if CheckCountOfNeutralItemsForPlayer(playerId) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
+				return
+			end
+		end
+	end
+	
+	if orderType == 38 then
+		if ItemIsNeutral(ability:GetAbilityName()) then
+			if CheckCountOfNeutralItemsForPlayer(playerId) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
+				return
+			end
+		end
+	end
+	
 	local disableHelpResult = DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
 	if disableHelpResult == false then
 		return false
@@ -1175,6 +1202,19 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		end
 		
 	end
+
+	if hItem and hItem.neutralDropInBase then
+		hItem.neutralDropInBase = false
+		local inventoryIsCorrect = hInventoryParent:IsMainHero() or hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear" or hInventoryParent:IsCourier()
+		local playerId = inventoryIsCorrect and hInventoryParent:GetPlayerOwnerID()
+		if playerId then
+			NotificationToAllPlayerOnTeam({
+				PlayerID = playerId,
+				item = filterTable.item_entindex_const,
+			})
+		end
+	end
+	
 	return true
 end
 
