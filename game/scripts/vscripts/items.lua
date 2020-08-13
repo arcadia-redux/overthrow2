@@ -4,11 +4,14 @@ LinkLuaModifier("capture_point_area", 'capture_points/capture_point_area', LUA_M
 
 function COverthrowGameMode:ThinkGoldDrop()
 	local r = RandomInt( 1, 100 )
-	if r > ( 100 - self.m_GoldDropPercent ) then 
+	if r > ( 100 - self.m_GoldDropPercent ) then
 		self:SpawnDropInMiddle(DROP_GOLD)
-	elseif r > ( 100 - self.m_NeutralItemDropPercent ) then
-		self:SpawnDropInMiddle(DROP_NEUTRAL_ITEM)
-	end
+	else
+		r = RandomInt( 1, 100 )
+		if r > ( 100 - self.m_NeutralItemDropPercent ) then
+			self:SpawnDropInMiddle(DROP_NEUTRAL_ITEM)
+		end
+	end 
 end
 
 function COverthrowGameMode:SpawnDropInMiddle(nType)
