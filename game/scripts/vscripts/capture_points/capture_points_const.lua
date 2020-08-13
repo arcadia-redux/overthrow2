@@ -8,6 +8,7 @@ NEUTRAL_ITEM_FLY_TIME = 2.2
 NEUTRAL_ITEM_MAX_TIME = 20
 INIT_POSITION_FOR_ITEM = Vector(0, 0 ,500)
 MAX_OFFSET_FOR_ITEM = 510
+MAX_TIER = 5
 
 TEAMS_COLORS = {
 	[DOTA_TEAM_GOODGUYS] = Vector(61, 210, 150),
@@ -24,74 +25,20 @@ TEAMS_COLORS = {
 }
 
 NEUTRAL_ITEMS = {
-	[1] = {
-		"item_elixer",
-		"item_keen_optic",
-		"item_poor_mans_shield",
-		"item_iron_talon",
-		"item_ironwood_tree",
-		"item_royal_jelly",
-		"item_mango_tree",
-		"item_ocean_heart",
-		"item_broom_handle",
-		"item_trusty_shovel",
-		"item_faded_broach",
-		"item_arcane_ring",
-		"item_third_eye",
-		"item_phoenix_ash",
-	},
-	[2] = {
-		"item_grove_bow",
-		"item_vampire_fangs",
-		"item_ring_of_aquila",
-		"item_pupils_gift",
-		"item_imp_claw",
-		"item_philosophers_stone",
-		"item_nether_shawl",
-		"item_dragon_scale",
-		"item_essence_ring",
-		"item_clumsy_net",
-		"item_vambrace",
-		"item_tome_of_aghanim",
-		"item_dimensional_doorway",
-	},
-	[3] = {
-		"item_helm_of_the_undying",
-		"item_craggy_coat",
-		"item_greater_faerie_fire",
-		"item_quickening_charm",
-		"item_mind_breaker",
-		"item_spider_legs",
-		"item_enchanted_quiver",
-		"item_paladin_sword",
-		"item_orb_of_destruction",
-		"item_titan_sliver",
-		"item_horizon",
-	},
-	[4] = {
-		"item_witless_shako",
-		"item_timeless_relic",
-		"item_spell_prism",
-		"item_princes_knife",
-		"item_flicker",
-		"item_ninja_gear",
-		"item_illusionsts_cape",
-		"item_havoc_hammer",
-		"item_panic_button",
-	},
-	[5] = {
-		"item_force_boots",
-		"item_desolator_2",
-		"item_seer_stone",
-		"item_mirror_shield",
-		"item_fusion_rune",
-		"item_ballista",
-		"item_woodland_striders",
-		"item_demonicon",
-		"item_fallen_sky",
-		"item_pirate_hat",
-		"item_ex_machina",
-		"item_apex",
-		"item_greater_mango",
-	}
+	[1] = {},
+	[2] = {},
+	[3] = {},
+	[4] = {},
+	[5] = {},
 }
+for slevel, levelData in pairs(LoadKeyValues("scripts/npc/neutral_items.txt")) do
+	if levelData and type(levelData) == "table" then
+		for key,data in pairs(levelData) do
+			if key =="items" then
+				for sItemName,_ in pairs(data) do
+					table.insert(NEUTRAL_ITEMS[tonumber(slevel)], sItemName)
+				end
+			end
+		end
+	end
+end

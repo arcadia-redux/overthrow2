@@ -170,6 +170,27 @@ function capture_point_area:StopPoint()
 	hParent:ForceKill(false)
 end
 ------------------------------------------------------------------------------
+function capture_point_area:GetItemsTable(nItemTier)
+	local tBasicItemsList = table.deepcopy(NEUTRAL_ITEMS[nItemTier])
+	local bUseBasicList = false
+	for nIndex, sItemName in pairs(tBasicItemsList) do
+		if tTeamsItems[self.nCapturingTeam][sItemName] then
+			tBasicItemsList[nIndex] = nil
+		else
+			bUseBasicList = true
+		end
+	end
+	if not bUseBasicList then
+		local nNextTier = nItemTier + 1
+		if nNextTier <= MAX_TIER then
+			return self:GetItemsTable(nNextTier)
+		else
+			return NEUTRAL_ITEMS[MAX_TIER]
+		end
+	end
+	return tBasicItemsList
+end
+------------------------------------------------------------------------------
 function capture_point_area:GiveItemToTeam()
 	local hPlayer
 	for nPlayerID = 0, 24 do
@@ -196,19 +217,9 @@ function capture_point_area:GiveItemToTeam()
 	end
 	nItemTier = math.min(nItemTier, 5)
 	if not NEUTRAL_ITEMS[nItemTier] then return end
-
-	tTeamsItems[self.nCapturingTeam] = tTeamsItems[self.nCapturingTeam] or {}
-	local tBasicItemsList = table.deepcopy(NEUTRAL_ITEMS[nItemTier])
-	local bUseBasicList = false
-	for nIndex, sItemName in pairs(tBasicItemsList) do
-		if tTeamsItems[self.nCapturingTeam][sItemName] then
-			tBasicItemsList[nIndex] = nil
-		else
-			bUseBasicList = true
-		end
-	end
 	
-	local tItemsTable = bUseBasicList and tBasicItemsList or NEUTRAL_ITEMS[nItemTier]
+	tTeamsItems[self.nCapturingTeam] = tTeamsItems[self.nCapturingTeam] or {}
+	local tItemsTable = self:GetItemsTable(nItemTier)
 	local sItemName = table.random(tItemsTable)
 
 	if not tTeamsItems[self.nCapturingTeam][sItemName] then
