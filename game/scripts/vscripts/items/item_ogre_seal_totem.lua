@@ -1,7 +1,7 @@
 
 item_ogre_seal_totem = class({})
 LinkLuaModifier( "modifier_item_ogre_seal_totem", "modifiers/modifier_item_ogre_seal_totem", LUA_MODIFIER_MOTION_NONE )
-LinkLuaModifier( "modifier_ogreseal_flop", "modifiers/creatures/modifier_ogreseal_flop", LUA_MODIFIER_MOTION_BOTH )
+LinkLuaModifier( "modifier_ogreseal_flop", "modifiers/modifier_ogreseal_flop", LUA_MODIFIER_MOTION_BOTH )
 
 --------------------------------------------------------------------------------
 
