@@ -78,9 +78,25 @@ function capture_point_area:OnIntervalThink()
 			ParticleManager:DestroyParticle(self.pCaptureInProgressEffect, false)
 			self.pCaptureInProgressEffect = nil
 		end
-		self.nLifeTime = self.nLifeTime + INTERVAL_THINK
-		if self.nLifeTime >= NEUTRAL_ITEM_MAX_TIME then
-			self:StopPoint()
+
+		if nTeamsCount == 0 then
+			if self.nCaptureProgress > 0 then
+				if self.nRecaptutingTime > 0 then
+					self.nCaptureProgress = self.nRecaptutingTime
+				end
+				self.nCaptureProgress = math.max(self.nCaptureProgress - INTERVAL_THINK, 0)
+				self.nRecaptutingTime = 0
+				self:StartClock(DOTA_TEAM_NEUTRALS)
+			else
+				if self.pCaptureClockEffect then
+					ParticleManager:DestroyParticle(self.pCaptureClockEffect, false)
+					self.pCaptureClockEffect = nil
+				end
+			end
+			self.nLifeTime = self.nLifeTime + INTERVAL_THINK
+			if self.nLifeTime >= NEUTRAL_ITEM_MAX_TIME then
+				self:StopPoint()
+			end
 		end
 	end
 end
@@ -123,9 +139,11 @@ function capture_point_area:StartClock(nTeamNumber)
 
 	if self.nCaptureProgress == 0 then
 		ParticleManager:DestroyParticle(self.pCaptureClockEffect, false)
+		self.pCaptureClockEffect = nil
 		fCreateTimeParticle()
+		self:SetRingColor(DOTA_TEAM_NEUTRALS)
 	end
-
+	
 	ParticleManager:SetParticleControl(self.pCaptureClockEffect, 11, Vector(0, 0, 1))
 	ParticleManager:SetParticleControl(self.pCaptureClockEffect, 3, TEAMS_COLORS[nTeamNumber])
 
@@ -133,7 +151,6 @@ function capture_point_area:StartClock(nTeamNumber)
 	if self.nRecaptutingTime > 0 then
 		nTime = self.nRecaptutingTime
 	end
-
 	local theta = nTime / TIME_FOR_CAPTURE_POINT * 2 * math.pi
 	ParticleManager:SetParticleControlForward(self.pCaptureClockEffect, 1, Vector(math.cos(theta), math.sin(theta), 0))
 end
@@ -185,10 +202,10 @@ function capture_point_area:GetItemsTable(nItemTier)
 		if nNextTier <= MAX_TIER then
 			return self:GetItemsTable(nNextTier)
 		else
-			return NEUTRAL_ITEMS[MAX_TIER]
+			return {table = NEUTRAL_ITEMS[MAX_TIER], tier = MAX_TIER }
 		end
 	end
-	return tBasicItemsList
+	return {table = tBasicItemsList, tier = nItemTier}
 end
 ------------------------------------------------------------------------------
 function capture_point_area:GiveItemToTeam()
@@ -219,14 +236,15 @@ function capture_point_area:GiveItemToTeam()
 	if not NEUTRAL_ITEMS[nItemTier] then return end
 	
 	tTeamsItems[self.nCapturingTeam] = tTeamsItems[self.nCapturingTeam] or {}
-	local tItemsTable = self:GetItemsTable(nItemTier)
-	local sItemName = table.random(tItemsTable)
+	local tItems = self:GetItemsTable(nItemTier)
+	local sItemName = table.random(tItems.table)
 
 	if not tTeamsItems[self.nCapturingTeam][sItemName] then
 		tTeamsItems[self.nCapturingTeam][sItemName] = true
 	end
 	
 	if hPlayer and hPlayer.dummyInventory and sItemName then
+		CustomGameEventManager:Send_ServerToAllClients( "OnPickedUpItem", {position = self:GetParent():GetAbsOrigin(), itemName = sItemName, tier = tItems.tier} )
 		local hItem = hPlayer.dummyInventory:AddItemByName(sItemName)
 		hPlayer.dummyInventory:TakeItem(hItem)
 		DropItem({item = hItem:GetEntityIndex(), PlayerID = hPlayer:GetPlayerID() })
