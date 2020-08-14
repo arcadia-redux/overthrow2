@@ -573,7 +573,6 @@ function COverthrowGameMode:OnThink()
 				GameRules:SetGameWinner( self.leadingTeam )
 				self.countdownEnabled = false
 			else
-				print_d("Need more time to end game")
 				self.TEAM_KILLS_TO_WIN = self.leadingTeamScore + 1
 				local broadcast_killcount =
 				{
