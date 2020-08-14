@@ -175,8 +175,8 @@ function capture_point_area:AddRewardForTeam()
 	hParent.bAddedReward = true
 	self:GiveItemToTeam()
 	self:StopPoint()
-	local pRewardBoom = ParticleManager:CreateParticle("particles/econ/events/ti10/blink_dagger_start_ti10_lvl2_sparkles.vpcf", PATTACH_ABSORIGIN, self:GetParent())
-	ParticleManager:SetParticleControl(pRewardBoom, 0, hParent:GetAbsOrigin())
+	--local pRewardBoom = ParticleManager:CreateParticle("particles/econ/events/ti10/blink_dagger_start_ti10_lvl2_sparkles.vpcf", PATTACH_ABSORIGIN, self:GetParent())
+	--ParticleManager:SetParticleControl(pRewardBoom, 0, hParent:GetAbsOrigin())
 end
 ------------------------------------------------------------------------------
 function capture_point_area:StopPoint()
