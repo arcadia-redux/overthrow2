@@ -54,6 +54,7 @@ end
 function COverthrowGameMode:SpawnNeutralItem( spawnPoint )
 	EmitGlobalSound("Item.PickUpGemWorld")
 	local hCapturePointUnit = CreateUnitByName("npc_dummy_capture", spawnPoint, true, nil, nil, DOTA_TEAM_NEUTRALS)
+	hCapturePointUnit:SetForwardVector(Vector( 0, 1, 0 ))
 	hCapturePointUnit:AddNewModifier(hCapturePointUnit, nil, "capture_point_area", {duration = -1})
 end
 

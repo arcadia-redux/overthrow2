@@ -672,7 +672,7 @@
 		"MovementSpeed"				"0"
 		"MovementTurnRate"			"0"
 		"StatusHealth"				"1"
-		"Model"						"models/props_gameplay/treasure_chest001.vmdl"
+		"Model"						"models/props_gameplay/neutral_box.vmdl"
 		"StatusHealth"				"100000"
 		"MinimapIcon"				"minimap_treasure_chest"
 		"MinimapIconSize"			"300"
