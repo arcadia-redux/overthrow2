@@ -45,7 +45,17 @@ end
 function capture_point_area:OnIntervalThink()
 	if not IsServer() then return end
 	
-	local tTargets = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, self.vPosition, nil, RADIUS_CAPTURE_POINT, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_HERO, DOTA_UNIT_TARGET_FLAG_NONE, FIND_ANY_ORDER, false)
+	local tTargets = FindUnitsInRadius (
+		DOTA_TEAM_NEUTRALS, 
+		self.vPosition, 
+		nil, 
+		RADIUS_CAPTURE_POINT, 
+		DOTA_UNIT_TARGET_TEAM_ENEMY, 
+		DOTA_UNIT_TARGET_HERO, 
+		DOTA_UNIT_TARGET_FLAG_NONE + DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES + DOTA_UNIT_TARGET_FLAG_INVULNERABLE,
+		FIND_ANY_ORDER, 
+		false
+	)
 	local tPlayersInTeamsInRadius = {}
 	for _, hTarget in pairs(tTargets) do
 		if not tPlayersInTeamsInRadius[hTarget:GetTeamNumber()] then 
