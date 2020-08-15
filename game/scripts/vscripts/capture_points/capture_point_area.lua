@@ -237,23 +237,28 @@ function capture_point_area:GiveItemToTeam()
 		end
 	end
 
-	if COverthrowGameMode.leadingTeamScore >= (COverthrowGameMode.TEAM_KILLS_TO_WIN * 3 / 5) then
+	if COverthrowGameMode.leadingTeamScore >= (COverthrowGameMode.TEAM_KILLS_TO_WIN * 3 / 4) then
 		nItemTier = nItemTier + 2
 	elseif COverthrowGameMode.leadingTeamScore >= (COverthrowGameMode.TEAM_KILLS_TO_WIN / 2) then
 		nItemTier = nItemTier + 1
 	end
 	nItemTier = math.min(nItemTier, 5)
+	print_d("TIER FOR NEUTRAL DROP " .. nItemTier)
 	if not NEUTRAL_ITEMS[nItemTier] then return end
-	
+	print_d("--CHECK IS OKAY--")
 	tTeamsItems[self.nCapturingTeam] = tTeamsItems[self.nCapturingTeam] or {}
 	local tItems = self:GetItemsTable(nItemTier)
 	local sItemName = table.random(tItems.table)
-
+	print_d("ITEMS TABLE:")
+	for id, itemName in pairs(tItems.table) do
+		print_d(	"  > ID: [" .. id .. "] Name: " .. itemName)
+	end
 	if not tTeamsItems[self.nCapturingTeam][sItemName] then
 		tTeamsItems[self.nCapturingTeam][sItemName] = true
 	end
-	
+	print_d("  >> CHOOSED DROP: [" .. sItemName .. "]")
 	if hPlayer and hPlayer.dummyInventory and sItemName then
+		print_d("  >> DROP TRANSFERRED OKAY: [" .. sItemName .. "]")
 		CustomGameEventManager:Send_ServerToAllClients( "OnPickedUpItem", {position = self:GetParent():GetAbsOrigin(), itemName = sItemName, tier = tItems.tier} )
 		local hItem = hPlayer.dummyInventory:AddItemByName(sItemName)
 		hPlayer.dummyInventory:TakeItem(hItem)
