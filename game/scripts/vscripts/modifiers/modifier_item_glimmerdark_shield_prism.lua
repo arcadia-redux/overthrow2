@@ -33,9 +33,8 @@ function modifier_item_glimmerdark_shield_prism:OnCreated( kv )
 	self.prism_bonus_magic_dmg = self:GetAbility():GetSpecialValueFor( "prism_bonus_magic_dmg" )
 
 	if IsServer() then
-		self.nFXIndex = ParticleManager:CreateParticle( "particles/act_2/gleam.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
+		self.nFXIndex = ParticleManager:CreateParticle( "particles/units/heroes/hero_earth_spirit/earthspirit_stone_lander.vpcf", PATTACH_ABSORIGIN_FOLLOW, self:GetParent() )
 		ParticleManager:SetParticleControlEnt( self.nFXIndex, 0, self:GetParent(), PATTACH_POINT_FOLLOW, "attach_hitloc", self:GetParent():GetOrigin(), true )
-		--ParticleManager:SetParticleControlEnt( self.nFXIndex, 0, self:GetParent(), PATTACH_ABSORIGIN_FOLLOW, nil, self:GetParent():GetOrigin(), true )
 		ParticleManager:SetParticleControl( self.nFXIndex, 3, Vector( 100, 100, 100 ) )
 	end
 end

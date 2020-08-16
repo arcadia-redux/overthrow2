@@ -100,14 +100,13 @@
 			"item_orb_of_destruction"		"1"
 			"item_titan_sliver"				"1"
 			"item_horizon"					"1"
-			"item_glimmerdark_shield"		"1"
 			"item_gravel_foot"				"1"
-			"item_paw_of_lucius"			"1"
 			"item_preserved_skull"			"1"
 			"item_slippers_of_the_abyss"	"1"
 			"item_treads_of_ermacor"		"1"
 			"item_wand_of_the_brine"		"1"
 			"item_watchers_gaze"			"1"
+			"item_stony_coat"				"1"
 		}
 	}
 	"4"
@@ -134,12 +133,13 @@
 			"item_illusionsts_cape"		"1"
 			"item_havoc_hammer"			"1"
 			"item_panic_button"			"1"
-			"item_dredged_trident"		"1"
 			"item_guardian_shell"		"1"
 			"item_ice_dragon_maw"		"1"
-			"item_stony_coat"			"1"
+			"item_paw_of_lucius"		"1"
 			"item_stonework_pendant"	"1"
 			"item_unhallowed_icon"		"1"
+			"item_carapace_of_qaldin"	"1"
+			"item_rhyziks_eye"			"1"
 		}
 	}
 	"5"
@@ -170,9 +170,9 @@
 			"item_ex_machina"			"1"
 			"item_apex"					"1"
 			"item_greater_mango"		"1"
-			"item_carapace_of_qaldin"	"1"
-			"item_rhyziks_eye"			"1"
 			"item_the_caustic_finale"	"1"
+			"item_glimmerdark_shield"	"1"
+			"item_dredged_trident"		"1"
 		}
 	}
 }

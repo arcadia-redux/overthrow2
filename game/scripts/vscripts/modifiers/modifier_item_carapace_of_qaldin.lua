@@ -28,8 +28,9 @@ function modifier_item_carapace_of_qaldin:DeclareFunctions()
 	{
 		MODIFIER_PROPERTY_HEALTH_BONUS,
 		MODIFIER_PROPERTY_MANA_BONUS,
-		MODIFIER_PROPERTY_HEAL_AMPLIFY_PERCENTAGE,
 		MODIFIER_EVENT_ON_TAKEDAMAGE,
+		MODIFIER_PROPERTY_HP_REGEN_AMPLIFY_PERCENTAGE,
+		MODIFIER_PROPERTY_MP_REGEN_AMPLIFY_PERCENTAGE,
 	}
 	return funcs
 end
@@ -48,12 +49,17 @@ end
 
 --------------------------------------------------------------------------------
 
-function modifier_item_carapace_of_qaldin:GetModifierHealAmplify_Percentage( params )
+function modifier_item_carapace_of_qaldin:GetModifierHPRegenAmplify_Percentage( params )
 	return self.bonus_restore_pct
 end
 
 --------------------------------------------------------------------------------
 
+function modifier_item_carapace_of_qaldin:GetModifierMPRegenAmplify_Percentage( params )
+	return self.bonus_restore_pct
+end
+
+--------------------------------------------------------------------------------
 function modifier_item_carapace_of_qaldin:OnTakeDamage( params )
 	if IsServer() then
 		if params.unit ~= self:GetParent() then

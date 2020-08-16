@@ -8,7 +8,7 @@ function NeutralItemDropped(data) {
 	let item = $.CreatePanel("Panel", $("#ItemsContainer"), "");
 	item.BLoadLayoutSnippet("TakeItem");
 	item.AddClass("Slide");
-	item.FindChildTraverse("ItemImage").itemname = Abilities.GetAbilityName(data.item);
+	item.FindChildTraverse("ItemImage").itemname = data.itemName;
 	item.FindChildTraverse("ButtonTake").SetPanelEvent("onactivate", function () {
 		GameEvents.SendCustomGameEventToServer("neutral_item_take", {
 			item: data.item,

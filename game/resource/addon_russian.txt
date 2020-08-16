@@ -957,5 +957,8 @@
 		"neutral_item_take"							"Взять"
 		"player_still_have_a_lot_of_neutral_items"	"У Вас уже есть 2 нейтральных предмета"
 		"unit_still_have_a_lot_of_neutral_items"	"Цель уже имеет 2 нейтральных предмета"
+		
+		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale"				"Caustic Finale"
+		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Броня уменьшена на %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
 	}
 }

@@ -7,6 +7,29 @@ function capture_point_area:IsPurgable() return false end
 function capture_point_area:DestroyOnExpire() return false end
 
 ------------------------------------------------------------------------------
+function GetRandomPathablePositionWithin( vPos, nRadius, nMinRadius )
+	if IsServer() then
+		local nMaxAttempts = 10
+		local nAttempts = 0
+		local vTryPos = nil
+
+		if nMinRadius == nil then
+			nMinRadius = nRadius
+		end
+
+		repeat
+			vTryPos = vPos + RandomVector( RandomFloat( nMinRadius, nRadius ) )
+
+			nAttempts = nAttempts + 1
+			if nAttempts >= nMaxAttempts then
+				break
+			end
+		until ( GridNav:CanFindPath( vPos, vTryPos ) )
+
+		return vTryPos
+	end
+end
+------------------------------------------------------------------------------
 function capture_point_area:OnCreated()
 	if not IsServer() then return end	
 	local hParent = self:GetParent()
@@ -19,13 +42,16 @@ function capture_point_area:OnCreated()
 	
 	hParent:SetAbsOrigin(INIT_POSITION_FOR_ITEM)
 	self.vStartPos = INIT_POSITION_FOR_ITEM
+
+	local minXY, maxXY = COverthrowGameMode.m_GoldRadiusMin,  COverthrowGameMode.m_GoldRadiusMax
+	self.vEndPos = GetRandomPathablePositionWithin(INIT_POSITION_FOR_ITEM, maxXY, minXY)
+	if not self.vEndPos then
+		self:StopPoint()
+		return
+	end
+	self.vEndPos.z = 0
 	self:ApplyHorizontalMotionController()
 	self:ApplyVerticalMotionController()
-	local getRandomValue = function()
-		return (RandomInt(0, 1) * 2 - 1) * ( COverthrowGameMode.m_GoldRadiusMin + RandomInt(0, COverthrowGameMode.m_GoldRadiusMax - COverthrowGameMode.m_GoldRadiusMin ) )
-	end
-
-	self.vEndPos = Vector(getRandomValue(), getRandomValue(), 0)	
 end
 ------------------------------------------------------------------------------
 function capture_point_area:StartSearch()

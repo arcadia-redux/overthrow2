@@ -839,5 +839,8 @@
 		"neutral_item_took"					"拿"
 		"player_still_have_a_lot_of_neutral_items"	"您仍然有2个中立物品"
 		"unit_still_have_a_lot_of_neutral_items"	"单位仍然有2件中性物品"
+		
+		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale"				"腐尸毒"
+		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"护甲降低 %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
 	}
 }

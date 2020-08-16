@@ -3,6 +3,7 @@ MAX_NEUTRAL_ITEMS_FOR_PLAYER = 2
 function DropItem(data)
 	if not IsServer() then return end
 	local item = EntIndexToHScript( data.item )
+	local itemName = item:GetName()
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 	local team = player:GetTeam()
 	local teamTower
@@ -20,12 +21,8 @@ function DropItem(data)
 	local pos_item =  teamTower:GetAbsOrigin() + Vector(getRandomValue(), getRandomValue(), 0)
 	CreateItemOnPositionSync(pos_item, item)
 	item.neutralDropInBase = true
-	for i = 0, 24 do
-		if PlayerResource:GetTeam(i) == team then
-			CustomGameEventManager:Send_ServerToPlayer( PlayerResource:GetPlayer( i ), "neutral_item_dropped", { item = data.item } )
-		end
-	end
-	Timers:CreateTimer(15,function() -- !!! You should put here time from function NeutralItemDropped from neutral_items.js - Shelude
+	CustomGameEventManager:Send_ServerToTeam(team, "neutral_item_dropped", { item = data.item, itemName = itemName})
+	Timers:CreateTimer(15,function() -- !!! You should put here time from function NeutralItemDropped from neutral_items.js - Schelude
 		local container = item:GetContainer()
 		if container then
 			local dummyInventory = player.dummyInventory

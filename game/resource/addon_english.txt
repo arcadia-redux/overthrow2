@@ -1054,5 +1054,8 @@
 		"neutral_item_take"							"Take"
 		"player_still_have_a_lot_of_neutral_items"	"You still have 2 neutral items"
 		"unit_still_have_a_lot_of_neutral_items"	"Unit still have 2 neutral items"
+		
+		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale"				"Caustic Finale"
+		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
 	}
 }
