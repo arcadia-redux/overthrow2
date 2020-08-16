@@ -84,6 +84,8 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/dota_hud_chat_wheel.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/overthrow_item_choice.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/patreon/game_perk/patreons_game_perk.xml"/>
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/neutral_items/neutral_items.xml"/>
+		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/ingame_notifications/ingame_notifications.xml"/>
 <!--		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/leaderboard/leaderboard.xml"/>-->
 	</Panel>
 </root>

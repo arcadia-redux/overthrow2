@@ -132,7 +132,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		elseif GetMapName() == "temple_quartet" then
 			self.TEAM_KILLS_TO_WIN = 50
 		elseif GetMapName() == "desert_octet" then
-			self.TEAM_KILLS_TO_WIN = 90
+			self.TEAM_KILLS_TO_WIN = 120
 		elseif GetMapName() == "core_quartet" then
 			self.TEAM_KILLS_TO_WIN = 55
 		elseif GetMapName() == "temple_sextet" then
@@ -213,24 +213,26 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 	if not spawnedUnit:IsRealHero() then return end
 
-	Timers:CreateTimer("auto_necromastery", {
-		useGameTime = true,
-		endTime = 5,
-		callback = function()
-			if spawnedUnit:HasModifier("modifier_nevermore_necromastery") and spawnedUnit:IsAlive() then
-				local modifier = spawnedUnit:FindModifierByName("modifier_nevermore_necromastery")
-				local ability = spawnedUnit:FindAbilityByName("nevermore_necromastery")
-				local maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls", ability:GetLevel() - 1)
-				if spawnedUnit:HasScepter() then
-					maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls_scepter", ability:GetLevel() - 1)
+	if spawnedUnit:GetName() == "npc_dota_hero_nevermore" then
+		Timers:CreateTimer("auto_necromastery", {
+			useGameTime = true,
+			endTime = 5,
+			callback = function()
+				if spawnedUnit:HasModifier("modifier_nevermore_necromastery") and spawnedUnit:IsAlive() then
+					local modifier = spawnedUnit:FindModifierByName("modifier_nevermore_necromastery")
+					local ability = spawnedUnit:FindAbilityByName("nevermore_necromastery")
+					local maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls", ability:GetLevel() - 1)
+					if spawnedUnit:HasScepter() then
+						maxSouls = ability:GetLevelSpecialValueFor("necromastery_max_souls_scepter", ability:GetLevel() - 1)
+					end
+					if modifier:GetStackCount() < maxSouls then
+						modifier:IncrementStackCount();
+					end
 				end
-				if modifier:GetStackCount() < maxSouls then
-					modifier:IncrementStackCount();
-				end
+				return 5
 			end
-			return 5
-		end
-	})
+		})
+	end
 	
 	local playerId = spawnedUnit:GetPlayerID()
 

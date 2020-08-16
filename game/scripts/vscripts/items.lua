@@ -1,29 +1,44 @@
---[[ items.lua ]]
+DROP_GOLD = 0
+DROP_NEUTRAL_ITEM = 1
+LinkLuaModifier("capture_point_area", 'capture_points/capture_point_area', LUA_MODIFIER_MOTION_BOTH)
 
---Spawns Bags of Gold in the middle
 function COverthrowGameMode:ThinkGoldDrop()
 	local r = RandomInt( 1, 100 )
 	if r > ( 100 - self.m_GoldDropPercent ) then
-		self:SpawnGold()
-	end
+		self:SpawnDropInMiddle(DROP_GOLD)
+	else
+		r = RandomInt( 1, 100 )
+		if r > ( 100 - self.m_NeutralItemDropPercent ) then
+			self:SpawnDropInMiddle(DROP_NEUTRAL_ITEM)
+		end
+	end 
 end
 
-function COverthrowGameMode:SpawnGold()
+function COverthrowGameMode:SpawnDropInMiddle(nType)
 	local overBoss = Entities:FindByName( nil, "@overboss" )
-	local throwCoin = nil
-	local throwCoin2 = nil
+	local throwCoin
+	local throwCoin2
 	if overBoss then
 		throwCoin = overBoss:FindAbilityByName( 'dota_ability_throw_coin' )
 		throwCoin2 = overBoss:FindAbilityByName( 'dota_ability_throw_coin_long' )
 	end
-
-	-- sometimes play the long anim
+	
+	overBoss.nDropType = nType
 	if throwCoin2 and RandomInt( 1, 100 ) > 80 then
 		overBoss:CastAbilityNoTarget( throwCoin2, -1 )
 	elseif throwCoin then
 		overBoss:CastAbilityNoTarget( throwCoin, -1 )
 	else
+		self:ForceSpawnDropInMiddle(nType)
+	end
+end
+
+function COverthrowGameMode:ForceSpawnDropInMiddle(nType)
+	if nType == DROP_GOLD then
 		self:SpawnGoldEntity( Vector( 0, 0, 0 ) )
+	end
+	if nType == DROP_NEUTRAL_ITEM then
+		self:SpawnNeutralItem(INIT_POSITION_FOR_ITEM)
 	end
 end
 
@@ -36,6 +51,12 @@ function COverthrowGameMode:SpawnGoldEntity( spawnPoint )
 	newItem:SetContextThink( "KillLoot", function() return self:KillLoot( newItem, drop ) end, 20 )
 end
 
+function COverthrowGameMode:SpawnNeutralItem( spawnPoint )
+	EmitGlobalSound("Item.PickUpGemWorld")
+	local hCapturePointUnit = CreateUnitByName("npc_dummy_capture", spawnPoint, true, nil, nil, DOTA_TEAM_NEUTRALS)
+	hCapturePointUnit:SetForwardVector(Vector( 0, 1, 0 ))
+	hCapturePointUnit:AddNewModifier(hCapturePointUnit, nil, "capture_point_area", {duration = -1})
+end
 
 --Removes Bags of Gold after they expire
 function COverthrowGameMode:KillLoot( item, drop )
@@ -401,7 +422,7 @@ function COverthrowGameMode:TreasureDrop( treasureCourier )
 end
 
 function COverthrowGameMode:ForceSpawnGold()
-	self:SpawnGold()
+	self:SpawnDropInMiddle(DROP_GOLD)
 end
 
 function COverthrowGameMode:ThinkPumpkins()

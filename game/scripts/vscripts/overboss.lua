@@ -6,6 +6,7 @@ function ThrowCoin( args )
 		coinSpawn = args.caster:GetAttachmentOrigin( coinAttach )
 	end
 --	print( coinSpawn )
-
-	GameRules:GetGameModeEntity().COverthrowGameMode:SpawnGoldEntity( coinSpawn )
+	if args.caster.nDropType then
+		GameRules:GetGameModeEntity().COverthrowGameMode:ForceSpawnDropInMiddle( args.caster.nDropType )
+	end
 end

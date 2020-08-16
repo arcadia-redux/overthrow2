@@ -661,4 +661,21 @@
 		"StatusHealth"				"1"
 		"HasInventory"				"1"
 	}
+	"npc_dummy_capture"
+	{
+		"BaseClass"					"npc_dota_creature"
+		"Level"						"1"
+		"ModelScale"				"1.3"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"CanBeDominated"			"0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"0"
+		"MovementTurnRate"			"0"
+		"StatusHealth"				"1"
+		"Model"						"models/props_gameplay/neutral_box.vmdl"
+		"StatusHealth"				"100000"
+		"MinimapIcon"				"minimap_treasure_chest"
+		"MinimapIconSize"			"300"
+		"MinimapDisableTint"		"1"
+	}
 }

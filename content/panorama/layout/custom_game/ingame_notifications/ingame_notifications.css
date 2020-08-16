@@ -1,0 +1,22 @@
+#IngameNotifications {
+	width: 100%;
+	height: 100%;
+}
+.PickUpItem {
+	transform: translatey(0px);
+	transition: transform 1s ease-in-out 0s, opacity 0.4s ease-in-out 0s;
+	opacity: 0;
+}
+.PlayUp {
+	transform: translatey(-100px);
+}
+.Show {
+	opacity: 1;
+}
+#PickedItem {
+	width: 73px;
+	height: 53px;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 3px;
+}

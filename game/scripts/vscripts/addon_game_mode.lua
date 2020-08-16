@@ -44,6 +44,8 @@ require("utility_functions")
 require("events")
 require("items")
 require("gpm_lib")
+require("capture_points/capture_points_const")
+require("neutral_items_drop_choice")
 
 require("chat_commands/admin_commands")
 
@@ -78,7 +80,10 @@ function Precache( context )
 
 		PrecacheUnitByNameSync( "npc_dota_treasure_courier", context )
 		PrecacheModel( "npc_dota_treasure_courier", context )
-
+	
+		PrecacheUnitByNameSync( "npc_dummy_capture", context )
+		PrecacheModel( "npc_dummy_capture", context )
+	
 	--Cache new particles
 	   	PrecacheResource( "particle", "particles/econ/events/nexon_hero_compendium_2014/teleport_end_nexon_hero_cp_2014.vpcf", context )
 	   	PrecacheResource( "particle", "particles/leader/leader_overhead.vpcf", context )
@@ -221,6 +226,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 12
+		self.m_NeutralItemDropPercent = 8
 	elseif GetMapName() == "desert_octet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 8 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 8 )
@@ -228,6 +234,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 12
+		self.m_NeutralItemDropPercent = 8
 	elseif GetMapName() == "desert_quintet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 5 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 5 )
@@ -235,6 +242,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 8
+		self.m_NeutralItemDropPercent = 6
 	elseif GetMapName() == "temple_quartet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 4 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 4 )
@@ -243,6 +251,7 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 10
+		self.m_NeutralItemDropPercent = 5
 	elseif GetMapName() == "temple_sextet" then
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_GOODGUYS, 6 )
 		GameRules:SetCustomGameTeamMaxPlayers( DOTA_TEAM_BADGUYS, 6 )
@@ -251,10 +260,12 @@ function COverthrowGameMode:InitGameMode()
 		self.m_GoldRadiusMin = 300
 		self.m_GoldRadiusMax = 1400
 		self.m_GoldDropPercent = 12
+		self.m_NeutralItemDropPercent = 8
 	else
 		self.m_GoldRadiusMin = 250
 		self.m_GoldRadiusMax = 550
 		self.m_GoldDropPercent = 4
+		self.m_NeutralItemDropPercent = 4
 	end
 
 	-- Show the ending scoreboard immediately
@@ -565,7 +576,6 @@ function COverthrowGameMode:OnThink()
 				GameRules:SetGameWinner( self.leadingTeam )
 				self.countdownEnabled = false
 			else
-				print_d("Need more time to end game")
 				self.TEAM_KILLS_TO_WIN = self.leadingTeamScore + 1
 				local broadcast_killcount =
 				{
@@ -744,6 +754,16 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 
 	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM then
 		if unit:IsTempestDouble() or target:IsTempestDouble() then return false end
+
+		if ItemIsNeutral(ability:GetAbilityName()) then
+			local targetID = target:GetPlayerOwnerID()
+			if targetID and targetID~=playerId then
+				if CheckCountOfNeutralItemsForPlayer(targetID) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+					DisplayError(playerId, "#unit_still_have_a_lot_of_neutral_items")
+					return
+				end
+			end
+		end
 	end
 	
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
@@ -791,8 +811,24 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 				return true
 			end
 		end
-	end
 
+		if ItemIsNeutral(itemName) then
+			if CheckCountOfNeutralItemsForPlayer(playerId) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
+				return
+			end
+		end
+	end
+	
+	if orderType == 38 then
+		if ItemIsNeutral(ability:GetAbilityName()) then
+			if CheckCountOfNeutralItemsForPlayer(playerId) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
+				DisplayError(playerId, "#player_still_have_a_lot_of_neutral_items")
+				return
+			end
+		end
+	end
+	
 	local disableHelpResult = DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
 	if disableHelpResult == false then
 		return false
@@ -1078,7 +1114,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 					UTIL_Remove(hItem)
 					return false
 				else
-					if GameRules:GetDOTATime(false,false) < 300 then
+					if GameRules:GetDOTATime(false,false) < 1 then
 						CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#notyettime" })
 						UTIL_Remove(hItem)
 						return false
@@ -1120,7 +1156,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 									UTIL_Remove(hItem)
 									return false
 								else
-									if GameRules:GetDOTATime(false,false) < 300 then
+									if GameRules:GetDOTATime(false,false) < 1 then
 										CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#notyettime" })
 										UTIL_Remove(hItem)
 										return false
@@ -1168,6 +1204,19 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		end
 		
 	end
+
+	if hItem and hItem.neutralDropInBase then
+		hItem.neutralDropInBase = false
+		local inventoryIsCorrect = hInventoryParent:IsMainHero() or hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear" or hInventoryParent:IsCourier()
+		local playerId = inventoryIsCorrect and hInventoryParent:GetPlayerOwnerID()
+		if playerId then
+			NotificationToAllPlayerOnTeam({
+				PlayerID = playerId,
+				item = filterTable.item_entindex_const,
+			})
+		end
+	end
+	
 	return true
 end
 
