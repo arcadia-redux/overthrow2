@@ -103,3 +103,26 @@ function GetPlayerIdBySteamId(id)
 
 	return -1
 end
+
+function GetRandomPathablePositionWithin( vPos, nRadius, nMinRadius )
+	if IsServer() then
+		local nMaxAttempts = 10
+		local nAttempts = 0
+		local vTryPos
+
+		if nMinRadius == nil then
+			nMinRadius = nRadius
+		end
+
+		repeat
+			vTryPos = vPos + RandomVector( RandomFloat( nMinRadius, nRadius ) )
+
+			nAttempts = nAttempts + 1
+			if nAttempts >= nMaxAttempts then
+				break
+			end
+		until ( GridNav:CanFindPath( vPos, vTryPos ) )
+
+		return vTryPos
+	end
+end
