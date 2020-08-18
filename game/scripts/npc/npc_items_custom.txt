@@ -37,34 +37,48 @@
 	//=================================================================================================================
 	"item_treasure_chest"
 	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"1001"
-		"AbilityName"					"item_treasure_chest"
-		"BaseClass"						"item_bag_of_gold"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_ITEM"
-		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
-		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_treasure_chest"
 		"Model"							"models/props_gameplay/treasure_chest001.vmdl"
-		"ItemKillable"					"0"
 
-		// Stats
-		//-------------------------------------------------------------------------------------------------------------
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+		"PingOverrideText"				"DOTA_Chat_TreasureChest_Pinged"
+
 		"AbilityCastRange"				"100"
 		"AbilityCastPoint"				"0.0"
 
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemCost"						"99999"
+		"ItemCost"						"0"
 		"ItemPurchasable"				"0"
 		"ItemShopTags"					"consumable"
 		"ItemQuality"					"consumable"
 		"ItemStackable"					"1"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
 		"ItemPermanent"					"0"
-		"ItemInitialCharges"			"0"
+		"ItemInitialCharges"			"1"
+		"ItemCastOnPickup"				"0"
 		"ItemKillable"					"0"
-		"ItemCastOnPickup"				"1"
+	}
+
+	"item_treasure_chest_notification_dummy"
+	{
+		"BaseClass"						"item_lua"
+		"ScriptFile"					"items/item_treasure_chest"
+		"Model"							"models/props_gameplay/treasure_chest001.vmdl"
+		"AbilityTextureName"			"gift"
+
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
+
+		"AbilityCastRange"				"100"
+		"AbilityCastPoint"				"0.0"
+
+		"ItemCost"						"0"
+		"ItemPurchasable"				"0"
+		"ItemStackable"					"0"
+		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
+		"ItemPermanent"					"0"
+		"ItemInitialCharges"			"0"
+		"ItemCastOnPickup"				"0"
+		"ItemKillable"					"0"
 	}
 
 	"item_core_pumpkin"
@@ -211,292 +225,292 @@
 	}
 
 	"item_patreonbundle_1"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/2019_Consumables_Bundle"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStartBundle"
-                "Item1"       "item_patreon_1"
-                "Item2"       "item_patreon_2"
-                "Item3"       "item_patreon_3"
-                "Item4"       "item_patreon_4"
-            }
-        }
-    }
-    "item_patreonbundle_2"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/2019_Consumables_Bundle"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"1"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStartBundle"
+				"Item1"       "item_patreon_1"
+				"Item2"       "item_patreon_2"
+				"Item3"       "item_patreon_3"
+				"Item4"       "item_patreon_4"
+			}
+		}
+	}
+	"item_patreonbundle_2"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/Frosthaven_Consumables_Bundle"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStartBundle"
-                "Item1"       "item_patreon_5"
-                "Item2"       "item_patreon_6"
-                "Item3"       "item_patreon_7"
-                "Item4"       "item_patreon_8"
-            }
-        }
-    }
-    "item_patreon_1"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/Frosthaven_Consumables_Bundle"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"1"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStartBundle"
+				"Item1"       "item_patreon_5"
+				"Item2"       "item_patreon_6"
+				"Item3"       "item_patreon_7"
+				"Item4"       "item_patreon_8"
+			}
+		}
+	}
+	"item_patreon_1"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT_TARGET | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_summon_cny_balloon"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_summon_cny_balloon"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"800"
-        "AbilityCastPoint"	"0.2"
-        "AbilityCooldown"	"1"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_summon_cny_balloon"
-            }
-        }
-    }
-    "item_patreon_2"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"800"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"1"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_summon_cny_balloon"
+			}
+		}
+	}
+	"item_patreon_2"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_summon_dragon"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_summon_dragon"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"350"
-        "AbilityCastPoint"	"0.3"
-        "AbilityCooldown"	"3"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_summon_dragon"
-            }
-        }
-    }
-    "item_patreon_3"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"350"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCooldown"	"3"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_summon_dragon"
+			}
+		}
+	}
+	"item_patreon_3"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_summon_cny_tree"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_summon_cny_tree"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"250"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1.5"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_summon_cny_tree"
-            }
-        }
-    }
-    "item_patreon_4"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"250"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"1.5"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_summon_cny_tree"
+			}
+		}
+	}
+	"item_patreon_4"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_firecrackers"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_firecrackers"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1.5"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_firecrackers"
-            }
-        }
-    }
-    "item_patreon_5"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"ItemPurchasable"	"0"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"1.5"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_firecrackers"
+			}
+		}
+	}
+	"item_patreon_5"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_throw_snowball"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_throw_snowball"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"600"
-        "AbilityCastPoint"	"0.2"
-        "AbilityCooldown"	"0.5"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_throw_snowball"
-            }
-        }
-    }
-    "item_patreon_6"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"600"
+		"AbilityCastPoint"	"0.2"
+		"AbilityCooldown"	"0.5"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_throw_snowball"
+			}
+		}
+	}
+	"item_patreon_6"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_summon_snowman"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_summon_snowman"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"350"
-        "AbilityCastPoint"	"0.3"
-        "AbilityCooldown"	"10"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_summon_snowman"
-            }
-        }
-    }
-    "item_patreon_7"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"350"
+		"AbilityCastPoint"	"0.3"
+		"AbilityCooldown"	"10"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_summon_snowman"
+			}
+		}
+	}
+	"item_patreon_7"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_TREE"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_decorate_tree"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_decorate_tree"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"165"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"5"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_decorate_tree"
-            }
-        }
-    }
-    "item_patreon_8"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"165"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"5"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_decorate_tree"
+			}
+		}
+	}
+	"item_patreon_8"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_POINT"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_BOTH"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/seasonal_festive_firework"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/seasonal_festive_firework"
 		"ItemShareability"				"ITEM_FULLY_SHAREABLE"
-        "ItemPurchasable"	"0"
-        "AbilityCastRange"	"1200"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"1.5"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStart"
-                "Ability"       "seasonal_festive_firework"
-            }
-        }
-    }
-    "item_banhammer"
-    {
-        "BaseClass"	"item_datadriven"
-        "AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"ItemPurchasable"	"0"
+		"AbilityCastRange"	"1200"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"1.5"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStart"
+				"Ability"       "seasonal_festive_firework"
+			}
+		}
+	}
+	"item_banhammer"
+	{
+		"BaseClass"	"item_datadriven"
+		"AbilityBehavior"	"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
 		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
 		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
 		"AbilityCastAnimation"			"ACT_INVALID"
-        "Model"	"models/props_gameplay/red_box.vmdl"
-        "Effect"	"particles/generic_gameplay/dropped_item.vpcf"
-        "AbilityTextureName"	"custom/banhammer2"
-	    "CastFilterRejectCaster" 		"1"
+		"Model"	"models/props_gameplay/red_box.vmdl"
+		"Effect"	"particles/generic_gameplay/dropped_item.vpcf"
+		"AbilityTextureName"	"custom/banhammer2"
+		"CastFilterRejectCaster" 		"1"
 		"ItemStackable"					"1"
 		"ItemPermanent"					"0"
 		"ItemInitialCharges"			"1"
 		"IsTempestDoubleClonable"		"0"
 		"ShouldBeInitiallySuggested"	"1"
-        "ItemPurchasable"	"1"
-        "AbilityCastRange"	"999999"
-        "AbilityCastPoint"	"0"
-        "AbilityCooldown"	"10"
-        "AbilityManaCost"	"0"
-        "ItemCost"	"0"
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"item_patreon.lua"
-                "Function"	    "OnSpellStartBanHammer"
-            }
-        }
+		"ItemPurchasable"	"1"
+		"AbilityCastRange"	"999999"
+		"AbilityCastPoint"	"0"
+		"AbilityCooldown"	"10"
+		"AbilityManaCost"	"0"
+		"ItemCost"	"0"
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"item_patreon.lua"
+				"Function"	    "OnSpellStartBanHammer"
+			}
+		}
 		"precache"
 		{
 			"soundfile"			"soundevents/game_sounds_heroes/game_sounds_sven.vsndevts"
@@ -514,7 +528,7 @@
 				"TextureName" 		"banhammer2"
 			}
 		}
-    }
+	}
 
 	"item_disable_help_custom"
 	{
@@ -527,52 +541,52 @@
 
 		"ItemQuality"					"artifact"
 
-        "ItemInitialCharges"			"1"
-        "ItemStackable"					"0"
-        "ItemPermanent"					"0"
-        "ItemHideCharges"				"0"
-        "CastFilterRejectCaster" 		"1"
-        "IsTempestDoubleClonable"		"0"
-        "ShouldBeInitiallySuggested"	"1"
+		"ItemInitialCharges"			"1"
+		"ItemStackable"					"0"
+		"ItemPermanent"					"0"
+		"ItemHideCharges"				"0"
+		"CastFilterRejectCaster" 		"1"
+		"IsTempestDoubleClonable"		"0"
+		"ShouldBeInitiallySuggested"	"1"
 
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"abilities/items/item_disable_help_custom.lua"
-                "Function"	    "OnSpellStartDisableHelp"
-            }
-        }
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/items/item_disable_help_custom.lua"
+				"Function"	    "OnSpellStartDisableHelp"
+			}
+		}
 	}
 
-    "item_mute_custom"
-    {
-        "BaseClass"						"item_datadriven"
-        "AbilityTextureName"			"custom/item_mute_custom"
-        "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-        "AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY | DOTA_UNIT_TARGET_TEAM_ENEMY"
-        "AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
-        "AbilityCastRange"				"99999"
+	"item_mute_custom"
+	{
+		"BaseClass"						"item_datadriven"
+		"AbilityTextureName"			"custom/item_mute_custom"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY | DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityCastRange"				"99999"
 
-        "ItemQuality"					"artifact"
+		"ItemQuality"					"artifact"
 
-        "ItemInitialCharges"			"1"
-        "ItemStackable"					"0"
-        "ItemPermanent"					"0"
-        "ItemHideCharges"				"0"
-        "CastFilterRejectCaster" 		"1"
-        "IsTempestDoubleClonable"		"0"
-        "ShouldBeInitiallySuggested"	"1"
+		"ItemInitialCharges"			"1"
+		"ItemStackable"					"0"
+		"ItemPermanent"					"0"
+		"ItemHideCharges"				"0"
+		"CastFilterRejectCaster" 		"1"
+		"IsTempestDoubleClonable"		"0"
+		"ShouldBeInitiallySuggested"	"1"
 
-        "OnSpellStart"
-        {
-            "RunScript"
-            {
-                "ScriptFile"	"abilities/items/item_mute_custom.lua"
-                "Function"	    "OnSpellStartMute"
-            }
-        }
-    }
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"	"abilities/items/item_mute_custom.lua"
+				"Function"	    "OnSpellStartMute"
+			}
+		}
+	}
 
 	"item_patreon_courier"
 	{

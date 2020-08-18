@@ -88,191 +88,120 @@ function COverthrowGameMode:AddGoldenCoin(owner)
 end
 
 function COverthrowGameMode:SpecialItemAdd(owner)
-	local tier = {}
 
-	tier[1] =	{
-		"item_urn_of_shadows",
-		"item_ring_of_basilius",
-		"item_ring_of_aquila",
-		"item_arcane_boots",
-		"item_tranquil_boots",
-		"item_phase_boots",
-		"item_power_treads",
-		"item_medallion_of_courage",
-		"item_soul_ring",
-		"item_gem",
-		"item_orb_of_venom",
-
-		"item_grove_bow",
-		"item_imp_claw",
-		"item_nether_shawl",
-		"item_clumsy_net",
+	-- All available perks
+	local all_perks = {
+		"patreon_perk_mp_regen",
+		"patreon_perk_hp_regen",
+		"patreon_perk_bonus_movespeed",
+		"patreon_perk_bonus_agi",
+		"patreon_perk_bonus_str",
+		"patreon_perk_bonus_int",
+		"patreon_perk_bonus_all_stats",
+		"patreon_perk_attack_range",
+		"patreon_perk_bonus_hp_pct",
+		"patreon_perk_cast_range",
+		"patreon_perk_cooldown_reduction",
+		"patreon_perk_damage",
+		"patreon_perk_evasion",
+		"patreon_perk_lifesteal",
+		"patreon_perk_mag_resist",
+		"patreon_perk_spell_amp",
+		"patreon_perk_spell_lifesteal",
+		"patreon_perk_status_resistance",
+		"patreon_perk_outcomming_heal_amplify",
+		"patreon_perk_cleave",
+		"patreon_perk_cd_after_deadth",
+		"patreon_perk_manaburn"
 	}
 
-	tier[2] =	{
-		"item_blink",
-		"item_force_staff",
-		"item_cyclone",
-		"item_ghost",
-		"item_vanguard",
-		"item_mask_of_madness",
-		"item_blade_mail",
-		"item_helm_of_the_dominator_custom",
-		"item_vladmir",
-		"item_yasha",
-		"item_mekansm",
-		"item_hood_of_defiance",
-		"item_veil_of_discord",
-		"item_glimmer_cape",
+	-- Pick 3 random perks among the ones the hero doesn't have yet
+	local valid_perks = {}
 
-		"item_kaya",
-		"item_meteor_hammer",
+	for _, perk_name in pairs(all_perks) do
+		if not (owner:HasModifier(perk_name.."_t0") or owner:HasModifier(perk_name.."_t1") or owner:HasModifier(perk_name.."_t2")) then
+			table.insert(valid_perks, perk_name)
+		end
+	end
 
-		"item_enchanted_quiver",
-		"item_helm_of_the_undying",
-		"item_paladin_sword",
-		"item_mind_breaker",
-		"item_titan_sliver",
-	}
+	valid_perks = table.shuffled(valid_perks)
 
-	tier[3] =	{
-		"item_shivas_guard",
-		"item_sphere",
-		"item_diffusal_blade",
-		"item_maelstrom",
-		"item_basher",
-		"item_invis_sword",
-		"item_desolator",
-		"item_ultimate_scepter",
-		"item_bfury",
-		"item_pipe",
-		"item_heavens_halberd",
-		"item_crimson_guard",
-		"item_black_king_bar",
-		"item_bloodstone",
-		"item_lotus_orb",
-		"item_guardian_greaves",
-		"item_moon_shard",
-
-		"item_nullifier",
-		"item_aeon_disk",
-		"item_hurricane_pike",
-		"item_spirit_vessel",
-
-		"item_flicker",
-		"item_minotaur_horn",
-		"item_princes_knife",
-		"item_spell_prism",
-		"item_timeless_relic",
-	}
-
-	tier[4] =	{
-		"item_skadi",
-		"item_sange_and_yasha",
-		"item_greater_crit",
-		"item_sheepstick",
-		"item_orchid",
-		"item_heart",
-		"item_mjollnir",
-		"item_ethereal_blade",
-		"item_radiance",
-		"item_abyssal_blade",
-		"item_butterfly",
-		"item_monkey_king_bar",
-		"item_satanic",
-		"item_octarine_core",
-		"item_silver_edge",
-		"item_rapier",
-
-		"item_bloodthorn",
-
-		"item_fusion_rune",
-		"item_force_boots",
-		"item_trident",
-		"item_fallen_sky",
-		"item_mirror_shield",
-		"item_pirate_hat",
-		"item_woodland_striders",
-	}
-
-	local hero = owner:GetClassname()
 	local ownerTeam = owner:GetTeamNumber()
 	local sortedTeams = self:GetSortedTeams()
 
-	local item_tier = 1
+	local item_tier = 0
 
 	for i = 1, #sortedTeams do
 		if sortedTeams[i].team == ownerTeam then
-			if i <= (1 + math.max(#sortedTeams - 3, 0) / 3) then
-			elseif i >= (#sortedTeams - math.max(#sortedTeams - 3, 0) / 3) then
+
+			-- last third bonus
+			if i > math.floor(2 * #sortedTeams / 3) then
 				item_tier = item_tier + 1
-				print("+1 item tier: losing team")
-			else
-				--item_tier = item_tier + 1
-				--print("+1 item tier: not leading team")
+			end
+
+			-- middle of the pack bonus
+			if i > math.floor(#sortedTeams / 3) then
+				item_tier = item_tier + 1
 			end
 		end
 	end
 
-	if self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN * 3 / 4) then
-		item_tier = item_tier + 2
-		print("+2 item tier: close to end")
-	elseif self.leadingTeamScore >= (self.TEAM_KILLS_TO_WIN / 2) then
-		item_tier = item_tier + 1
-		print("+1 item tier: not far from end")
+	-- Present item choices to the player
+	local perk_choices = {}
+	for i = 1, 3 do
+		table.insert(perk_choices, table.remove(valid_perks))
+		perk_choices[i] = perk_choices[i].."_t"..item_tier
 	end
 
-	item_tier = math.min(item_tier, 4)
+	-- Gold choice
+	table.insert(perk_choices, "patreon_perk_bonus_gold".."_t"..item_tier)
 
-	local spawnedItem = {}
-	for i = 1, 4 do
-		while true do
-			local repeated_item = false
-			local potential_item = tier[item_tier][RandomInt(1, #tier[item_tier])]
-
-			if owner:HasItemInInventory(potential_item) then
-				repeated_item = true
-			end
-
-			for _, previous_item in pairs(spawnedItem) do
-				if previous_item == potential_item then
-					repeated_item = true
-				end
-			end
-
-			if not repeated_item then
-				spawnedItem[i] = potential_item
-				break
-			end
-		end
-	end
-
-	-- present item choices to the player
-	self:StartItemPick(owner, spawnedItem)
+	self:StartItemPick(owner, perk_choices)
 end
 
-function COverthrowGameMode:StartItemPick(owner, items)
+function COverthrowGameMode:StartItemPick(owner, choices)
 	if (not owner:IsRealHero()) and owner:GetOwnerEntity() then
 		owner = owner:GetOwnerEntity()
 	end
+
 	local player_id = owner:GetPlayerID()
 	if PlayerResource:IsValidPlayer(player_id) then
-		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "overthrow_item_choice", items)
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "overthrow_item_choice", choices)
 	end
+
+	COverthrowGameMode.current_treasure_chest_rewards[player_id] = choices
 end
 
 function COverthrowGameMode:FinishItemPick(keys)
 	local owner = EntIndexToHScript(keys.owner_entindex)
+	local player_id = owner:GetPlayerID()
 	local hero = owner:GetClassname()
 
-	-- Add the item to the inventory and broadcast
-	owner:AddItemByName(keys.item)
+	local perk = COverthrowGameMode.current_treasure_chest_rewards[player_id][tonumber(keys.slot)]
+
+	-- Add the chosen perk
+	print("chosen perk:")
+	print(perk)
+	if perk == "patreon_perk_bonus_gold_t0" then
+		owner:ModifyGold(1500, false, DOTA_ModifyGold_HeroKill)
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 1500, nil)
+	elseif perk == "patreon_perk_bonus_gold_t1" then
+		owner:ModifyGold(2500, false, DOTA_ModifyGold_HeroKill)
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 2500, nil)
+	elseif perk == "patreon_perk_bonus_gold_t2" then
+		owner:ModifyGold(3500, false, DOTA_ModifyGold_HeroKill)
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 3500, nil)
+	else 
+		owner:AddNewModifier(owner, nil, perk, {duration = -1})
+	end
+
 	EmitGlobalSound("powerup_04")
-	local overthrow_item_drop =
-	{
+
+	local overthrow_item_drop = {
 		hero_id = hero,
-		dropped_item = keys.item
+		dropped_item = perk
 	}
+
 	CustomGameEventManager:Send_ServerToAllClients( "overthrow_item_drop", overthrow_item_drop)
 end
 
@@ -410,6 +339,10 @@ function COverthrowGameMode:TreasureDrop( treasureCourier )
 	local drop = CreateItemOnPositionForLaunch( spawnPoint, newItem )
 	drop:SetForwardVector( treasureCourier:GetRightVector() ) -- oriented differently
 	newItem:LaunchLootInitialHeight( false, 0, 50, 0.25, spawnPoint )
+
+	COverthrowGameMode.current_chest = COverthrowGameMode.current_chest + 1
+	COverthrowGameMode.treasure_chest_spawns[COverthrowGameMode.current_chest] = newItem
+	newItem.spawn_number = COverthrowGameMode.current_chest
 
 	--Stop the particle effect
 	DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "stopplayendcap", "0", 0, self, self )
