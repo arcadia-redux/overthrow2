@@ -307,7 +307,8 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "dota_item_picked_up", Dynamic_Wrap( COverthrowGameMode, "OnItemPickUp"), self )
 	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
-
+	ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(COverthrowGameMode, 'OnLevelUp'), self)
+	
 	CustomGameEventManager:RegisterListener("overthrow_item_choice_made", Dynamic_Wrap(COverthrowGameMode, "FinishItemPick"))
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
@@ -1064,6 +1065,20 @@ function DoesHeroHasFreeSlot(unit)
 		end
 	end
 	return false
+end
+
+local no_points_levels = {
+	[17] = 1,
+	[19] = 1,
+	[21] = 1,
+	[22] = 1,
+}
+function COverthrowGameMode:OnLevelUp(keys)
+	local hero = EntIndexToHScript(keys.hero_entindex)
+	local level = keys.level
+	if no_points_levels[level] and hero:GetUnitName() == "npc_dota_hero_treant" then
+		hero:SetAbilityPoints(hero:GetAbilityPoints() + 1)
+	end
 end
 
 function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )

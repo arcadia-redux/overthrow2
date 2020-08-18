@@ -7,29 +7,6 @@ function capture_point_area:IsPurgable() return false end
 function capture_point_area:DestroyOnExpire() return false end
 
 ------------------------------------------------------------------------------
-function GetRandomPathablePositionWithin( vPos, nRadius, nMinRadius )
-	if IsServer() then
-		local nMaxAttempts = 10
-		local nAttempts = 0
-		local vTryPos = nil
-
-		if nMinRadius == nil then
-			nMinRadius = nRadius
-		end
-
-		repeat
-			vTryPos = vPos + RandomVector( RandomFloat( nMinRadius, nRadius ) )
-
-			nAttempts = nAttempts + 1
-			if nAttempts >= nMaxAttempts then
-				break
-			end
-		until ( GridNav:CanFindPath( vPos, vTryPos ) )
-
-		return vTryPos
-	end
-end
-------------------------------------------------------------------------------
 function capture_point_area:OnCreated()
 	if not IsServer() then return end	
 	local hParent = self:GetParent()
@@ -156,6 +133,7 @@ function capture_point_area:StartCapturePoint(nTeamNumber)
 		end
 	else
 		self.nRecaptutingTime = self.nRecaptutingTime - INTERVAL_THINK
+		self.nCaptureProgress = self.nCaptureProgress - INTERVAL_THINK
 		if self.nRecaptutingTime <= 0 then
 			self.nCaptureProgress = 0
 			self:SetRingColor(nTeamNumber)
