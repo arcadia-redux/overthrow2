@@ -5,6 +5,7 @@ local tTeamsItems = {}
 function capture_point_area:IsHidden() return false end
 function capture_point_area:IsPurgable() return false end
 function capture_point_area:DestroyOnExpire() return false end
+
 ------------------------------------------------------------------------------
 function capture_point_area:OnCreated()
 	if not IsServer() then return end	
