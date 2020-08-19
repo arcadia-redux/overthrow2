@@ -960,5 +960,7 @@
 		
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale"				"Caustic Finale"
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Броня уменьшена на %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
+		
+		"show_chat"	"Показать Чат"
 	}
 }
