@@ -6,6 +6,7 @@
     </styles>
 
     <scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/party_highlighter/party_highlighter.js" />
 		<include src="file://{resources}/scripts/custom_game/shared_scoreboard_updater.js" />
 		<include src="file://{resources}/scripts/custom_game/multiteam_end_screen.js" />
@@ -29,10 +30,16 @@
 				<Label class="LegendPanel ScoreCol_Items" text="#custom_end_screen_legend_items" />
 				<Label class="LegendPanel ScoreCol_Gold" text="#custom_end_screen_legend_gold" />
 			</Panel>
+			
 			<Panel id="TeamsContainer" />
-			<Button id="CloseButton" onactivate="Game.FinishGame();">
-				<Label text="#CustomEndScreenClose" />
-			</Button>
+			<Panel id="EndScreenButtons">
+				<Button id="ShowChatButton" class="FinalScoredoardButton" onactivate="ShowChatEndScreen()">
+					<Label text="#show_chat" />
+				</Button>
+				<Button id="CloseButton" onactivate="Game.FinishGame();" class="FinalScoredoardButton">
+					<Label text="#CustomEndScreenClose" />
+				</Button>
+			</Panel>
 		</Panel>
 	</Panel>
 </root>
