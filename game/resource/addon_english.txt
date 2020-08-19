@@ -64,8 +64,6 @@
 		"received_gift_1"											"Has been gifted a <font color='#ff4040'>level 1</font> subscription!"
 		"received_gift_2"											"Has been gifted a <font color='#40ff40'>level 2</font> subscription!"
 
-		"item_choice_header"										"Choose an item!"
-
 		"pre_battleground_victory"									""
 		"post_battleground_victory"									" wins!"
 
@@ -101,6 +99,12 @@
 		"DOTA_Tooltip_ability_item_core_pumpkin"		"Pumpkin"
 		"DOTA_Tooltip_modifier_core_pumpkin_regeneration"		"Pumpkin Regeneration"
 		"DOTA_Tooltip_modifier_core_pumpkin_regeneration_Description"		"Regenerates %dMODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE%%% health and %dMODIFIER_PROPERTY_MANA_REGEN_TOTAL_PERCENTAGE%%% mana per second."
+
+		"item_choice_header"							"Choose a prize!"
+		"patreon_perk_bonus_gold_t0_chest_tooltip"		"+1500 gold"
+		"patreon_perk_bonus_gold_t1_chest_tooltip"		"+2500 gold"
+		"patreon_perk_bonus_gold_t2_chest_tooltip"		"+3500 gold"
+		"DOTA_Chat_TreasureChest_Pinged"				"Let's fight for the Treasure Chest!"
 
 		"npc_dota_hero_necrolyte"			"Necrophos (Modified)"
 		"npc_dota_hero_riki"				"Riki (Modified)"
@@ -1057,5 +1061,7 @@
 		
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale"				"Caustic Finale"
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
+		
+		"show_chat"	"Show Chat"
 	}
 }

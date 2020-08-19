@@ -45,7 +45,7 @@ function OnItemDrop( msg )
 
 	$( "#PickupMessage_Hero_Text" ).SetDialogVariable("hero_id", getUnmodifiedHeroName(msg.hero_id));
 
-	$( "#PickupMessage_Item_Text" ).SetDialogVariable( "item_id", $.Localize( "#DOTA_Tooltip_Ability_"+msg.dropped_item ) );
+	$( "#PickupMessage_Item_Text" ).SetDialogVariable( "item_id", $.Localize( "#"+msg.dropped_item ) );
 
 	var hero_image_name = "file://{images}/heroes/" + msg.hero_id + ".png";
 	$( "#PickupMessage_Hero" ).SetImage( hero_image_name );
@@ -53,7 +53,7 @@ function OnItemDrop( msg )
 	var chest_image_name = "file://{images}/econ/tools/gift_lockless_luckbox.png";
 	$( "#PickupMessage_Chest" ).SetImage( chest_image_name );
 
-	var item_image_name = "file://{images}/items/" + msg.dropped_item.replace( "item_", "" ) + ".png"
+	var item_image_name = `file://{resources}/layout/custom_game/common/patreon/game_perk/icons/${msg.dropped_item}.png`;
 	$( "#PickupMessage_Item" ).SetImage( item_image_name );
 
 	$.Schedule( 5, ClearDropMessage );

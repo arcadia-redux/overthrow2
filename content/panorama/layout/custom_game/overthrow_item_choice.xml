@@ -7,18 +7,30 @@
 		<include src="file://{resources}/scripts/custom_game/overthrow_item_choice.js" />
 	</scripts>
 
-	<Panel hittest="false" class="item_choice_root" >
-		<Panel id="item_choice_container" >
-			<Label id="item_choice_label" text="#item_choice_header" />
+	<Panel hittest="false" class="perk_choice_root" >
+		<Panel id="perk_choice_container" >
+			<Label id="perk_choice_label" text="#item_choice_header" />
 
-			<Panel id="item_choice_row" >
-				<DOTAItemImage id="item_choice_1" class="item_choice" itemname="item_tpscroll" onmouseactivate="MakeItemChoice('1')" />
-				<DOTAItemImage id="item_choice_2" class="item_choice" itemname="item_tpscroll" onmouseactivate="MakeItemChoice('2')" />
-				<DOTAItemImage id="item_choice_3" class="item_choice" itemname="item_tpscroll" onmouseactivate="MakeItemChoice('3')" />
-				<DOTAItemImage id="item_choice_4" class="item_choice" itemname="item_tpscroll" onmouseactivate="MakeItemChoice('4')" />
+			<Panel id="perk_choice_row" >
+				<Panel class="perk_container" onmouseactivate="MakeChoice('1')" >
+					<Image id="perk_choice_1" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_mp_regen_t0.png"/>
+					<Label id="perk_text_1" class="perk_text" text="#patreon_perk_mp_regen_t0" />
+				</Panel>
+				<Panel class="perk_container" onmouseactivate="MakeChoice('2')" >
+					<Image id="perk_choice_2" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_hp_regen_t0.png"/>
+					<Label id="perk_text_2" class="perk_text" text="#patreon_perk_hp_regen_t0" />
+				</Panel>
+				<Panel class="perk_container" onmouseactivate="MakeChoice('3')" >
+					<Image id="perk_choice_3" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_movespeed_t0.png"/>
+					<Label id="perk_text_3" class="perk_text" text="#patreon_perk_bonus_movespeed_t0" />
+				</Panel>
+				<Panel class="perk_container" onmouseactivate="MakeChoice('4')" >
+					<Image id="perk_choice_4" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t0.png"/>
+					<Label id="perk_text_4" class="perk_text" text="#patreon_perk_bonus_gold_t0" />
+				</Panel>
 			</Panel>
 
-			<ProgressBar id="remaining_time" value="300" max="300" />
+			<ProgressBar id="remaining_time" value="420" max="420" />
 
 		</Panel>
 	</Panel>

@@ -637,3 +637,10 @@ if ( $.GetContextPanel().GetParent().id == "CustomUIContainer_EndScreen" ) {
 	isEndScreen = true
 	AddNewStatsInHeader( $( "#Header" ) )
 }
+
+function ShowChatEndScreen() {
+	const endScreenButtons = FindDotaHudElement("EndScreenButtons");
+	const endScreen = endScreenButtons.GetParent().GetChild(2)
+	endScreenButtons.ToggleClass("chat");
+	endScreen.ToggleClass("chat");
+}

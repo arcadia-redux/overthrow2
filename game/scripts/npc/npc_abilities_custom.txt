@@ -1224,4 +1224,18 @@
 			}
 		}
 	}
+
+	"treasure_chest_channel"
+	{
+		"BaseClass"						"ability_lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"AbilityTextureName"			"alchemist_goblins_greed"
+		"ScriptFile"					"items/item_treasure_chest"
+		"MaxLevel"						"1"
+
+		"AbilityCastRange"				"100"
+		"AbilityManaCost"				"0"
+
+		"AbilityChannelTime"			"3.0"
+	}
 }

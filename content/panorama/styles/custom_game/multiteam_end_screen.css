@@ -132,32 +132,37 @@
 	width: 100%;
 }
 
-#CloseButton
-{
+#EndScreenButtons {
+	width: 100%;
+	transition: transform 0.3s ease-in-out 0s;
+}
+.FinalScoredoardButton {
 	background-color: #121618;
 	border: 3px solid #4d5051;
-    margin-top: 18px;
-    horizontal-align: right;
+	margin-top: 10px;
+	horizontal-align: right;
 	vertical-align: bottom;
 	width: 200px;
 }
-
-#CloseButton:hover
-{
-	border: 3px solid white;
+#ShowChatButton {
+	horizontal-align: center;
 }
 
-#CloseButton Label
-{
-    horizontal-align: center;
+.FinalScoredoardButton:hover {
+	border: 3px solid #d4d4d4;
+}
+.FinalScoredoardButton:active {
+	brightness: 0.5;
+}
+.FinalScoredoardButton Label {
+	horizontal-align: center;
 	vertical-align: center;
 	color: #6f6f6f;
 	text-transform: uppercase;
 }
 
-#CloseButton:hover Label
-{
-	color: white;
+.FinalScoredoardButton:hover Label {
+	color: #d4d4d4;
 }
 
 .FlyoutScoreboardRoot.flyout_scoreboard_visible
@@ -169,8 +174,11 @@
 {
 	horizontal-align: right;
     flow-children: down;
+	transition: transform 0.3s ease-in-out 0s;
 }
-
+.chat {
+	transform: translatey(-390px);
+}
 .FlyoutTeam
 {
 	margin-top: 3px;

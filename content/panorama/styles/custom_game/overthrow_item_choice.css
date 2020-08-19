@@ -1,10 +1,10 @@
-.item_choice_root
+.perk_choice_root
 {
 	width: 100%;
 	height: 100%;
 }
 
-#item_choice_container
+#perk_choice_container
 {
 	horizontal-align: center;
 	vertical-align: bottom;
@@ -16,7 +16,7 @@
 	visibility: collapse;
 }
 
-#item_choice_label
+#perk_choice_label
 {
 	color: #ffffffff;
 	margin-top: 8px;
@@ -28,7 +28,7 @@
 	text-shadow: 1px 1px 8px 3.0 #000000FF;
 }
 
-#item_choice_row
+#perk_choice_row
 {
 	margin-left: 6px;
 	margin-right: 6px;
@@ -36,11 +36,36 @@
 	flow-children: right;
 }
 
-.item_choice
+.perk_container {
+	flow-children: down;
+}
+
+.perk_container:Hover {
+	brightness: 1.4;
+}
+
+.perk_choice
 {
+	align: center center;
 	margin-left: 4px;
 	margin-right: 4px;
 	height: 64px;
+	width: 64px;
+	border-radius: 6px;
+	border: 3px solid #121816D0;
+}
+
+.perk_text {
+	width: 120px;
+	text-align: center;
+	color: #ffffffff;
+	margin-top: 4px;
+	horizontal-align: center;
+	vertical-align: center;
+	font-size: 14;
+	font-weight: bold;
+	font-family: "DejaVu Sans";
+	text-shadow: 1px 1px 3px 2.0 #000000FF;
 }
 
 #remaining_time
