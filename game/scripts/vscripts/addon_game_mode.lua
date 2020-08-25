@@ -80,10 +80,10 @@ function Precache( context )
 
 		PrecacheUnitByNameSync( "npc_dota_treasure_courier", context )
 		PrecacheModel( "npc_dota_treasure_courier", context )
-	
+
 		PrecacheUnitByNameSync( "npc_dummy_capture", context )
 		PrecacheModel( "npc_dummy_capture", context )
-	
+
 	--Cache new particles
 	   	PrecacheResource( "particle", "particles/econ/events/nexon_hero_compendium_2014/teleport_end_nexon_hero_cp_2014.vpcf", context )
 	   	PrecacheResource( "particle", "particles/leader/leader_overhead.vpcf", context )
@@ -308,7 +308,7 @@ function COverthrowGameMode:InitGameMode()
 	ListenToGameEvent( "dota_npc_goal_reached", Dynamic_Wrap( COverthrowGameMode, "OnNpcGoalReached" ), self )
 	ListenToGameEvent( "player_chat", Dynamic_Wrap( COverthrowGameMode, "OnPlayerChat" ), self )
 	ListenToGameEvent('dota_player_gained_level', Dynamic_Wrap(COverthrowGameMode, 'OnLevelUp'), self)
-	
+
 	CustomGameEventManager:RegisterListener("overthrow_item_choice_made", Dynamic_Wrap(COverthrowGameMode, "FinishItemPick"))
 
 	Convars:RegisterCommand( "overthrow_force_item_drop", function(...) self:ForceSpawnItem() end, "Force an item drop.", FCVAR_CHEAT )
@@ -743,7 +743,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 			return
 		end
 	end
-	
+
 	local itemsToBeDestroy = {
 		["item_disable_help_custom"] = true,
 		["item_mute_custom"] = true,
@@ -766,7 +766,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 			end
 		end
 	end
-	
+
 	if orderType == DOTA_UNIT_ORDER_DROP_ITEM or orderType == DOTA_UNIT_ORDER_EJECT_ITEM_FROM_STASH then
 		if ability and itemsToBeDestroy[ability:GetAbilityName()] then
 			ability:Destroy()
@@ -820,7 +820,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 			end
 		end
 	end
-	
+
 	if orderType == 38 then
 		if ItemIsNeutral(ability:GetAbilityName()) then
 			if CheckCountOfNeutralItemsForPlayer(playerId) >= MAX_NEUTRAL_ITEMS_FOR_PLAYER then
@@ -829,7 +829,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 			end
 		end
 	end
-	
+
 	local disableHelpResult = DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
 	if disableHelpResult == false then
 		return false
@@ -876,11 +876,11 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 	if caster and parent and caster.bonusDebuffTime and (parent:GetTeamNumber() ~= caster:GetTeamNumber()) and filterTable.duration > 0 then
 		filterTable.duration = filterTable.duration/100*caster.bonusDebuffTime + filterTable.duration
 	end
-	
+
 	if parent and parent:GetUnitName() == "npc_dummy_inventory" and filterTable.name_const ~= "modifier_dummy_inventory_custom" then
 		return false
 	end
-	
+
 	return true
 end
 
@@ -1200,7 +1200,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 		if purchaser then
 			local prshID = purchaser:GetPlayerID()
 			local correctInventory = hInventoryParent:IsMainHero() or hInventoryParent:GetClassname() == "npc_dota_lone_druid_bear" or hInventoryParent:IsCourier()
-			
+
 			if (filterTable["item_parent_entindex_const"] > 0) and hItem and correctInventory then
 				if not purchaser:CheckPersonalCooldown(hItem) then
 					purchaser:RefundItem(hItem)
@@ -1217,7 +1217,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 			end
 		end
-		
+
 	end
 
 	if hItem and hItem.neutralDropInBase then
@@ -1231,7 +1231,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 			})
 		end
 	end
-	
+
 	return true
 end
 
@@ -2865,7 +2865,8 @@ SelectVO = function(keys)
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 			else
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown" })
+				local remaining_cd = " ("..string.format("%.1f", 5 + vousedcol[keys.PlayerID] - (GameRules:GetGameTime() - votimer[keys.PlayerID])).."s)"
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown"..remaining_cd })
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
