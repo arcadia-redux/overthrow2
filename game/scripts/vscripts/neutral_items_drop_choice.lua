@@ -6,19 +6,25 @@ function DropItem(data)
 	local itemName = item:GetName()
 	local player = PlayerResource:GetPlayer(data.PlayerID)
 	local team = player:GetTeam()
-	local teamTower
-	local towers = Entities:FindAllByName("npc_dota_tower")
+	local teamBeacon
+	local beacons
+	if GetMapName() == "core_quartet" then
+		beacons = Entities:FindAllByClassname("info_courier_spawn")
+	else
+		beacons = Entities:FindAllByName("npc_dota_tower")
+	end
 	
-	for _, tower in pairs(towers) do
-		if tower:GetTeam() == PlayerResource:GetTeam(data.PlayerID) then
-			teamTower = tower
+	for _, beacon in pairs(beacons) do
+		if beacon:GetTeam() == PlayerResource:GetTeam(data.PlayerID) then
+			teamBeacon = beacon
 		end
 	end
-	if not teamTower then return end
+	
+	if not teamBeacon then return end
 	local getRandomValue = function()
 		return (RandomInt(0, 1) * 2 - 1) * ( 50 + RandomInt(0, 120 - 50 ) )
 	end
-	local pos_item =  teamTower:GetAbsOrigin() + Vector(getRandomValue(), getRandomValue(), 0)
+	local pos_item =  teamBeacon:GetAbsOrigin() + Vector(getRandomValue(), getRandomValue(), 0)
 	CreateItemOnPositionSync(pos_item, item)
 	item.neutralDropInBase = true
 	CustomGameEventManager:Send_ServerToTeam(team, "neutral_item_dropped", { item = data.item, itemName = itemName})
