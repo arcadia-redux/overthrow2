@@ -631,10 +631,26 @@ function COverthrowGameMode:OnItemPickUp( event )
 		UTIL_Remove(item)
 	elseif event.itemname == "item_treasure_chest" then
 		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
-		if not owner:HasInventory() or owner:GetUnitName() == "npc_dota_hero_meepo" then
-			owner = PlayerResource:GetSelectedHeroEntity(owner:GetPlayerOwnerID())
-		end
-		COverthrowGameMode:SpecialItemAdd(owner)
+		local channel_ability = owner:AddAbility("treasure_chest_channel")
+		channel_ability:SetLevel(1)
+		owner.channeling_treasure = item.spawn_number
+
+		local newItem = CreateItem(event.itemname, nil, nil)
+		local drop = CreateItemOnPositionForLaunch(item:GetContainer():GetAbsOrigin(), newItem)
+		drop:SetForwardVector(item:GetContainer():GetForwardVector()) -- oriented differently
+		newItem:LaunchLootInitialHeight(false, 0, 0, 0.0, item:GetContainer():GetAbsOrigin())
+
+		COverthrowGameMode.treasure_chest_spawns[item.spawn_number] = newItem
+		newItem.spawn_number = item.spawn_number
+
+		Timers:CreateTimer(0.01, function()
+			ExecuteOrderFromTable({
+				UnitIndex = owner:entindex(),
+				OrderType = DOTA_UNIT_ORDER_CAST_NO_TARGET,
+				AbilityIndex = channel_ability:entindex(),
+			})
+		end)
+
 		UTIL_Remove(item)
 	elseif event.itemname == "item_core_pumpkin" then
 		for _, spawner in ipairs(self.pumpkin_spawns) do

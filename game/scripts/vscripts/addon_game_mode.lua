@@ -110,6 +110,7 @@ function Precache( context )
 
 	--Cache sounds for traps
 		PrecacheResource( "soundfile", "soundevents/soundevents_custom.vsndevts", context )
+		PrecacheResource( "soundfile", "soundevents/soundevents_world_custom.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/soundevents_conquest.vsndevts", context )
 		PrecacheResource( "soundfile", "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts", context )
@@ -336,6 +337,10 @@ function COverthrowGameMode:InitGameMode()
 		p3bonus[i] = false
 	end
 
+	self.treasure_chest_spawns = {}
+	self.current_chest = 0
+
+	self.current_treasure_chest_rewards = {}
 
 	self.pumpkin_spawns = {}
 	for _, entity in ipairs(Entities:FindAllByName("item_pumpkin_spawn")) do
@@ -798,19 +803,13 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 			return true
 		end
 
-		if itemName == "item_treasure_chest" then
-			local player = PlayerResource:GetPlayer(playerId)
-			local hero = player:GetAssignedHero()
-			if hero:GetNumItemsInInventory() <= DOTA_ITEM_SLOT_9 then
-				return true
-			else
-				local position = target:GetAbsOrigin()
-				filterTable["position_x"] = position.x
-				filterTable["position_y"] = position.y
-				filterTable["position_z"] = position.z
-				filterTable["order_type"] = DOTA_UNIT_ORDER_MOVE_TO_POSITION
-				return true
-			end
+		if itemName and itemName == "item_treasure_chest" and unit and unit:GetName() == "npc_dota_lone_druid_bear" then
+			local position = target:GetAbsOrigin()
+			filterTable["position_x"] = position.x
+			filterTable["position_y"] = position.y
+			filterTable["position_z"] = position.z
+			filterTable["order_type"] = DOTA_UNIT_ORDER_MOVE_TO_POSITION
+			return true
 		end
 
 		if ItemIsNeutral(itemName) then
