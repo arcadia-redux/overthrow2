@@ -2,7 +2,7 @@ modifier_item_bogduggs_cudgel = class({})
 
 --------------------------------------------------------------------------------
 
-function modifier_item_bogduggs_cudgel:IsHidden() 
+function modifier_item_bogduggs_cudgel:IsHidden()
 	return true
 end
 
@@ -34,7 +34,7 @@ function modifier_item_bogduggs_cudgel:OnCreated( kv )
 		if self.flAttackSpeedReduction == nil then
 			self.flAttackSpeedReduction = 0
 		end
-		
+
 		self.flAttackSpeedReduction = ( ( self:GetParent():GetAttackSpeed() + self.flAttackSpeedReduction ) * self.attack_speed_penalty_pct ) / 100
 	end
 end
@@ -42,7 +42,7 @@ end
 --------------------------------------------------------------------------------
 
 function modifier_item_bogduggs_cudgel:DeclareFunctions()
-	local funcs = 
+	local funcs =
 	{
 		MODIFIER_PROPERTY_STATS_STRENGTH_BONUS,
 		MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
@@ -56,7 +56,7 @@ end
 
 function modifier_item_bogduggs_cudgel:GetModifierBonusStats_Strength( params )
 	return self.bonus_strength
-end 
+end
 
 --------------------------------------------------------------------------------
 
@@ -70,9 +70,9 @@ function modifier_item_bogduggs_cudgel:GetModifierAttackSpeedBonus_Constant( par
 	if self.flAttackSpeedReduction == nil then
 		return 0
 	end
-	
+
 	return -self.flAttackSpeedReduction * 100
-end 
+end
 
 --------------------------------------------------------------------------------
 
@@ -80,7 +80,7 @@ function modifier_item_bogduggs_cudgel:OnAttackLanded( params )
 	if IsServer() then
 		local Attacker = params.attacker
 		local Target = params.target
-		
+
 		if Attacker ~= nil and Attacker == self:GetParent() and Attacker:IsRangedAttacker() == false and Target ~= nil then
 			EmitSoundOn( "OgreTank.GroundSmash.Lesser", Target )
 			local nFXIndex = ParticleManager:CreateParticle( "particles/creatures/ogre/ogre_melee_smash.vpcf", PATTACH_WORLDORIGIN, Attacker )
@@ -92,7 +92,7 @@ function modifier_item_bogduggs_cudgel:OnAttackLanded( params )
 			for _,enemy in pairs( enemies ) do
 				if enemy ~= nil and enemy:IsInvulnerable() == false then
 					if enemy ~= Target then
-						local damageInfo = 
+						local damageInfo =
 						{
 							victim = enemy,
 							attacker = Attacker,
@@ -111,8 +111,6 @@ function modifier_item_bogduggs_cudgel:OnAttackLanded( params )
 						ParticleManager:ReleaseParticleIndex( nFXIndex )
 
 						EmitSoundOn( "Dungeon.BloodSplatterImpact.Lesser", enemy )
-					else
-						enemy:AddNewModifier( Attacker, self:GetAbility(), "modifier_stunned", { duration = self.stun_duration } )
 					end
 				end
 			end
@@ -125,7 +123,7 @@ function modifier_item_bogduggs_cudgel:OnAttackLanded( params )
 		if self.flAttackSpeedReduction == nil then
 			self.flAttackSpeedReduction = 0
 		end
-		
+
 		self.flAttackSpeedReduction = ( ( self:GetParent():GetAttackSpeed() + self.flAttackSpeedReduction ) * self.attack_speed_penalty_pct ) / 100
 	end
 

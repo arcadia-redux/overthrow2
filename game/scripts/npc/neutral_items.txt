@@ -107,10 +107,12 @@
 			"item_wand_of_the_brine"		"1"
 			"item_watchers_gaze"			"1"
 			"item_stony_coat"				"1"
+			"item_repair_kit"				"1"
+			"item_spy_gadget"				"1"
 		}
 	}
 	"4"
-	{	
+	{
 		"drop_rates"
 		{
 			"37:00"
@@ -140,6 +142,7 @@
 			"item_unhallowed_icon"		"1"
 			"item_carapace_of_qaldin"	"1"
 			"item_rhyziks_eye"			"1"
+			"item_the_leveller"			"1"
 		}
 	}
 	"5"

@@ -1,4 +1,4 @@
-﻿"lang"
+"lang"
 {
 	"Language"		"English"
 	"Tokens"
@@ -185,7 +185,7 @@
 
 		"DOTA_Tooltip_modifier_devour_speed_aura_buff"				"#DOTA_Tooltip_modifier_kobold_taskmaster_speed_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_speed_aura_buff_Description"	"Movement speed increased."
-	
+
 
 		"DOTA_Tooltip_ability_devour_cloak_aura"							"#DOTA_Tooltip_ability_mudgolem_cloak_aura"
 		"DOTA_Tooltip_ability_devour_cloak_aura_Description"				"#DOTA_Tooltip_ability_mudgolem_cloak_aura_Description"
@@ -194,7 +194,7 @@
 
 		"DOTA_Tooltip_modifier_devour_cloak_aura_buff"					"#DOTA_Tooltip_modifier_mudgolem_cloak_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_cloak_aura_buff_Description"		"Magic resistance increased."
-	
+
 
 		"DOTA_Tooltip_ability_devour_endurance_aura"							"#DOTA_Tooltip_ability_centaur_khan_endurance_aura"
 		"DOTA_Tooltip_ability_devour_endurance_aura_Description"				"#DOTA_Tooltip_ability_centaur_khan_endurance_aura_Description"
@@ -203,7 +203,7 @@
 
 		"DOTA_Tooltip_modifier_devour_endurance_aura_buff"				"#DOTA_Tooltip_modifier_centaur_khan_endurance_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_endurance_aura_buff_Description"	"Attack speed increased."
-	
+
 
 		"DOTA_Tooltip_ability_devour_command_aura"							"#DOTA_Tooltip_ability_alpha_wolf_command_aura"
 		"DOTA_Tooltip_ability_devour_command_aura_Description"				"#DOTA_Tooltip_ability_alpha_wolf_command_aura_Description"
@@ -212,7 +212,7 @@
 
 		"DOTA_Tooltip_modifier_devour_command_aura_buff"				"#DOTA_Tooltip_modifier_alpha_wolf_command_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_command_aura_buff_Description"	"Damage increased."
-	
+
 
 		"DOTA_Tooltip_ability_devour_toughness_aura"						"#DOTA_Tooltip_ability_enraged_wildkin_toughness_aura"
 		"DOTA_Tooltip_ability_devour_toughness_aura_Description"			"#DOTA_Tooltip_ability_enraged_wildkin_toughness_aura_Description"
@@ -221,7 +221,7 @@
 
 		"DOTA_Tooltip_modifier_devour_toughness_aura_buff"				"#DOTA_Tooltip_modifier_enraged_wildkin_toughness_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_toughness_aura_buff_Description"	"Armor increased."
-	
+
 
 		"DOTA_Tooltip_ability_devour_unholy_aura"							"#DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura"
 		"DOTA_Tooltip_ability_devour_unholy_aura_Description"				"#DOTA_Tooltip_ability_satyr_hellcaller_unholy_aura_Description"
@@ -230,7 +230,7 @@
 
 		"DOTA_Tooltip_modifier_devour_unholy_aura_buff"				"#DOTA_Tooltip_modifier_satyr_hellcaller_unholy_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_unholy_aura_buff_Description"	"Health regeneration increased."
-	
+
 
 		"DOTA_Tooltip_ability_devour_mana_aura"							"#DOTA_Tooltip_ability_forest_troll_high_priest_mana_aura"
 		"DOTA_Tooltip_ability_devour_mana_aura_Description"				"#DOTA_Tooltip_ability_forest_troll_high_priest_mana_aura_Description"
@@ -239,11 +239,11 @@
 
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff"				"#DOTA_Tooltip_modifier_forest_troll_high_priest_mana_aura_bonus"
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"Mana Regeneration increased."
-		
+
 		"DOTA_Tooltip_ability_doom_bringer_doom"					"Doom (Modified)"
 		"DOTA_Tooltip_ability_doom_bringer_doom_Description"		"Inflicts a curse that dispels an enemy Hero and prevents an them from casting spells or using items, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown, duration and 3 charges</font>"
 
-		
+
 		"DOTA_Tooltip_ability_treant_overgrowth_Description"		"Inflicts a curse that dispels an enemy Hero and prevents an them from casting spells or using items, while taking damage over time.\n\nDISPEL TYPE: Basic Dispel\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown, duration and 3 charges</font>"
 
 		"DOTA_Tooltip_ability_treant_overgrowth"					"Overgrowth (Modified)"
@@ -294,7 +294,7 @@
 		"nopatreonerror"											"This item for Patrons only"
 		"nopatreonerror2"											"Only Hi-Level Patrons (25$) can use this item"
 		"notyettime"												"Cannot kick trolls in the first 5 minutes"
-		
+
 		"DOTA_Tooltip_modifier_silencer_new_int_steal"					"Stolen Intelligence"
 		"DOTA_Tooltip_modifier_silencer_new_int_steal_Description"		"Silencer steals intelligent when he kills or assists a kill."
 		"DOTA_Tooltip_ability_special_bonus_unique_silencer_2"			"+1 Intelligence Steal"
@@ -436,7 +436,7 @@
 
 		"fast_buy_items"					                            "Cannot Buy Yet"
 		"you_cannot_buy_more_items_this_type"							"You cannot buy more items this type"
-		
+
 		"cannotgiveiteminthiscourier"			                        "You cannot give item in this courier."
 		"alreadyhaveprivatecourier"			                            "You already have a private courier."
 		"DOTA_Tooltip_ability_item_patreon_courier"			            "Private Courier"
@@ -673,7 +673,7 @@
 		"patreon_perk_gpm_t2"					"Advanced Gold Per Minute"
 		"patreon_perk_gpm_t2_tooltip"			"+150 additional gold per minute"
 		"DOTA_Tooltip_patreon_perk_gpm_t2"		"Personal Perk: Gold Per Minute"
-		
+
 		"patreon_perk_str_for_kill_t0"								"Plush Butcher"
 		"patreon_perk_str_for_kill_t0_tooltip"						"+1 strength per kill"
 		"DOTA_Tooltip_patreon_perk_str_for_kill_t0"					"Personal Perk: Butcher"
@@ -768,9 +768,9 @@
 
 		"supporter_perks_high"						"High-Supporter Perks"
 		"supporter_perks_high_description"			"High Supporters have improved versions of common supporters personal perks"
-		
+
 		"cannot_see_perk_now"					"For now you don't know this player's personal perk"
-		
+
 		"leaderboard"			"Leaderboard"
 		"leaderboard_rank"		"Rank"
 		"leaderboard_player"	"Player"
@@ -779,53 +779,53 @@
 
 		"summer_feedback_link_header"			"Overthrow 2.0 Feedback Summer 2020"
 		"summer_feedback_open_in_browser"		"Open in browser"
-		
+
 		"npc_dummy_inventory"					"Dummy Inventory"
-		
+
 		"npc_dota_hero_nevermore"										"Shadow Fiend (Modified)"
 		"DOTA_Tooltip_ability_nevermore_necromastery"					"Necromastery (Modified)"
 		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"Shadow Fiend steals the soul from units he kills, gaining bonus damage. On death, he releases half of them from bondage.\n\n<font color='#70EA72'>In Overthrow Shadow Fiend will get 1 soul every <b>5</b> seconds.</font>"
-		
+
 		"npc_dota_hero_chen"												"Chen (Modified)"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"Soul Persuasion"
 		"DOTA_Tooltip_chen_soul_persuasion_passive"							"Soul Persuasion"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"				"<font color='#70EA72'>Chen periodically gain</font> %souls_per_second% <font color='#70EA72'>soul or</font> %souls_per_kill% <font color='#70EA72'>souls for kill enemy hero. Chen can summon random neutral creep on souls. Type of creep, manacost and cooldown depends on count of souls.</font><br><br><font color='#819af7'>LITTLE CREEP</font>: %souls_summon_little% souls, %cooldown_little%s cooldown, %manacost_little% manacost<br><font color='#9e63f7'>MIDDLE CREEP</font>: %souls_summon_middle% souls, %cooldown_middle%s cooldown, %manacost_middle% manacost<br><font color='#d52222'>BIG CREEP</font>: %souls_summon_big% souls, %cooldown_big%s cooldown, %manacost_big% manacost<br><font color='#f8c71b'>ANCIENT CREEP</font>: %souls_summon_ancient% souls, %cooldown_ancient%s cooldown, %manacost_ancient% manacost"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"				"LIMIT OF SOULS:"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_tick_rate"			"INTERVAL FOR GAIN SOULS:"
-		
+
 		"DOTA_Tooltip_ability_chen_soul_persuasion_aghanim_description"		"Chen summon several creeps for one cast ability"
 		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_with_aghanim" 	"CREEPS WITH SCEPTER:"
 
-		
+
 		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"		"{s:value} seconds for soul gain interval for Soul Persuasion"
-		
+
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} Soul Persuasion Minimum Health"
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value} Soul Persuasion Damage"
-		
+
 		"DOTA_Tooltip_ability_chen_divine_favor"					"Divine Favor (Modified)"
 		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"Passively provides an aura that grants increased health regeneration and amplifies all health restore by a percentage.\n\nCan be cast on allies to teleport them to Chen. If cast on Chen, all units controlled by Chen will be teleported to him. Taking damage will dispel the buff.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
 		"DOTA_Tooltip_ability_chen_hand_of_god"						"Hand of God (Modified)"
 		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"Heals all allied heroes on the map as well as all units under Chen's control.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
-		
+
 		"npc_dota_hero_treant"											"Treant Protector (Modified)"
 		"DOTA_Tooltip_ability_treant_natures_guise"						"Nature's Guise (Modified)"
 		"DOTA_Tooltip_ability_treant_natures_guise_Description"			"Provides Treant with Tree Walking whenever he hasn't taken damage for %cooldown_time% seconds. While active, Treant gains movement speed bonus and amplified healing and regeneration on himself.\n\n<font color='#70EA72'>In Overthrow, this ability has reduced cooldown</font>"
-		
+
 		"DOTA_Tooltip_ability_treant_living_armor"						"Living Armor (Modified)"
 		"DOTA_Tooltip_ability_treant_living_armor_Description"			"Infuses the target hero or structure with a protective coating which heals the target and provides bonus armor.\n\n<font color='#70EA72'>In Overthrow, this ability has doubled stats</font>"
-	
-	
+
+
 		"DOTA_Tooltip_Ability_treant_generating_tree"					"Life Seed"
 		"DOTA_Tooltip_treant_generating_tree_charges"					"Life Seed"
-		
+
 		"DOTA_Tooltip_Ability_treant_generating_tree_Description"		"<font color='#70EA72'>Place tree at a traget point.<br><br>If ability in auto-cast and Treant Protector has maximum charges of Life Seed, he will place tree in random place near him</font>"
-		
+
 		"DOTA_Tooltip_Ability_treant_generating_tree_max_charges"		"MAX CHARGES:"
 		"DOTA_Tooltip_Ability_treant_generating_tree_charge_cooldown"	"CHARGE COOLDOWN:"
 		"DOTA_Tooltip_Ability_treant_generating_tree_tree_duration"		"TREE LIFE TIME:"
-		
+
 		"npc_dummy_capture"	"Just Capture Point"
-		
+
 		"DOTA_Tooltip_Ability_item_ambient_sorcery"								"Ambient Sorcery"
 		"DOTA_Tooltip_Ability_item_ambient_sorcery_Description"					"<h1>Passive: Ambient Sorcery</h1>Reduces nearby units' magic resistance by %aura_magic_reduction%%."
 		"DOTA_Tooltip_ability_item_ambient_sorcery_Lore"						"A glowing orb stolen from an arcanist's tower."
@@ -842,7 +842,7 @@
 		"DOTA_Tooltip_modifier_item_bear_cloak_effect_Description"			"This unit has bonus magic resistance."
 
 		"DOTA_Tooltip_ability_item_bogduggs_cudgel"							"Bogdugg's Cudgel"
-		"DOTA_Tooltip_ability_item_bogduggs_cudgel_Description"				"<h1>Passive: Smash</h1>MELEE ONLY - All attack speed is halved, but attacks deal splash damage in a %damage_radius% area around the target and stun for %stun_duration% second.\n"
+		"DOTA_Tooltip_ability_item_bogduggs_cudgel_Description"				"<h1>Passive: Smash</h1>MELEE ONLY - All attack speed is halved, but attacks deal splash damage in a %damage_radius% area around the target.\n"
 		"DOTA_Tooltip_ability_item_bogduggs_cudgel_Lore"					"Bogdugg came to lord over Bonemeal Ridge by carrying the biggest stick."
 		"DOTA_Tooltip_ability_item_bogduggs_cudgel_bonus_strength"			"BONUS STRENGTH:"
 		"DOTA_Tooltip_ability_item_bogduggs_cudgel_bonus_damage"			"BONUS DAMAGE:"
@@ -1038,7 +1038,7 @@
 		"DOTA_Tooltip_Ability_item_wand_of_the_brine_bonus_intelligence"	"+$int"
 		"DOTA_Tooltip_Ability_item_wand_of_the_brine_bonus_mana_regen_pct"	"%+$mana_regen"
 
-		"DOTA_Tooltip_modifier_item_wand_of_the_brine_bubble"				"Brinefoam" 
+		"DOTA_Tooltip_modifier_item_wand_of_the_brine_bubble"				"Brinefoam"
 		"DOTA_Tooltip_modifier_item_wand_of_the_brine_bubble_Description"	"This unit is protected by Brinefoam.  Healing 300 hp/sec."
 
 		"DOTA_Tooltip_ability_item_watchers_gaze"							"Watcher's Gaze"
@@ -1051,17 +1051,17 @@
 		"DOTA_Tooltip_ability_item_winter_embrace_Lore"						"Who's the number one now?"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_intelligence"		"BONUS INTELLIGENCE:"
 		"DOTA_Tooltip_ability_item_winter_embrace_bonus_armor"				"BONUS ARMOR:"
-		
+
 		"inventory_full_custom_message"				"You cannot get item. Inventory is full"
 		"neutral_item_keep"							"Keep"
 		"neutral_item_drop"							"Drop on base"
 		"neutral_item_take"							"Take"
 		"player_still_have_a_lot_of_neutral_items"	"You still have 2 neutral items"
 		"unit_still_have_a_lot_of_neutral_items"	"Unit still have 2 neutral items"
-		
+
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale"				"Caustic Finale"
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
-		
+
 		"show_chat"	"Show Chat"
 	}
 }
