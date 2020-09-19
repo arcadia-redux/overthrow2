@@ -165,6 +165,19 @@ function COverthrowGameMode:OnNPCSpawned( event )
 
 	local owner = spawnedUnit:GetOwner()
 	local name = spawnedUnit:GetUnitName()
+
+	Timers:CreateTimer(0.1, function()
+		if spawnedUnit:IsTempestDouble() or spawnedUnit:IsClone()then
+			local playerId = spawnedUnit:GetPlayerOwnerID()
+			if _G.PlayersPatreonsPerk[playerId] then
+				local perkName = _G.PlayersPatreonsPerk[playerId]
+				spawnedUnit:AddNewModifier(spawnedUnit, nil, perkName, {duration = -1})
+				local mainHero = PlayerResource:GetSelectedHeroEntity(playerId)
+				local perkStacks = mainHero:GetModifierStackCount(perkName, mainHero)
+				spawnedUnit:SetModifierStackCount(perkName, nil, perkStacks)
+			end
+		end
+	end)
 	
 	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn and _G.lastHeroKillers[spawnedUnit] then
 		local killersTeam = _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()
@@ -253,6 +266,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			spawnedUnit:RemoveModifierByName('modifier_silencer_int_steal')
 			spawnedUnit:AddNewModifier(spawnedUnit, nil, "modifier_silencer_new_int_steal", {})
 		end
+		UniquePortraits:UpdatePortraitsDataFromPlayer(playerId)
 	end)
 
 	if GetMapName() == "desert_octet" and spawnedUnit:GetName() == "npc_dota_hero_warlock" then

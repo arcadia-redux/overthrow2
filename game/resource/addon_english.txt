@@ -590,7 +590,7 @@
 		"patreon_perk_lifesteal_t1"						"Lifesteal"
 		"patreon_perk_lifesteal_t1_tooltip"				"+8% Lifesteal"
 		"DOTA_Tooltip_patreon_perk_lifesteal_t1"		"Personal Perk: Lifesteal"
-		"patreon_perk_lifesteal_t2"						"Advanced Lifestel"
+		"patreon_perk_lifesteal_t2"						"Advanced Lifesteal"
 		"patreon_perk_lifesteal_t2_tooltip"				"+16% Lifesteal"
 		"DOTA_Tooltip_patreon_perk_lifesteal_t2"		"Personal Perk: Lifesteal"
 

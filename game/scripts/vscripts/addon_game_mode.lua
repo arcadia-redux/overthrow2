@@ -402,6 +402,8 @@ function COverthrowGameMode:InitGameMode()
 		false,
 		false
 	}
+
+	UniquePortraits:Init()
 end
 
 ---------------------------------------------------------------------------

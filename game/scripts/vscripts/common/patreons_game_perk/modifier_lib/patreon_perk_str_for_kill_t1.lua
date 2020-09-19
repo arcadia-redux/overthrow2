@@ -31,6 +31,7 @@ end
 --------------------------------------------------------------------------------
 
 function patreon_perk_str_for_kill_t1:GetModifierBonusStats_Strength()
+	if self:GetParent():HasModifier("modifier_meepo_divided_we_stand") then return end
 	return GetPerkValue(2, self, 1, 0)*self:GetStackCount()
 end
 
