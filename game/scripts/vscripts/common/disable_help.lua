@@ -42,6 +42,7 @@ local disabledAbilities = {
 	troll_warlord_battle_trance = true,
 	vengefulspirit_nether_swap = true,
 	pugna_decrepify = true,
+	pudge_dismember = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
