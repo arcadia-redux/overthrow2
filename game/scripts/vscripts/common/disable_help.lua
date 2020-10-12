@@ -43,6 +43,7 @@ local disabledAbilities = {
 	vengefulspirit_nether_swap = true,
 	pugna_decrepify = true,
 	pudge_dismember = true,
+	lycan_wolf_bite = true,
 }
 
 function DisableHelp.ExecuteOrderFilter(orderType, ability, target, unit)
