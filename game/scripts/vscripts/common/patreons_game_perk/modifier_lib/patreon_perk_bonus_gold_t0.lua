@@ -18,7 +18,9 @@ end
 --------------------------------------------------------------------------------
 function patreon_perk_bonus_gold_t0:OnCreated()
 	if not IsServer() then return end
-	self:GetParent():ModifyGold(GetPerkValue(200, self, 1, 0), true, 0)
+	local parent = self:GetParent()
+	if not parent:IsRealHero() or parent:IsClone() or parent:IsTempestDouble() then return end
+	parent:ModifyGold(GetPerkValue(200, self, 1, 0), true, 0)
 end
 ----------------------------------------------------------------------------------
 function patreon_perk_bonus_gold_t0:RemoveOnDeath()
