@@ -11,7 +11,7 @@ function COverthrowGameMode:ThinkGoldDrop()
 		if r > ( 100 - self.m_NeutralItemDropPercent ) then
 			self:SpawnDropInMiddle(DROP_NEUTRAL_ITEM)
 		end
-	end 
+	end
 end
 
 function COverthrowGameMode:SpawnDropInMiddle(nType)
@@ -22,7 +22,7 @@ function COverthrowGameMode:SpawnDropInMiddle(nType)
 		throwCoin = overBoss:FindAbilityByName( 'dota_ability_throw_coin' )
 		throwCoin2 = overBoss:FindAbilityByName( 'dota_ability_throw_coin_long' )
 	end
-	
+
 	overBoss.nDropType = nType
 	if throwCoin2 and RandomInt( 1, 100 ) > 80 then
 		overBoss:CastAbilityNoTarget( throwCoin2, -1 )
@@ -183,15 +183,15 @@ function COverthrowGameMode:FinishItemPick(keys)
 	print("chosen perk:")
 	print(perk)
 	if perk == "patreon_perk_bonus_gold_t0" then
+		owner:ModifyGold(1000, false, DOTA_ModifyGold_HeroKill)
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 1000, nil)
+	elseif perk == "patreon_perk_bonus_gold_t1" then
 		owner:ModifyGold(1500, false, DOTA_ModifyGold_HeroKill)
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 1500, nil)
-	elseif perk == "patreon_perk_bonus_gold_t1" then
-		owner:ModifyGold(2500, false, DOTA_ModifyGold_HeroKill)
-		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 2500, nil)
 	elseif perk == "patreon_perk_bonus_gold_t2" then
-		owner:ModifyGold(3500, false, DOTA_ModifyGold_HeroKill)
-		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 3500, nil)
-	else 
+		owner:ModifyGold(2000, false, DOTA_ModifyGold_HeroKill)
+		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 2000, nil)
+	else
 		owner:AddNewModifier(owner, nil, perk, {duration = -1})
 	end
 

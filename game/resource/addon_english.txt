@@ -101,9 +101,9 @@
 		"DOTA_Tooltip_modifier_core_pumpkin_regeneration_Description"		"Regenerates %dMODIFIER_PROPERTY_HEALTH_REGEN_PERCENTAGE%%% health and %dMODIFIER_PROPERTY_MANA_REGEN_TOTAL_PERCENTAGE%%% mana per second."
 
 		"item_choice_header"							"Choose a prize!"
-		"patreon_perk_bonus_gold_t0_chest_tooltip"		"+1500 gold"
-		"patreon_perk_bonus_gold_t1_chest_tooltip"		"+2500 gold"
-		"patreon_perk_bonus_gold_t2_chest_tooltip"		"+3500 gold"
+		"patreon_perk_bonus_gold_t0_chest_tooltip"		"+1000 gold"
+		"patreon_perk_bonus_gold_t1_chest_tooltip"		"+1500 gold"
+		"patreon_perk_bonus_gold_t2_chest_tooltip"		"+2000 gold"
 		"DOTA_Chat_TreasureChest_Pinged"				"Let's fight for the Treasure Chest!"
 
 		"npc_dota_hero_necrolyte"			"Necrophos (Modified)"
