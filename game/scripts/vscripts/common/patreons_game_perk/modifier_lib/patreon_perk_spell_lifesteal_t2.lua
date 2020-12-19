@@ -34,7 +34,7 @@ function patreon_perk_spell_lifesteal_t2:OnTakeDamage(params)
 	if params.infilctor or DOTA_DAMAGE_CATEGORY_ATTACK == params.damage_category then return end
 	local lifestealPct = GetPerkValue(8, self, 1, 0)
 	local attacker = params.attacker
-	local steal = params.damage * (lifestealPct/100)
+	local steal = math.max(1, params.damage * (lifestealPct/100))
 	attacker:Heal(steal, self)
 	local particle = ParticleManager:CreateParticle("particles/generic_gameplay/generic_lifesteal.vpcf", PATTACH_OVERHEAD_FOLLOW, params.attacker)
 	ParticleManager:SetParticleControl(particle, 0, params.attacker:GetAbsOrigin())

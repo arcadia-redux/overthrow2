@@ -47,7 +47,7 @@ function patreon_perk_agi_for_kill_t0:OnHeroKilled(keys)
 	local killerID = keys.attacker:GetPlayerOwnerID()
 	if killerID and killerID == self:GetParent():GetPlayerOwnerID() then
 		self:IncrementStackCount()
-		self:GetParent():CalculateStatBonus()
+		self:GetParent():CalculateStatBonus(false)
 	end
 end
 --------------------------------------------------------------------------------
