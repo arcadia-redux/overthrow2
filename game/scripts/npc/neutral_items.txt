@@ -29,7 +29,6 @@
 			"item_third_eye"			"1"
 			"item_phoenix_ash"			"1"
 			"item_winter_embrace"		"1"
-			"item_longclaws_amulet"		"1"
 			"item_ogre_seal_totem"		"1"
 			"item_oblivions_locket"		"1"
 			"item_precious_egg"			"1"

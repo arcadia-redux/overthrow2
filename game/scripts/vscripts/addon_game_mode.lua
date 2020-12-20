@@ -291,6 +291,7 @@ function COverthrowGameMode:InitGameMode()
 	GameRules:GetGameModeEntity():SetModifyGoldFilter( Dynamic_Wrap( COverthrowGameMode, "ModifyGoldFilter" ), self )
 	GameRules:GetGameModeEntity():SetRuneSpawnFilter( Dynamic_Wrap( COverthrowGameMode, "RuneSpawnFilter" ), self )
 	GameRules:GetGameModeEntity():SetDamageFilter( Dynamic_Wrap( COverthrowGameMode, "DamageFilter" ), self )
+	GameRules:GetGameModeEntity():SetModifyExperienceFilter( Dynamic_Wrap(COverthrowGameMode, "FilterModifyExperience" ), self )
 	GameRules:GetGameModeEntity():SetPauseEnabled(IsInToolsMode())
 	GameRules:GetGameModeEntity():SetFreeCourierModeEnabled(true)
 
@@ -438,6 +439,22 @@ function COverthrowGameMode:DamageFilter(event)
 	return true
 end
 
+function COverthrowGameMode:FilterModifyExperience( event )
+	local hero = EntIndexToHScript(event.hero_entindex_const)
+	
+	if hero and hero.IsTempestDouble and hero:IsTempestDouble() then
+		return false
+	end
+	
+	return true
+end
+
+function CDOTA_BaseNPC_Hero:AddExperienceCustom(xp, reason, applyBotDifficultyScaling, incrementTotal)
+	if self:IsTempestDouble() then
+		return
+	end
+	self:AddExperience(xp, reason, applyBotDifficultyScaling, incrementTotal)
+end
 ---------------------------------------------------------------------------
 -- Set up fountain regen
 ---------------------------------------------------------------------------

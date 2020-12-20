@@ -62,7 +62,7 @@ if IsServer() then
 		local xp = ability:GetSpecialValueFor("aura_xp")
 		local gold = ability:GetSpecialValueFor("aura_gold")
 		parent:ModifyGold(gold, false, 0)
-		parent:AddExperience(xp, 0, false, false)
+		parent:AddExperienceCustom(xp, 0, false, false)
 	end
 end
 
@@ -120,6 +120,6 @@ if IsServer() then
 		local xp = ability:GetSpecialValueFor("aura_xp")
 		local gold = ability:GetSpecialValueFor("aura_gold")
 		parent:ModifyGold(gold, false, 0)
-		parent:AddExperience(xp, 0, false, false)
+		parent:AddExperienceCustom(xp, 0, false, false)
 	end
 end

@@ -538,7 +538,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 			if killedUnit:GetTeam() == self.leadingTeam and self.isGameTied == false then
 				local memberID = hero:GetPlayerID()
 				PlayerResource:ModifyGold( memberID, 500, true, 0 )
-				hero:AddExperience( 100, 0, false, false )
+				hero:AddExperienceCustom( 100, 0, false, false )
 				local name = hero:GetClassname()
 				local victim = killedUnit:GetClassname()
 				local kill_alert =
@@ -548,7 +548,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 				CustomGameEventManager:Send_ServerToAllClients( "kill_alert", kill_alert )
 			else
 				if GetMapName() ~= "core_quartet" then
-					hero:AddExperience( 50, 0, false, false )
+					hero:AddExperienceCustom( 50, 0, false, false )
 				end
 			end
 		end
@@ -559,7 +559,7 @@ function COverthrowGameMode:OnEntityKilled( event )
 			for i = 0, killedUnit:GetNumAttackers() - 1 do
 				if attacker == killedUnit:GetAttacker( i ) then
 					--print("Granting assist xp")
-					attacker:AddExperience( 25, 0, false, false )
+					attacker:AddExperienceCustom( 25, 0, false, false )
 				end
 			end
 		end

@@ -54,7 +54,7 @@ if IsServer() then
 		local gold = ability:GetSpecialValueFor("aura_gold")
 		if parent:IsRealHero() then
 			parent:ModifyGold(gold, false, 0)
-			parent:AddExperience(xp, 0, false, false)
+			parent:AddExperienceCustom(xp, 0, false, false)
 		end
 	end
 end
