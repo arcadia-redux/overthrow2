@@ -2496,4 +2496,9 @@
 			}
 		}
 	}
+	
+	"item_aghanims_shard"
+	{
+		"ItemInitialStockTime"			"0"
+	}
 }
