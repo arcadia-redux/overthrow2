@@ -2499,6 +2499,6 @@
 	
 	"item_aghanims_shard"
 	{
-		"ItemInitialStockTime"			"0"
+		"ItemInitialStockTime"			"420"
 	}
 }
