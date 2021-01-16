@@ -1063,5 +1063,9 @@
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
 
 		"show_chat"	"Show Chat"
+		
+		"warning"				"Warning"
+		"warning_server_error"	"We have some problems with our servers for now.\n--\nWe made every effort to quickly fix the problem. But this can take some time anyway.\n--\nYou can have problems with benefits for supporting and mmr calculating."
+
 	}
 }

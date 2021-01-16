@@ -1,0 +1,21 @@
+<root>
+	<styles>
+		<include src="file://{resources}/layout/custom_game/common/ingame_warning/ingame_warning.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/ingame_warning/ingame_warning.js" />
+	</scripts>
+
+	<Panel class="IngameWarningRoot" hittest="false">
+		<Panel id="WarningIngame_server" class="WarningIngame">
+			<Panel class="WarningHeaderRoot">
+				<Label text="#warning"/>
+				<Panel class="WarningClose" onactivate="CloseWarning('WarningIngame_server')"/>
+			</Panel>
+			<Panel class="WarningTextRoot">
+				<Label class="WarningText" text="#warning_server_error"/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>
