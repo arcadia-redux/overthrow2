@@ -441,11 +441,11 @@ end
 
 function COverthrowGameMode:FilterModifyExperience( event )
 	local hero = EntIndexToHScript(event.hero_entindex_const)
-	
+
 	if hero and hero.IsTempestDouble and hero:IsTempestDouble() then
 		return false
 	end
-	
+
 	return true
 end
 
@@ -1316,6 +1316,7 @@ SelectVO = function(keys)
 		"faceless_void",
 		"grimstroke",
 		"gyrocopter",
+		"hoodwink",
 		"huskar",
 		"invoker",
 		"wisp",
@@ -2051,6 +2052,16 @@ SelectVO = function(keys)
 				"gyrocopter_gyro_deny_05",
 				"gyrocopter_gyro_kill_15",
 				"gyrocopter_gyro_kill_02",
+				},
+				{
+				"hoodwink_hoodwink_wheel_laugh_04",
+				"hoodwink_hoodwink_wheel_thanks_02_02",
+				"hoodwink_hoodwink_wheel_deny_01",
+				"hoodwink_hoodwink_net_hit_12",
+				"hoodwink_hoodwink_kill_23",
+				"hoodwink_hoodwink_levelup_26",
+				"hoodwink_hoodwink_attack_25",
+				"hoodwink_hoodwink_lasthit_03",
 				},
 				{
 				"huskar_husk_laugh_09",
