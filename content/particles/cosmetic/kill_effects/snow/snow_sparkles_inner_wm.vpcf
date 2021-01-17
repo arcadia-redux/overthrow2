@@ -1,0 +1,124 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 100
+	m_ConstantColor = [ 0, 3, 15, 255 ]
+	m_nBehaviorVersion = 5
+	m_nFirstMultipleOverride_BackwardCompat = 7
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 64.0
+			}
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_RandomLifeTime"
+			m_fLifetimeMin = 0.5
+			m_fLifetimeMax = 0.6
+		},
+		{
+			_class = "C_INIT_RandomAlpha"
+		},
+		{
+			_class = "C_INIT_RandomSequence"
+			m_nSequenceMax = 63
+			m_nSequenceMin = 15
+		},
+		{
+			_class = "C_INIT_RandomColor"
+			m_nFieldOutput = "22"
+			m_ColorMax = [ 255, 214, 114 ]
+			m_ColorMin = [ 244, 187, 46 ]
+			m_TintMin = [ 0, 0, 0 ]
+			m_TintMax = [ 255, 255, 255 ]
+		},
+		{
+			_class = "C_INIT_CreateFromParentParticles"
+		},
+		{
+			_class = "C_INIT_RandomYaw"
+		},
+		{
+			_class = "C_INIT_RandomColor"
+			m_ColorMax = [ 169, 214, 255 ]
+			m_ColorMin = [ 255, 255, 255 ]
+			m_TintMin = [ 0, 0, 0 ]
+			m_TintMax = [ 255, 255, 255 ]
+		},
+		{
+			_class = "C_INIT_InheritFromParentParticles"
+			m_nFieldOutput = "1"
+		},
+		{
+			_class = "C_INIT_InheritFromParentParticles"
+			m_flScale = 0.25
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_BasicMovement"
+		},
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_FadeOutSimple"
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flEndTime = 0.9
+			m_flBias = 0.35
+			m_flEndScale = 0.0
+		},
+		{
+			_class = "C_OP_InheritFromParentParticles"
+			m_nFieldOutput = "0"
+		},
+		{
+			_class = "C_OP_InheritFromParentParticles"
+			m_nFieldOutput = "2"
+		},
+		{
+			_class = "C_OP_RampScalarLinear"
+			m_nField = "4"
+			m_RateMin = -5.0
+			m_RateMax = 5.0
+		},
+		{
+			_class = "C_OP_RampScalarLinear"
+			m_nField = "12"
+			m_RateMin = -8.0
+			m_RateMax = 8.0
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderSprites"
+			m_bBlendFramesSeq0 = false
+			m_flAnimationRate = 0.0
+			m_vecTexturesInput = 
+			[
+				{
+					m_hTexture = resource:"materials/particle/impact/fleks3.vtex"
+				},
+			]
+			m_OutlineColor = [ 255, 255, 255 ]
+		},
+	]
+}

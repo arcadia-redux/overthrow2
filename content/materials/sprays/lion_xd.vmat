@@ -1,0 +1,7 @@
+Layer0
+{
+	shader "projected_dota.vfx"
+	F_USE_COLOR_TEXTURE_ALPHA_CHANNEL 1
+	TextureColor "panorama/images/custom_game/collection/Sprays/lion_xd_spray.png"
+	g_flOverbrightFactor "1.000"
+}

@@ -1,240 +1,157 @@
-var cosmeticAbilityOverrideImages = {}
-var cosmeticAbilities = {
-	"high_five": true,
-	"seasonal_ti9_banner": true,
-	"seasonal_summon_cny_balloon": true,
-	"seasonal_summon_dragon": true,
-	"seasonal_summon_cny_tree": true,
-	"seasonal_firecrackers": true,
-	"seasonal_ti9_shovel": true,
-	"seasonal_ti9_instruments": true,
-	"seasonal_ti9_monkey": true,
-	"seasonal_summon_ti9_balloon": true,
-	"seasonal_throw_snowball": true,
-	"seasonal_festive_firework": true,
-	"seasonal_decorate_tree": true,
-	"seasonal_summon_snowman": true
-}
-var permanentAbilitySlots = {
-	"high_five": 4,
-	"seasonal_ti9_banner": 5
-}
-var abilitiesToTake = [
-	"seasonal_summon_cny_balloon",
-	"seasonal_summon_dragon",
-	"seasonal_summon_cny_tree",
-	"seasonal_firecrackers",
-	"seasonal_ti9_shovel",
-	"seasonal_ti9_instruments",
-	"seasonal_ti9_monkey",
-	"seasonal_summon_ti9_balloon",
-	"seasonal_throw_snowball",
-	"seasonal_festive_firework",
-	"seasonal_decorate_tree",
-	"seasonal_summon_snowman"
-]
-var ABILITIES_CANT_BE_REMOVED = {
-	"high_five": true,
-	"seasonal_ti9_banner": true,
-}
-
-var abilitySlots = []
-var abilityAnimations = {}
-
-function Ability( slot, abilityName ) {
-	this.abilityName = abilityName
-
-	var image_path = cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png"
-
-	this.image = $.CreatePanel( "Image", slot.panel, "Image" )
-	this.image.SetImage( image_path )
-
-	this.image.SetPanelEvent( "onactivate", function() {
-		if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
-			var ability = Entities.GetAbilityByName( currentUnit, abilityName )
-
-			if ( Abilities.IsActivated( ability ) ) {
-				Abilities.ExecuteAbility( ability, currentUnit, false )
-			} else {
-				GameEvents.SendCustomGameEventToServer( "cosmetic_abilities_try_activate", { unit: currentUnit, ability: abilityName } )
+const cosmeticAbilityOverrideImages = {
+	high_five_custom: "file://{images}/spellicons/consumables/high_five.png",
+	seasonal_ti9_banner: "file://{images}/spellicons/consumables/seasonal_ti9_banner_2.png",
+	default_cosmetic_ability: "file://{images}/custom_game/collection/default_cosmetic_ability.png",
+	spray_custom: "file://{images}/custom_game/collection/spray_empty.png",
+};
+let dummyCaster = -1;
+const ABILITIES_DEFAULT_ACTION = {
+	high_five_custom: () => {
+		CastAbilityByDummy("high_five_custom");
+	},
+	default_cosmetic_ability: () => {
+		GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
+			category: "CosmeticAbilities",
+		});
+	},
+	spray_custom: () => {
+		GameEvents.SendEventClientSide("battlepass_inventory:open_specific_collection", {
+			category: "Sprays",
+		});
+	},
+};
+function CastAbilityByDummy(abilityName) {
+	if (dummyCaster > -1) {
+		let ability;
+		for (let i = 0; i < Entities.GetAbilityCount(dummyCaster); i++) {
+			if (Entities.GetAbility(dummyCaster, i) > -1) {
+				const _ability = Entities.GetAbility(dummyCaster, i);
+				const _abilityName = Abilities.GetAbilityName(_ability);
+				if (_abilityName == abilityName) ability = _ability;
 			}
 		}
-	} )
-
-	var panel = this.image
-
-	this.image.SetPanelEvent( "onmouseover", function() {
-		$.DispatchEvent( "DOTAShowAbilityTooltip", panel, abilityName )
-	} )
-	this.image.SetPanelEvent( "onmouseout", function() {
-		$.DispatchEvent( "DOTAHideAbilityTooltip", panel )
-	} )
-
-	this.cooldown = $.CreatePanel( "Panel", this.image, "Cooldown" )
-	this.cooldownEffect = $.CreatePanel( "Panel", this.cooldown, "CooldownEffect" )
-	this.cooldownEffect.style["opacity-mask"] = "url( '" + image_path + "' )"
-	this.cooldownCountdown = $.CreatePanel( "Label", this.cooldown, "CooldownCountdown" )
-
-	if ( !ABILITIES_CANT_BE_REMOVED[abilityName] ) {
-		var deleteButton = $.CreatePanel( "Button", this.image, "DeleteButton" )
-
-		deleteButton.SetPanelEvent( "onactivate", function() {
-			if ( Entities.IsControllableByPlayer( currentUnit, Players.GetLocalPlayer() ) ) {
-				GameEvents.SendCustomGameEventToServer( "cosmetics_remove_ability", { unit: currentUnit, ability: abilityName } )
-			}
-		} )
-	} 
-
-	this.Update = function() {
-		var ability = Entities.GetAbilityByName( currentUnit, this.abilityName )
-
-		if ( !Abilities.IsCooldownReady( ability ) ) {
-			var remaining = Abilities.GetCooldownTimeRemaining( ability )
-			var progress = remaining / Abilities.GetCooldownLength( ability ) * -360
-
-			this.cooldown.style.visibility = "visible"
-			this.cooldownEffect.style.clip = "radial( 50% 75%, 0deg, " + progress + "deg )"
-			this.cooldownCountdown.text = Math.ceil( remaining )
-		} else {
-			this.cooldown.style.visibility = "collapse"
-		}
-	}
-
-	this.Delete = function() {
-		this.image.DeleteAsync( 0 )
-	}
-}
-
-function AbilitySlot( parent, index, style ) {
-	this.panel = $.CreatePanel( "Panel", parent, "Slot" + index )
-	this.panel.AddClass( style )
-
-	this.Update = function() {
-		if ( this.content && this.content.Update ) {
-			this.content.Update()
-		}
-	}
-
-	this.Clear = function() {
-		if ( this.content ) {
-			this.content.Delete()
-			this.content = null
-		}
-	}
-
-	this.AddContent = function( content ) {
-		this.Clear()
-		this.content = content
-	}
-}
-
-function ReloadAbilities() {
-	currentUnit = Players.GetLocalPlayerPortraitUnit()
-
-	for ( i in abilitySlots ) {
-		var slot = abilitySlots[i]
-		slot.Clear()
-	}
-
-	var visible_abilities = 0
-
-	for ( var i = 0; i < Entities.GetAbilityCount( currentUnit ); i++ ) {
-		var ability = Entities.GetAbility( currentUnit, i )
-		var name = Abilities.GetAbilityName( ability )
-
-		if ( !Abilities.IsHidden( ability ) && i < 6 ) {
-			visible_abilities++
-		}
-
-		if ( cosmeticAbilities[name] ) {
-			var permSlot = permanentAbilitySlots[name]
-
-			if ( permSlot ) {
-				abilitySlots[permSlot].AddContent( new Ability( abilitySlots[permSlot], name ) )
+		if (ability) {
+			if (!Abilities.IsCooldownReady(ability)) {
+				GameEvents.SendEventClientSide("dota_hud_error_message", {
+					splitscreenplayer: 0,
+					reason: 80,
+					message: "dota_cursor_cooldown_no_time",
+				});
 			} else {
-				for ( s in abilitySlots ) {
-					var slot = abilitySlots[s]
+				const oldSelectedUnit = Players.GetSelectedEntities(Game.GetLocalPlayerID());
+				GameUI.SelectUnit(dummyCaster, false);
+				Abilities.ExecuteAbility(ability, dummyCaster, false);
+				oldSelectedUnit.forEach((ent, index) => {
+					GameUI.SelectUnit(ent, index != 0);
+				});
+			}
+		}
+	}
+}
 
-					if ( !slot.content ) {
-						slot.AddContent( new Ability( slot, name ) )
-						break
-					}
+function UpdateCosmeticSpray(data) {
+	const spray = FindDotaHudElement("CustomAbility_spray_custom");
+	const isEmptySpray = data.spray == "";
+	spray
+		.FindChildTraverse("CosmeticAbilityImage")
+		.SetImage(
+			isEmptySpray
+				? cosmeticAbilityOverrideImages.spray_custom
+				: "file://{images}/custom_game/collection/spray_no_empty.png",
+		);
+
+	spray.SetPanelEvent(
+		"onactivate",
+		isEmptySpray
+			? ABILITIES_DEFAULT_ACTION.spray_custom
+			: () => {
+					CastAbilityByDummy("spray_custom");
+			  },
+	);
+}
+function UpdateCosmeticAbility(data) {
+	_CreateCustomAbility(FindDotaHudElement("CustomAbility_default_cosmetic_ability"), data.ability);
+}
+function _CreateCustomAbility(ability, abilityName) {
+	const image_path =
+		cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png";
+
+	ability.cooldownEffect.style["opacity-mask"] = "url( '" + image_path + "' )";
+	ability.FindChildTraverse("CosmeticAbilityImage").SetImage(image_path);
+	ability.SetPanelEvent("onmouseover", () => {
+		$.DispatchEvent("DOTAShowAbilityTooltip", ability, abilityName);
+	});
+	ability.SetPanelEvent("onmouseout", () => {
+		$.DispatchEvent("DOTAHideAbilityTooltip", ability);
+	});
+	if (ABILITIES_DEFAULT_ACTION[abilityName]) {
+		ability.SetPanelEvent("onactivate", ABILITIES_DEFAULT_ACTION[abilityName]);
+	} else {
+		ability.SetPanelEvent("onactivate", () => {
+			CastAbilityByDummy(abilityName);
+		});
+	}
+}
+function _StartTrackAbilitiesCooldown(dummyEntIndex) {
+	for (let i = 0; i < Entities.GetAbilityCount(dummyEntIndex); i++) {
+		if (Entities.GetAbility(dummyEntIndex, i) > -1) {
+			const ability = Entities.GetAbility(dummyEntIndex, i);
+			let abilityName = Abilities.GetAbilityName(ability);
+			if (abilityName != "high_five_custom" && abilityName != "spray_custom")
+				abilityName = "default_cosmetic_ability";
+			const abilityPanel = FindDotaHudElement("CustomAbility_" + abilityName);
+			if (abilityPanel == undefined) continue;
+			if (!Abilities.IsCooldownReady(ability)) {
+				if (abilityPanel.maxCooldown == null) {
+					abilityPanel.maxCooldown = Abilities.GetCooldownLength(ability);
 				}
+				const remaining = Abilities.GetCooldownTimeRemaining(ability);
+				const progress = (remaining / abilityPanel.maxCooldown) * -360;
+				abilityPanel.cooldownRoot.visible = true;
+				abilityPanel.cooldownEffect.style.clip = "radial( 50% 75%, 0deg, " + progress + "deg )";
+				abilityPanel.cooldownValue.text = Math.ceil(remaining);
+			} else {
+				abilityPanel.maxCooldown = null;
+				abilityPanel.cooldownRoot.visible = false;
 			}
 		}
 	}
+	$.Schedule(0.1, () => {
+		_StartTrackAbilitiesCooldown(dummyEntIndex);
+	});
+}
+function UpdateCosmeticDummy(data) {
+	const dummyEntIndex = data.ent;
+	dummyCaster = dummyEntIndex;
+	_StartTrackAbilitiesCooldown(dummyEntIndex);
+}
+(function () {
+	$.Msg("Qwerty");
+	const centerBlock = FindDotaHudElement("center_block");
+	let cosmetics = centerBlock.FindChildTraverse("BarOverItems");
 
-	if ( Entities.IsRealHero( currentUnit ) ) {
-		$( "#CosmeticMenu" ).style.visibility = "visible"
-	} else {
-		$( "#CosmeticMenu" ).style.visibility = "collapse"
+	if (cosmetics) {
+		cosmetics.DeleteAsync(0);
 	}
 
-	if ( visible_abilities > 4 ) {
-		$( "#BarOverAbilities" ).AddClass( "FiveAbilities" )
-	} else {
-		$( "#BarOverAbilities" ).RemoveClass( "FiveAbilities" )
-	}
-}
+	Object.entries(ABILITIES_DEFAULT_ACTION).forEach(([abilityName, action]) => {
+		const ability = $.CreatePanel("Button", FindDotaHudElement("BarOverItems"), "CustomAbility_" + abilityName);
+		ability.BLoadLayoutSnippet("CosmeticAbility");
+		ability.SetPanelEvent("onactivate", action);
+		ability.cooldownEffect = ability.FindChildTraverse("CooldownEffect");
+		ability.cooldownValue = ability.FindChildTraverse("CooldownValue");
+		ability.cooldownRoot = ability.FindChildTraverse("CooldownRoot");
+		_CreateCustomAbility(ability, abilityName);
+	});
 
-function UpdateAbilities() {
-	if ( Players.GetLocalPlayerPortraitUnit() != currentUnit ) {
-		ReloadAbilities()
-	} else {
-		for ( i in abilitySlots ) {
-			var slot = abilitySlots[i]
-			slot.Update()
-		}
+	if (!cosmetics) {
+		$("#BarOverItems").SetParent(centerBlock);
 	}
 
-	$.Schedule( 1 / 60, UpdateAbilities )
-}
-
-for ( var i = 0; i < 7; i++ ) {
-	if ( i > 3 ) { 
-		abilitySlots[i] = new AbilitySlot( $( "#BarOverItems" ), i, "SlotOverItems" )
-	} else {
-		abilitySlots[i] = new AbilitySlot( $( "#BarOverAbilities" ), i, "SlotOverAbility" )
-	}
-
-}
-
-function CreateAbilityToTake( row, abilityName ) {
-	var image = $.CreatePanel( "Image", row, "ImagePreview" )
-	image.SetImage( cosmeticAbilityOverrideImages[abilityName] || "file://{images}/spellicons/consumables/" + abilityName + ".png")
-
-	image.SetPanelEvent( "onactivate", function() {
-		GameEvents.SendCustomGameEventToServer( "cosmetics_add_ability", { unit: currentUnit, ability: abilityName } )
-	} )
-
-	image.SetPanelEvent( "onmouseover", function() {
-		var preview = $( "#PreviewImage" )
-
-		preview.SetImage( "file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/" + abilityName + ".png" )
-		preview.SetHasClass( "Visible", true )
-
-		$.DispatchEvent( "DOTAShowAbilityTooltip", image, abilityName )
-	} )
-
-	image.SetPanelEvent( "onmouseout", function() {
-		var preview = $( "#PreviewImage" )
-
-		preview.SetImage( "" )
-		preview.SetHasClass( "Visible", false )
-
-		$.DispatchEvent( "DOTAHideAbilityTooltip", image )
-	} )
-}
-
-function CreateAbilitiesToTake() {
-	var abilities_row = null
-
-	for ( var i = 0; i < abilitiesToTake.length; i++ ) {
-		if ( i % 4 == 0 ) {
-			abilities_row = $.CreatePanel( "Panel", $( "#AbilitiesContainer" ), "" )
-			abilities_row.AddClass( "AbilitiesRow" )
-		}
-
-		CreateAbilityToTake( abilities_row, abilitiesToTake[i] )
-	}
-}
+	FindDotaHudElement("buffs").style.transform = "translateY( -43px )";
+	FindDotaHudElement("debuffs").style.transform = "translateY( -43px )";
+	GameEvents.Subscribe("cosmetic_abilities:update_ability", UpdateCosmeticAbility);
+	GameEvents.Subscribe("cosmetic_abilities:update_dummy_tracking", UpdateCosmeticDummy);
+	GameEvents.Subscribe("cosmetic_abilities:update_spray", UpdateCosmeticSpray);
+	GameEvents.SendCustomGameEventToServer("cosmetic_abilities:get_dummy_caster", {});
+})();

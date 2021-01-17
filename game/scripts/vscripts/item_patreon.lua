@@ -22,8 +22,8 @@ function OnSpellStartBundle( event )
     local item3 = event.Item3
     local item4 = event.Item4
     if caster:IsRealHero() then
-        local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
-        if psets.level > 0 then
+        local supporter_level = Supporters:GetLevel(caster:GetPlayerID())
+        if supporter_level > 0 then
             ability:RemoveSelf()
             caster:AddItemByName(item1)
             caster:AddItemByName(item2)
@@ -40,11 +40,11 @@ function OnSpellStartBanHammer( event )
     local caster = event.caster
     local ability = event.ability
     if caster:IsRealHero() then
-        local psets = Patreons:GetPlayerSettings(caster:GetPlayerID())
-        if psets.level > 1 then
+        local supporter_level = Supporters:GetLevel(caster:GetPlayerID())
+        if supporter_level > 1 then
             if target:IsRealHero() then
-                local ptsets = Patreons:GetPlayerSettings(target:GetPlayerID())
-                if ptsets.level == 0 then
+                local supporter_target_level = Supporters:GetLevel(target:GetPlayerID())
+                if supporter_target_level == 0 then
                     local uniqueKey = caster:GetEntityIndex() .. "_" .. target:GetEntityIndex()
                     if not _G.alertsKickForPlayer[uniqueKey] then
                         _G.alertsKickForPlayer[uniqueKey] = true

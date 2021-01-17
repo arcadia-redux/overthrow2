@@ -95,7 +95,7 @@ end
 -------------------------------------------------------------------------
 
 function CDOTA_Item:ItemIsFastBuying(playerId)
-	return fastItems[self:GetName()] or (Patreons:GetPlayerSettings(playerId).level > 0)
+	return fastItems[self:GetName()] or (Supporters:GetLevel(playerId) > 0)
 end
 
 -------------------------------------------------------------------------
@@ -160,7 +160,7 @@ function CreateDummyInventoryForPlayer(playerId, unit)
 	if PlayerResource:GetPlayer(playerId).dummyInventory then
 		PlayerResource:GetPlayer(playerId).dummyInventory:Kill(nil, nil)
 	end
-	
+
 	local startPointSpawn = unit:GetAbsOrigin() + (RandomFloat(100, 100))
 	local dInventory = CreateUnitByName("npc_dummy_inventory", startPointSpawn, true, unit, unit, PlayerResource:GetTeam(playerId))
 	dInventory:SetControllableByPlayer(playerId, true)

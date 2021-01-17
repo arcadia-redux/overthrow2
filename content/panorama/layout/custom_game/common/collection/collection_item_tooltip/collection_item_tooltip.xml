@@ -1,0 +1,34 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection_item_tooltip/collection_item_tooltip.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/payments_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection_item_tooltip/collection_item_tooltip.js" />
+	</scripts>
+	<Panel class="DotaUItemTooltipRoot" hittest="false" hittestchildren="false" ontooltiploaded="setTooltip()">
+		<Label id="TooltipName" html="true"/>
+		<Label id="RarityLabel"/>
+		<Panel id="MainInfo">
+			<Label id="RarityText" html="true"/>
+			<Label id="CategoryText" html="true"/>
+		</Panel>
+		<Label class="TooltipSeparator"/>
+		<Panel id="SourceValueWrap">
+			<Label id="SourceValueLine"/>
+			<Label id="SourceValue" html="true"/>
+		</Panel>
+		<Panel id="SourceBorder">
+			<Panel id="SourceOverlay"/>
+			<Image id="SourceImage" src="file://{resources}/images/custom_game/collection/Treasures/treasure_common.png"/>
+		</Panel>
+		<Label id="SourceName" html="true"/>
+		<Label class="TooltipSeparator"/>
+		<Label id="Description"/>
+	</Panel>
+</root>

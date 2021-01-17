@@ -1,0 +1,62 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 0
+	m_flConstantRadius = 10.0
+	m_nBehaviorVersion = 10
+	m_nFirstMultipleOverride_BackwardCompat = 1
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 3
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 255.0, 255.0, 255.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 1
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+			m_previewState = 
+			{
+				m_previewModel = "models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged.vmdl"
+				m_sequenceName = "idle"
+				m_hitboxSetName = "default"
+			}
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/cosmetic/kill_effects/red_whirl/red_whirl_bg.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/kill_effects/red_whirl/red_whirl_deny_symbol.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/kill_effects/red_whirl/red_whirl_body.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/kill_effects/red_whirl/red_whirl_body_fire.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/kill_effects/red_whirl/red_whirl_ember.vpcf"
+		},
+	]
+}

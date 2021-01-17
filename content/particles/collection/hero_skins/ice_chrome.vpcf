@@ -1,0 +1,83 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 1
+	m_nInitialParticles = 1
+	m_flConstantRadius = 0.0
+	m_ConstantColor = [ 0, 0, 0, 255 ]
+	m_nConstantSequenceNumber = 1
+	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_StatusEffect"
+			m_specularColor = [ 63, 220, 248 ]
+			m_rimLightColor = [ 48, 149, 226 ]
+			m_nDetail2Combo = "DETAIL_2_COMBO_MUL"
+			m_flColorWarpIntensity = 1.0
+			m_flSpecularScale = 3.0
+			m_flSpecularExponent = 1.0
+			m_flSpecularExponentBlendToFull = 1.0
+			m_flSpecularBlendToFull = 1.0
+			m_flRimLightScale = 2.0
+			m_flReflectionsTintByBaseBlendToNone = 0.0
+			m_flMetalnessBlendToFull = 0.8
+			m_flSelfIllumBlendToFull = 0.0
+		},
+		{
+			_class = "C_INIT_RandomScalar"
+			m_flMin = -1.0
+			m_flMax = -1.0
+			m_nFieldOutput = "16"
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_RampScalarLinearSimple"
+			m_flEndTime = 0.25
+			m_Rate = 1.0
+			m_nField = "7"
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_OFF"
+		},
+		{
+			_class = "C_OP_OscillateScalar"
+			m_nField = "3"
+			m_RateMin = -4.0
+			m_RateMax = 4.0
+			m_bProportional = false
+			m_flEndTime_min = 99999.0
+			m_flEndTime_max = 99999.0
+		},
+		{
+			_class = "C_OP_ClampScalar"
+			m_flOutputMax = 4.0
+			m_flOutputMin = 2.0
+		},
+		{
+			_class = "C_OP_RampScalarLinearSimple"
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_ON"
+			m_nField = "7"
+			m_Rate = -2.0
+			m_flEndTime = 0.25
+		},
+		{
+			_class = "C_OP_AlphaDecay"
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_ON"
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderStatusEffect"
+			m_pTextureColorWarp = resource:"materials/models/heroes/statuseffects/colorwarp_icechrome.vtex"
+		},
+	]
+}

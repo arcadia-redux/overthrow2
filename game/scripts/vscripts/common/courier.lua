@@ -86,11 +86,11 @@ end
 
 function SearchCorrectCourier(playerID, team)
 	local currentCourier
-	local psets = Patreons:GetPlayerSettings(playerID)
+	local supporter_level = Supporters:GetLevel(playerID)
 	if _G.trollList[playerID] then
 		return {}
 	end
-	if psets.level > 1 and _G.personalCouriers[playerID] and _G.personalCouriers[playerID]:IsAlive() and (not _G.personalCouriers[playerID]:IsStunned()) then
+	if supporter_level > 1 and _G.personalCouriers[playerID] and _G.personalCouriers[playerID]:IsAlive() and (not _G.personalCouriers[playerID]:IsStunned()) then
 		currentCourier = _G.personalCouriers[playerID]
 	elseif _G.mainTeamCouriers[team] and _G.mainTeamCouriers[team]:IsAlive() and (not _G.mainTeamCouriers[team]:IsStunned()) then
 		currentCourier = _G.mainTeamCouriers[team]

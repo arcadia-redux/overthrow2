@@ -1,0 +1,143 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 1
+	m_bShouldSort = false
+	m_nBehaviorVersion = 10
+	m_nFirstMultipleOverride_BackwardCompat = 8
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_InstantaneousEmitter"
+			m_nParticlesToEmit = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 1.0
+			}
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_CreateWithinSphere"
+		},
+		{
+			_class = "C_INIT_RandomNamedModelSequence"
+			m_bModelFromRenderer = true
+			m_names = 
+			[
+				"spawn",
+			]
+			m_nFieldOutput = "13"
+		},
+		{
+			_class = "C_INIT_RandomScalar"
+			m_flMin = -0.85
+			m_flMax = -0.85
+			m_nFieldOutput = "20"
+		},
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMin = 3.0
+			m_flRadiusMax = 3.0
+		},
+		{
+			_class = "C_INIT_RandomRotation"
+			m_flDegreesMax = 0.0
+			m_flDegrees = 180.0
+			m_nFieldOutput = "12"
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_SetToCP"
+			m_vecOffset = [ 2.0, 0.0, 20.0 ]
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flEndTime = 0.25
+			m_flStartScale = 0.0
+		},
+		{
+			_class = "C_OP_EndCapTimedDecay"
+			m_flDecayTime = 3.0
+		},
+		{
+			_class = "C_OP_RemapNamedModelSequenceOnceTimed"
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_OFF"
+			m_flRemapTime = 0.466667
+			m_bModelFromRenderer = true
+			m_inNames = 
+			[
+				"spawn",
+			]
+			m_outNames = 
+			[
+				"wave_v1",
+			]
+			m_nFieldInput = "13"
+			m_nFieldOutput = "13"
+		},
+		{
+			_class = "C_OP_RemapNamedModelSequenceEndCap"
+			m_bModelFromRenderer = true
+			m_inNames = 
+			[
+				"wave_v1",
+			]
+			m_outNames = 
+			[
+				"hanging",
+			]
+			m_nFieldInput = "13"
+			m_nFieldOutput = "13"
+		},
+		{
+			_class = "C_OP_EndCapTimedDecay"
+		},
+		{
+			_class = "C_OP_LerpEndCapScalar"
+			m_flOutput = 0.0
+		},
+		{
+			_class = "C_OP_SetControlPointsToModelParticles"
+			m_AttachmentName = "attach_palm"
+			m_nFirstControlPoint = 1
+			m_bAttachment = true
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderModels"
+			m_ModelList = 
+			[
+				{
+					m_model = resource:"models/props_consumables/high_five/high_five_cat_paw.vmdl"
+				},
+			]
+			m_bOrientZ = true
+			m_bAnimated = true
+			m_bOverrideTranslucentMaterials = false
+			m_bResetAnimOnStop = true
+			m_bForceLoopingAnimation = true
+		},
+	]
+}

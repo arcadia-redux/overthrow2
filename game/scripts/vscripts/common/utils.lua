@@ -30,6 +30,21 @@ function string.starts(s, start)
 	return string.sub(s, 1, #start) == start
 end
 
+function string.trim(s)
+	return s:match'^()%s*$' and '' or s:match'^%s*(.*%S)'
+end
+
+function string.split(inputstr, separator)
+	if separator == nil then
+		separator = "%s"
+	end
+	local t={}
+	for str in string.gmatch(inputstr, "([^"..separator.."]+)") do
+		table.insert(t, str)
+	end
+	return t
+end
+
 function table.includes(t, value)
 	for _, v in pairs(t) do
 		if v == value then
@@ -64,6 +79,19 @@ function table.contains(t, v)
 			return true
 		end
 	end
+end
+
+function table.print(t, i)
+	if not i then i = 0 end
+	if not t then return end
+    for k, v in pairs(t) do
+    	if type(v) == "table" then
+    		print(string.rep(" ", i) .. k .. " : ")
+    		table.print(v, i+1)
+    	else
+        	print(string.rep(" ", i) .. k, v)
+        end
+    end
 end
 
 function table.random(t)

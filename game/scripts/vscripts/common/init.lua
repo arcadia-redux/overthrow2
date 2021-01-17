@@ -1,14 +1,14 @@
 require("common/timers")
 require("common/utils")
-require("common/match_events")
-require("common/webapi")
-require("common/patreons")
+require("common/webapi/init")
+--require("common/match_events")
+--require("common/webapi")
+--require("common/patreons")
 require("common/courier")
 
 require("common/items_limits")
 require("common/disable_help")
 require("common/smart_random")
-require("common/cosmetic_abilities")
 require("common/patreons_game_perk/patreon_game_perk")
 require("common/unique_portraits")
 

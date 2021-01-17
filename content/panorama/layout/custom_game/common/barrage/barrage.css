@@ -1,0 +1,355 @@
+@keyframes 'BulletMove' {
+	0% {
+		transform: translateX(1920px);
+	}
+	100% {
+		transform: translateX(-800px);
+	}
+}
+
+@keyframes 'maskedAnimation' {
+	0% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#f22),
+			color-stop(0.15, #f2f),
+			color-stop(0.3, #22f),
+			color-stop(0.45, #2ff),
+			color-stop(0.6, #2f2),
+			color-stop(0.75, #2f2),
+			color-stop(0.9, #ff2),
+			to(#f22)
+		);
+	}
+	12% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#f22),
+			color-stop(0.15, #f22),
+			color-stop(0.3, #f2f),
+			color-stop(0.45, #22f),
+			color-stop(0.6, #2ff),
+			color-stop(0.75, #2f2),
+			color-stop(0.9, #2f2),
+			to(#ff2)
+		);
+	}
+	24% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#ff2),
+			color-stop(0.15, #f22),
+			color-stop(0.3, #f22),
+			color-stop(0.45, #f2f),
+			color-stop(0.6, #22f),
+			color-stop(0.75, #2ff),
+			color-stop(0.9, #2f2),
+			to(#2f2)
+		);
+	}
+
+	36% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#2f2),
+			color-stop(0.15, #ff2),
+			color-stop(0.3, #f22),
+			color-stop(0.45, #f22),
+			color-stop(0.6, #f2f),
+			color-stop(0.75, #22f),
+			color-stop(0.9, #2ff),
+			to(#2f2)
+		);
+	}
+
+	48% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#2f2),
+			color-stop(0.15, #2f2),
+			color-stop(0.3, #ff2),
+			color-stop(0.45, #f22),
+			color-stop(0.6, #f22),
+			color-stop(0.75, #f2f),
+			color-stop(0.9, #22f),
+			to(#2ff)
+		);
+	}
+	60% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#2ff),
+			color-stop(0.15, #2f2),
+			color-stop(0.3, #2f2),
+			color-stop(0.45, #ff2),
+			color-stop(0.6, #f22),
+			color-stop(0.75, #f22),
+			color-stop(0.9, #f2f),
+			to(#22f)
+		);
+	}
+
+	72% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#22f),
+			color-stop(0.15, #2ff),
+			color-stop(0.3, #2f2),
+			color-stop(0.45, #2f2),
+			color-stop(0.6, #ff2),
+			color-stop(0.75, #f22),
+			color-stop(0.9, #f22),
+			to(#f2f)
+		);
+	}
+
+	84% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#f2f),
+			color-stop(0.15, #22f),
+			color-stop(0.3, #2ff),
+			color-stop(0.45, #2f2),
+			color-stop(0.6, #2f2),
+			color-stop(0.75, #ff2),
+			color-stop(0.9, #f22),
+			to(#f22)
+		);
+	}
+
+	100% {
+		color: gradient(
+			linear,
+			0% 0%,
+			100% 0%,
+			from(#f22),
+			color-stop(0.15, #f2f),
+			color-stop(0.3, #22f),
+			color-stop(0.45, #2ff),
+			color-stop(0.6, #2f2),
+			color-stop(0.75, #2f2),
+			color-stop(0.9, #ff2),
+			to(#f22)
+		);
+	}
+}
+
+@keyframes 'fizzy' {
+	0% {
+		text-shadow: 0 0 6px #fe0702;
+	}
+	9% {
+		text-shadow: 0 0 6px #ff4103;
+	}
+	18% {
+		text-shadow: 0 0 6px #fe8005;
+	}
+	27% {
+		text-shadow: 0 0 6px #ffbf08;
+	}
+	36% {
+		text-shadow: 0 0 6px #ffff07;
+	}
+	45% {
+		text-shadow: 0 0 6px #80ff0f;
+	}
+	54% {
+		text-shadow: 0 0 6px #04ff0f;
+	}
+	63% {
+		text-shadow: 0 0 6px #01faff;
+	}
+	72% {
+		text-shadow: 0 0 6px #0000fe;
+	}
+	81% {
+		text-shadow: 0 0 6px #7d04ff;
+	}
+	90% {
+		text-shadow: 0 0 6px #fe05ff;
+	}
+	100% {
+		text-shadow: 0 0 6px #fe0980;
+	}
+}
+
+.BulletPanel {
+	height: 40px;
+	font-size: 35px;
+	flow-children: right;
+	animation-name: BulletMove;
+	animation-duration: 20s;
+	animation-timing-function: linear;
+}
+
+.barrage_siltbreaker Label {
+	text-shadow: 0px 0px 2px 2 #000;
+	font-family: Goudy Trajan Medium, FZKai-Z03, TH Sarabun New, YDYGO 540;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#acc7ce), color-stop(0.2, #08536a), to(#04ffd4));
+}
+
+.barrage_diretide Label {
+	text-shadow: 0px 0px 8px 1 #cbd4ad55;
+	font-family: titleFont;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#fff27f), to(#bae816));
+}
+
+.barrage_new_bloom Label {
+	font-family: titleFont;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#85302e), color-stop(0.45, #c44745), to(#ffae69));
+	text-shadow: 2px 2px 4px black;
+}
+
+.barrage_planet_fall Label {
+	color: gradient(linear, 0% 0%, 100% 0%, from(#ffffff), to(#54efff));
+	font-family: "Goudy Trajan";
+	font-weight: bold;
+	text-shadow: 1px 1px 4px 3 #84e4e520;
+}
+
+.barrage_flockheart_gamble Label {
+	color: gradient(linear, 0% 0%, 0% 100%, from(#ffffff), to(#fdd045));
+	font-family: "Goudy Trajan";
+	font-weight: bold;
+	text-shadow: 1px 1px 12px 3 #492d1f;
+}
+
+.barrage_rain_bow_barrage Label {
+	color: gradient(
+		linear,
+		0% 0%,
+		100% 0%,
+		from(#147b96),
+		color-stop(0.25, #e6d205),
+		color-stop(0.5, #147b96),
+		color-stop(0.75, #e6d205),
+		to(#147b96)
+	);
+	animation-name: maskedAnimation;
+	animation-duration: 5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+.barrage_neon Label {
+	color: white;
+	animation-name: fizzy;
+	animation-duration: 5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+.barrage_rubick_key Label {
+	color: gradient(linear, 0% 0%, 100% 0%, from(#d9fcc2), to(#52a12a));
+	text-shadow: 0px 0px 6px #d9fcc240;
+	font-weight: bold;
+}
+
+.barrage_frostivus_2019 Label {
+	color: white;
+	font-weight: semi-bold;
+	letter-spacing: 2px;
+	text-shadow: 0px 0px 10px #3883ff, 0px 0px 8px #3883ff;
+}
+
+.barrage_new_bloom_2021 Label {
+	font-family: radiance;
+	color: gradient(linear, 0% 0%, 0% 100%, from(#85302e), color-stop(0.45, #c44745), to(#85302e));
+	letter-spacing: 2px;
+	text-shadow: 1px 1px 4px rgba(0, 0, 0, 1);
+	brightness: 2;
+}
+/*#TestFont {*/
+/*	align: center center;*/
+/*	width: 300px;*/
+/*	height: 300px;*/
+/*	font-size: 100px;*/
+/*	background-color: #212121;*/
+/*	text-align: center;*/
+/*	padding-top: 90px;*/
+/*}*/
+.Default Label {
+	color: white;
+}
+
+#PlayerFinsh {
+	font-size: 35px;
+}
+#RoundOrder {
+	font-size: 35px;
+}
+#PlayerName {
+	font-size: 35px;
+}
+
+#GoldValue {
+	font-size: 35px;
+	color: #ffcc33ff;
+}
+
+#Plus {
+	font-size: 35px;
+}
+
+#GoldIcon {
+	background-image: url("s2r://panorama/images/hud/reborn/gold_small_psd.vtex");
+	background-size: 100% 100%;
+	width: 40px;
+	height: 40px;
+}
+
+#Round {
+	font-size: 35px;
+}
+
+#RoundNumber {
+	font-size: 35px;
+}
+
+#Finished {
+	font-size: 35px;
+}
+
+#Colon {
+	font-size: 35px;
+}
+
+#Content {
+	font-size: 35px;
+}
+
+.Content {
+	font-size: 35px;
+}
+
+.TeamLogo {
+	height: 40px;
+	width: 40px;
+}
+
+.TeamLogo Image {
+	height: 40px;
+	width: 40px;
+}
+
+#TeamName {
+	font-size: 35px;
+}
+#HeroIcon {
+	margin-top: 4px;
+}

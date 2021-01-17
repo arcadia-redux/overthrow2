@@ -1,0 +1,58 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 1
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 3
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_PreEmissionOperators = 
+	[
+		{
+			_class = "C_OP_SetSingleControlPointPosition"
+			m_vecCP1Pos = [ 0.0, 0.0, 100.0 ]
+			m_nCP1 = 3
+		},
+		{
+			_class = "C_OP_SetControlPointRotation"
+			m_nCP = 3
+			m_flRotRate = 35.0
+			m_vecRotAxis = [ 1.0, 0.0, 1.0 ]
+		},
+		{
+			_class = "C_OP_SetControlPointRotation"
+			m_vecRotAxis = [ 1.0, 0.0, 0.0 ]
+			m_nCP = 2
+			m_bDisableOperator = true
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_radiance_ti7/items_radiance_ti7_magic.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_radiance_ti7/items_radiance_ti7_water_orb_blob.vpcf"
+			m_bDisableChild = true
+		},
+	]
+}

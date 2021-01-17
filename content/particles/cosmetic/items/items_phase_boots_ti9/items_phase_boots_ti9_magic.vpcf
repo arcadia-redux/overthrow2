@@ -1,0 +1,144 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 16
+	m_bShouldSort = false
+	m_nBehaviorVersion = 10
+	m_nFirstMultipleOverride_BackwardCompat = 6
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_ContinuousEmitter"
+			m_flOpStartFadeOutTime = 1.5
+			m_flOpEndFadeOutTime = 3.0
+			m_flEmissionDuration = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 2.0
+			}
+			m_flEmitRate = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 15.0
+			}
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_CreateWithinSphere"
+			m_fRadiusMax = 50.0
+		},
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMax = 150.0
+			m_flRadiusMin = 100.0
+		},
+		{
+			_class = "C_INIT_RandomSequence"
+			m_nSequenceMax = 1
+		},
+		{
+			_class = "C_INIT_RandomRotation"
+		},
+		{
+			_class = "C_INIT_RandomRotationSpeed"
+			m_flDegreesMin = 20.0
+			m_flDegreesMax = 75.0
+		},
+		{
+			_class = "C_INIT_SequenceLifeTime"
+		},
+		{
+			_class = "C_INIT_PositionOffset"
+			m_OffsetMax = [ 0.0, 0.0, 150.0 ]
+			m_OffsetMin = [ 0.0, 0.0, 100.0 ]
+		},
+		{
+			_class = "C_INIT_InitialVelocityNoise"
+			m_vecOutputMin = [ -50.0, -50.0, 50.0 ]
+			m_vecOutputMax = [ 50.0, 50.0, 100.0 ]
+			m_flNoiseScaleLoc = 2.0
+		},
+		{
+			_class = "C_INIT_RandomYawFlip"
+		},
+		{
+			_class = "C_INIT_RandomColor"
+			m_ColorMin = [ 198, 85, 255 ]
+			m_ColorMax = [ 139, 51, 241 ]
+			m_TintMin = [ 0, 0, 0 ]
+			m_TintMax = [ 255, 255, 255 ]
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_BasicMovement"
+			m_fDrag = 0.05
+			m_Gravity = [ 0.0, 0.0, -150.0 ]
+		},
+		{
+			_class = "C_OP_FadeInSimple"
+			m_flFadeInTime = 0.35
+		},
+		{
+			_class = "C_OP_FadeOutSimple"
+			m_flFadeOutTime = 0.35
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flBias = 0.86
+			m_bEaseInAndOut = true
+			m_flStartScale = 0.25
+		},
+		{
+			_class = "C_OP_ColorInterpolate"
+			m_ColorFade = [ 98, 26, 166 ]
+		},
+		{
+			_class = "C_OP_SpinUpdate"
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderSprites"
+			VisibilityInputs = 
+			{
+				m_flCameraBias = -8.0
+			}
+			m_flOverbrightFactor = 15.0
+			m_flAddSelfAmount = 1.0
+			m_flSourceAlphaValueToMapToZero = 0.02
+			m_bSaturateColorPreAlphaBlend = false
+			m_vecTexturesInput = 
+			[
+				{
+					m_hTexture = resource:"materials/particle/wisp_int_13_se.vtex"
+				},
+			]
+			m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD"
+			m_OutlineColor = [ 255, 255, 255 ]
+		},
+	]
+}

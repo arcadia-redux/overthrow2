@@ -94,14 +94,14 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		if parties then
 			CustomNetTables:SetTableValue("game_state", "parties", parties)
 		end
-		
+
 		local mapsForSlow = {
 			["desert_octet"] = true
 		}
-		
+
 		if mapsForSlow[GetMapName()] then
 			Convars:SetFloat("host_timescale", 0.07)
-			
+
 			Timers:CreateTimer({
 				useGameTime = false,
 				endTime = 2.1,
@@ -111,7 +111,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 				end
 			})
 		end
-		
+
 		self.heroSelectionStage = 5
 		local numberOfPlayers = PlayerResource:GetPlayerCount()
 		if numberOfPlayers > 16 then
@@ -178,7 +178,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		end
 	end)
-	
+
 	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn and _G.lastHeroKillers[spawnedUnit] then
 		local killersTeam = _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()
 		if killersTeam ~=spawnedUnit:GetTeamNumber() and killersTeam~= DOTA_TEAM_NEUTRALS then
@@ -204,7 +204,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		end
 	end
-	
+
 	if owner and owner.GetPlayerID and ( name == "npc_dota_sentry_wards" or name == "npc_dota_observer_wards" ) then
 		local player_id = owner:GetPlayerID()
 
@@ -246,13 +246,13 @@ function COverthrowGameMode:OnNPCSpawned( event )
 			end
 		})
 	end
-	
+
 	local playerId = spawnedUnit:GetPlayerID()
 
 	if PlayerResource:GetPlayer(playerId) and not PlayerResource:GetPlayer(playerId).dummyInventory then
 		CreateDummyInventoryForPlayer(playerId, spawnedUnit)
 	end
-	
+
 	--local psets = Patreons:GetPlayerSettings(playerId)
 
 	--if psets.level > 1 and _G.personalCouriers[playerId] == nil then
@@ -397,7 +397,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		spawnedUnit:SetContextThink("HeroFirstSpawn", function()
 			local playerId = spawnedUnit:GetPlayerID()
 			if spawnedUnit == PlayerResource:GetSelectedHeroEntity(playerId) then
-				Patreons:GiveOnSpawnBonus(playerId)
+				-- hero:AddNewModifier(hero, nil, "modifier_donator", { patron_level = patreonSettings.level })
 			end
 		end, 2/30)
 	end

@@ -1,0 +1,54 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_nMaxParticles = 0
+	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_ground_dark.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_ground_detail.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_model.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_base.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_caustic.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_streak.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_petal.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_magic.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_outline.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/fountain_effect_ti9/fountain_effect_ti9_streaks.vpcf"
+		},
+	]
+}

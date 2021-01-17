@@ -1,14 +1,6 @@
 --[[
 Overthrow Game Mode
 ]]
-
-debug.oldTraceback = debug.oldTraceback or debug.traceback
-debug.traceback = function()
-	local result = debug.oldTraceback()
-	CustomGameEventManager:Send_ServerToAllClients("DebugMessage", { msg = result })
-	return result
-end
-
 _G.nCOUNTDOWNTIMER = 901
 TRUSTED_HOSTS = {
 	["76561198036748162"] = true,
@@ -131,11 +123,9 @@ function Precache( context )
 		end
 
 	--Cache cosmetics
-		Cosmetics:Precache( context )
 end
 
 function Activate()
-	Cosmetics:Init()
 	-- Create our game mode and initialize it
 	COverthrowGameMode:InitGameMode()
 	-- Custom Spawn
@@ -406,6 +396,7 @@ function COverthrowGameMode:InitGameMode()
 	}
 
 	UniquePortraits:Init()
+	Battlepass:Init()
 end
 
 ---------------------------------------------------------------------------
@@ -864,7 +855,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		end
 	end
 
-	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM and unit and unit:IsRealHero() and ( Patreons:GetPlayerSettings( unit:GetPlayerID() ).level > 0 or IsInToolsMode() ) then
+	if orderType == DOTA_UNIT_ORDER_GIVE_ITEM and unit and unit:IsRealHero() and ( Supporters:GetLevel( unit:GetPlayerID() ) > 0 or IsInToolsMode() ) then
 		if ability and ability:IsItem() and target and target:HasInventory() then
 			unit:DropItemAtPositionImmediate( ability, target:GetAbsOrigin() + target:GetForwardVector() )
 			Timers:CreateTimer( 0, function()
@@ -1127,7 +1118,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				"item_patreonbundle_2"
 			}
 
-			local psets = Patreons:GetPlayerSettings(plyID)
+			local supporter_level = Supporters:GetLevel(plyID)
 			local pitem = false
 			for i=1,#pitems do
 				if itemName == pitems[i] then
@@ -1136,14 +1127,14 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 				end
 			end
 			if pitem == true then
-				if psets.level < 1 then
+				if supporter_level < 1 then
 					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror" })
 					UTIL_Remove(hItem)
 					return false
 				end
 			end
 			if itemName == "item_banhammer" then
-				if psets.level < 2 then
+				if supporter_level < 2 then
 					CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(plyID), "display_custom_error", { message = "#nopatreonerror2" })
 					UTIL_Remove(hItem)
 					return false
@@ -1179,13 +1170,13 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 								BlockToBuyCourier(prshID, hItem)
 								return false
 							end
-							local psets = Patreons:GetPlayerSettings(prshID)
-							if not psets then
+							local supporter_level = Supporters:GetLevel(prshID)
+							if not supporter_level then
 								UTIL_Remove(hItem)
 								return false
 							end
 							if itemName == "item_banhammer" then
-								if psets.level < 2 then
+								if supporter_level < 2 then
 									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror2" })
 									UTIL_Remove(hItem)
 									return false
@@ -1197,7 +1188,7 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 									end
 								end
 							else
-								if psets.level < 1 then
+								if supporter_level < 1 then
 									CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(prshID), "display_custom_error", { message = "#nopatreonerror" })
 									UTIL_Remove(hItem)
 									return false
@@ -1276,7 +1267,7 @@ end)
 votimer = {}
 vousedcol = {}
 SelectVO = function(keys)
-	local psets = Patreons:GetPlayerSettings(keys.PlayerID)
+	local supporter_level = Supporters:GetLevel(keys.PlayerID)
 	print(keys.num)
 	local heroes = {
 		"abaddon",

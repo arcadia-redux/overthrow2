@@ -1,0 +1,1684 @@
+@define BlackBackground: rgba(0, 0, 0, 0.6);
+@define GoldPriceColor: gradient(linear, 0% 100%, 0% 0%, from(#eea14e), to(#f8c460));
+
+.CollectionRoot {
+	width: 100%;
+	height: 100%;
+}
+#CollectionDotaU {
+	width: 1200px;
+	height: 1015px;
+	vertical-align: center;
+	horizontal-align: center;
+	margin-bottom: 187px;
+	opacity: 0;
+	transform: translatey(-100px);
+	transition: opacity 0.2s ease-in-out 0s, transform 0.15s ease-in-out 0s;
+}
+#CollectionDotaU.show {
+	opacity: 1;
+	transform: translatey(0px);
+}
+#CollectionImage {
+	width: 689px;
+	height: 320px;
+	horizontal-align: center;
+	margin-top: 23px;
+	background-image: url("file://{resources}/images/custom_game/collection/collection_icon.png");
+	background-size: 100%;
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
+}
+.dota #CollectionImage,
+.dota_tournament #CollectionImage {
+	background-image: url("file://{resources}/images/custom_game/collection/collection_icon_12v12.png");
+}
+.core_quartet #CollectionImage,
+.desert_octet #CollectionImage,
+.desert_quintet #CollectionImage,
+.forest_solo #CollectionImage,
+.mines_trio #CollectionImage,
+.temple_quartet #CollectionImage,
+.temple_sextet #CollectionImage,
+.desert_duo #CollectionImage {
+	background-image: url("file://{resources}/images/custom_game/collection/collection_icon_OT.png");
+}
+
+#CollectionHeader {
+	horizontal-align: center;
+	font-size: 28px;
+	text-transform: uppercase;
+	font-weight: bold;
+	margin-top: 307px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#e17738), to(#ffca63));
+	text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
+	letter-spacing: 1px;
+}
+#CollectionDataWrap {
+	width: 100%;
+	height: 676px;
+	vertical-align: bottom;
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_background_1.png");
+	background-size: 100%;
+	background-color: #4f5179;
+	box-shadow: rgba(0, 0, 0, 0.65) 0px 0px 8px 0px;
+}
+#CollectionOverlayGrid {
+	width: 100%;
+	height: 100%;
+	background-color: gradient(
+		radial,
+		5.6% -3%,
+		0% 0%,
+		18% 49%,
+		from(rgba(253, 134, 8, 0.39)),
+		color-stop(0.3, rgba(250, 135, 12, 0.12)),
+		to(rgba(0, 0, 0, 0))
+	);
+}
+#CollectionDataOverlayBackground {
+	width: 100%;
+	height: 100%;
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_background_2.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	brightness: 0.95;
+	box-shadow: rgba(0, 0, 0, 0.55) 0px 0px 20px 0px;
+}
+
+.CloseDotaU {
+	flow-children: right;
+	align: right top;
+	margin-top: 18px;
+	margin-right: 25px;
+	transition: brightness 0.2s ease-in-out 0s;
+}
+.CloseDotaU:hover {
+	brightness: 1.8;
+	transition: brightness 0.1s ease-in-out 0s;
+}
+.CloseDotaU:active {
+	brightness: 1.2;
+}
+.CloseDotaU > Image {
+	width: 16px;
+	height: 16px;
+	vertical-align: center;
+	wash-color: #92a4bd;
+	margin-right: 4px;
+}
+.CloseDotaU > Label {
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-top: 1px;
+	color: #92a4bd;
+}
+
+.LeaderboardsForMap {
+	width: 100%;
+	height: 100%;
+	vertical-align: bottom;
+	flow-children: right;
+	padding-top: 2.5%;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out 0.2s, transform 0.2s ease-in-out 0.2s;
+	transform: translateY(1000px);
+}
+.LeaderboardsForMap.show {
+	transition: opacity 0.2s ease-in-out 0s, transform 0.2s ease-in-out 0s;
+	transform: translateY(0px);
+	opacity: 1;
+}
+#CollectionData {
+	width: 1160px;
+	height: 530px;
+	align: center bottom;
+	margin-bottom: 20px;
+	z-index: 1;
+}
+
+#PlayerProgress {
+	width: 400px;
+	height: 120px;
+	padding-left: 20px;
+	margin-top: 225px;
+}
+#PlayerAvatar {
+	width: 52px;
+	height: 52px;
+	background-color: #6ab7c8;
+	vertical-align: center;
+}
+#PlayerName {
+	height: 20px;
+	width: 150px;
+	margin-left: 58px;
+	margin-top: 40px;
+	color: white;
+}
+#PlayerStatusBooster {
+	height: 20px;
+	width: 150px;
+	margin-left: 58px;
+	margin-top: 63px;
+	color: white;
+	font-size: 16px;
+	text-transform: uppercase;
+}
+
+#PlayerStatusBooster.no_boost {
+	color: #8f98ad;
+}
+#PlayerStatusBooster.base_booster {
+	color: #e78a0a;
+	text-shadow: 0px 0px 3px 2 rgba(0, 0, 0, 0.5);
+}
+#PlayerStatusBooster.golden_booster {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#cc6c33), to(#f1cc23));
+	text-shadow: 0px 0px 3px 2 rgba(0, 0, 0, 0.5);
+}
+#BPProgressBar {
+	background-color: #141416;
+	border-radius: 3px;
+	padding: 3px;
+	overflow: clip;
+	height: 13px;
+	width: 130px;
+	align: right center;
+	margin-top: 24px;
+}
+#BPProgressBar_Left {
+	background-color: gradient(linear, 0% 0%, 100% 0%, from(#ce5e00), to(#dfb800));
+	border-top: 0px solid transparent;
+	overflow: clip;
+	border-bottom-right-radius: 1px;
+	border-top-right-radius: 1px;
+}
+#BPLevelIcon {
+	width: 50px;
+	height: 63px;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/bp_level_icon.png");
+	align: right bottom;
+	margin-bottom: 22px;
+	margin-right: 120px;
+}
+#DotaUBP_Level {
+	align: right center;
+	margin-bottom: 27px;
+	font-size: 16px;
+	color: #dfba00;
+}
+#DotaUBP_LevelProgress {
+	align: right center;
+	font-size: 14px;
+	margin-bottom: 1px;
+	color: #ed9a0e;
+}
+#DotaUBP_PlayerLevel {
+	width: 26px;
+	height: 30px;
+	margin-top: 9px;
+	margin-right: 132px;
+	padding-right: 3px;
+	align: right center;
+	text-align: center;
+	text-overflow: shrink;
+	font-size: 25px;
+	font-weight: bold;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#ec942f), to(#ffdc8b));
+	text-shadow: 2px 1px 2px 3 rgba(0, 0, 0, 0.61);
+}
+#CollectionDataHeader {
+	align: center top;
+	width: 100%;
+	height: 60px;
+}
+.PlayerCoinsWrap {
+	width: 178px;
+	height: 48px;
+	background-color: BlackBackground;
+	align: left center;
+	margin-left: 6px;
+	border-radius: 8px;
+}
+#PurchaseAccessCoins .PlayerCoinsWrap {
+	align: center top;
+	margin-top: 15px;
+}
+.CollectionCoin {
+	width: 33px;
+	height: 33px;
+	align: left center;
+	margin-left: 10px;
+}
+
+#PlayerCoins {
+	width: 120px;
+	height: 34px;
+	align: right center;
+	margin-right: 10px;
+	text-overflow: shrink;
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#f3981a), to(#fbc85f));
+	text-shadow: 1px 2px 1px 2 rgba(0, 0, 0, 0.61);
+}
+#OnlyOwnedItems {
+	align: center center;
+	margin-left: 250px;
+}
+#OnlyOwnedItems:selected Label {
+	color: #a0b2e6;
+}
+#OnlyOwnedItems:selected Panel {
+	box-shadow: #a0b2e6 0px 0px 4px 0px;
+}
+#OnlyOwnedItems Label {
+	color: #8f98ad;
+}
+#SortingText {
+	color: #8f98ad;
+	font-size: 16px;
+	height: 20px;
+	text-overflow: shrink;
+	align: right center;
+	margin-right: 200px;
+	width: 110px;
+	letter-spacing: 1px;
+	margin-top: 6px;
+	text-align: right;
+}
+#SortingOptions {
+	align: right center;
+	width: 180px;
+	height: 34px;
+	margin-right: 10px;
+	background-size: 27px 27px;
+	background-position: right 33px 35%;
+	padding: 0px 0px;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-color: #525764;
+}
+#SortingOptions Label {
+	vertical-align: center;
+	color: #8f98ad;
+}
+#SortingOptions:hover {
+	background-color: BlackBackground;
+}
+#SortingOptions:active {
+	background-color: BlackBackground;
+}
+#SortingOptions:focus:hover {
+	background-color: BlackBackground;
+}
+#SortingOptionsDropDownMenu {
+	width: 180px;
+	background-color: transparent;
+	box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+}
+#SortingOptionsDropDownMenu Label {
+	background-color: #1f2333;
+	padding-left: 8px;
+	border: 2px solid #525764;
+	border-top: 0px solid black;
+	color: #8f98ad;
+}
+
+#SortingOptionsDropDownMenu Label:hover {
+	background-color: #151720;
+	color: #b4c1db;
+}
+#SortingOptionsDropDownMenu Label:active {
+	background-color: #151720;
+}
+#SortingOptionsDropDownMenu Label:focus {
+	background-color: #151720;
+	color: #b4c1db;
+}
+#BuyBoostWrap {
+	flow-children: down;
+}
+#BoostersHeader {
+	width: 100%;
+	height: 28px;
+}
+.Boost {
+	height: 100%;
+	width: 133px;
+	border-top-right-radius: 4px;
+	border-top-left-radius: 4px;
+	flow-children: right;
+	box-shadow: inset rgba(0, 0, 0, 0.84) -5px -15px 20px -10px;
+	transition: brightness 0.2s ease-in-out 0s;
+}
+.Boost:hover {
+	brightness: 1.4;
+}
+#BaseBoost {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#7e3724), to(#c45934));
+}
+.Boost.Active {
+	box-shadow: inset rgba(0, 0, 0, 0.1) -5px -15px 20px -10px;
+}
+#GoldBoost {
+	margin-left: 4px;
+	horizontal-align: right;
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#7b651a), to(#d6b231));
+}
+#GoldBoostText {
+	color: #ededed;
+}
+.BoostHeader {
+	height: 20px;
+	font-size: 18px;
+	text-overflow: shrink;
+	align: center center;
+	text-align: center;
+	color: white;
+}
+#BoostersInfoWrap {
+	width: 100%;
+	height: 100%;
+}
+.BoostersInfo {
+	width: 100%;
+	height: 100%;
+	padding-left: 12px;
+	padding-right: 12px;
+	background-size: 100%;
+	background-color: black;
+	opacity: 0;
+}
+.BoostersInfo.Show {
+	opacity: 1;
+}
+#BaseBoostPanel {
+	background-image: url("file://{resources}/images/custom_game/collection/base_booster.png");
+}
+#GoldBoostPanel {
+	background-image: url("file://{resources}/images/custom_game/collection/golden_booster.png");
+}
+.BoostDescription {
+	width: 163px;
+	flow-children: down;
+	vertical-align: center;
+}
+.BoostText {
+	text-transform: uppercase;
+	font-size: 14px;
+	width: 100%;
+	height: 16px;
+	text-overflow: shrink;
+	color: #f6a03a;
+	text-shadow: 0px 2px 3px 2 rgba(0, 0, 0, 0.5);
+}
+.FortuneText {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#0ecde6), to(#16effa));
+	text-shadow: 1px 2px 1px 2 rgba(0, 0, 0, 0.61);
+}
+#BoostTimeLeft_1,
+#BoostTimeLeft_2 {
+	font-size: 11px;
+	margin-top: 1px;
+	text-align: center;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#ff5142), to(#ff3426));
+	text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.85);
+}
+.BoostBuyButtonRoot {
+	width: 93px;
+	align: right center;
+	flow-children: down;
+	margin-right: -2px;
+}
+#BoostTimeLeftRoot_1,
+#BoostTimeLeftRoot_2 {
+	width: 92%;
+	height: 16px;
+	background-color: BlackBackground;
+	align: center bottom;
+	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+	margin-top: -2px;
+	z-index: -1;
+}
+.BuyBoost {
+	width: 100%;
+	height: 53px;
+	background-color: BlackBackground;
+	border-radius: 8px;
+	flow-children: down;
+	box-shadow: rgb(225, 119, 56) 0px 0px 0px 0px;
+	transition: background-color 0.2s ease-in-out 0s, box-shadow 0.2s ease-in-out 0s;
+}
+.BuyBoost.block {
+	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
+	background-size: 100%;
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.35);
+	box-shadow: transparent 0px 0px 0px 0px;
+}
+.BuyBoost.block:hover {
+	box-shadow: transparent 0px 0px 0px 0px;
+}
+.BuyBoost:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+	box-shadow: rgb(225, 119, 56) 0px 0px 5px 0px;
+}
+.BuyBoost:hover Label {
+	brightness: 1.5;
+}
+
+.BoostPriceText {
+	text-transform: uppercase;
+	horizontal-align: center;
+	text-overflow: shrink;
+	width: 89%;
+	text-align: center;
+	text-shadow: 0px 3px 4px 3 rgba(0, 0, 0, 0.2);
+	transition: brightness 0.2s ease-in-out 0s;
+}
+.Price {
+	font-size: 25px;
+	height: 30px;
+	color: GoldPriceColor;
+}
+.Month {
+	font-size: 16px;
+	height: 20px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#e17738), to(#e89341));
+}
+#CollectionDataGrid {
+	width: 100%;
+	height: 475px;
+	vertical-align: bottom;
+	flow-children: right;
+}
+#ItemsTypesList {
+	height: 100%;
+	width: 189px;
+	padding-left: 6px;
+	flow-children: down;
+}
+.ItemType {
+	width: 100%;
+	height: 33px;
+	border-bottom-left-radius: 7px;
+	border-top-left-radius: 7px;
+	padding-left: 10px;
+	padding-top: 2px;
+}
+.ItemType.Selected {
+	background-color: BlackBackground;
+}
+
+.ItemType.Selected #ItemTypeName {
+	color: #e49220;
+}
+.ItemType.Selected:hover {
+	background-color: BlackBackground;
+}
+.ItemType.Selected:hover #ItemTypeName {
+	color: #e49220;
+	brightness: 1;
+}
+.ItemType:hover {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+.ItemType:hover #ItemTypeName {
+	color: #e49220;
+	brightness: 0.8;
+}
+
+#ItemTypeName {
+	font-size: 18px;
+	text-overflow: shrink;
+	height: 24px;
+	align: left center;
+	text-align: center;
+	font-weight: lighter;
+	color: #8daddc;
+}
+#NewItemsCount {
+	align: right center;
+	width: 21px;
+	height: 21px;
+	margin-right: 3px;
+	padding-right: 1px;
+	background-color: rgba(245, 0, 0, 0.85);
+	border-radius: 100%;
+	font-size: 21px;
+	text-align: center;
+	text-overflow: shrink;
+	color: white;
+	transition: opacity 0.2s ease-in-out 0s;
+	opacity: 0;
+}
+#NewItemsCount.show {
+	opacity: 1;
+}
+#ItemsList {
+	width: 100%;
+	height: 100%;
+	margin-right: 10px;
+	border-top-right-radius: 7px;
+	border-top-left-radius: 7px;
+	padding-left: 1px;
+	margin-left: -1px;
+}
+#ItemsList.FirstType {
+	border-top-left-radius: 0px;
+}
+#ItemsList.OnlyOwned .ItemDotaU:not(.IsTreasure) {
+	visibility: collapse;
+}
+#ItemsList.OnlyOwned .ItemDotaU.equip {
+	visibility: visible;
+}
+#ItemsList.OnlyOwned .ItemDotaU.equipped {
+	visibility: visible;
+}
+#ItemsList.OnlyOwned .ItemDotaU.open_treasure {
+	visibility: visible;
+}
+#ItemsList.OnlyOwned .ItemDotaU.item_owned {
+	visibility: visible;
+}
+#ItemsTypesList.OnlyOwned .ItemType:not(.IsHasAvailbleItems) {
+	visibility: collapse;
+}
+
+.ItemsListType {
+	width: 100%;
+	height: 100%;
+	background-color: BlackBackground;
+	opacity: 0;
+}
+.ItemsListType.Show {
+	opacity: 1;
+}
+
+.ItemsListType.HasItems #ItemNone {
+	visibility: collapse;
+}
+#ItemNone {
+	align: center center;
+	text-transform: uppercase;
+	font-size: 30px;
+	font-weight: lighter;
+	color: #8f98ad;
+}
+#Items {
+	width: 100%;
+	height: 100%;
+	padding-left: 20px;
+	padding-top: 20px;
+	flow-children: right-wrap;
+	overflow: squish scroll;
+}
+.ItemDotaU {
+	width: 114px;
+	height: 159px;
+	margin-right: 20px;
+	margin-bottom: 20px;
+	flow-children: down;
+	transition: saturation 0.2s ease-in-out 0s;
+}
+.ItemDotaU.NewItemGlow #ItemBackground {
+	animation-name: newItemGlow;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+
+@keyframes 'newItemGlow' {
+	0% {
+		box-shadow: #d80f00 0px 0px 8px 0px;
+	}
+	50% {
+		box-shadow: #d80f00 0px 0px 16px 0px;
+	}
+	100% {
+		box-shadow: #d80f00 0px 0px 8px 0px;
+	}
+}
+
+#ItemBackground {
+	width: 100%;
+	height: 125px;
+}
+
+.ItemDotaU #ItemBackground {
+	background-color: #c3c3c3;
+}
+.ItemDotaU.Availeble #ItemBackground {
+	background-color: black;
+}
+#ItemOverlay {
+	width: 100%;
+	height: 100%;
+}
+.ItemDotaU.common #ItemOverlay,
+.common #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#a7b2ce));
+}
+.ItemDotaU.uncommon #ItemOverlay,
+.uncommon #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#5a92cd));
+}
+.ItemDotaU.rare #ItemOverlay,
+.rare #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#4867f1));
+}
+.ItemDotaU.mythical #ItemOverlay,
+.mythical #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#834af5));
+}
+.ItemDotaU.legendary #ItemOverlay,
+.legendary #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#d033e2));
+}
+.ItemDotaU.immortal #ItemOverlay,
+.immortal #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#cc9e35));
+}
+.ItemDotaU.arcana #ItemOverlay,
+.arcana #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(transparent), color-stop(0.1, transparent), to(#a3d857));
+}
+#ItemActionButton {
+	width: 100%;
+	height: 27px;
+	vertical-align: bottom;
+	box-shadow: fill rgba(0, 0, 0, 0.4) 0px 2px 5px 0px;
+}
+.ItemDotaU.Treasure #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#45403c), to(#72716f));
+	border: 2px solid #a6a097;
+}
+.ItemDotaU.SupporterState_1 #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#7e3724), to(#c45934));
+	border: 2px solid rgba(255, 201, 189, 0.56);
+}
+.ItemDotaU.SupporterState_2 #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#7b651a), to(#d6b231));
+	border: 2px solid rgba(255, 246, 218, 0.56);
+}
+.ItemDotaU.DOTAU_MMR #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#45403c), to(#72716f));
+	border: 2px solid #a6a097;
+}
+.ItemDotaU.Coins #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#45403c), to(#72716f));
+	border: 2px solid #a6a097;
+}
+.ItemDotaU.Other {
+	visibility: collapse;
+}
+.ItemDotaU.equipped #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#cc6104), to(#d08616));
+	border-top: 1px solid #dca61d;
+	border-right: 1px solid rgba(220, 166, 29, 0.4);
+}
+.ItemActionCD .ItemDotaU.equipped #ItemActionButton {
+	saturation: 0.5;
+}
+.ItemDotaU.equip #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#16300e), to(#2b962b));
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+	border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ItemActionCD .ItemDotaU.equip #ItemActionButton {
+	saturation: 0.5;
+}
+.ItemDotaU.item_owned #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#16300e), to(#2b962b));
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+	border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ItemDotaU.open_treasure #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#92c422), to(#007a20));
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+	border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ItemDotaU.AccessToBuyCoins:not(.Availeble) #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#5f4c22), to(#f5c12c));
+	border-color: #55452a;
+}
+.ItemDotaU.Money #ItemActionButton {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#332c1c), to(#6b674a));
+	border: 1px solid #9c5629;
+	box-shadow: inset rgba(245, 199, 12, 0.3) 0px 0px 5px -5px;
+}
+.ItemDotaU.Money #ItemButtonText {
+	color: GoldPriceColor;
+	brightness: 1.2;
+}
+#ItemActionButton:hover:not(.item_owned) {
+	brightness: 1.5;
+}
+#ItemActionButton:active:not(.item_owned) {
+	brightness: 1.8;
+}
+.ItemActionCD #ItemActionButton:hover {
+	brightness: 1;
+}
+.ItemActionCD #ItemActionButton:active {
+	brightness: 1;
+}
+#ItemImage {
+	width: 100%;
+	height: 100%;
+	background-color: #222223;
+	margin: 3px;
+	transition: saturation 0.2s ease-in-out 0s, wash-color 0.2s ease-in-out 0s;
+}
+#ItemButtonText {
+	width: 100%;
+	height: 20px;
+	text-overflow: shrink;
+	font-size: 17px;
+	vertical-align: center;
+	text-align: center;
+	color: white;
+	text-shadow: 0px 2px 3px 2 rgba(0, 0, 0, 1);
+	text-transform: uppercase;
+}
+#ScrollThumb {
+	background-color: #7588a5;
+	margin-top: 20px;
+}
+#VerticalScrollBar {
+	width: 6px;
+}
+
+#CollectionPayment {
+	width: 100%;
+	height: 100%;
+	background-color: BlackBackground;
+	opacity: 0;
+}
+#CollectionPayment.show {
+	opacity: 1;
+}
+#PaymentPanel {
+	width: 520px;
+	height: 620px;
+	align: center center;
+	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
+	background-size: 100%;
+	flow-children: down;
+	box-shadow: black 0px 0px 10px 0px;
+}
+.HeaderWithCloseButton {
+	width: 100%;
+	height: 31px;
+	margin-top: 25px;
+}
+.HeaderWithCloseButton .CloseButton {
+	align: right center;
+	wash-color: #a4beef;
+	brightness: 1;
+	margin-right: 20px;
+	width: 20px;
+	height: 20px;
+	background-size: 100%;
+}
+
+.HeaderWithCloseButton .CloseButton:hover {
+	brightness: 1.5;
+}
+
+.HeaderWithCloseButton .CloseButton:active {
+	background-size: 90%;
+	sound: "ui_friends_slide_in";
+}
+.BlueHeader {
+	color: #a4beef;
+	font-size: 25px;
+	height: 32px;
+	horizontal-align: center;
+	margin-top: 25px;
+}
+.HeaderWithCloseButton .BlueHeader {
+	margin-top: 0px;
+}
+#PaymentMethodHeader {
+	width: 100%;
+}
+#PurchasingInfoWrap {
+	width: 430px;
+	height: 168px;
+	horizontal-align: center;
+	margin-top: 25px;
+	flow-children: right;
+}
+#PurchasingIcon {
+	height: 168px;
+	width: 152px;
+	margin-left: 14px;
+	border-radius: 3px;
+}
+#PurchasingInfo {
+	width: 100%;
+	max-height: 100%;
+	vertical-align: center;
+	flow-children: down;
+	margin-left: 15px;
+	margin-right: 15px;
+	margin-bottom: 4px;
+	margin-top: 4px;
+}
+#PurchasingHeader {
+	font-size: 18px;
+	height: 22px;
+	text-overflow: shrink;
+	width: 100%;
+	text-align: left;
+	color: #d4d4d4;
+}
+#PurchasingDescription {
+	max-height: 60px;
+	font-size: 15px;
+	text-align: left;
+	color: #898b97;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#PurchasingPriceWrap {
+	height: 45px;
+	width: 100%;
+	background-color: BlackBackground;
+	border-radius: 3px;
+}
+#TotalPrice {
+	font-size: 18px;
+	height: 22px;
+	align: left center;
+	margin-left: 15px;
+	color: #d4d4d4;
+}
+#Price {
+	font-size: 18px;
+	height: 22px;
+	align: right center;
+	margin-right: 15px;
+	color: GoldPriceColor;
+	text-shadow: 0px 3px 4px 3 rgba(0, 0, 0, 0.2);
+}
+#PurchasingMethods {
+	flow-children: right-wrap;
+	padding-right: 50px;
+	padding-left: 10px;
+	horizontal-align: center;
+}
+.PaymentMethod {
+	width: 141px;
+	margin-left: 40px;
+	margin-top: 15px;
+	flow-children: down;
+	horizontal-align: center;
+}
+
+.PaymentInBrowser {
+	font-size: 14px;
+	height: 17px;
+	width: 100%;
+	text-overflow: shrink;
+	text-align: center;
+	color: #888893;
+	font-style: italic;
+}
+.PaymentMethod Image {
+	width: 100%;
+	height: 57px;
+}
+.PaymentMethod:hover Image {
+	box-shadow: inset rgba(0, 0, 0, 1) 3px 3px 6px 6px;
+}
+.PaymentMethod:active Image {
+	box-shadow: inset rgba(0, 0, 0, 1) 2px 2px 4px 4px;
+}
+#PaymentDescription {
+	margin: 30px 40px 0px 40px;
+	text-align: left;
+	font-size: 16px;
+	background-color: BlackBackground;
+	padding: 15px;
+	max-height: 95px;
+	text-overflow: shrink;
+	color: #d4d4d4;
+}
+#PurchaseAccessCoins {
+	width: 500px;
+	height: 400px;
+	align: center center;
+	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
+	background-size: 100%;
+	box-shadow: black 0px 0px 20px 0px;
+	flow-children: down;
+	opacity: 0;
+}
+#PurchaseAccessCoins.show {
+	opacity: 1;
+}
+.AdaptiveText_LightAndUpper {
+	font-weight: lighter;
+	text-transform: uppercase;
+	text-overflow: shrink;
+	text-align: center;
+}
+
+#PurchaseAccessCoinsHeader {
+	margin-top: 20px;
+	width: 94%;
+}
+#Item {
+	align: center top;
+	margin-top: 20px;
+}
+#Item .ItemDotaU {
+	margin: 0px 0px 0px 0px;
+}
+#AccessButtons {
+	horizontal-align: center;
+	flow-children: right;
+	margin-top: 10px;
+}
+.AccessButtons {
+	width: 150px;
+	height: 46px;
+	box-shadow: fill rgba(0, 0, 0, 0.8) 0px 1px 2px 2px;
+	transition-property: brightness;
+	transition-duration: 0.2s;
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
+	background-size: 100%;
+}
+
+.AccessButtons:hover {
+	brightness: 1.5;
+}
+.AccessButtons:active {
+	brightness: 1.1;
+}
+#AccesButtonNo {
+	margin-left: 50px;
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_close.png");
+}
+.AccessText {
+	align: center center;
+	text-align: center;
+	color: #dbe7ff;
+	text-transform: uppercase;
+	font-size: 20px;
+}
+
+#ItemCount {
+	height: 25px;
+	font-size: 20px;
+	text-overflow: shrink;
+	align: right top;
+	margin-right: 6px;
+	margin-top: 3px;
+	text-align: center;
+	color: rgba(237, 237, 237, 0.87);
+	text-shadow: black 0px 0px 3px 4;
+}
+
+.TreasuresWheelBackground {
+	width: 100%;
+	height: 100%;
+	background-color: BlackBackground;
+	opacity: 0;
+	padding-bottom: 110px;
+}
+
+.TreasuresWheelBackground.show {
+	opacity: 1;
+}
+#TreasuresWheelWrap,
+.TreasuresPreviewWrap {
+	width: 1060px;
+	height: 640px;
+	align: center center;
+	background-color: #0f101f;
+	background-image: url("file://{resources}/images/custom_game/collection/spin_background.png");
+	background-size: 100%;
+	box-shadow: rgba(0, 0, 0, 1) 0px 0px 8px 0px;
+	margin-top: 140px;
+}
+.TreasuresPreviewWrap {
+	opacity: 0;
+}
+.TreasuresPreviewWrap.show {
+	opacity: 1;
+}
+#TreasuresWheel {
+	width: 100%;
+	flow-children: right;
+	align: center bottom;
+	padding-left: -4px;
+	overflow: clip clip;
+	transition: padding-left 1s ease-in-out 0s;
+	/*background-color: red;*/
+	margin-bottom: 200px;
+	opacity-mask: url("file://{resources}/images/custom_game/collection/spin_mask.png");
+}
+.InWheel #ItemBackground {
+	background-color: black;
+}
+.ItemDotaU.InWheel {
+	transition: transform 5s ease-in-out 0s;
+	width: 114px;
+	height: 125px;
+	margin: 0px;
+	margin-left: 34px;
+}
+.BW #ItemImage {
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.7);
+}
+.PrizeItem #ItemImage {
+	saturation: 1;
+	wash-color: rgba(0, 0, 0, 0);
+}
+.wheel .ItemDotaU {
+	transform: translateX(-3705px);
+}
+#PrizeBorder {
+	width: 170px;
+	height: 187px;
+	align: center bottom;
+	margin-bottom: 169px;
+	background-image: url("file://{resources}/images/custom_game/collection/spin_border.png");
+	background-size: 100%;
+}
+#SpinArrow {
+	width: 40px;
+	height: 37px;
+	align: center center;
+	margin-bottom: 20px;
+	background-image: url("file://{resources}/images/custom_game/collection/spin_arrow.png");
+	background-size: 100%;
+}
+#SpinArrow.spin {
+	/*transform: rotateZ(40deg);*/
+	animation-name: arrowSpin;
+	animation-duration: 0.2s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+@keyframes 'arrowSpin' {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	50% {
+		transform: rotateZ(40deg);
+	}
+	100% {
+		transform: rotateZ(0deg);
+	}
+}
+#CloseWheelButton {
+	opacity: 0;
+}
+#CloseWheelButton.show {
+	opacity: 1;
+}
+#WheelParticle {
+	width: 100%;
+	height: 100%;
+}
+
+.Particle {
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+}
+.Particle.show {
+	visibility: visible;
+}
+.WinNewPrize {
+	width: 40%;
+	height: 40%;
+	align: center center;
+}
+
+#ChestIcon {
+	align: center center;
+	margin-left: 0px;
+	margin-bottom: 300px;
+	width: 130px;
+	height: 144px;
+}
+#ChestIcon #ItemBackground {
+	height: 100%;
+}
+#SkipSpin {
+	align: center bottom;
+	margin-bottom: 80px;
+	opacity: 0;
+}
+#SkipSpin.show {
+	opacity: 1;
+}
+
+#InfoAboutPrize {
+	width: 100%;
+	height: 190px;
+	vertical-align: bottom;
+	opacity: 0;
+}
+#InfoAboutPrize.show {
+	opacity: 1;
+}
+#DoubleGloryInfoWrap {
+	align: center bottom;
+	margin-bottom: 95px;
+	flow-children: right;
+	opacity: 0;
+}
+#DoubleGloryInfoWrap.show {
+	opacity: 1;
+}
+.GoldText {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#fba211), to(#fff27b));
+	text-shadow: 0px 2px 4px 3 rgba(0, 0, 0, 0.4);
+}
+.WhiteText {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#cdcdcd), to(#f5f5f5));
+	text-shadow: 0px 2px 4px 3 rgba(0, 0, 0, 0.4);
+}
+#DoubleGloryInfo {
+	font-size: 18px;
+	height: 21px;
+	text-overflow: shrink;
+	max-width: 100%;
+	vertical-align: center;
+}
+#DoubleGloryIcon {
+	width: 22px;
+	height: 22px;
+	align: right center;
+	margin-left: 3px;
+	margin-right: 5px;
+}
+#PrizeInfo {
+	flow-children: right;
+	height: 36px;
+	horizontal-align: center;
+	margin-top: 30px;
+	max-width: 90%;
+	padding-left: -10px;
+}
+#PrizeInfo > Label {
+	font-size: 30px;
+	text-overflow: shrink;
+	text-transform: uppercase;
+}
+#PrizeButtons {
+	flow-children: right;
+	align: center bottom;
+	margin-bottom: 30px;
+}
+#SpinAgain {
+	margin-right: 75px;
+	background-image: url("file://{images}/custom_game/button_bg_orange.png");
+}
+#SpinAgain.block {
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.25);
+}
+#SpinAgain.block:hover {
+}
+#TreasuresLeft {
+	align: center bottom;
+	margin-right: 220px;
+	margin-bottom: 10px;
+}
+#СountButtons {
+	flow-children: right;
+	horizontal-align: center;
+	padding-left: -5px;
+	margin-top: -10px;
+	padding-right: 5px;
+	border-radius: 5px;
+	background-color: gradient(
+		linear,
+		0% 0%,
+		100% 0%,
+		from(transparent),
+		color-stop(0.1, rgba(0, 0, 0, 0.2)),
+		color-stop(0.5, rgba(0, 0, 0, 0.9)),
+		color-stop(0.9, rgba(0, 0, 0, 0.2)),
+		to(transparent)
+	);
+}
+.IncrementItemsCount {
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
+	vertical-align: center;
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
+	background-size: 100%;
+	transition: brightness 0.2s ease-in-out 0s;
+}
+.IncrementItemsCount.BW {
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.7);
+}
+.IncrementItemsCount:not(.BW):hover {
+	brightness: 1.5;
+}
+.IncrementItemsCount:not(.BW):active {
+	brightness: 0.8;
+}
+.ItemsCountLabel {
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
+	background-size: 100%;
+	width: 40px;
+	height: 40px;
+	font-size: 25px;
+	padding: 5px;
+	margin-left: 10px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#439429), to(#10e40f));
+	text-shadow: 0px 1px 3px 2 rgba(0, 0, 0, 0.5);
+	box-shadow: inset rgba(255, 255, 255, 0.21) 0px 0px 5px -5px;
+	border-radius: 1px;
+	text-overflow: shrink;
+}
+#ItemName {
+	align: center bottom;
+	text-align: center;
+	font-size: 17px;
+	background-color: rgb(0, 0, 0);
+	width: 100%;
+	height: 22px;
+	text-overflow: shrink;
+	margin: 0px 3px 3px 3px;
+	color: #b0c2dc;
+	visibility: collapse;
+	padding-top: 1px;
+}
+.BoostWrapLayout {
+	width: 280px;
+	height: 115px;
+	align: right top;
+	margin-top: 222px;
+	margin-right: 130px;
+}
+#DonateFocus {
+	animation-name: donateGlow;
+	animation-duration: 1.2s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	background-color: #d2d2d2;
+	transition: opacity 0.2s ease-in-out 0s;
+	opacity: 0;
+}
+#DonateFocus.show {
+	opacity: 1;
+}
+@keyframes 'donateGlow' {
+	0% {
+		box-shadow: #d2d2d2 0px 0px 4px 0px;
+	}
+	50% {
+		box-shadow: #d2d2d2 0px 0px 15px 0px;
+	}
+	100% {
+		box-shadow: #d2d2d2 0px 0px 4px 0px;
+	}
+}
+
+.TreasureGlow #ItemBackground {
+	animation-name: treasureGlow;
+	animation-duration: 1.2s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+@keyframes 'treasureGlow' {
+	0% {
+		box-shadow: inset #ff1000 4px 4px 2px 8px;
+	}
+	50% {
+		box-shadow: inset #ff1000 4px 4px 8px 8px;
+	}
+	100% {
+		box-shadow: inset #ff1000 4px 4px 2px 8px;
+	}
+}
+#TextContentRoot {
+	align: center center;
+	opacity: 0;
+	width: 92%;
+}
+#ItemsList_Barrages #TextContentRoot {
+	opacity: 1;
+}
+#TextContentRoot Label {
+	font-size: 38px;
+	text-transform: uppercase;
+	text-overflow: shrink;
+	text-align: center;
+	horizontal-align: center;
+}
+#ItemEquippedState {
+	width: 22px;
+	height: 22px;
+	horizontal-align: right;
+	margin: 3px;
+	background-image: url("file://{images}/custom_game/collection/item_equipped.png");
+	background-size: 100%;
+	wash-color: gold;
+	opacity: 0;
+	brightness: 2;
+}
+.equipped #ItemEquippedState {
+	opacity: 1;
+}
+#TreasuresPreviewRoot {
+	width: 100%;
+	height: 100%;
+	background-color: BlackBackground;
+	padding-bottom: 110px;
+	opacity: 0;
+}
+#TreasuresPreviewRoot.show {
+	opacity: 1;
+}
+#TreasuresPreviewHeaderRoot {
+	width: 100%;
+	align: right top;
+}
+#TreasureName {
+	horizontal-align: center;
+	text-align: center;
+	font-family: "Goudy Trajan";
+	font-size: 25px;
+	margin-top: 6px;
+	color: white;
+	text-shadow: black 0px 1px 2px 2;
+	brightness: 1.5;
+}
+#TreasureImagePreview {
+	margin-top: 40px;
+	height: 129px;
+	width: 118px;
+	horizontal-align: center;
+	border: 2px solid rgba(0, 0, 0, 0.51);
+}
+#PreviewParticleRoot {
+	height: 270px;
+	width: 270px;
+	margin-top: -27px;
+	horizontal-align: center;
+	opacity: 0.8;
+}
+#ItemsPreviewList {
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.6);
+	margin: 180px 10px 65px 10px;
+	box-shadow: inset rgba(0, 0, 0, 0.5) -15px 6px 10px -50px;
+	flow-children: right-wrap;
+	padding: 20px 49px 0px 51px;
+	overflow: clip scroll;
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+#ItemsPreviewList .ItemDotaU {
+	height: 128px;
+}
+#ItemsPreviewList .BW #ItemImage {
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.25);
+}
+#TreasurePreview_gift_free_treasure .BW #ItemImage {
+	saturation: 1;
+	wash-color: transparent;
+}
+#Preview_Cancel:active {
+	sound: "ui_friends_slide_in";
+}
+#Preview_OpenTreasure {
+	margin-right: 75px;
+	background-image: url("file://{images}/custom_game/button_bg_orange.png");
+}
+#Preview_OpenTreasure:not(.PlayerIsHasTreasure) {
+	background-image: url("file://{images}/custom_game/button_bg_gold.png");
+}
+#PreviewButtons {
+	flow-children: right;
+	align: center bottom;
+	margin-bottom: 10px;
+}
+
+#ItemType_DuelEffects,
+#ItemType_BetEffects,
+#ItemType_Effigies,
+#ItemType_SpellEffects,
+#ItemType_Items,
+#ItemType_ChatWheels,
+#ItemType_Interfaces {
+	visibility: collapse;
+}
+
+#ShopGloryButtonRoot {
+	background-color: gradient(
+		linear,
+		0% 100%,
+		0% 0%,
+		from(#6b2f1b),
+		color-stop(0.5, rgba(163, 74, 44, 1)),
+		to(rgba(189, 87, 51, 0.5))
+	);
+	margin-left: 163px;
+}
+#ShopGloryButtonText {
+	color: GoldPriceColor;
+}
+
+#ShopFortuneButtonRoot {
+	background-color: gradient(
+		linear,
+		0% 100%,
+		0% 0%,
+		from(#12637c),
+		color-stop(0.5, rgb(32, 172, 215)),
+		to(rgba(34, 184, 229, 0.5))
+	);
+	margin-left: 290px;
+}
+#ShopFortuneButtonText {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#0ecde6), to(#16effa));
+}
+
+.OpenGloryShopPlusRoot {
+	width: 28px;
+	height: 28px;
+	margin-top: 2px;
+	border-radius: 8px;
+	transition: box-shadow 0.2s ease-in-out 0s, brightness 0.2s ease-in-out 0s;
+	box-shadow: black 0px 0px 1px 0px;
+}
+.OpenGloryShopPlusRoot:hover {
+	box-shadow: black 0px 0px 8px 0px;
+	brightness: 1.25;
+}
+.OpenGloryShopPlusRoot:active {
+	sound: "General.ButtonClick";
+	brightness: 0.8;
+}
+
+.OpenGloryShopPlus {
+	align: center center;
+	text-align: center;
+	text-overflow: shrink;
+	font-size: 20px;
+	text-shadow: black 1px 1px 1px;
+}
+#GloryShopRoot {
+	width: 100%;
+	height: 100%;
+	background-color: BlackBackground;
+	visibility: collapse;
+}
+#GloryShopRoot.show {
+	visibility: visible;
+}
+#GloryShop {
+	width: 1130px;
+	height: 400px;
+	background-image: url("file://{resources}/images/custom_game/collection/spin_background.png");
+	background-size: 100%;
+	align: center center;
+	margin-bottom: 220px;
+}
+#CloseGloryShop {
+	width: 90px;
+	background-size: 16px 16px;
+	background-position: 0% 50%;
+	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-repeat: no-repeat;
+	horizontal-align: right;
+	margin-right: 30px;
+	margin-top: 5px;
+	wash-color: #7f95b2;
+}
+#CloseGloryShop > Label {
+	text-transform: uppercase;
+	margin-left: 17px;
+	font-size: 16px;
+	margin-top: 1px;
+	color: white;
+}
+
+#CloseGloryShop:hover {
+	brightness: 1.6;
+}
+
+#CloseGloryShop:active {
+	brightness: 0.9;
+	sound: "ui_friends_slide_in";
+}
+#GloryOffersRoot {
+	flow-children: right;
+	align: center center;
+	margin-top: 50px;
+	padding-left: -20px;
+}
+.GloryOffer {
+	width: 160px;
+	height: 259px;
+	flow-children: down;
+	margin-left: 20px;
+}
+#GloryOfferHeaderRoot {
+	flow-children: down;
+	horizontal-align: center;
+}
+.GloryTextRoot {
+	flow-children: right;
+	height: 24px;
+	horizontal-align: center;
+}
+.GloryOfferHeaderIcon {
+	width: 18px;
+	height: 18px;
+	vertical-align: center;
+}
+#GloryOfferHeaderText_Glory {
+	font-size: 20px;
+	color: white;
+	margin-left: 4px;
+	margin-top: 1px;
+}
+#GloryOfferHeaderText_Fortune {
+	font-size: 20px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#0ecde6), to(#16effa));
+	text-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px 2;
+	margin-left: 4px;
+	margin-top: 1px;
+}
+#GloryOfferData {
+	width: 100%;
+	height: 191px;
+	background-color: #1a1d2a;
+	border-radius: 5px;
+	box-shadow: black 0px 0px 5px 0px;
+	background-image: url("file://{images}/custom_game/collection/glory_shop/glory_bundle_15000.png");
+	background-size: 95% 85%;
+	background-position: 50% 0%;
+	background-repeat: no-repeat;
+}
+#GloryOfferButton {
+	width: 100%;
+	height: 30px;
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#7f381a), to(#cf7120));
+	vertical-align: bottom;
+	border-radius: 5px;
+	border-style: solid;
+	border-width: -1px;
+	border-top: 1px solid rgba(240, 221, 0, 0.18);
+	transition: brightness 0.15s ease-in-out 0s;
+}
+#GloryOfferButton:hover {
+	brightness: 1.5;
+}
+#GloryOfferButton:active {
+	brightness: 0.8;
+	sound: "ui.inv_pickup_highvalue";
+}
+#GloryOfferPrice {
+	text-align: center;
+	margin-bottom: 1px;
+	align: center center;
+	color: white;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+}
+#GloryOfferFoot {
+	width: 100%;
+	height: 20px;
+}
+#GloryDiscount {
+	text-align: center;
+	align: center center;
+	text-overflow: shrink;
+	color: #f0750a;
+}
+#Popular {
+	height: 22px;
+	width: 120px;
+	background-color: gradient(linear, 0% 0%, 100% 0%, from(#d57120), to(#833814));
+	horizontal-align: right;
+	transform: rotateZ(45deg);
+	margin-top: 15px;
+	margin-right: -30px;
+	text-align: center;
+	padding-top: 3px;
+	padding-left: 26px;
+	padding-right: 20px;
+	color: white;
+	font-weight: lighter;
+	text-transform: uppercase;
+	font-size: 15px;
+	text-overflow: shrink;
+	text-shadow: 0px 0px 2px 2 rgba(0, 0, 0, 0.5);
+	visibility: collapse;
+}
+.IsTreasure #TreasureShowInfo {
+	width: 26px;
+	height: 26px;
+	background-image: url("s2r://panorama/images/hud/reborn/icon_inspect_psd.vtex");
+	background-size: 100%;
+	margin: 4px;
+	transition: brightness 0.1s ease-in-out 0s;
+}
+#TreasureShowInfo:hover {
+	brightness: 2;
+}
+#TreasureShowInfo:active {
+	brightness: 0.8;
+}

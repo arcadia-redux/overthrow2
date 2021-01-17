@@ -1,0 +1,573 @@
+#ItemType_Masteries {
+	background-image: url("file://{images}/custom_game/collection/mastery/fortune_icon.png");
+	background-size: 21px 21px;
+	background-repeat: no-repeat;
+	background-position: 5% 40%;
+	padding-left: 35px;
+}
+
+#ItemType_Masteries #ItemTypeName {
+	color: gradient(linear, 0% 100%, 0% 0%, from(#0ecde6), to(#16effa));
+}
+
+.MasteriesRoot {
+	flow-children: right;
+}
+#MasteriesAbilities {
+	width: 474px;
+	height: 100%;
+	flow-children: down;
+}
+
+#MasteriesAbilitiesHeader {
+	horizontal-align: center;
+	text-align: center;
+	font-size: 18px;
+	margin-top: 10px;
+	font-weight: lighter;
+	color: #909aa8;
+}
+
+#AbilityName {
+	font-size: 18px;
+	color: #89a1d6;
+	text-align: center;
+	font-weight: lighter;
+	text-transform: uppercase;
+	align: center center;
+	text-overflow: shrink;
+}
+
+.Mastery {
+	width: 96px;
+	height: 96px;
+}
+.Mastery:not(.Availeble) {
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.24);
+}
+
+.Mastery:hover:not(.Selected) #MasterySelected {
+	opacity: 0.2;
+}
+
+#MasterySelected {
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 0.1s ease-in-out 0s;
+}
+.Equipped #MasteryEquippedFlag {
+	align: center bottom;
+	width: 26px;
+	height: 10px;
+	margin-bottom: 31px;
+	background-image: url("file://{images}/custom_game/collection/mastery/mastery_equipped_flag.png");
+	background-size: 100%;
+}
+.Selected #MasterySelected {
+	opacity: 0.9;
+}
+
+.Mastery.Equipped #MasteryBackground {
+	background-image: url("file://{images}/custom_game/collection/mastery/mastery_poligon_equipped.png");
+}
+
+.EquippedMasteryParticle {
+	width: 80px;
+	height: 80px;
+	wash-color: #25cdff;
+	align: center top;
+	opacity-mask: url("file://{images}/custom_game/collection/mastery/mastery_poligon_mask.png");
+	pre-transform-scale2d: 1.09;
+	margin-top: -8px;
+}
+
+#MasteryBackground {
+	align: center bottom;
+	margin-bottom: 12px;
+	width: 76px;
+	height: 76px;
+	background-image: url("file://{images}/custom_game/collection/mastery/mastery_poligon_tier_1.png");
+	background-size: 100%;
+}
+.MasteryTier_1 #MasteryBackground {
+	background-image: url("file://{images}/custom_game/collection/mastery/mastery_poligon_tier_2.png");
+}
+.MasteryTier_2 #MasteryBackground {
+	background-image: url("file://{images}/custom_game/collection/mastery/mastery_poligon_tier_3.png");
+}
+#MasteriesAbilitiesListRoot {
+	height: 348px;
+	width: 100%;
+	box-shadow: inset rgba(0, 0, 0, 0.7) -15px -47px 10px -42px;
+	overflow: squish scroll;
+}
+#MasteriesAbilitiesList {
+	horizontal-align: center;
+	flow-children: right-wrap;
+}
+#MasteriesAbilitiesFoot {
+	width: 100%;
+	height: 96px;
+	flow-children: right;
+}
+#MasteriesUpgradeDescriptionRoot {
+	margin: 12px;
+	height: 100%;
+	width: 100%;
+}
+#MasteriesUpgradeDescription,
+#MasteriesEquipDescription {
+	align: center center;
+	font-size: 15px;
+	color: #7f8894;
+	text-overflow: shrink;
+}
+#MasteriesAbilitiesListRoot #ScrollThumb {
+	background-color: #7588a5;
+	margin-top: 13px;
+}
+#MasteriesUpgradeRoot {
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 180px;
+	height: 72px;
+	vertical-align: center;
+	margin-left: 12px;
+	flow-children: down;
+}
+#MasteriesUpgrade {
+	width: 169px;
+	height: 40px;
+	align: center top;
+	margin-top: 5px;
+}
+#MasteriesUpgradeText {
+	font-size: 20px;
+	text-overflow: shrink;
+	text-align: center;
+	color: #f0f0f0;
+	text-shadow: rgba(0, 0, 0, 0.75) 0px 2px 2px 2;
+	align: center center;
+}
+#MasteriesUpgradeCost {
+	background-image: url("file://{images}/custom_game/collection/mastery/fortune_icon.png");
+	background-size: 21px 21px;
+	background-repeat: no-repeat;
+	background-position: 0% 50%;
+	padding-left: 24px;
+	horizontal-align: center;
+	margin-top: 2px;
+	padding-top: 2px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#0ecde6), to(#16effa));
+	text-shadow: rgba(0, 0, 0, 0.6) 0px 2px 2px 2;
+	text-transform: uppercase;
+}
+#MasteryIcon {
+	background-color: black;
+	opacity-mask: url("file://{images}/custom_game/collection/mastery/mastery_poligon_mask.png");
+	background-image: url("file://{images}/custom_game/collection/mastery/icons/celerity.png");
+	background-size: 83%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	width: 64px;
+	height: 64px;
+	align: center bottom;
+	margin-bottom: 22px;
+	margin-right: 1px;
+}
+
+#MasteriesInfo {
+	width: 474px;
+	height: 100%;
+	flow-children: down;
+	opacity: 0;
+	transition: opacity 0.1s ease-in-out 0s;
+}
+#MasteriesInfo.show {
+	opacity: 1;
+}
+#AbilityInfo {
+	width: 100%;
+	height: 180px;
+	flow-children: right;
+	padding-top: 35px;
+}
+#Ability {
+	height: 100%;
+	width: 200px;
+	flow-children: down;
+}
+#AbilityNameRoot {
+	align: center top;
+	padding-right: 8px;
+	padding-left: 8px;
+	height: 42px;
+	width: 100%;
+}
+
+#AbilityIcon {
+	align: center center;
+	width: 100px;
+	height: 100px;
+}
+#AbilityBorder {
+	width: 100%;
+	height: 100%;
+}
+#AbilityShadow {
+	align: center center;
+	width: 90px;
+	height: 90px;
+	margin-top: 0px;
+	background-color: gradient(
+		linear,
+		0% 100%,
+		0% 0%,
+		from(transparent),
+		color-stop(0.2, transparent),
+		to(rgb(164, 188, 255))
+	);
+	opacity: 0;
+	margin-bottom: 13px;
+	opacity-mask: url("file://{images}/custom_game/collection/mastery/mastery_poligon_mask.png");
+}
+#AbilityShadow.show {
+	opacity: 0.5;
+}
+#AbilityImage {
+	background-image: url("file://{images}/custom_game/collection/mastery/icons/manafication.png");
+	background-color: black;
+	opacity-mask: url("file://{images}/custom_game/collection/mastery/mastery_poligon_mask.png");
+	background-size: 83%;
+	background-position: 50% 50%;
+	width: 80px;
+	height: 80px;
+	align: center bottom;
+	margin-bottom: 16px;
+}
+#MasteryEquip {
+	width: 100%;
+	height: 100%;
+	flow-children: down;
+	padding-top: -15px;
+}
+.MasteryButton {
+	background-image: url("file://{resources}/images/custom_game/loading_screen/discord_button.png");
+	background-size: 100%;
+	transition: brightness 0.15s ease-in-out 0s;
+}
+
+.Blocked:not(.FullUpgrade) {
+	saturation: 0;
+	wash-color: rgba(0, 0, 0, 0.2);
+}
+.Equipped.Blocked {
+	saturation: 1;
+	background-image: url("file://{images}/custom_game/button_bg_gold.png");
+}
+.MasteryButton:hover:not(.Blocked) {
+	brightness: 1.4;
+}
+.MasteryButton:active:not(.Blocked) {
+	sound: "General.ButtonClick";
+	brightness: 0.9;
+}
+
+.InfoButton {
+	box-shadow: fill rgba(0, 0, 0, 0.5) 0px 2px 9px;
+	width: 240px;
+	height: 34px;
+	align: center top;
+	margin-top: 15px;
+}
+
+.MasteryButtonText {
+	font-size: 20px;
+	text-overflow: shrink;
+	text-align: center;
+	align: center center;
+	color: #f0f0f0;
+	text-shadow: rgba(0, 0, 0, 0.58) 0px 2px 4px 2;
+	font-weight: lighter;
+}
+#VerticalSeparator {
+	width: 0.2%;
+	height: 100%;
+	background-color: gradient(
+		linear,
+		0% 100%,
+		0% 0%,
+		from(transparent),
+		color-stop(0.2, rgba(164, 188, 255, 0.3)),
+		color-stop(0.8, rgba(164, 188, 255, 0.3)),
+		to(transparent)
+	);
+}
+#AbilityTiers {
+	flow-children: down;
+	padding-top: -10px;
+}
+#AbilityTierRoot {
+	flow-children: right;
+	height: 30px;
+	margin-top: 10px;
+}
+.AbilityTier {
+	flow-children: down;
+}
+.TierText {
+	font-size: 18px;
+	height: 21px;
+	text-overflow: shrink;
+	vertical-align: center;
+}
+#TierName {
+	margin-left: 15px;
+	width: 225px;
+	font-weight: lighter;
+	color: #89a1d6;
+}
+#TierStateText {
+	align: center center;
+	text-align: center;
+	font-weight: lighter;
+}
+#MasteryTier_0 #TierStateAction {
+	opacity: 0;
+}
+#TierStateAction {
+	width: 220px;
+	height: 28px;
+	vertical-align: center;
+	box-shadow: inset transparent 0px 0px 0px 0px;
+	border-radius: 0px;
+	background-color: BlackBackground;
+	transition: box-shadow 0.15s ease-in-out 0s;
+}
+#TierStateAction_Left {
+	border: 0px solid transparent;
+	overflow: clip;
+}
+.State_0 {
+	visibility: collapse;
+}
+.State_1 #TierStateAction_Left {
+	background-color: BlackBackground;
+}
+.State_1 #TierStateText {
+	text-transform: uppercase;
+	font-size: 17px;
+	text-overflow: shrink;
+	max-width: 100%;
+	height: 20px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#a1a1ad), to(#e2e2e2));
+	margin-top: 2px;
+}
+.State_2 #TierStateAction_Left {
+	background-color: gradient(linear, 0% 0%, 100% 0%, from(#0c9ea6), to(#007b9c));
+}
+.State_2 #TierStateText {
+	color: white;
+	text-shadow: rgba(0, 0, 0, 0.58) 0px 2px 4px 2;
+}
+.State_3 #TierStateAction {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#22223f), to(#3a4469));
+}
+.State_3 #TierStateText {
+	color: white;
+}
+.PlayerFortuneWrap {
+	width: 119px;
+	height: 48px;
+	background-color: BlackBackground;
+	align: left center;
+	margin-left: 191px;
+	border-radius: 8px;
+}
+#PlayerFortune {
+	width: 64px;
+	height: 34px;
+	align: right center;
+	margin-right: 10px;
+	text-overflow: shrink;
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#0ecde6), to(#16effa));
+	text-shadow: 1px 2px 1px 2 rgba(0, 0, 0, 0.61);
+}
+.MasteryParticle {
+	width: 100%;
+	height: 100%;
+	pre-transform-scale2d: 1.12;
+	margin-top: -5px;
+	wash-color: #25cdff;
+	brightness: 2;
+	saturation: 1.1;
+}
+.MasteryParticlePure {
+	wash-color: transparent;
+	brightness: 1;
+	saturation: 1;
+}
+#UpgradeMasteryText {
+	background-image: url("file://{images}/custom_game/collection/mastery/fortune_icon.png");
+	background-size: 21px 21px;
+	background-repeat: no-repeat;
+	background-position: 5% 40%;
+	padding-left: 35px;
+	padding-right: 9px;
+	font-size: 20px;
+	text-overflow: shrink;
+}
+.Blocked:not(.MasteryTier_0) #MasteryTierDescription {
+	opacity: 0;
+	height: 0px;
+}
+#MasteryTierDescription {
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 15px;
+	font-weight: lighter;
+	font-style: italic;
+	color: #898994;
+	margin-top: 4px;
+}
+#MasteryParticleRoot1,
+#MasteryParticleRoot2 {
+	width: 100%;
+	height: 100%;
+}
+.MasteryParticle .WinNewPrize {
+	width: 100%;
+	height: 100%;
+	pre-transform-scale2d: 1.12;
+	margin-bottom: 2px;
+}
+#MasteriesEquipDescriptionRoot {
+	margin: 8px 18px 0px 18px;
+}
+#MasteryTooltip {
+	width: 60px;
+	margin-top: 35px;
+	align: center top;
+}
+
+@define patreonButtonMargin: 244px;
+@define patreonButtonMarginLarge: 280px;
+
+#MapPatreonButtonGrid {
+	width: 59px;
+	height: 73px;
+	vertical-align: bottom;
+	margin-bottom: 97px;
+	margin-left: patreonButtonMargin;
+	background-image: url("file://{resources}/images/custom_game/map_overlay/support_button_background.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	z-index: -1;
+}
+.MinimapExtraLarge #MapPatreonButtonGrid {
+	margin-left: patreonButtonMarginLarge;
+}
+.HUDFlipped #MapPatreonButtonGrid {
+	horizontal-align: right;
+	margin-left: 0px;
+	margin-right: patreonButtonMargin;
+	transform: rotateY(180deg);
+}
+.HUDFlipped.MinimapExtraLarge #MapPatreonButtonGrid {
+	margin-left: 0px;
+	margin-right: patreonButtonMarginLarge;
+}
+
+#MapPatreonButtonButton {
+	width: 32px;
+	height: 32px;
+	margin-left: 12px;
+	margin-top: 19px;
+	background-image: url("file://{images}/custom_game/collection/mastery/fortune_icon.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	transition: transform 0.4s ease-in-out 0s;
+}
+
+#MapPatreonButtonButton.MasterySeleceted {
+	width: 42px;
+	height: 42px;
+	margin-top: 12px;
+	margin-left: 7px;
+	border-radius: 100%;
+}
+#MapPatreonButtonButton:hover {
+	brightness: 1.9;
+}
+#MapPatreonButtonButton:active {
+	brightness: 1.3;
+}
+
+#MasteryButtonTooltip {
+	flow-children: right;
+	vertical-align: bottom;
+	margin-bottom: 96px;
+	margin-left: 291px;
+	opacity: 1;
+	transition: opacity 0.2s ease-in-out 0s;
+}
+
+#MasteryButtonTooltip.hide {
+	opacity: 0;
+}
+.MinimapExtraLarge #MasteryButtonTooltip {
+	margin-left: 330px;
+}
+.HUDFlipped #MasteryButtonTooltip {
+	flow-children: left;
+	horizontal-align: right;
+	margin-right: 295px;
+}
+.HUDFlipped.MinimapExtraLarge #MasteryButtonTooltip {
+	margin-right: 330px;
+}
+#MasteryButtonTooltipTextRoot {
+	background-color: #252b30;
+	border: 2px solid #0c1216;
+	padding: 17px;
+}
+.TooltipGlow #MasteryButtonTooltipTextRoot {
+	animation-name: masteryGlow;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+@keyframes 'masteryGlow' {
+	0% {
+		box-shadow: #37c6d7 0px 0px 8px 0px;
+	}
+	50% {
+		box-shadow: #4af4ff 0px 0px 16px 0px;
+	}
+	100% {
+		box-shadow: #37c6d7 0px 0px 8px 0px;
+	}
+}
+#MasteryButtonTooltipArrow {
+	background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_left_png.vtex");
+	background-size: 100%;
+	wash-color: #252b30;
+	width: 21px;
+	height: 26px;
+	margin-right: -2px;
+	z-index: 1;
+	margin-top: 4px;
+}
+.HUDFlipped #MasteryButtonTooltipArrow {
+	background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_right_png.vtex");
+}
+#MasteryButtonTooltipText {
+	color: white;
+	text-overflow: shrink;
+	font-size: 18px;
+	align: center center;
+}

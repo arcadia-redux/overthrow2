@@ -1,0 +1,151 @@
+@define BorderColor: #171717;
+.DotaUItemTooltipRoot {
+	width: 280px;
+	background-color: #202324;
+	flow-children: down;
+	border: 2px solid BorderColor;
+}
+#TooltipName {
+	width: 100%;
+	height: 60px;
+	font-size: 24px;
+	text-overflow: shrink;
+	padding: 4px 9px 4px 9px;
+	font-family: Goudy Trajan;
+}
+#TooltipName {
+	color: white;
+	text-shadow: black 0px 2px 2px 2px;
+}
+#RarityLabel {
+	width: 100%;
+	height: 6px;
+	border-top: 1px solid rgba(0, 0, 0, 0.6);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+#MainInfo {
+	flow-children: down;
+	padding: 3px 10px 3px 10px;
+	width: 100%;
+}
+#MainInfo > Label {
+	font-size: 17px;
+	text-shadow: black 0px 2px 2px 2px;
+	color: #bbc3b8;
+}
+.TooltipSeparator {
+	width: 100%;
+	height: 1px;
+	background-color: BorderColor;
+}
+#SourceValueWrap {
+	width: 100%;
+}
+#SourceValueLine {
+	width: 100%;
+	height: 1px;
+	background-color: #a8b0a5;
+	vertical-align: center;
+	margin: 6px 5px 0px 15px;
+}
+#SourceValue {
+	margin-top: 5px;
+	margin-left: 10px;
+	font-size: 17px;
+	color: #bbc3b8;
+	background-color: #262c31;
+	padding-right: 5px;
+}
+
+#SourceName {
+	width: 100%;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-family: Goudy Trajan;
+	color: #cfcfcf;
+	text-transform: uppercase;
+	box-shadow: inset rgba(0, 0, 0, 0.6) 3px 3px 6px 6px;
+	text-shadow: black 0px 2px 2px 2px;
+}
+#SourceBorder {
+	background-color: black;
+	width: 118px;
+	height: 129px;
+	horizontal-align: center;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+#SourceOverlay {
+	width: 100%;
+	height: 100%;
+}
+
+#SourceImage {
+	width: 114px;
+	height: 125px;
+	align: center center;
+}
+#Description {
+	padding: 5px 10px 5px 10px;
+	font-size: 15px;
+	font-style: italic;
+	font-weight: lighter;
+	color: #707070;
+	text-shadow: black 0px 2px 2px 2px;
+}
+
+.RankOverlay #SourceImage {
+	width: 118px;
+	height: 129px;
+}
+.RankOverlay #SourceOverlay {
+	background-color: gradient(linear, 0% 0%, 0% 100%, from(#232323), to(#202324));
+}
+.RankOverlay #SourceName {
+	font-size: 23px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#eea14e), to(#f8c460));
+}
+
+.UniqueItem #SourceName {
+	font-size: 23px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#ff5a35), to(#ba0600));
+}
+
+.GloryOverlay #SourceImage {
+	width: 118px;
+	height: 129px;
+}
+.GloryOverlay #SourceBorder {
+	background-color: transparent;
+}
+.GloryOverlay #SourceOverlay {
+	background-color: gradient(
+		radial,
+		50% 50%,
+		0% 0%,
+		53% 53%,
+		from(#ffb200),
+		color-stop(0.2, #cd7711),
+		to(rgba(255, 255, 255, 0))
+	);
+}
+.GloryOverlay #SourceName {
+	font-size: 23px;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#eea14e), to(#f8c460));
+}
+.player_golden_booster #SourceName {
+	font-family: Goudy Trajan;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#ee991c), to(#f8c432));
+	box-shadow: inset rgba(245, 193, 44, 0.2) 2px 2px 4px 4px;
+	font-size: 20px;
+}
+.player_base_booster #SourceName {
+	font-family: Goudy Trajan;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#ff663a), to(#ff7551));
+	box-shadow: inset rgb(171, 86, 48) 2px 2px 4px 4px;
+	font-size: 20px;
+}
+#Contents {
+	padding: 0px;
+}

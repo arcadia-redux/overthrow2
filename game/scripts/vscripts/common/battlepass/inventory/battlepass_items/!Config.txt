@@ -1,0 +1,30 @@
+SOME TAG DESCRIPTION:
+------------------------------------------
+"OverrideCategoty"		"Specials"
+
+Will move item in other from default collection page. Example: add treasure, but 
+in speical category
+------------------------------------------
+"Blocked"		"1"
+
+Player cannot get this item from treasure, cannot see item in collection or in treasure's preview. You can add this item in
+existing treasure and remove this tag in future. But you cannot add item in blocked treasure.
+------------------------------------------
+"HideInCollection"		"1"
+
+Player cannot see item in collection page ONLY. Player can get this item from treasure or see this item in treasure preview.
+------------------------------------------
+"NotAddInInventory"		"1"
+
+This item will not add in player inventory (local and server). Can be used if the item just needs to be "applied".
+Example: glory packs.
+------------------------------------------
+"Season"	"1"
+
+Player still can use items (if it's treasure - open, if it's item - equip/takeoff, etc). But he cannot get
+new items (blocked for buying and hidden)
+------------------------------------------
+"NoAction"		"1"
+
+Player cannot do anything with this item in collection. He will see "Owned" in item button
+------------------------------------------

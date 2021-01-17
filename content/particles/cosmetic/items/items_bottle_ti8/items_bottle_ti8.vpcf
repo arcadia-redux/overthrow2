@@ -1,0 +1,43 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_nMaxParticles = 0
+	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_bottle_ti8/items_bottle_ti8_bloom.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_bottle_ti8/items_bottle_ti8_embers.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_bottle_ti8/items_bottle_ti8_energy.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_bottle_ti8/items_bottle_ti8_glow.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_bottle_ti8/items_bottle_ti8_ring_green.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/items/items_bottle_ti8/items_bottle_ti8_ring_crystal.vpcf"
+			m_flDelay = 0.5
+		},
+	]
+}

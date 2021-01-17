@@ -1,0 +1,419 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/barrage/barrage.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/payments.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/mastery.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/12v12/collection_12v12.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/12v12/collection_12v12.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/mastery_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/payments_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/payments.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/glory_shop.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/mastery.js" />
+
+	</scripts>
+
+	<snippets>
+		<snippet name="Mastery">
+			<Panel class="Mastery">
+				<Image id="MasterySelected" src="file://{images}/custom_game/collection/mastery/mastery_poligon_selected.png"/>
+				<Panel id="MasteryParticleRoot1"/>
+				<Panel id="MasteryBackground"/>
+				<Panel id="MasteryTooltip"/>
+				<Panel id="MasteryIcon"/>
+				<Panel id="MasteryEquippedFlag"/>
+				<Panel id="MasteryParticleRoot2"/>
+			</Panel>
+		</snippet>
+		<snippet name="AbilityTier">
+			<Panel class="AbilityTier Blocked">
+				<Panel id="AbilityTierRoot">
+					<Label id="TierName" class="TierText" text="ADVANCED"/>
+					<ProgressBar id="TierStateAction" value="0">
+						<Label id="TierStateText" text="#tier_unlimited"/>
+					</ProgressBar>
+				</Panel>
+				<Label id="MasteryTierDescription" text=""/>
+			</Panel>
+		</snippet>
+		<snippet name="MasteriesRoot">
+			<Panel class="MasteriesRoot">
+				<Panel id="MasteriesAbilities">
+					<Label id="MasteriesAbilitiesHeader" text="#mastery_select_header"/>
+					<Panel id="MasteriesAbilitiesListRoot">
+						<Panel id="MasteriesAbilitiesList"/>
+					</Panel>
+					<Panel id="MasteriesAbilitiesFoot">
+						<Panel id="MasteriesUpgradeRoot">
+							<Button id="MasteriesUpgrade" class="MasteryButton" onactivate="UpgradeRandomMastery()">
+								<Label id="MasteriesUpgradeText" html="true" text="#mastery_unlock_random"/>
+							</Button>
+							<Label id="MasteriesUpgradeCost" text="{s:cost} {s:fortune}"/>
+						</Panel>
+						<Panel id="MasteriesUpgradeDescriptionRoot">
+							<Label id="MasteriesUpgradeDescription" text="#mastery_unlock_random_description"/>
+						</Panel>
+					</Panel>
+				</Panel>
+				<Panel id="VerticalSeparator"/>
+				<Panel id="MasteriesInfo">
+					<Panel id="AbilityInfo">
+						<Panel id="Ability">
+							<Panel id="AbilityNameRoot">
+								<Label id="AbilityName" html="true" text="LIFESTEAL MASTERY"/>
+							</Panel>
+							<Panel id="AbilityIcon">
+								<DOTAScenePanel class="MasteryParticle" camera="camera_common" particleonly="false" map="collection/spin_glow" hittest="false"/>
+								<Image id="AbilityBorder" src="file://{images}/custom_game/collection/mastery/mastery_poligon_tier_1.png"/>
+								<Image id="AbilityShadow"/>
+								<Panel id="AbilityImage"/>
+							</Panel>
+						</Panel>
+						<Panel id="MasteryEquip">
+							<Button id="MasteryEquipButton" class="MasteryButton InfoButton" onactivate="EquipMasteryResponse()"
+									onmouseover="MasteryEquipHint()" onmouseout="DOTAHideTextTooltip()">
+								<Label class="MasteryButtonText" text="#equip_mastery"/>
+							</Button>
+							<Button id="MasteryUpgradeButton" class="MasteryButton InfoButton" onactivate="UpgradeMasteryResponse()" onmouseout="DOTAHideTextTooltip()">
+								<Label id="UpgradeMasteryText" class="MasteryButtonText" html="true" text="#upgrade_mastery"/>
+							</Button>
+							<Panel id="MasteriesEquipDescriptionRoot">
+								<Label id="MasteriesEquipDescription" text="#mastery_equip_description"/>
+							</Panel>
+						</Panel>
+					</Panel>
+					<Panel id="AbilityTiers"/>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="ItemType">
+			<Panel class="ItemType">
+				<Label id="ItemTypeName"/>
+				<Label id="NewItemsCount" text="0"/>
+			</Panel>
+		</snippet>
+		<snippet name="ItemsListType">
+			<Panel class="ItemsListType">
+				<Label id="ItemNone" text="#nothing_for_now"/>
+				<Panel id="Items"/>
+			</Panel>
+		</snippet>
+		<snippet name="ItemDotaU">
+			<Panel class="ItemDotaU">
+				<Panel id="ItemBackground">
+					<Panel id="ItemOverlay"/>
+					<Image id="ItemImage"/>
+					<Label id="ItemCount"/>
+					<Label id="ItemName" html="true"/>
+					<Panel id="TextContentRoot" hittest="false">
+						<Label text="#barrages_example" hittest="false"/>
+					</Panel>
+					<Panel id="ItemEquippedState"/>
+					<Button id="TreasureShowInfo" onmouseover="DOTAShowTextTooltip('#tresure_preview_hint')" onmouseout="DOTAHideTextTooltip()"/>
+				</Panel>
+				<Button id="ItemActionButton">
+					<Label id="ItemButtonText"/>
+				</Button>
+			</Panel>
+		</snippet>
+		<snippet name="WheelWinParticle">
+			<Panel class="WheelWinParticle" style="width:100%;height:100%;" hittest="false">
+				<DOTAScenePanel class="WinNewPrize" camera="camera_default" particleonly="false" map="duel_win" hittest="false"/>
+			</Panel>
+		</snippet>
+		<snippet name="TreasuresPreviewWrap">
+			<Panel class="TreasuresPreviewWrap" onactivate="">
+				<Panel id="TreasuresPreviewHeaderRoot">
+					<Panel id="PreviewParticleRoot"/>
+					<Label id="TreasureName" html="true" text="Common Treasure"/>
+					<Image id="TreasureImagePreview" src="file://{resources}/images/custom_game/collection/Treasures/treasure_common.png"/>
+				</Panel>
+				<Panel id="ItemsPreviewList"/>
+				<Panel id="PreviewButtons">
+					<Button id="Preview_OpenTreasure" class="AccessButtons">
+						<Label class="AccessText" text="#open_treasure"/>
+					</Button>
+					<Button id="Preview_Cancel" class="AccessButtons">
+						<Label class="AccessText" text="#Close"/>
+					</Button>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="GloryOffer">
+			<Panel class="GloryOffer">
+				<Panel id="GloryOfferHeaderRoot">
+					<Panel class="GloryTextRoot">
+						<Image class="GloryOfferHeaderIcon" src="file://{resources}/images/custom_game/collection/collection_coin.png"/>
+						<Label id="GloryOfferHeaderText_Glory" text="100"/>
+					</Panel>
+					<Panel class="GloryTextRoot OfferFortune">
+						<Image class="GloryOfferHeaderIcon" src="file://{images}/custom_game/collection/mastery/fortune_icon.png"/>
+						<Label id="GloryOfferHeaderText_Fortune" text="100"/>
+					</Panel>
+				</Panel>
+				<Panel id="GloryOfferData">
+					<Button id="GloryOfferButton" onactivate="BuyGlory()">
+						<Label id="GloryOfferPrice" text="{s:paySymbol}{s:price}"/>
+					</Button>
+					<Label id="Popular" text="#popular"/>
+				</Panel>
+				<Panel id="GloryOfferFoot">
+					<Label id="GloryDiscount" text="#glory_offer_bonus"/>
+				</Panel>
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="CollectionRoot" hittest="false">
+		<Panel id="CollectionDotaU">
+			<Panel id="CollectionDataWrap" onactivate="">
+				<Panel id="CollectionData">
+					<Panel id="CollectionDataOverlayBackground"/>
+					<Panel id="CollectionOverlayGrid"/>
+					<Panel id="CollectionDataHeader">
+						<Panel class="PlayerCoinsWrap" onmouseover="DOTAShowTextTooltip('#glory_explanation')" onmouseout="DOTAHideTextTooltip()">
+							<Image class="CollectionCoin" src="file://{resources}/images/custom_game/collection/collection_coin.png"/>
+							<Label id="PlayerCoins" text="1" />
+						</Panel>
+						<Panel class="PlayerFortuneWrap" onmouseover="DOTAShowTextTooltip('#fortune_explanation')" onmouseout="DOTAHideTextTooltip()">
+							<Image class="CollectionCoin" src="file://{images}/custom_game/collection/mastery/fortune_icon.png"/>
+							<Label id="PlayerFortune" text="0" />
+						</Panel>
+						<ToggleButton id="OnlyOwnedItems" checked="false" text="#only_owned_items" onactivate="ShowOnlyOwnedItems()"/>
+						<Label id="SortingText" text="#sort_by"/>
+						<DropDown id="SortingOptions" >
+							<Label id="collection_sort_default" text="#collection_sort_default" onactivate="SortingItems('default')"/>
+							<Label id="collection_sort_rarity_up" text="#collection_sort_rarity_up" onactivate="SortingItems('rarity_up')"/>
+							<Label id="collection_sort_rarity_down" text="#collection_sort_rarity_down" onactivate="SortingItems('rarity_down')"/>
+						</DropDown>
+						<Button id="ShopGloryButtonRoot" class="OpenGloryShopPlusRoot" onactivate="OpenGloryShop()">
+							<Label id="ShopGloryButtonText" class="OpenGloryShopPlus" text="#more_glory"/>
+						</Button>
+						<Button id="ShopFortuneButtonRoot" class="OpenGloryShopPlusRoot" onactivate="OpenGloryShop()">
+							<Label id="ShopFortuneButtonText" class="OpenGloryShopPlus" text="#more_glory"/>
+						</Button>
+					</Panel>
+					<Panel id="CollectionDataGrid">
+						<Panel id="ItemsTypesList"/>
+						<Panel id="ItemsList"/>
+					</Panel>
+				</Panel>
+				<Button class="CloseDotaU" onactivate="CloseCollectionDotaU()">
+					<Image src="s2r://panorama/images/control_icons/x_close_png.vtex" />
+					<Label text="#Close" />
+				</Button>
+			</Panel>
+
+			<Panel id="DonateFocus" class="BoostWrapLayout"/>
+			<Panel id="BuyBoostWrap" class="BoostWrapLayout">
+				<Panel id="BoostersHeader">
+					<Panel id="BaseBoost" class="Boost" onactivate="ShowBoostInfo('BaseBoost')">
+						<Label id="BaseBoostText" class="BoostHeader" text="#player_base_booster"/>
+					</Panel>
+					<Panel id="GoldBoost" class="Boost" onactivate="ShowBoostInfo('GoldBoost')">
+						<Label id="GoldBoostText" class="BoostHeader" text="#player_golden_booster"/>
+					</Panel>
+				</Panel>
+				<Panel id="BoostersInfoWrap">
+					<Panel class="BoostersInfo" id="BaseBoostPanel">
+						<Panel class="BoostDescription">
+							<Label class="BoostText FortuneText" text="#perks_level_1"/>
+							<Label class="BoostText" text="#base_booster_glory"/>
+							<Label class="BoostText" text="#base_booster_xp"/>
+<!--							<Label class="BoostText" text="#base_booster_daily"/>-->
+							<Label class="BoostText" text="#base_booster_items"/>
+							<Label class="BoostText" text="#first_pick"/>
+<!--							<Label class="BoostText FortuneText" text="#base_booster_fortune"/>-->
+						</Panel>
+						<Panel class="BoostBuyButtonRoot">
+							<Panel id="BuyBoost_base_booster" class="BuyBoost" onactivate="BuyBoost('base_booster')">
+								<Label class="BoostPriceText Price" text="#base_booster_price"/>
+								<Label class="BoostPriceText Month" text="#month"/>
+							</Panel>
+							<Panel id="BoostTimeLeftRoot_1">
+								<Label id="BoostTimeLeft_1" class="BoostText" text="{s:time_left}"/>
+							</Panel>
+						</Panel>
+					</Panel>
+					<Panel class="BoostersInfo" id="GoldBoostPanel">
+						<Panel class="BoostDescription">
+							<Label class="BoostText FortuneText" text="#perks_level_2"/>
+							<Label class="BoostText" text="#golden_booster_glory"/>
+							<Label class="BoostText" text="#golden_booster_xp"/>
+<!--							<Label class="BoostText" text="#golden_booster_daily"/>-->
+							<Label class="BoostText" text="#golden_booster_items"/>
+							<Label class="BoostText" text="#super_first_pick"/>
+<!--							<Label class="BoostText FortuneText" text="#golden_booster_fortune"/>-->
+						</Panel>
+						<Panel class="BoostBuyButtonRoot">
+							<Panel id="BuyBoost_golden_booster" class="BuyBoost" onactivate="BuyBoost('golden_booster')">
+								<Label class="BoostPriceText Price" text="#golden_booster_price"/>
+								<Label class="BoostPriceText Month" text="#month"/>
+							</Panel>
+							<Panel id="BoostTimeLeftRoot_2">
+								<Label id="BoostTimeLeft_2" class="BoostText" text="{s:time_left}"/>
+							</Panel>
+						</Panel>
+					</Panel>
+				</Panel>
+			</Panel>
+			<Panel id="CollectionImage" hittest="false"/>
+			<Label id="CollectionHeader" text="#collection_header" hittest="false"/>
+			<Panel id="PlayerProgress">
+				<DOTAAvatarImage id="PlayerAvatar" steamid="local" />
+				<DOTAUserName id="PlayerName" steamid="local"/>
+				<Label id="PlayerStatusBooster" />
+				<ProgressBar id="BPProgressBar" hittest="false"/>
+				<Panel id="BPLevelIcon"/>
+				<Label id="DotaUBP_Level" text="#dotau_bp_level"/>
+				<Label id="DotaUBP_LevelProgress" text="{s:curr_exp}/{s:max_exp}"/>
+				<Label id="DotaUBP_PlayerLevel"/>
+			</Panel>
+		</Panel>
+
+		<Panel id="PurchaseAccessCoins" onactivate="">
+			<Label id="PurchaseAccessCoinsHeader" class="AdaptiveText_LightAndUpper BlueHeader" text="#purchase_access_coins"/>
+			<Panel class="PlayerCoinsWrap">
+				<Image class="CollectionCoin" src="file://{resources}/images/custom_game/collection/collection_coin.png"/>
+				<Label id="PlayerCoins"/>
+			</Panel>
+			<Panel id="Item"/>
+			<Panel id="СountButtons">
+				<Button id="ChangeItemsCount_Dec" class="IncrementItemsCount" onactivate="ChangeItemsCount(-1)" onmouseout="DOTAHideTextTooltip()">
+					<Label class="AccessText" text="-1" />
+				</Button>
+				<Label id="ItemsCount" class="ItemsCountLabel AccessText" text="0" />
+				<Button id="ChangeItemsCount_Inc" class="IncrementItemsCount" onactivate="ChangeItemsCount(1)" onmouseout="DOTAHideTextTooltip()">
+					<Label class="AccessText" text="+1" />
+				</Button>
+			</Panel>
+			<Panel id="AccessButtons">
+				<Button id="AccesButtonYes" class="AccessButtons" onactivate="SuccessPurchaseCoins()">
+					<Label class="AccessText" text="#yes" />
+				</Button>
+				<Button id="AccesButtonNo" class="AccessButtons" onactivate="CancelPurchaseCoins()">
+					<Label class="AccessText" text="#no" />
+				</Button>
+			</Panel>
+		</Panel>
+
+		<Panel class="TreasuresWheelBackground">
+			<Panel id="TreasuresWheelWrap" onactivate="">
+				<Label id="SpinHeader" class="AdaptiveText_LightAndUpper BlueHeader" text="#spin_header"/>
+				<Panel id="ChestIcon"/>
+				<DOTAScenePanel id="ParticlePrize" class="Particle" camera="camera_glow" particleonly="false" map="collection/spin_glow" hittest="false"/>
+				<Panel id="TreasuresWheel"/>
+				<Label id="PrizeBorder"/>
+				<DOTAScenePanel id="ParticleArrow" class="Particle" camera="camera_arrow" particleonly="false" map="collection/spin_glow" hittest="false"/>
+				<Label id="SpinArrow"/>
+				<Panel id="WheelParticle" hittest="false"/>
+				<Button id="SkipSpin" class="AccessButtons" onactivate="SkipSpin()">
+					<Label class="AccessText" text="#spin_skip" />
+				</Button>
+				<Panel id="InfoAboutPrize" hittest="false">
+					<Panel id="PrizeInfo" hittest="false">
+						<Label class="WhiteText" text="#spin_received"/>
+						<Label id="ItemRecived" class="GoldText" text="ITEM NAME"/>
+						<Label class="WhiteText" text="!"/>
+					</Panel>
+					<Panel id="DoubleGloryInfoWrap" hittest="false">
+						<Label id="DoubleGloryInfo" class="WhiteText" text="#duplicate_item_info"/>
+						<Label id="DoubleGloryValue" class="GoldText"/>
+						<Image id="DoubleGloryIcon" src="file://{resources}/images/custom_game/collection/collection_coin.png"/>
+						<Label id="DoubleGloryBack" class="WhiteText" text="#duplicate_item_back"/>
+					</Panel>
+					<Panel id="PrizeButtons">
+						<Button id="SpinAgain" class="AccessButtons" onactivate="SpinAgain()">
+							<Label class="AccessText" text="#spin_again" />
+						</Button>
+						<Button id="CloseWheel" class="AccessButtons" onactivate="CloseWheelDotaU()">
+							<Label class="AccessText" text="#spin_close" />
+						</Button>
+					</Panel>
+					<Label id="TreasuresLeft" class="PaymentInBrowser" text="#spin_treasures_left"/>
+				</Panel>
+			</Panel>
+		</Panel>
+		<Panel id="TreasuresPreviewRoot"/>
+		<Panel id="GloryShopRoot">
+			<Panel id="GloryShop" onactivate="">
+				<Panel class="HeaderWithCloseButton">
+					<Label class="AdaptiveText_LightAndUpper BlueHeader" text="#purchase_glory_bundle"/>
+					<Button id="CloseGloryShop" onactivate="CloseGloryShop()">
+						<Label text="#close"/>
+					</Button>
+				</Panel>
+				<Panel id="GloryOffersRoot"/>
+			</Panel>
+		</Panel>
+		<Panel id="CollectionPayment" onactivate="">
+			<Panel id="PaymentPanel">
+				<Panel class="HeaderWithCloseButton">
+					<Label class="AdaptiveText_LightAndUpper BlueHeader" text="#you_are_purchasing"/>
+					<Button class="CloseButton" onactivate="SetPaymentVisible(false)" />
+				</Panel>
+				<Panel id="PurchasingInfoWrap">
+					<Image id="PurchasingIcon" src="file://{resources}/images/custom_game/payment/payment_boost.png"/>
+					<Panel id="PurchasingInfo">
+						<Label id="PurchasingHeader"/>
+						<Label id="PurchasingDescription"/>
+						<Panel id="PurchasingPriceWrap">
+							<Label id="TotalPrice" text="#total_price"/>
+							<Label id="Price" text="{s:paySymbol}{s:price}"/>
+						</Panel>
+					</Panel>
+				</Panel>
+				<Label id="PaymentMethodHeader" class="AdaptiveText_LightAndUpper BlueHeader" text="#choose_payment_mehtod"/>
+				<Panel id="PurchasingMethods">
+					<Button class="PaymentMethod" onactivate="updatePaymentWindow('wechat')">
+						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_wechat.png" class="HasNoBackground" />
+					</Button>
+					<Button class="PaymentMethod" onactivate="updatePaymentWindow('alipay')">
+						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_alipay.png" class="HasNoBackground" />
+					</Button>
+					<Button id="PatreonPaymentButton" class="PaymentMethod" onactivate="OpenPatreonURL()">
+						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_patreon.png" />
+						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
+					</Button>
+					<Button class="PaymentMethod" onactivate="updatePaymentWindow('checkout')">
+						<Image scaling="stretch-to-fit-preserve-aspect" src="file://{resources}/images/custom_game/payment/payment_card.png" />
+						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
+					</Button>
+				</Panel>
+				<Label id="PaymentDescription" html="true" text="#payment_description"/>
+			</Panel>
+		</Panel>
+
+		<Panel id="PaymentWindow" onactivate="">
+			<Panel id="PaymentWindowContent">
+				<HTML id="PaymentWindowHTML" acceptsinput="true" />
+				<Panel id="PaymentWindowLoader">
+					<Panel class="Spinner" />
+				</Panel>
+				<Panel id="PaymentWindowError">
+					<Label id="PaymentWindowErrorMessage" />
+				</Panel>
+			</Panel>
+			<Button class="CloseButton" onactivate="setPaymentWindowStatus('closed')" />
+		</Panel>
+
+		<Panel id="MapPatreonButtonGrid">
+			<Button id="MapPatreonButtonButton" onmouseover="MinimapButtonTooltip()"
+					onmouseout="MinimapButtonTooltipOver()" onactivate="MinimapButtonAction()"/>
+		</Panel>
+		<Panel id="MasteryButtonTooltip" class="TooltipGlow">
+			<Panel id="MasteryButtonTooltipArrow"/>
+			<Panel id="MasteryButtonTooltipTextRoot">
+				<Label id="MasteryButtonTooltipText" text="#choose_mastery"/>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

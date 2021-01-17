@@ -1,0 +1,105 @@
+"EventTypes"
+{
+	// following declaration is required for progress tracker to parse incoming quests and achievements
+
+	"kill_ancient"
+	{
+		// to which event we are listening to for this quest
+		"EventListener"		"MODIFIER_EVENT_ON_DEATH"
+		// target type
+		"Kind"				"DOTA_UNIT_TARGET_BASIC"
+		// target relative team type
+		"Team"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		// target flags
+		"Flags"				"DOTA_UNIT_TARGET_FLAG_DEAD"
+		// data accessor relative to "params"
+		// needed to specify main "actor" of event - in this case we are interested in unit that died
+		// in some events it's called victim/target/whatever
+		"DataAccessor"		"unit"
+
+		// callback running relative to ProgressTracker
+		// meaning that this should be declared as ProgressTracker:OnAncientKilled(...)
+		// if missing - general event callback will be applied
+		"Callback"			"OnAncientKilled" 
+
+		// simple check function, result of which will influence filtering
+		// called to unit (specified in DataAccessor field), e.g. CDOTA_Base_Npc:IsAncient
+		"LuaCheck"			"IsAncient"
+	}
+
+	"kill_creep"
+	{
+		"EventListener"		"MODIFIER_EVENT_ON_DEATH"
+		"Kind"				"DOTA_UNIT_TARGET_BASIC"
+		"Team"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"Flags"				"DOTA_UNIT_TARGET_FLAG_DEAD"
+		"DataAccessor"		"unit"
+		"Callback"			"OnCreepKilled" 
+	}
+
+	"kill_boss"
+	{
+		"EventListener"		"MODIFIER_EVENT_ON_DEATH"
+		"Kind"				"DOTA_UNIT_TARGET_BASIC"
+		"Team"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"Flags"				"DOTA_UNIT_TARGET_FLAG_DEAD"
+		"DataAccessor"		"unit"
+		"Callback"			"OnBossKilled"
+		"LuaCheck"			"IsBossCreep"
+	}
+
+	"kill_roshan"
+	{
+		"EventListener"		"MODIFIER_EVENT_ON_DEATH"
+		"Kind"				"DOTA_UNIT_TARGET_BASIC"
+		"Team"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"Flags"				"DOTA_UNIT_TARGET_FLAG_DEAD"
+		"DataAccessor"		"unit"
+		"Callback"			"OnRoshanKilled"
+		"LuaCheck"			"IsClashRoshan"
+	}
+
+	"hero_damage"
+	{
+		"EventListener"		"MODIFIER_EVENT_ON_TAKEDAMAGE"
+		"Kind"				"DOTA_UNIT_TARGET_HERO"
+		"Team"				"DOTA_UNIT_TARGET_TEAM_ENEMY"
+		"DataAccessor"		"unit"
+		"Callback"			"OnHeroDamageDealt"
+	}
+
+	// we either need to set listener for custom events, or set specific callbacks
+	"win_game"
+	{
+		"EventListener"		"CUSTOM_EVENT_GAME_WON"
+		"Callback"			"OnGameWon"
+	}
+
+	"win_duel"
+	{
+		"EventListener"		"CUSTOM_EVENT_DUEL_WON"
+		"Callback"			"OnDuelWon"
+	}
+
+	"bet_gold"
+	{
+		"EventListener"		"CUSTOM_EVENT_BET_WON"
+		"Callback"			"OnBetGoldWon"
+	}
+
+	"tome_retraining"
+	{
+		"EventListener"		"CUSTOM_EVENT_RETRAINING_TOME_CONSUMED"
+		"Callback"			"OnRetrainingTomeConsumed"
+	}
+
+	"tome_attribute"
+	{
+		"EventListener"		"MODIFIER_EVENT_ON_ABILITY_FULLY_CAST"
+		"Kind"				"DOTA_UNIT_TARGET_HERO"
+		"Team"				"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"Flags"				"DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+		"DataAccessor"		"unit"
+		"Callback"			"OnAttributeTomeConsumed"
+	}
+}

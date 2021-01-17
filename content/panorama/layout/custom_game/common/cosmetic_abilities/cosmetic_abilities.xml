@@ -4,164 +4,23 @@
 	</styles>
 
 	<scripts>
-		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/data.js" />
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.js" />
-		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_hero_effects.js" />
-		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_kill_effects.js" />
-		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_pets.js" />
-		<include src="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetics_main.js" />
 	</scripts>
 
-	<Panel style="width: 100%; height: 100%;" hittest="false">
-		<Panel id="CosmeticMenu">
-			<Button id="CosmeticMenuButton" onactivate="ToggleCosmeticMenu()">
-				<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/button.png" />
+	<snippets>
+		<snippet name="CosmeticAbility">
+			<Button class="CosmeticAbility">
+				<Image id="CosmeticAbilityImage"/>
+				<Panel id="CooldownRoot">
+					<Panel id="CooldownEffect"/>
+					<Label id="CooldownValue"/>
+				</Panel>
 			</Button>
-			<Panel id="CosmeticMenuMain">
-				<Panel id="Header">
-					<Button id="AbilitiesMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'Abilities' )">
-						<Label class="HeaderText" text="#cosemtics_header_abilities" />
-					</Button>
-					<Label class="HeaderText" text=" / " />
-					<Button id="HeroEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'HeroEffects' )">
-						<Label class="HeaderText" text="#cosemtics_header_effects" />
-					</Button>
-					<Label class="HeaderText" text=" / " />
-					<Button id="KillEffectsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'KillEffects' )">
-						<Label class="HeaderText" text="#cosemtics_header_kill_effects" />
-					</Button>
-					<Label class="HeaderText" text=" / " />
-					<Button id="PetsMenuButton" class="MenuButton" onactivate="SetCosmeticsClass( 'Pets' )">
-						<Label class="HeaderText" text="#cosemtics_header_pets" />
-					</Button>
-				</Panel>
-				<Panel id="CosmeticContainer">
-					<Panel id="Preview">
-						<Image id="PreviewImage" />
-						<Panel id="PreviewBorder" />
-					</Panel>
-					<Panel id="Cosmetics">
-						<Panel id="AbilitiesContainer"></Panel>
-						<Panel id="HeroEffects">
-							<Panel id="EffectOwner">
-								<Button id="HeroOwnButton" class="MenuButton" onactivate="SetEffectType( 'hero' )">
-									<Label class="HeaderText" text="#cosemtics_effects_header_hero" />
-								</Button>
-								<Label class="HeaderText" text=" / " />
-								<Button id="PetOwnButton" class="MenuButton" onactivate="SetEffectType( 'pet' )">
-									<Label class="HeaderText" text="#cosemtics_effects_header_pet" />
-								</Button>
-								<Label class="HeaderText" text=" / " />
-								<Button id="CourierOwnButton" class="MenuButton" onactivate="SetEffectType( 'courier' )">
-									<Label class="HeaderText" text="#cosemtics_effects_header_courier" />
-								</Button>
-								<Label class="HeaderText" text=" / " />
-								<Button id="WardsOwnButton" class="MenuButton" onactivate="SetEffectType( 'wards' )">
-									<Label class="HeaderText" text="#cosemtics_effects_header_wards" />
-								</Button>
-							</Panel>
-							<Panel id="SelectedHeroEffect" class="SelectedRow">
-								<Label class="CurrentText" text="Effect: " />
-								<Label id="CurrentEffect" class="None" text="none" />
-								<Button id="DeleteEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteEffect()">
-									<Label text="Delete" />
-								</Button>
-							</Panel>
-							<Panel id="HeroEffectsContainer"></Panel>
+		</snippet>
+	</snippets>
 
-							<Panel id="SelectedEffectColor" class="SelectedRow">
-								<Label class="CurrentText" text="Color: " />
-								<Label id="CurrentColor" class="None" text="none" />
-								<Button id="DeleteColor" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteColor()">
-									<Label text="Delete" />
-								</Button>
-							</Panel>
-							<Panel id="EffectColorsContainer"></Panel>
-						</Panel>
-						<Panel id="KillEffects">
-							<Panel id="SelectedKillEffect" class="SelectedRow">
-								<Label class="CurrentText" text="Kill effect: " />
-								<Label id="CurrentKillEffect" class="None" text="none" />
-								<Button id="DeleteKillEffect" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeleteKillEffect()">
-									<Label text="Delete" />
-								</Button>
-							</Panel>
-							<Panel id="KillEffectsContainer"></Panel>
-						</Panel>
-						<Panel id="Pets">
-							<Panel id="SelectedPet" class="SelectedRow">
-							<!--<Label class="CurrentText" text="Pet: " />
-								<Label id="PetNone" class="None" text="none" />
-								<Image id="CurrentPetImage" style="visibility: collapse;" />-->
-								<Button id="DeletePet" style="visibility: collapse;" class="HeroEffectDelete" onactivate="DeletePet()">
-									<Label text="Delete" />
-								</Button>
-							</Panel>
-							<Panel id="PetsContainer"></Panel>
-						</Panel>
-					</Panel>
-				</Panel>
-				<Button id="SaveSettings" class="MenuButton" onactivate="SaveSettings()" style="visibility: collapse;">
-					<Label class="HeaderText" text="#cosmetics_save_settings" />
-				</Button>
-			</Panel>
-		</Panel>
-		<Panel id="BarOverAbilities" hittest="false">
-		</Panel>
-		<Panel id="BarOverItems" hittest="false">
-		</Panel>
-
-		<Panel style="visibility: collapse; width: 100%; height: 100%;">
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_cny_balloon.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_dragon.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_cny_tree.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_firecrackers.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_ti9_shovel.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_ti9_instruments.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_ti9_monkey.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_ti9_balloon.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_throw_snowball.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_festive_firework.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_decorate_tree.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/abilities/seasonal_summon_snowman.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/firework.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/tombstone.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/incineration.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/kill_effects/halloween.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/1.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/2.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/3.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/4.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/5.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/7.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/8.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/9.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/10.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/11.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/12.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/13.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/14.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/15.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/16.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/17.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/18.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/20.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/21.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/22.png" />
-			<Image src="file://{resources}/layout/custom_game/common/cosmetic_abilities/preview/effects/23.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/boots_free.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/random_unlimited.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/cosmetics_box.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/unlimited_chat_wheel.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/instant_transfer.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/immune_kick_troll.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/kick_troll.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/private_courier.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/supporter_perks_low.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/supporter_perks_high.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/first_pick_low.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/first_pick_high.png" />
-			<Image src="file://{resources}/layout/custom_game/common/patreon/perks/our_thanks_and_appreciation.png" />
-		</Panel>
+	<Panel style="width:100%;height:100%;" hittest="false">
+		<Panel id="BarOverItems" hittest="false"/>
 	</Panel>
 </root>

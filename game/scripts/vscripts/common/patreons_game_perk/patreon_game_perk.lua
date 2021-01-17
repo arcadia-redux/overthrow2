@@ -94,8 +94,7 @@ _G.VisiblePerksForEnemyTeam = {}
 _G.timerForCheckerPerks = false
 
 RegisterCustomEventListener("check_patreon_level_and_perks", function(data)
-	local patreon = Patreons:GetPlayerSettings(data.PlayerID)
-	local patreonLvl = patreon.level
+	local patreonLvl = Supporters:GetLevel(data.PlayerID)
 	local currentPerk = _G.PlayersPatreonsPerk[data.PlayerID]
 	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "return_patreon_level_and_perks", {
 		patreonLevel = patreonLvl,
@@ -109,8 +108,8 @@ RegisterCustomEventListener("set_patreon_game_perk", function(data)
 	if _G.PlayersPatreonsPerk[playerID] then return end
 	local player = PlayerResource:GetPlayer(playerID)
 	local newModifierName = data.newPerkName
-	local patreon = Patreons:GetPlayerSettings(playerID)
-	local correctPerk = perksTierPatreon[newModifierName] and perksTierPatreon[newModifierName] <= patreon.level
+	local supporter_level = Supporters:GetLevel(playerID)
+	local correctPerk = perksTierPatreon[newModifierName] and perksTierPatreon[newModifierName] <= supporter_level
 	if not correctPerk then
 		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerID), "reload_patreon_perk_setings_button", {})
 		return

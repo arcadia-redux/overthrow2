@@ -1,0 +1,15 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "projected_dota.vfx"
+
+	//---- Use Alpha Channel of Color Texture ----
+	F_USE_COLOR_TEXTURE_ALPHA_CHANNEL 1
+
+	//---- Color ----
+	TextureColor "panorama/images/custom_game/collection/sprays/based_spray.png"
+
+	//---- Overbright ----
+	g_flOverbrightFactor "1.000"
+}

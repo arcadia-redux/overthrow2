@@ -1,0 +1,16 @@
+#CollectionTopButton {
+	background-image: url("file://{resources}/images/custom_game/inventory.png");
+	background-size: 38px 38px;
+	tooltip-position: bottom;
+	visibility: collapse;
+	wash-color: #cdf;
+}
+#MasteryButtonTooltip,
+#MapPatreonButtonGrid,
+#ItemType_Masteries,
+#ItemType_Barrages,
+.PlayerFortuneWrap,
+#ShopFortuneButtonRoot,
+.OfferFortune {
+	visibility: collapse;
+}

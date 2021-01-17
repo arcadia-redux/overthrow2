@@ -1,0 +1,109 @@
+#InventoryPayment {
+	width: 100%;
+	flow-children: down;
+}
+
+#InventoryPaymentHeading {
+	horizontal-align: center;
+	text-align: center;
+	font-size: 40px;
+	color: #ddd;
+}
+
+#InventoryPaymentLevels,
+#InventoryPaymentMethods {
+	margin: 5px 0;
+	flow-children: right;
+	horizontal-align: center;
+}
+
+.InventoryPaymentLevel {
+	margin: 0 5px;
+	padding: 8px;
+	tooltip-position: bottom;
+}
+
+.InventoryPaymentLevel:not(:selected) {
+	brightness: 0.4;
+}
+
+.InventoryPaymentLevel .RadioBox {
+	visibility: collapse;
+}
+
+.InventoryPaymentLevel > Label {
+	letter-spacing: 0.5px;
+	font-size: 20px;
+}
+
+#InventoryPaymentMethods > RadioButton:not(:selected) {
+	brightness: 0.4;
+}
+
+#InventoryPaymentMethods .RadioBox {
+	visibility: collapse;
+}
+
+#InventoryPaymentMethods Image {
+	height: 60px;
+	border-radius: 12px;
+	margin: 0 5px;
+}
+
+#InventoryPaymentMethods Image.HasNoBackground {
+	background-color: whitesmoke;
+	border: 2px black solid;
+}
+
+#PaymentWindow {
+	align: center center;
+	width: 860px;
+	height: 700px;
+	background-color: #444;
+	background-image: url("file://{resources}/images/custom_game/payment/payment_bg.png");
+	background-size: 100%;
+	box-shadow: black 0px 0px 20px 0px;
+	pre-transform-scale2d: 1;
+}
+
+#PaymentWindow > .CloseButton {
+	horizontal-align: right;
+	wash-color: #a4beef;
+	brightness: 1;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+#PaymentWindow > .CloseButton:hover {
+	brightness: 1.5;
+}
+
+#PaymentWindowContent {
+	width: 700px;
+	height: 700px;
+	align: center center;
+}
+
+#PaymentWindowContent > Panel {
+	width: 100%;
+	height: 100%;
+}
+
+#PaymentWindowLoader > .Spinner {
+	align: center center;
+}
+
+#PaymentWindowErrorMessage {
+	align: center center;
+	text-align: center;
+	color: white;
+	font-size: 24px;
+}
+.Hidden {
+	opacity: 0;
+}
+
+#PaymentWindowHTML {
+	width: 100%;
+	height: 100%;
+}

@@ -1,0 +1,91 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf27:version{36c3961f-02a4-4c52-bf8f-6e3147d7d142} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 2
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 1.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 6
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 1.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+			m_previewState = 
+			{
+				m_previewModel = "models/heroes/lion/lion.vmdl"
+				m_nModSpecificData = 365
+				m_groundType = "PET_GROUND_PLANE"
+				m_sequenceName = "idle"
+				m_hitboxSetName = "default"
+			}
+		},
+	]
+	m_nMaxParticles = 0
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/events/ti10/emblem/test_aura_4_sup2_h.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/tournament/test_aura_4_sup2_g.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/tournament/test_aura_4_sup2_c.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/tournament/test_aura_4_sup2_j.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/tournament/test_aura_4_sup2_i.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/events/ti10/emblem/test_aura_4_sup2_d.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/tournament/test_aura_4_sup2_f.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/tournament/test_aura_4_sup2_l.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/test_aura_4_sup2/events/ti10/emblem/test_aura_4_sup2_e.vpcf"
+		},
+	]
+	m_nBehaviorVersion = 10
+	m_PreEmissionOperators = 
+	[
+		{
+			_class = "C_OP_RemapSpeedtoCP"
+			m_nOutControlPointNumber = 6
+			m_flInputMin = 280.0
+			m_flInputMax = 300.0
+			m_flOutputMin = 0.5
+		},
+		{
+			_class = "C_OP_RemapSpeedtoCP"
+			m_nOutControlPointNumber = 7
+			m_flInputMin = 280.0
+			m_flInputMax = 300.0
+			m_flOutputMin = 0.25
+		},
+	]
+	m_flCullRadius = -1.0
+}

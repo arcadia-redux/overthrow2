@@ -1,0 +1,90 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_nMaxParticles = 0
+	m_nBehaviorVersion = 10
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+			m_drivers = 
+			[
+				{
+					m_iAttachType = "PATTACH_ABSORIGIN_FOLLOW"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "parent"
+				},
+				{
+					m_iControlPoint = 2
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 1.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+				{
+					m_iControlPoint = 3
+					m_iAttachType = "PATTACH_WORLDORIGIN"
+					m_vecOffset = [ 0.0, 0.0, 0.0 ]
+					m_angOffset = [ 0.0, 0.0, 0.0 ]
+					m_entityName = "self"
+				},
+			]
+			m_previewState = 
+			{
+				m_previewModel = "models/heroes/lion/lion.vmdl"
+				m_nModSpecificData = 365
+				m_sequenceName = "idle"
+				m_hitboxSetName = "default"
+			}
+		},
+	]
+	m_Children = 
+	[
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_ring_darken.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_ground_dark.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_ground_detail.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_light.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_light_aura.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_aegis_back.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_aegis_top.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_magic.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_core.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_crystal.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_smoke.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/econ/events/ti8/ti8_hero_effect_ground_crystal_base.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_gems.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_detail.vpcf"
+		},
+		{
+			m_ChildRef = resource:"particles/cosmetic/auras/crystal_emblem/crystal_emblem_base_detail.vpcf"
+		},
+	]
+}

@@ -1,0 +1,216 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:vpcf31:version{593cd181-a1d6-4c6f-9a8c-0534e8d44db0} -->
+{
+	_class = "CParticleSystemDefinition"
+	m_bShouldHitboxesFallbackToRenderBounds = false
+	m_nMaxParticles = 15
+	m_ConstantColor = [ 27, 145, 169, 255 ]
+	m_nBehaviorVersion = 10
+	m_nFirstMultipleOverride_BackwardCompat = 4
+	m_controlPointConfigurations = 
+	[
+		{
+			m_name = "preview"
+		},
+	]
+	m_Emitters = 
+	[
+		{
+			_class = "C_OP_ContinuousEmitter"
+			m_flEmitRate = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_nMapType = "PF_MAP_TYPE_DIRECT"
+				m_flLiteralValue = 40.0
+				m_nControlPoint = 0
+				m_nScalarAttribute = 3
+				m_nVectorAttribute = 6
+				m_nVectorComponent = 0
+				m_flRandomMin = 0.0
+				m_flRandomMax = 1.0
+				m_nRandomMode = "PF_RANDOM_MODE_CONSTANT"
+				m_flMultFactor = 1.0
+				m_flInput0 = 0.0
+				m_flInput1 = 1.0
+				m_flOutput0 = 0.0
+				m_flOutput1 = 1.0
+				m_nBiasType = "PF_BIAS_TYPE_STANDARD"
+				m_flBiasParameter = 0.0
+				m_Curve = 
+				{
+					m_spline = [  ]
+					m_tangents = [  ]
+					m_vDomainMins = [ 0.0, 0.0 ]
+					m_vDomainMaxs = [ 0.0, 0.0 ]
+				}
+			}
+		},
+	]
+	m_Initializers = 
+	[
+		{
+			_class = "C_INIT_RingWave"
+			m_nControlPointNumber = 3
+			m_flParticlesPerOrbit = 10.0
+			m_bEvenDistribution = true
+			m_bXYVelocityOnly = false
+			m_flInitialRadius = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 1.0
+			}
+			m_flInitialSpeedMin = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = -100.0
+			}
+			m_flInitialSpeedMax = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = -100.0
+			}
+			m_flPitch = 
+			{
+				m_nType = "PF_TYPE_LITERAL"
+				m_flLiteralValue = 90.0
+			}
+		},
+		{
+			_class = "C_INIT_RandomLifeTime"
+			m_fLifetimeMin = 0.33
+			m_fLifetimeMax = 0.33
+		},
+		{
+			_class = "C_INIT_RandomRadius"
+			m_flRadiusMin = 16.0
+			m_flRadiusMax = 24.0
+		},
+		{
+			_class = "C_INIT_RandomColor"
+			m_ColorMin = [ 29, 1, 22 ]
+			m_ColorMax = [ 29, 1, 22 ]
+			m_TintMin = [ 0, 0, 0 ]
+			m_TintMax = [ 255, 255, 255 ]
+		},
+		{
+			_class = "C_INIT_RemapScalar"
+			m_nFieldOutput = "16"
+			m_flInputMax = 0.1
+		},
+	]
+	m_Operators = 
+	[
+		{
+			_class = "C_OP_BasicMovement"
+			m_Gravity = [ 0.0, 0.0, 100.0 ]
+			m_fDrag = 0.25
+		},
+		{
+			_class = "C_OP_FadeOutSimple"
+			m_flFadeOutTime = 0.5
+		},
+		{
+			_class = "C_OP_FadeInSimple"
+			m_flFadeInTime = 0.5
+		},
+		{
+			_class = "C_OP_ColorInterpolate"
+			m_ColorFade = [ 114, 4, 178 ]
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flEndTime = 0.3
+			m_flStartScale = 0.5
+		},
+		{
+			_class = "C_OP_InterpolateRadius"
+			m_flStartTime = 0.3
+			m_flEndScale = 0.0
+		},
+		{
+			_class = "C_OP_Decay"
+		},
+		{
+			_class = "C_OP_RampScalarLinearSimple"
+			m_Rate = -3.0
+			m_flEndTime = 9999.0
+			m_nField = "16"
+			m_nOpEndCapState = "PARTICLE_ENDCAP_ENDCAP_ON"
+		},
+		{
+			_class = "C_OP_DistanceToCP"
+			m_nFieldOutput = "16"
+			m_flInputMin = 50.0
+			m_flInputMax = 175.0
+			m_nStartCP = 4
+		},
+		{
+			_class = "C_OP_RemapParticleCountToScalar"
+			m_nFieldOutput = "7"
+			m_bDisableOperator = true
+		},
+		{
+			_class = "C_OP_DistanceToCP"
+			m_nFieldOutput = "16"
+			m_flInputMin = 75.0
+			m_flInputMax = 135.0
+		},
+	]
+	m_Renderers = 
+	[
+		{
+			_class = "C_OP_RenderRopes"
+			m_nMinTesselation = 4
+			m_nMaxTesselation = 4
+			m_flTextureVWorldSize = 400.0
+			m_flRadiusScale = 1.5
+			m_flDepthBias = -20.0
+			m_vecTexturesInput = 
+			[
+				{
+					m_hTexture = resource:"materials/particle/beam_jagged_01.vtex"
+					m_TextureControls = 
+					{
+						m_flFinalTextureScaleU = 
+						{
+							m_nType = "PF_TYPE_LITERAL"
+							m_flLiteralValue = -1.0
+						}
+					}
+				},
+			]
+		},
+		{
+			_class = "C_OP_RenderRopes"
+			m_nMinTesselation = 4
+			m_nMaxTesselation = 4
+			m_flTextureVWorldSize = 400.0
+			m_flOverbrightFactor = 3.0
+			m_flDepthBias = -15.0
+			m_vecTexturesInput = 
+			[
+				{
+					m_hTexture = resource:"materials/particle/beam_jagged_01.vtex"
+					m_TextureControls = 
+					{
+						m_flFinalTextureScaleU = 
+						{
+							m_nType = "PF_TYPE_LITERAL"
+							m_flLiteralValue = -1.0
+						}
+					}
+				},
+			]
+		},
+		{
+			_class = "C_OP_RenderSprites"
+			m_flRadiusScale = 5.0
+			m_vecTexturesInput = 
+			[
+				{
+				},
+			]
+			m_nOutputBlendMode = "PARTICLE_OUTPUT_BLEND_MODE_ADD"
+			m_OutlineColor = [ 255, 255, 255 ]
+		},
+	]
+}
