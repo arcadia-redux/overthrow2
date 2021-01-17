@@ -154,3 +154,11 @@ function GetRandomPathablePositionWithin( vPos, nRadius, nMinRadius )
 		return vTryPos
 	end
 end
+
+function toboolean(value)
+	if not value then return value end
+	local val_type = type(value)
+	if val_type == "boolean" then return value end
+	if val_type == "number"	then return value ~= 0 end
+	return true
+end

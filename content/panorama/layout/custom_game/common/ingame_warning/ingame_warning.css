@@ -2,38 +2,64 @@
 	width: 100%;
 	height: 100%;
 }
-
-.WarningIngame {
+#WarningIngame_server {
 	width: 500px;
 	height: 300px;
 	background-color: gradient(linear, 100% 0%, 100% 100%, from(#192229), to(#000000));
+	box-shadow: black 0px 0px 10px 0;
 	flow-children: down;
+}
+
+#PatreonCatImage {
+	width: 200px;
+	height: 200px;
+	align: center top;
+	margin: 110px 0px 0px 700px;
+}
+
+#WarningIngame_patreonSteamIDS_ROOT {
+	width: 1000px;
+	flow-children: down;
+	/*background-color: gradient(linear, 100% 0%, 100% 100%, from(#ffffff), to(#ebebeb));*/
+	background-color: gradient(linear, 100% 0%, 100% 100%, from(#31333a), to(#464a54));
+	box-shadow: black 0px 0px 10px 0;
+	horizontal-align: center;
+}
+
+.WarningIngame {
 	horizontal-align: center;
 	margin-top: 100px;
-	box-shadow: black 0px 0px 10px 0;
 }
-.WarningIngame.hide {
+#WarningIngame_patreonSteamIDS.hide {
 	opacity: 0;
 }
+
 .WarningHeaderRoot {
 	width: 100%;
 	height: 50px;
 	flow-children: right;
 	background-color: rgba(0, 0, 0, 0.6);
 }
+#WarningIngame_patreonSteamIDS .WarningHeaderRoot {
+	background-color: #141518;
+}
+
 .WarningHeaderRoot Label {
 	font-family: titleFont;
 	font-weight: semi-bold;
 	color: red;
 	font-size: 40px;
 	text-align: center;
-	width: 450px;
+	width: 95%;
 	padding-left: 50px;
 	letter-spacing: 1px;
 	padding-top: 2px;
 	text-overflow: shrink;
 	text-shadow: black 0px 1px 2px 2;
 	text-transform: uppercase;
+}
+#WarningIngame_patreonSteamIDS .WarningHeaderRoot Label {
+	color: #ff424d;
 }
 .WarningClose {
 	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
@@ -52,7 +78,6 @@
 }
 .WarningTextRoot {
 	width: 100%;
-	height: 100%;
 	padding: 5px 15px 5px 15px;
 }
 .WarningTextRoot Label {
@@ -63,4 +88,47 @@
 	text-align: center;
 	color: white;
 	text-shadow: black 0px 1px 1px 2;
+}
+
+.WarningText.h1 {
+	color: #ff8205;
+	text-shadow: black 0px 1px 1px 1;
+	horizontal-align: center;
+	margin-top: 10px;
+}
+.WarningText.h2 {
+	text-shadow: black 0px 1px 1px 1;
+	horizontal-align: center;
+	margin-top: 10px;
+	font-size: 20px;
+	line-height: 23px;
+	margin-bottom: 10px;
+}
+.WarningButton {
+	padding: 8px 30px 5px 30px;
+	align: center center;
+	background-color: #f96854;
+	border-radius: 100px;
+	margin: 8px 0px 8px 0px;
+	transition: saturation 0.15s ease-in-out 0s, box-shadow 0.1s ease-in-out 0s;
+}
+.WarningButton:hover {
+	box-shadow: black 0px 0px 5px 0px;
+	saturation: 1.04;
+}
+.WarningButton:active {
+	box-shadow: black 0px 0px 10px 0px;
+	saturation: 1.08;
+}
+.WarningButton Label {
+	color: white;
+	align: center center;
+	font-size: 20px;
+	text-align: center;
+}
+.WarningFoot {
+	width: 100%;
+	background-color: #141518;
+	height: 50px;
+	align: center bottom;
 }

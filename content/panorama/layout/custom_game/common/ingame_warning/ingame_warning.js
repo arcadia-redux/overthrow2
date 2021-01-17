@@ -6,6 +6,11 @@ function ScheludeCloseWarning(time, panelName) {
 		CloseWarning(panelName);
 	});
 }
+function HidePatreonNotification(data) {
+	$("#WarningIngame_patreonSteamIDS").SetHasClass("hide", data.boosterStatus < 1);
+}
 (function () {
 	ScheludeCloseWarning(60, "WarningIngame_server");
+	ScheludeCloseWarning(60, "WarningIngame_patreonSteamIDS");
+	GameEvents.Subscribe("battlepass_inventory:update_player_info", HidePatreonNotification);
 })();

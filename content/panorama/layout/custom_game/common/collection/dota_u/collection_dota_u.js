@@ -4,6 +4,7 @@
 	CreateButtonInTopMenu(
 		collectionButton,
 		() => {
+			boostGlow = false;
 			ToggleMenu("CollectionDotaU");
 		},
 		() => {

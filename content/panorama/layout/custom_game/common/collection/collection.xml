@@ -5,12 +5,12 @@
 		<include src="file://{resources}/layout/custom_game/common/collection/collection.css" />
 		<include src="file://{resources}/layout/custom_game/common/collection/payments.css" />
 		<include src="file://{resources}/layout/custom_game/common/collection/mastery.css" />
-		<include src="file://{resources}/layout/custom_game/common/collection/12v12/collection_12v12.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/dota_u/collection_dota_u.css" />
 	</styles>
 
 	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
-		<include src="file://{resources}/layout/custom_game/common/collection/12v12/collection_12v12.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/dota_u/collection_dota_u.js"/>
 		<include src="file://{resources}/layout/custom_game/common/collection/collection_const.js" />
 		<include src="file://{resources}/layout/custom_game/common/collection/mastery_const.js" />
 		<include src="file://{resources}/layout/custom_game/common/collection/payments_const.js" />

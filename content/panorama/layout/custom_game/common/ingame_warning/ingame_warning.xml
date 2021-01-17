@@ -8,14 +8,24 @@
 	</scripts>
 
 	<Panel class="IngameWarningRoot" hittest="false">
-		<Panel id="WarningIngame_server" class="WarningIngame">
-			<Panel class="WarningHeaderRoot">
-				<Label text="#warning"/>
-				<Panel class="WarningClose" onactivate="CloseWarning('WarningIngame_server')"/>
+		<Panel id="WarningIngame_patreonSteamIDS" class="WarningIngame">
+			<Panel id="WarningIngame_patreonSteamIDS_ROOT">
+				<Panel class="WarningHeaderRoot">
+					<Panel class="WarningClose" onactivate="CloseWarning('WarningIngame_patreonSteamIDS')"/>
+				</Panel>
+				<Panel class="WarningTextRoot">
+					<Label class="WarningText h1" text="#link_steam"/>
+				</Panel>
+				<Button class="WarningButton" onactivate="ExternalBrowserGoToURL('https://www.patreon.com/dota2unofficial')">
+					<Label class="WarningButtonText" text="#open_in_browser"/>
+				</Button>
+				<Panel class="WarningTextRoot">
+					<Label class="WarningText h2" text="#warning_patreon_ids_text"/>
+				</Panel>
+				<Panel class="WarningFoot">
+				</Panel>
 			</Panel>
-			<Panel class="WarningTextRoot">
-				<Label class="WarningText" text="#warning_server_error"/>
-			</Panel>
+<!--			<Image id="PatreonCatImage" src="file://{resources}/layout/custom_game/common/patreon/patreon_cat.png"/>-->
 		</Panel>
 	</Panel>
 </root>
