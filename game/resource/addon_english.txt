@@ -1063,10 +1063,8 @@
 		"DOTA_Tooltip_modifier_sand_king_boss_caustic_finale_Description"	"Armor reduced by %dMODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS%"
 
 		"show_chat"	"Show Chat"
+		"npc_dummy_cosmetic_caster"	"Dummy Caster"
 		
-		"warning"				"Warning"
-		"warning_server_error"	"We are having some problems with our servers.\n--\nWe will make every effort to quickly fix the problem, however this may take some time.\n--\nUntil the servers are operational supporter benefits and mmr will not work."
-
 		"collection_header"		"COLLECTION"
 		"player_no_boost"		"NO BOOST"
 		"player_base_booster"	"BASE BOOST"

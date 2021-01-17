@@ -38,11 +38,21 @@ function CloseGloryShop() {
 function OpenGloryShop() {
 	gloryShop.SetHasClass("show", true);
 }
-function BuyGlory() {}
+const MAPS_WITHOUT_FORTUNE = [
+	"dota",
+	"dota_tournament",
+	"core_quartet",
+	"desert_octet",
+	"desert_quintet",
+	"forest_solo",
+	"mines_trio",
+	"temple_quartet",
+	"temple_sextet",
+	"desert_duo",
+];
+
 (function () {
 	gloryOffersRoot.RemoveAndDeleteChildren();
-	const isNoFortuneShop = MAP_NAME == "dota" || MAP_NAME == "dota_tournament";
-
 	Object.entries(GLORY_OFFERS).forEach(([value, data]) => {
 		const offerPanel = $.CreatePanel("Panel", gloryOffersRoot, "");
 		offerPanel.BLoadLayoutSnippet("GloryOffer");
@@ -57,7 +67,7 @@ function BuyGlory() {}
 		const image =
 			"file://{images}/custom_game/collection/glory_shop/glory_bundle_" +
 			value +
-			(isNoFortuneShop ? "_no_fortune.png" : ".png");
+			(MAPS_WITHOUT_FORTUNE.indexOf(MAP_NAME) > -1 ? "_no_fortune.png" : ".png");
 		offerPanel.FindChildTraverse("GloryOfferData").style.backgroundImage = "url('" + image + "')";
 		const bundleName = "purchase_glory_bundle_" + value;
 		offerPanel.FindChildTraverse("GloryOfferButton").SetPanelEvent("onactivate", function () {

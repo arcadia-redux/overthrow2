@@ -117,7 +117,19 @@ function table.deepcopy(orig)
 	end
 	return copy
 end
-
+function table.remove_item(tbl,item)
+	if not tbl then return end
+	local i,max=1,#tbl
+	while i<=max do
+		if tbl[i] == item then
+			table.remove(tbl,i)
+			i = i-1
+			max = max-1
+		end
+		i= i+1
+	end
+	return tbl
+end
 function GetConnectionState(playerId)
 	return PlayerResource:IsFakeClient(playerId) and DOTA_CONNECTION_STATE_CONNECTED or PlayerResource:GetConnectionState(playerId)
 end

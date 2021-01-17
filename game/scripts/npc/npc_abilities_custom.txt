@@ -1238,4 +1238,74 @@
 
 		"AbilityChannelTime"			"3.0"
 	}
+	
+	"high_five_custom"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/high_five_custom"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_UNRESTRICTED | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"MaxLevel"						"1"
+
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"60"
+		"AbilityDamage"					"0"
+		"AbilityManaCost"				"0"
+
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"think_interval"		"0.2"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"acknowledge_range"		"900"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"request_duration"		"10.0"
+			}
+			"04"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"high_five_speed"		"700.0"
+			}
+			"05"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"acknowledged_cooldown"	"1.0"
+			}
+		}
+	}
+	
+	"default_cosmetic_ability"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"common/battlepass/default_cosmetic_ability"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"MaxLevel"						"1"
+
+		"AbilityCooldown"				"0"
+		"AbilityManaCost"				"0"
+		"AbilityCastPoint"				"0.0"
+	}
+
+	"spray_custom"
+	{
+		"BaseClass"						"ability_lua"
+		"ScriptFile"					"heroes/spray_custom"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_UNRESTRICTED | DOTA_ABILITY_BEHAVIOR_NORMAL_WHEN_STOLEN"
+		"AbilityCastAnimation"			"ACT_INVALID"
+		"MaxLevel"						"1"
+		"AbilityCastRange"				"700"
+		"AbilityCastPoint"				"0.0"
+		"AbilityCooldown"				"30"
+		"AbilityDamage"					"0"
+		"AbilityManaCost"				"0"
+	}
 }

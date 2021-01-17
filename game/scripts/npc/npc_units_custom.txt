@@ -678,4 +678,29 @@
 		"MinimapIconSize"			"300"
 		"MinimapDisableTint"		"1"
 	}
+	
+	"npc_dummy_cosmetic_caster"
+	{
+		"BaseClass"					"npc_dota_creature"
+		//"Model"						"models/props_gameplay/donkey.vmdl"
+		"AttackCapabilities"		"DOTA_UNIT_CAP_MELEE_ATTACK"
+		"AttackAcquisitionRange"	"0"
+		"AttackRange"				"0"
+		"BountyXP"					"0"
+		"BountyGoldMin"				"0"
+		"BountyGoldMax"				"0"
+		"RingRadius"				"50"
+		"HealthBarOffset"			"250"
+		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
+		"CanBeDominated"			"0"
+		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_GROUND"
+		"MovementSpeed"				"420"
+		"MovementTurnRate"			"0.6"
+		"StatusHealth"				"1"
+		"Ability1"					""
+		"Ability2"					""
+		"Ability3"					""
+		"Ability4"					""
+		"Ability5"					""
+	}
 }
