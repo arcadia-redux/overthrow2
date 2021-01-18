@@ -43,6 +43,7 @@ Timers:CreateTimer({
 			WebApi:Send("match/script-errors", {
 				matchId = tonumber(tostring(GameRules:GetMatchID())),
 				errors = ErrorTracking.collectedErrors,
+				customGame = WebApi.customGame
 			})
 			ErrorTracking.collectedErrors = {}
 		end
