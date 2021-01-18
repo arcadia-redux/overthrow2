@@ -1580,5 +1580,14 @@
 		"feedback_cooldown"			"你最近发送了一条消息。请等待一些时间以发送新消息。"
 		"feedback_blocked"			"发送消息前可稍微写一写。"
 		"feedback_top_menu_hint"	"向开发团队发送反馈"
+		
+		"first_pick"		"+优先英雄选择"
+		"super_first_pick"	"+超级优先英雄选择！"
+		"perks_level_1"		"+更好的英雄Perk"
+		"perks_level_2"		"+高级Perk"
+
+		"open_in_browser"				"点击此处前往PATREON.COM\n并再次向我们发送你的Steam链接"
+		"link_steam"					"在Patreon上连接你的Steam账户以重新获得Perk"
+		"warning_patreon_ids_text"		"十分抱歉出现预料外的服务器停机。\n现在我们需要手动收集所有Steam URL/ID。\n我们将无法为缺失Steam URL或ID的玩家提供福利。"
 	}
 }
