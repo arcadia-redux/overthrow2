@@ -98,7 +98,10 @@ function WebApi:BeforeMatch()
 			if player.masteries then
 				BP_Masteries:SetMasteriesForPlayer(playerId, player.masteries)
 			end
-
+			if player.settings then
+				WebApi.playerSettings[playerId] = player.settings
+			end
+			
 			publicStats[playerId] = {
 				streak = 0,
 				bestStreak = 0,
