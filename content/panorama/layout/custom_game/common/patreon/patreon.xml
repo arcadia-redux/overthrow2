@@ -6,7 +6,6 @@
  	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/patreon/patreon.js" />
-		<include src="file://{resources}/layout/custom_game/common/kicks.js" />
 	</scripts>
 
 	<snippets>
@@ -64,8 +63,9 @@
 				<Panel id="NewMethodsAnnouncementText">
 					<Label html="true" text="#patreon_new_methods_announcement" />
 					<Panel id="NewMethodsAnnouncementImages">
-						<Image onactivate="OpenShop()" src="file://{resources}/layout/custom_game/common/patreon/wechat.png" />
-						<Image onactivate="OpenShop()" src="file://{resources}/layout/custom_game/common/patreon/alipay.png" />
+						<Image onactivate="OpenShop()" src="file://{resources}/images/custom_game/payment/payment_wechat.png" />
+						<Image onactivate="OpenShop()" src="file://{resources}/images/custom_game/payment/payment_alipay.png" />
+						<Image onactivate="OpenShop()" src="file://{resources}/images/custom_game/payment/payment_card.png" />
 					</Panel>
 				</Panel>
 				<Button class="PatreonCloseButtonX" onactivate="hideNewMethodsAnnouncement()" />
