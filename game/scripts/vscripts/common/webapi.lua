@@ -124,7 +124,7 @@ function WebApi:AfterMatch(winnerTeam)
 
 	local requestBody = {
 		customGame = WebApi.customGame,
-		matchId = isTesting and RandomInt(1, 10000000) or tonumber(tostring(GameRules:GetMatchID())),
+		matchId = isTesting and RandomInt(1, 10000000) or tonumber(tostring(GameRules:Script_GetMatchID())),
 		duration = math.floor(GameRules:GetDOTATime(false, true)),
 		mapName = GetMapName(),
 		winner = winnerTeam,

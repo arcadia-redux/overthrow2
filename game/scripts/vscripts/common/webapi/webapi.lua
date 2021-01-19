@@ -5,10 +5,10 @@ local isTesting = IsInToolsMode() and true or false
 for playerId = 0, 23 do
 	WebApi.playerSettings[playerId] = WebApi.playerSettings[playerId] or {}
 end
-WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:GetMatchID()))
+WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 FREE_SUPPORTER_COUNT = 6
 
-local serverHost = IsInToolsMode() and "http://127.0.0.1:5000" or "https://api.overthrow.dota2unofficial.com"
+local serverHost = IsInToolsMode() and "https://api.overthrow.dota2unofficial.com" or "https://api.overthrow.dota2unofficial.com"
 local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 
 function WebApi:Send(path, data, onSuccess, onError, retryWhile)
@@ -164,7 +164,7 @@ function WebApi:AfterMatch(winnerTeam)
 
 	local requestBody = {
 		customGame = WebApi.customGame,
-		matchId = isTesting and RandomInt(1, 10000000) or tonumber(tostring(GameRules:GetMatchID())),
+		matchId = isTesting and RandomInt(1, 10000000) or tonumber(tostring(GameRules:Script_GetMatchID())),
 		duration = math.floor(GameRules:GetDOTATime(false, true)),
 		mapName = GetMapName(),
 		winner = winnerTeam,

@@ -14,7 +14,7 @@ function MatchEvents.SendRequest()
 	MatchEvents.RequestTimer = nil
 	WebApi:Send(
 		"match/events",
-		{ matchId = tonumber(tostring(GameRules:GetMatchID())) },
+		{ matchId = tonumber(tostring(GameRules:Script_GetMatchID())) },
 		function(responses)
 			MatchEvents.ScheduleNextRequest()
 			for _, response in ipairs(responses) do

@@ -3,7 +3,7 @@ Payments = Payments or {}
 RegisterCustomEventListener("payments:create", function(event)
 	local payerId = event.PlayerID
 	local steamId = tostring(PlayerResource:GetSteamID(payerId))
-	local matchId = tonumber(tostring(GameRules:GetMatchID()))
+	local matchId = tonumber(tostring(GameRules:Script_GetMatchID()))
 
 	WebApi:Send(
 		"payment/create",
@@ -70,12 +70,12 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 		if response.level then
 			BP_PlayerProgress.players[steamId].level = response.level
 		end
-		
+
 		if response.exp then
 			BP_PlayerProgress.players[steamId].current_exp = response.exp
 			BP_PlayerProgress.players[steamId].required_exp = response.expRequired
 		end
-		
+
 		if response.purchasedItem then
 			BP_Inventory:AddItemLocal(response.purchasedItem.itemName, response.purchasedItem.steamId, response.purchasedItem.count)
 		end
@@ -83,12 +83,12 @@ MatchEvents.ResponseHandlers.paymentUpdate = function(response)
 		if response.glory then
 			BP_PlayerProgress:ChangeGlory(playerId, response.glory - BP_PlayerProgress:GetGlory(playerId))
 		end
-		
+
 		if response.fortune then
 			BP_PlayerProgress:SetFortune(playerId, response.fortune)
 			BP_Masteries:UpdateFortune(playerId)
 		end
-		
+
 		BP_PlayerProgress:UpdatePlayerInfo(playerId)
 	end
 end
