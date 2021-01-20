@@ -8,7 +8,7 @@ end
 WebApi.matchId = IsInToolsMode() and RandomInt(-10000000, -1) or tonumber(tostring(GameRules:Script_GetMatchID()))
 FREE_SUPPORTER_COUNT = 6
 
-local serverHost = IsInToolsMode() and "https://api.overthrow.dota2unofficial.com" or "https://api.overthrow.dota2unofficial.com"
+local serverHost = IsInToolsMode() and "http://127.0.0.1:5000" or "https://api.overthrow.dota2unofficial.com"
 local dedicatedServerKey = GetDedicatedServerKeyV2("1")
 
 function WebApi:Send(path, data, onSuccess, onError, retryWhile)
@@ -20,6 +20,7 @@ function WebApi:Send(path, data, onSuccess, onError, retryWhile)
 
 	request:SetHTTPRequestHeaderValue("Dedicated-Server-Key", dedicatedServerKey)
 	if data ~= nil then
+		data.customGame = WebApi.customGame
 		request:SetHTTPRequestRawPostBody("application/json", json.encode(data))
 	end
 
@@ -101,7 +102,7 @@ function WebApi:BeforeMatch()
 			if player.settings then
 				WebApi.playerSettings[playerId] = player.settings
 			end
-			
+
 			publicStats[playerId] = {
 				streak = 0,
 				bestStreak = 0,
