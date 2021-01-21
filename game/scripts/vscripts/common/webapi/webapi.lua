@@ -104,8 +104,8 @@ function WebApi:BeforeMatch()
 			end
 
 			publicStats[playerId] = {
-				streak = 0,
-				bestStreak = 0,
+				streak = player.streak.current or 0,
+				bestStreak = player.streak.best or 0,
 				averageKills = player.stats.kills,
 				averageDeaths = player.stats.deaths,
 				averageAssists = player.stats.assists,
