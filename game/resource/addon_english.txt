@@ -1834,5 +1834,7 @@
 		"feedback_cooldown"		"You recently sent a message. Wait little time for send new message."
 		"feedback_blocked"		"Write something before send message."
 		"feedback_top_menu_hint"	"Send feedback for developers team"
+		
+		"voting_to_kick_no_kick_new_players"	"You cannot kick new players"
 	}
 }

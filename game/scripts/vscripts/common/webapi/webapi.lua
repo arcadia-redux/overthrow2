@@ -86,13 +86,13 @@ function WebApi:BeforeMatch()
 		WebApi.player_ratings = {}
 		WebApi.patch_notes = data.patchnotes
 		publicStats = {}
-		local matchesCount = {}
+		WebApi.playerMatchesCount = {}
+		
 		for _, player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			if player.rating then
 				WebApi.player_ratings[playerId] = {[GetMapName()] = player.rating}
 			end
-			matchesCount[playerId] = player.matchCount
 			if player.supporterState then
 				Supporters:SetPlayerState(playerId, player.supporterState)
 			end
@@ -102,7 +102,9 @@ function WebApi:BeforeMatch()
 			if player.settings then
 				WebApi.playerSettings[playerId] = player.settings
 			end
-
+			if player.stats then
+				WebApi.playerMatchesCount[playerId] = (player.stats.wins or 0) + (player.stats.loses or 0)
+			end
 			publicStats[playerId] = {
 				streak = player.streak.current or 0,
 				bestStreak = player.streak.best or 0,

@@ -39,6 +39,14 @@ function OnSpellStartBanHammer( event )
     local target = event.target
     local caster = event.caster
     local ability = event.ability
+
+	local playerId = target:GetPlayerOwnerID()
+	if playerId and WebApi.playerMatchesCount[playerId] < 5 then
+		ability:EndCooldown()
+		CustomGameEventManager:Send_ServerToPlayer(caster:GetPlayerOwner(), "display_custom_error", { message = "#voting_to_kick_no_kick_new_players" })
+		return
+	end
+	
     if caster:IsRealHero() then
         local supporter_level = Supporters:GetLevel(caster:GetPlayerID())
         if supporter_level > 1 then
