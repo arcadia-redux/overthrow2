@@ -4,7 +4,19 @@
 	tooltip-position: bottom;
 	visibility: collapse;
 	wash-color: #cdf;
+	margin-left: 15px;
 }
+
+#FeedbackButton {
+	background-size: 38px 38px;
+	background-image: url("file://{resources}/images/custom_game/tuant.png");
+	tooltip-position: left;
+	wash-color: #cdf;
+	z-index: -10;
+	margin-top: 40px;
+	margin-left: -40px;
+}
+
 #MasteryButtonTooltip,
 #MapPatreonButtonGrid,
 #ItemType_Masteries,

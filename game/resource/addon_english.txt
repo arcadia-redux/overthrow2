@@ -1827,5 +1827,12 @@
 		"open_in_browser"				"CLICK HERE TO GO TO PATREON.COM\nAND SEND US YOUR STEAM URL AGAIN"
 		"link_steam"					"Link your Steam account on Patreon in order to regain your perks"
 		"warning_patreon_ids_text"		"We are terribly sorry but our previous server died unexpectedly.\nWe now have to manually recollect all the STEAM URL/IDS.\nIf you do not send us your steam URL or steamID we wont be adle to grant you benefits."
+		
+		"feedback"				"FEEDBACK"
+		"default_feedback"		"Write here your feedback, suggestion and ideas"
+		"feedback_send"			"SEND"
+		"feedback_cooldown"		"You recently sent a message. Wait little time for send new message."
+		"feedback_blocked"		"Write something before send message."
+		"feedback_top_menu_hint"	"Send feedback for developers team"
 	}
 }

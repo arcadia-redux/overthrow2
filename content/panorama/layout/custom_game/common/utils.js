@@ -104,6 +104,9 @@ function CreateButtonInTopMenu(button, activateEvent, overEvent, outEvent) {
 	let menu = FindDotaHudElement("ButtonBar");
 	let existingPanel = menu.FindChildTraverse(button.id);
 	if (existingPanel) existingPanel.DeleteAsync(0.1);
-
+	if (menu)
+		menu.Children().forEach((button) => {
+			button.style.verticalAlign = "top";
+		});
 	button.SetParent(menu);
 }

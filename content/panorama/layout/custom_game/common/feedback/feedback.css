@@ -1,0 +1,118 @@
+@define FeedbackWidth: 260px;
+.FeedbackRoot {
+	width: FeedbackWidth;
+	height: 340px;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/patchnotes_background.png");
+	background-size: 100%;
+	flow-children: down;
+	margin-top: 130px;
+	box-shadow: black 0px 0px 10px 0px;
+	opacity: 0;
+	transition: opacity 0.15s ease-in-out 0s;
+}
+.FeedbackRoot.show {
+	opacity: 1;
+}
+#FeedbackHeaderRoot {
+	width: FeedbackWidth;
+	height: 35px;
+	background-color: white;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
+	flow-children: right;
+}
+#FeedbackHeader {
+	margin-top: 2px;
+	height: 33px;
+	width: 230px;
+	font-size: 28px;
+	text-align: center;
+	padding-left: 35px;
+	text-overflow: shrink;
+	text-transform: uppercase;
+	color: #9baff9;
+	font-weight: lighter;
+	text-shadow: black 0px 2px 2px 0;
+}
+#CloseFeedback {
+	width: 18px;
+	height: 18px;
+	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-size: 100%;
+	wash-color: #889be2;
+	align: right top;
+	margin: 5px 6px 0 0;
+	transition: brightness 0.15s ease-in-out 0s;
+}
+#CloseFeedback:hover {
+	brightness: 1.6;
+}
+#CloseFeedback:active {
+	brightness: 0.8;
+	sound: "General.ButtonClick";
+}
+#FeedbackText {
+	width: 100%;
+	height: 240px;
+	padding: 8px 10px 4px 10px;
+	background-color: rgba(0, 0, 0, 0.6);
+	border: 0px solid transparent;
+	color: #a0b3e9;
+	text-overflow: shrink;
+	white-space: normal;
+	overflow: clip scroll;
+	font-size: 19px;
+	box-shadow: inset rgba(0, 0, 0, 0.75) -15px 6px 10px -50px;
+}
+#FeedbackText #PlaceholderText {
+	text-align: center;
+	color: #7b7b7b;
+	margin-top: 15px;
+}
+#ScrollThumb {
+	background-color: #7588a5;
+}
+#VerticalScrollBar {
+	width: 6px;
+}
+#FeedbackSendButton {
+	width: 250px;
+	height: 34px;
+	box-shadow: fill rgba(0, 0, 0, 0.6) 0px 1px 2px 2px;
+	transition-property: brightness;
+	transition-duration: 0.1s;
+	background-image: url("file://{images}/custom_game/ability_selection/button_bg_reroll.png");
+	background-size: 100%;
+	align: center center;
+}
+#FeedbackSendButton:hover:not(.Cooldown) {
+	brightness: 1.5;
+}
+#FeedbackSendButton:active:not(.Cooldown) {
+	brightness: 1.1;
+}
+#FeedbackSendButton.Cooldown,
+#FeedbackSendButton.Blocked {
+	saturation: 0;
+	wash-color: #d9d9d9;
+}
+#FeedbackSendButtonText {
+	align: center center;
+	text-align: center;
+	color: #fbf6ff;
+	text-transform: uppercase;
+	font-size: 20px;
+	height: 24px;
+	text-overflow: shrink;
+	text-shadow: black 0px 2px 0px 0px;
+}
+#MaxSymbols {
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 100%;
+	text-align: right;
+	font-weight: lighter;
+	color: #dadada;
+}
+#MaxSymbols.max {
+	color: red;
+}

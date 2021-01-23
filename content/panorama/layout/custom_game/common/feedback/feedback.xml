@@ -1,0 +1,24 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/layout/custom_game/common/feedback/feedback.css"/>
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/feedback/feedback.js"/>
+	</scripts>
+
+	<Panel class="FeedbackRoot" hittest="false">
+		<Panel id="FeedbackHeaderRoot">
+			<Label id="FeedbackHeader" text="#feedback"/>
+			<Button id="CloseFeedback" onactivate="CloseFeedback()"/>
+		</Panel>
+		<TextEntry id="FeedbackText" multiline="true" onactivate="CheckDefaultText()" placeholder="#default_feedback" 
+				   ontextentrychange="UpdateFeedbackText()"/>
+		<Label id="MaxSymbols" text="{s:curr}/{s:max}"/>
+		<Button id="FeedbackSendButton" class="Cooldown Blocked" onactivate="SendFeedback()" onmouseover="FeedbackTooltip()" onmouseout="DOTAHideTextTooltip()">
+			<Label id="FeedbackSendButtonText" text="#feedback_send"/>
+		</Button>
+	</Panel>
+</root>
