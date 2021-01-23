@@ -67,7 +67,7 @@ function updatePaymentWindow(method) {
 setPaymentWindowStatus("closed");
 
 function OpenPatreonURL() {
-	$.DispatchEvent("ExternalBrowserGoToURL", "https://www.patreon.com/CustomHeroClash");
+	$.DispatchEvent("ExternalBrowserGoToURL", "https://www.patreon.com/dota2unofficial");
 	SetPaymentVisible(false);
 }
 GameEvents.Subscribe("payments:update", (response) => {
