@@ -1,0 +1,23 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c"/>
+		<include src="file://{resources}/layout/custom_game/common/minimap_overlay/minimap_overlay.css"/>
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js"/>
+		<include src="file://{resources}/layout/custom_game/common/minimap_overlay/minimap_overlay.js"/>
+	</scripts>
+	
+	<Panel style="width: 100%;height:100%;" hittest="false">
+		<Panel id="MapOverlayCHC_Wrap" hittest="false">
+			<Panel id="MapOverlayCHC_Grid" hittest="false"/>
+			<Panel id="MapOverlayCHC_LogoBack_1" hittest="false"/>
+			<Panel id="MapOverlayCHC_LogoBack_2" hittest="false"/>
+			<Panel id="MapOverlayCHC_Glow" hittest="false"/>
+			<Image id="MapOverlayCHC_Particle_under" src="file://{resources}/images/custom_game/map_overlay/chc_logo_particles.png"/>
+			<Image id="MapOverlayCHC_Logo" src="file://{resources}/images/custom_game/map_overlay/CHC_logo_small.png"/>
+			<Image id="MapOverlayCHC_Particle_over" src="file://{resources}/images/custom_game/map_overlay/chc_logo_particles_over.png"/>
+		</Panel>
+	</Panel>
+</root>

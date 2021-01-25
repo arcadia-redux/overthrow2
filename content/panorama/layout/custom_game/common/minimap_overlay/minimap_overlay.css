@@ -1,0 +1,115 @@
+@define patreonButtonMargin: 244px;
+@define patreonButtonMarginLarge: 280px;
+
+#MapOverlayCHC_Wrap {
+	height: 315px;
+	width: 246px;
+	vertical-align: bottom;
+}
+.HUDFlipped #MapOverlayCHC_Wrap {
+	horizontal-align: right;
+}
+.MinimapExtraLarge #MapOverlayCHC_Wrap {
+	height: 347px;
+	width: 280px;
+}
+#MapOverlayCHC_Wrap.demo,
+#MapOverlayCHC_Wrap.ffa {
+	height: 274px;
+}
+.MinimapExtraLarge #MapOverlayCHC_Wrap.demo,
+.MinimapExtraLarge #MapOverlayCHC_Wrap.ffa {
+	height: 300px;
+}
+#MapOverlayCHC_Logo {
+	align: center top;
+	margin-right: 2px;
+	margin-top: 34px;
+	height: 82px;
+	width: 410px;
+}
+.duos #MapOverlayCHC_Logo {
+	margin-top: 43px;
+	margin-right: 2px;
+	height: 80px;
+	width: 100px;
+}
+#MapOverlayCHC_Particle_over {
+	align: center top;
+	margin-top: 55px;
+	opacity: 0.75;
+}
+#MapOverlayCHC_Particle_under {
+	align: center top;
+	margin-top: 0px;
+	opacity: 0.8;
+}
+
+#MapOverlayCHC_Grid {
+	height: 220px;
+	width: 100%;
+	vertical-align: bottom;
+	background-color: gradient(linear, 0% 0%, 0% 80%, from(#B40404), to(#160807));
+	opacity-mask: url("file://{resources}/images/custom_game/map_overlay/map_mask_chc.png");
+}
+.MinimapExtraLarge #MapOverlayCHC_Grid {
+	height: 252px;
+}
+.demo #MapOverlayCHC_Grid,
+.ffa #MapOverlayCHC_Grid {
+	height: 179px;
+}
+.MinimapExtraLarge .demo #MapOverlayCHC_Grid,
+.MinimapExtraLarge .ffa #MapOverlayCHC_Grid {
+	height: 205px;
+}
+#MapOverlayCHC_LogoBack_1,
+#MapOverlayCHC_LogoBack_2 {
+	height: 16px;
+	width: 132px;
+	align: center top;
+	margin-top: 79px;
+}
+#MapOverlayCHC_LogoBack_1 {
+	background-color: #B40404;
+	opacity-mask: url("file://{resources}/images/custom_game/map_overlay/map_mask_chc_logo.png");
+}
+#MapOverlayCHC_LogoBack_2 {
+	background-color: gradient(
+		linear,
+		0% 100%,
+		100% 0%,
+		from(#B40404),
+		color-stop(0.2, #000000),
+		color-stop(0.85, #000000),
+		to(#de9117)
+	);
+	opacity-mask: url("file://{resources}/images/custom_game/map_overlay/map_mask_chc_logo_2.png");
+}
+
+#MapOverlayCHC_Glow {
+	background-color: gradient(
+		radial,
+		50% 15%,
+		0% 0%,
+		40% 15%,
+		from(#B40404),
+		color-stop(0.1, #000000),
+		to(rgba(255, 255, 255, 0))
+	);
+	width: 100%;
+	height: 83%;
+	vertical-align: bottom;
+}
+.MinimapExtraLarge #MapOverlayCHC_Glow {
+	opacity: 0.9;
+	height: 87%;
+}
+.demo #MapOverlayCHC_Glow,
+.ffa #MapOverlayCHC_Glow {
+	height: 76.5%;
+}
+.MinimapExtraLarge .demo #MapOverlayCHC_Glow,
+.MinimapExtraLarge .ffa #MapOverlayCHC_Glow {
+	height: 80%;
+}
