@@ -101,6 +101,7 @@ function WebApi:BeforeMatch()
 			end
 			if player.settings then
 				WebApi.playerSettings[playerId] = player.settings
+				CustomNetTables:SetTableValue("player_settings", tostring(playerId), player.settings)
 			end
 			if player.stats then
 				WebApi.playerMatchesCount[playerId] = (player.stats.wins or 0) + (player.stats.loses or 0)
