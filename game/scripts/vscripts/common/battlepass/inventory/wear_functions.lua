@@ -211,14 +211,16 @@ end
 function WearFunc:_CreateParticlesFromConfigList(particlesData, target, saveData)
 	for _, particleData in pairs(particlesData) do
 		local particle = ParticleManager:CreateParticle(particleData.ParticleName, _G[particleData.ParticleAttach], target)
-		if saveData then
-			table.insert(saveData, particle)
-		end
 		if particleData.CP then
 			for number, cp in pairs(particleData.CP) do
 				number = tonumber(number)
 				ParticleManager:SetParticleControlEnt(particle, number, target, _G[particleData.ParticleAttach], cp.attachment, target:GetAbsOrigin(), true)
 			end
+		end
+		if saveData then
+			table.insert(saveData, particle)
+		else
+			ParticleManager:ReleaseParticleIndex(particle)
 		end
 	end
 end
