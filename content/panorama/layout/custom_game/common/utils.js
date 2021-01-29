@@ -44,22 +44,14 @@ function SubscribeToNetTableKey(tableName, key, callback) {
 	});
 }
 
-function GetDotaHud() {
-	var panel = $.GetContextPanel();
-	while (panel && panel.id !== "Hud") {
+const FindDotaHudElement = (id) => dotaHud.FindChildTraverse(id);
+const dotaHud = (() => {
+	let panel = $.GetContextPanel();
+	while (panel) {
+		if (panel.id === "DotaHud") return panel;
 		panel = panel.GetParent();
 	}
-
-	if (!panel) {
-		throw new Error("Could not find Hud root from panel with id: " + $.GetContextPanel().id);
-	}
-
-	return panel;
-}
-
-function FindDotaHudElement(id) {
-	return GetDotaHud().FindChildTraverse(id);
-}
+})();
 
 var useChineseDateFormat = $.Language() === "schinese" || $.Language() === "tchinese";
 /** @param {Date} date */

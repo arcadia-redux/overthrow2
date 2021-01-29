@@ -9,27 +9,27 @@
 	height: 38px;
 	border-radius: 100px;
 	margin-bottom: 112px;
-	margin-left: 245px;
+	margin-left: 252px;
 	align: left bottom;
 }
 .HUDFlipped #PatreonGamePerkButtonPanel {
 	align: right bottom;
 	margin-left: 0px;
-	margin-right: 247px;
+	margin-right: 252px;
 }
 .MinimapExtraLarge #PatreonGamePerkButtonPanel {
-	margin-left: 282px;
+	margin-left: 288px;
 }
 
 .HUDFlipped.MinimapExtraLarge #PatreonGamePerkButtonPanel {
-	margin-right: 283px;
+	margin-right: 288px;
 }
 
 #PatreonGamePerkButtonOption {
 	width: 52px;
 	height: 60px;
 	margin-bottom: 9.25%;
-	margin-left: 243px;
+	margin-left: 246px;
 	align: left bottom;
 }
 
@@ -37,15 +37,15 @@
 	transform: ScaleX(-1);
 	align: right bottom;
 	margin-left: 0px;
-	margin-right: 243px;
+	margin-right: 249px;
 }
 
 .MinimapExtraLarge #PatreonGamePerkButtonOption {
-	margin-left: 280px;
+	margin-left: 283px;
 }
 
 .HUDFlipped.MinimapExtraLarge #PatreonGamePerkButtonOption {
-	margin-right: 280px;
+	margin-right: 283px;
 }
 
 #PatreonsGamePerkMenu {
