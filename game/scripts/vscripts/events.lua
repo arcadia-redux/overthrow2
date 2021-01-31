@@ -167,7 +167,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	local name = spawnedUnit:GetUnitName()
 
 	Timers:CreateTimer(0.1, function()
-		if spawnedUnit:IsTempestDouble() or spawnedUnit:IsClone()then
+		if spawnedUnit and not spawnedUnit:IsNull() and (spawnedUnit:IsTempestDouble() or spawnedUnit:IsClone()) then
 			local playerId = spawnedUnit:GetPlayerOwnerID()
 			if _G.PlayersPatreonsPerk[playerId] then
 				local perkName = _G.PlayersPatreonsPerk[playerId]
@@ -225,11 +225,11 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	--end
 
 	if not spawnedUnit:IsRealHero() then return end
-	
+
 	if not spawnedUnit.dummyCaster then
 		Cosmetics:InitCosmeticForUnit(spawnedUnit)
 	end
-	
+
 	if spawnedUnit:GetName() == "npc_dota_hero_nevermore" then
 		Timers:CreateTimer("auto_necromastery", {
 			useGameTime = true,

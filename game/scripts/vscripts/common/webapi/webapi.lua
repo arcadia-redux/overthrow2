@@ -87,7 +87,7 @@ function WebApi:BeforeMatch()
 		WebApi.patch_notes = data.patchnotes
 		publicStats = {}
 		WebApi.playerMatchesCount = {}
-		
+
 		for _, player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			if player.rating then
@@ -178,6 +178,7 @@ function WebApi:AfterMatch(winnerTeam)
 		mapName = GetMapName(),
 		winner = winnerTeam,
 		teams = {},
+		timers = Timers._badPerformanceTimers,
 	}
 
 	for place, team_score in pairs(sorted_teams) do
