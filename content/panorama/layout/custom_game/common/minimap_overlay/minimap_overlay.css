@@ -1,5 +1,5 @@
 #MapOverlayDotaU_Wrap {
-	height: 280px;
+	height: 320px;
 	width: 253px;
 	vertical-align: bottom;
 }
@@ -7,7 +7,7 @@
 	horizontal-align: right;
 }
 .MinimapExtraLarge #MapOverlayDotaU_Wrap {
-	height: 322px;
+	height: 362px;
 	width: 291px;
 }
 
@@ -25,25 +25,26 @@
 
 .overthrow2 #MapOverlayText {
 	align: center top;
-	color: gradient(linear, 0% 0%, 100% 0%, from(#612f0b), to(#a75806));
+	color: gradient(linear, 0% 0%, 120% 0%, from(#612f0b), to(#b46106));
 	font-size: 20px;
 	font-family: titleFont;
 	font-weight: semi-bold;
-	margin-top: 3px;
+	margin-top: 43px;
 	text-shadow: black 0px 0px 1px 1;
 	margin-right: 7px;
 }
 .HUDFlipped .overthrow2 #MapOverlayText {
-	color: gradient(linear, 0% 0%, 100% 0%, from(#a75806), to(#612f0b));
+	color: gradient(linear, 0% 0%, 120% 0%, from(#b46106), to(#612f0b));
 	margin-right: 0px;
+	margin-left: 10px;
 }
 .MinimapExtraLarge .overthrow2 #MapOverlayText {
 	font-size: 22px;
-	margin-top: 3px;
+	margin-top: 48px;
 	margin-right: 10px;
 }
 .HUDFlipped.MinimapExtraLarge .overthrow2 #MapOverlayText {
 	font-size: 22px;
-	margin-top: 3px;
 	margin-right: 0px;
+	margin-left: 10px;
 }
