@@ -11,8 +11,8 @@
 	
 	<Panel style="width: 100%;height:100%;" hittest="false">
 		<Panel id="MapOverlayDotaU_Wrap" hittest="false">
-			<Panel id="MapOverlayImage"/>
-			<Label id="MapOverlayText" text="Overthrow 2.0"/>
+			<Panel id="MapOverlayImage" hittest="false"/>
+			<Label id="MapOverlayText" text="Overthrow 2.0" hittest="false"/>
 		</Panel>
 	</Panel>
 </root>
