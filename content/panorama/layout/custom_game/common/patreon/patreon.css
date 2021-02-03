@@ -433,7 +433,7 @@
 }
 
 #PatreonButtonPanel {
-	margin-bottom: 244px;
+	margin-bottom: 284px;
 	align: left bottom;
 }
 
@@ -629,7 +629,7 @@
 
 #NewMethodsAnnouncement {
 	margin-left: 70px;
-	margin-bottom: 4px;
+	margin-bottom: 0px;
 }
 
 #NewMethodsAnnouncementImage {
@@ -681,12 +681,11 @@
 
 #ClosePatreonButton {
 	background-color: rgb(66, 66, 66);
-	horizontal-align: right;
 	width: 16px;
 	height: 16px;
 	background-size: 100%;
 	margin-bottom: 42px;
-	margin-right: 2px;
+	margin-left: 48px;
 	border-radius: 1px;
 	border-color: rgb(79, 79, 79);
 	border-style: solid;
