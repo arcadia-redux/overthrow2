@@ -22,7 +22,7 @@ function patreon_perk_debuff_time_t2:IsPurgable()
 end
 --------------------------------------------------------------------------------
 function patreon_perk_debuff_time_t2:OnCreated()
-	self.bonusDebuffTime = GetPerkValue(100, self, 1, 0)
+	self.bonusDebuffTime = GetPerkValue(32, self, 1, 0)
 end
 ----------------------------------------------------------------------------------
 function patreon_perk_debuff_time_t2:RemoveOnDeath()
