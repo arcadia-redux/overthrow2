@@ -11,17 +11,26 @@ function patreon_perk_debuff_time_t1:GetTexture()
 end
 
 --------------------------------------------------------------------------------
-
+function patreon_perk_debuff_time_t1:DeclareFunctions()
+	return {
+		MODIFIER_PROPERTY_STATUS_RESISTANCE_CASTER
+	}
+end
+--------------------------------------------------------------------------------
 function patreon_perk_debuff_time_t1:IsPurgable()
 	return false
 end
 --------------------------------------------------------------------------------
 function patreon_perk_debuff_time_t1:OnCreated()
-	self:GetParent().bonusDebuffTime = GetPerkValue(16, self, 1, 0)
+	self.bonusDebuffTime = GetPerkValue(16, self, 1, 0)
 end
 ----------------------------------------------------------------------------------
 function patreon_perk_debuff_time_t1:RemoveOnDeath()
 	return false
+end
+--------------------------------------------------------------------------------
+function patreon_perk_debuff_time_t1:GetModifierStatusResistanceCaster()
+	return -self.bonusDebuffTime
 end
 --------------------------------------------------------------------------------
 function GetPerkValue(const, modifier, levelCounter, bonusPerLevel)
