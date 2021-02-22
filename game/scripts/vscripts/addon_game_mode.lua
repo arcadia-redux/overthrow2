@@ -19,6 +19,9 @@ _G.timesOfTheLastKillings = {}
 _G.personalCouriers = {}
 _G.mainTeamCouriers = {}
 _G.tPlayersMuted = {}
+_G.tUserIds = {}
+_G.alertsKickForPlayer = {}
+_G.kicks = {}
 
 ---------------------------------------------------------------------------
 -- COverthrowGameMode class
@@ -302,6 +305,12 @@ function COverthrowGameMode:InitGameMode()
 		local player = PlayerResource:GetPlayer(playerId)
 		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
 		local steamId = tostring(PlayerResource:GetSteamID(playerId))
+		
+		_G.tUserIds[data.PlayerID] = data.userid
+		if _G.kicks and _G.kicks[data.PlayerID] then
+			SendToServerConsole('kickid '.. data.userid);
+		end
+		
 		if TRUSTED_HOSTS[steamId] and isHost then
 			GameRules:GetGameModeEntity():SetPauseEnabled(true)
 			GameRules:LockCustomGameSetupTeamAssignment(false)
@@ -315,14 +324,6 @@ function COverthrowGameMode:InitGameMode()
 			CreateDummyInventoryForPlayer(playerId, playerHero)
 		end
 	end, nil)
-
-	_G.kicks = {
-		false,
-		false,
-		false,
-		false,
-		false
-	}
 
 	UniquePortraits:Init()
 	Battlepass:Init()
@@ -1168,10 +1169,6 @@ function COverthrowGameMode:ItemAddedToInventoryFilter( filterTable )
 
 	return true
 end
-
-RegisterCustomEventListener("GetKicks", function(data)
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.id), "setkicks", {kicks = _G.kicks})
-end)
 
 msgtimer = {}
 RegisterCustomEventListener("OnTimerClick", function(keys)
