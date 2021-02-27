@@ -1836,5 +1836,10 @@
 		"feedback_top_menu_hint"	"Send feedback for developers team"
 		
 		"voting_to_kick_no_kick_new_players"	"You cannot kick new players"
+
+		"fix_game_header"		"CUSTOM GAME LOBBIES NEED FIXING"
+		"fix_game_description"	"The custom game community has come together with an open letter to Valve. Join our petition which outlines the lobby issues that impact ALL custom games. Reaching new players due to the 30 game requirement is one of our main hurdles and is hindering the growth of the Arcade section. Read more about each of the problems and how they can be solved on our website below:"
+		"fix_game_more"			"Read More..."
+		"fix_game_dismiss"		"Dismiss"
 	}
 }
