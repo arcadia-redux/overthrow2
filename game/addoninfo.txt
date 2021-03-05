@@ -1,46 +1,70 @@
-"AddonInfo"
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
 {
-	maps			"desert_duo mines_trio forest_solo desert_quintet temple_quartet desert_octet core_quartet"
-	"IsPlayable"	"1"
-	"HeroGuidesSupported" "1"
-	"PenaltiesEnabled"			"0"
-	"EnablePickRules"    "1"
-	"CheckAFKPlayers"	"0"
-	"mines_trio"
-	{
-					"MaxPlayers"                    "9"
-	}
-	"desert_duo"
-	{
-					"MaxPlayers"                    "10"
-	}
-	"forest_solo"
-	{
-					"MaxPlayers"                    "10"
-	}
-	"desert_quintet"
-	{
-					"MaxPlayers"                    "15"
-	}
-	"temple_quartet"
-	{
-					"MaxPlayers"                    "16"
-	}
-	"desert_octet"
-	{
-					"MaxPlayers"                    "24"
-	}
-	"core_quartet"
-	{
-					"MaxPlayers"                    "24"
-	}
-	"Default_Keys"
-	{
-		"01"
+	maps = 
+	[
+		"desert_duo",
+		"mines_trio",
+		"forest_solo",
+		"desert_quintet",
+		"temple_quartet",
+		"desert_octet",
+		"core_quartet",
+	]
+	IsPlayable = 1
+	HeroGuidesSupported = 1
+	PenaltiesEnabled = 0
+	EnablePickRules = 1
+	CheckAFKPlayers = 0
+	Default_Keys = 
+	[
 		{
-			"Key"       "L"
-			"Command"   "+WheelButton"
-			"Name"      "CustomCommand"
-		}
+			Key = "L"
+			Command = "+WheelButton"
+			Name = "CustomCommand"
+		},
+	]
+	map_options = 
+	[
+		{
+			MaxPlayers = 24
+			map = "core_quartet"
+		},
+		{
+			MaxPlayers = 24
+			map = "desert_octet"
+		},
+		{
+			MaxPlayers = 16
+			map = "temple_quartet"
+		},
+		{
+			MaxPlayers = 15
+			map = "desert_quintet"
+		},
+		{
+			MaxPlayers = 10
+			map = "forest_solo"
+		},
+		{
+			MaxPlayers = 10
+			map = "desert_duo"
+		},
+		{
+			MaxPlayers = 9
+			map = "mines_trio"
+		},
+	]
+	HideInTools = false
+	IsTemplate = false
+	DefaultMap = ""
+	DisableIK = false
+	EventGame = false
+	hero_picker = 
+	{
 	}
+	ForceDefaultGuide = false
+	MinimalPrecache = false
+	MinPlayers = 1
+	MaxPlayers = 10
+	TeamCount = -1
 }
