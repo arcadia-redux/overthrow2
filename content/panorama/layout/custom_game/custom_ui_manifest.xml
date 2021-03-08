@@ -90,7 +90,7 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/collection/collection.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml"/>
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/feedback/feedback.xml" />
-		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/fix_custom_game/fix_custom_game.xml" />
+<!--		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/fix_custom_game/fix_custom_game.xml" />-->
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/minimap_overlay/minimap_overlay.xml" />
 <!--		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/leaderboard/leaderboard.xml"/>-->
 	</Panel>
