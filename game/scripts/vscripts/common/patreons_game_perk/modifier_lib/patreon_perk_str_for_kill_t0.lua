@@ -43,7 +43,8 @@ end
 function patreon_perk_str_for_kill_t0:OnHeroKilled(keys)
 	if not IsServer() then return end
 	local killerID = keys.attacker:GetPlayerOwnerID()
-	if killerID and killerID == self:GetParent():GetPlayerOwnerID() then
+	
+	if killerID and killerID == self:GetParent():GetPlayerOwnerID() and keys.target:GetTeam() ~= self:GetParent():GetTeam() then
 		self:IncrementStackCount()
 		self:GetParent():CalculateStatBonus(false)
 	end
