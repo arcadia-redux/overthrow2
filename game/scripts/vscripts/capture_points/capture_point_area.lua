@@ -262,11 +262,9 @@ function capture_point_area:GiveItemToTeam()
 	end
 	print_d("  >> CHOOSED DROP: [" .. sItemName .. "]")
 	if hPlayer and hPlayer.dummyInventory and sItemName then
-		print_d("  >> DROP TRANSFERRED OKAY: [" .. sItemName .. "]")
+		print_d("  >> POPUP NOTIFICATION FOR ITEM: [" .. sItemName .. "]")
 		CustomGameEventManager:Send_ServerToAllClients( "OnPickedUpItem", {position = self:GetParent():GetAbsOrigin(), itemName = sItemName, tier = tItems.tier} )
-		local hItem = hPlayer.dummyInventory:AddItemByName(sItemName)
-		hPlayer.dummyInventory:TakeItem(hItem)
-		DropItem({item = hItem:GetEntityIndex(), PlayerID = hPlayer:GetPlayerID() })
+		DropItem(sItemName, hPlayer)
 	end
 end
 ------------------------------------------------------------------------------

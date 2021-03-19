@@ -21,3 +21,15 @@ function Commands:short(player, arg)
 	COverthrowGameMode.TEAM_KILLS_TO_WIN = killToWinNew
 	CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = killToWinNew } );
 end
+
+function Commands:ft(player, arg)
+	if not IsAdmin(player) then return end
+	if not IsInToolsMode() then return end
+	COverthrowGameMode:ForceSpawnDropInMiddle(DROP_NEUTRAL_ITEM)
+end
+
+function Commands:fg(player, arg)
+	if not IsAdmin(player) then return end
+	if not IsInToolsMode() then return end
+	COverthrowGameMode:ForceSpawnDropInMiddle(DROP_GOLD)
+end
