@@ -305,12 +305,12 @@ function COverthrowGameMode:InitGameMode()
 		local player = PlayerResource:GetPlayer(playerId)
 		local isHost = GameRules:PlayerHasCustomGameHostPrivileges(player)
 		local steamId = tostring(PlayerResource:GetSteamID(playerId))
-		
+
 		_G.tUserIds[data.PlayerID] = data.userid
 		if _G.kicks and _G.kicks[data.PlayerID] then
 			SendToServerConsole('kickid '.. data.userid);
 		end
-		
+
 		if TRUSTED_HOSTS[steamId] and isHost then
 			GameRules:GetGameModeEntity():SetPauseEnabled(true)
 			GameRules:LockCustomGameSetupTeamAssignment(false)
@@ -928,7 +928,7 @@ function COverthrowGameMode:GetCoreTeleportTarget(teamId)
 end
 
 local blockedChatPhraseCode = {
-	[796] = true,
+	[804] = true,
 }
 
 function COverthrowGameMode:OnPlayerChat(keys)
