@@ -553,7 +553,7 @@
 	}
 }
 #MasteryButtonTooltipArrow {
-	background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_left_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/tooltip_arrow_left_png.png");
 	background-size: 100%;
 	wash-color: #252b30;
 	width: 21px;
@@ -563,7 +563,7 @@
 	margin-top: 4px;
 }
 .HUDFlipped #MasteryButtonTooltipArrow {
-	background-image: url("s2r://panorama/images/tooltips/tooltip_arrow_right_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/tooltip_arrow_right_png.png");
 }
 #MasteryButtonTooltipText {
 	color: white;

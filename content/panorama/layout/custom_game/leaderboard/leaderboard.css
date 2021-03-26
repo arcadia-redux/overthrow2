@@ -135,7 +135,7 @@
 
     margin-left: 8px;
 
-    background-image: url("s2r://panorama/images/status_icons/information_psd.vtex");
+    background-image: url("file://{resources}/images/custom_game/import_dota/information_psd.png");
     background-position: 50% 50%;
     background-size: contain;
 }

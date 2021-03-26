@@ -10,7 +10,7 @@
 
 	<scripts>
 		<include src="file://{resources}/layout/custom_game/common/utils.js" />
-		<include src="file://{resources}/layout/custom_game/common/collection/dota_u/collection_dota_u.js"/>
+		<include src="file://{resources}/layout/custom_game/common/collection/dota_u/collection_dota_u.js" />
 		<include src="file://{resources}/layout/custom_game/common/collection/collection_const.js" />
 		<include src="file://{resources}/layout/custom_game/common/collection/mastery_const.js" />
 		<include src="file://{resources}/layout/custom_game/common/collection/payments_const.js" />

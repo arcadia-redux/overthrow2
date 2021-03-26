@@ -11,7 +11,7 @@
 .NewItem {
 	horizontal-align: right;
 	margin: 4px;
-	background-image: url( "s2r://panorama/images/hud/reborn/item_purchase_bg_psd.vtex" );
+	background-image: url( "file://{resources}/images/custom_game/import_dota/item_purchase_bg_psd.png" );
 	background-size: cover;
 	transform: translatex( 500px );
     transition-property: transform;
@@ -47,7 +47,7 @@
 
 .Button {
 	margin: 3px;
-	background-image: url( "s2r://panorama/images/hud/reborn/shop_launcher_button_psd.vtex" );
+	background-image: url( "file://{resources}/images/custom_game/import_dota/shop_launcher_button_psd.png" );
 	background-size: 100%;
 	padding: 4px 12px 4px 12px;
 	max-height: 30px;
@@ -98,5 +98,5 @@ DOTAHeroImage {
 	height: 16px;
 	background-size: 100%;
 	margin: 4px;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 }

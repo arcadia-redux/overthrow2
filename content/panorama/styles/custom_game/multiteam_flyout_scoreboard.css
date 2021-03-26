@@ -243,7 +243,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-image: url("s2r://panorama/images/custom_game/button_audio_on_psd.vtex");
+    background-image: url("file://{resources}/images/custom_game/import_dota/button_audio_on_psd.png");
 	opacity: 0.8;
 }
 
@@ -259,7 +259,7 @@
 
 .player_muted #MuteButton
 {
-    background-image: url("s2r://panorama/images/custom_game/button_audio_off_psd.vtex");
+    background-image: url("file://{resources}/images/custom_game/import_dota/button_audio_off_psd_CUSTOM_NOT_DOTA.png");
 }
 
 #DisableHelpButton
@@ -361,7 +361,7 @@
 	align: center center;
 }
 #PerkForPlayer {
-	background-image: url("s2r://panorama/images/items/emptyitembg_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/emptyitembg_png.png");
 	background-repeat: no-repeat;
 	background-size: 100% 99%;
 }

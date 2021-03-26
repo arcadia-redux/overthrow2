@@ -301,7 +301,7 @@
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    background-image: url("s2r://panorama/images/custom_game/deathtimer_background_psd.vtex");
+    background-image: url("file://{resources}/images/custom_game/import_dota/deathtimer_background_psd.png");
 	horizontal-align: center;
 	transform: translateY(-30px);
 	opacity: 0;

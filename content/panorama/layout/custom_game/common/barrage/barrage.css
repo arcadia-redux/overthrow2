@@ -307,7 +307,7 @@
 }
 
 #GoldIcon {
-	background-image: url("s2r://panorama/images/hud/reborn/gold_small_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/gold_small_psd.png");
 	background-size: 100% 100%;
 	width: 40px;
 	height: 40px;

@@ -10,7 +10,7 @@
 	border-style: solid;
 	border-width: 3px;
 	border-color: #000000;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/ability_bg_psd.png");
 	background-color: #263238;
 	background-size: 100%;
 	align: center top;
@@ -77,12 +77,11 @@
 	border-style: solid;
 	border-width: 3px;
 	border-color: #000000ff;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/ability_bg_psd.png");
 	background-color: #263238ff;
 	background-size: 100%;
 	align: center center;
 	border-radius: 6px;
-	flow-children: down;
 }
 
 #PaymentConfirmationHeader {
@@ -237,7 +236,7 @@
 	flow-children: down;
 	border-style: solid;
 	border-width: 1.5px;
-	background-image: url("s2r://panorama/images/hud/reborn/ability_bg_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/ability_bg_psd.png");
 	background-color: #263238;
 	background-size: 100%;
 	opacity: 1.2;
@@ -257,7 +256,7 @@
 	width: 100%;
 	height: 75px;
 	background-color: gradient(linear, 0% 0%, 0% 100%, from(#4d4d4d), to(#4d4d4d));
-	background-image: url("s2r://panorama/images/front_page/ti8_front_bar_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/ti8_front_bar_psd.png");
 	background-repeat: no-repeat;
 	flow-children: down;
 	border-bottom-right-radius: 10px;
@@ -304,7 +303,7 @@
 	width: 100%;
 	height: 35px;
 	background-color: gradient(linear, 0% 0%, 0% 100%, from(#f96854), to(#f96854));
-	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/background_play_button_2x_png.png");
 }
 
 .PatreonLabelPanel {
@@ -339,7 +338,7 @@
 	height: 24px;
 	background-size: 100%;
 	margin: 5px;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 }
 
 .PatreonHeader .PatreonCloseButtonX {
@@ -406,7 +405,7 @@
 	height: 40px;
 	padding: 4px 12px 4px 12px;
 	background-color: gradient(linear, 0% 0%, 0% 100%, from(#558b2f), to(#7cb342));
-	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/background_play_button_2x_png.png");
 	border-style: solid;
 	border-width: 0.4px;
 	border-radius: 5px;
@@ -457,7 +456,7 @@
 	height: 50px;
 	padding: 4px 12px 4px 12px;
 	background-color: gradient(linear, 0% 0%, 0% 100%, from(#f96854), to(#f96854));
-	background-image: url("s2r://panorama/images/backgrounds/background_play_button_2x_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/background_play_button_2x_png.png");
 	background-size: 240px 50px;
 	border-style: solid;
 	border-width: 1px;
@@ -691,7 +690,7 @@
 	border-style: solid;
 	border-width: 1px;
 	visibility: collapse;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 }
 
 #CloseVOIconButton {
@@ -707,5 +706,5 @@
 	border-style: solid;
 	border-width: 1px;
 	visibility: collapse;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 }

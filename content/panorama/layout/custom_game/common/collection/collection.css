@@ -935,10 +935,10 @@
 	height: 57px;
 }
 .PaymentMethod:hover Image {
-	box-shadow: inset rgba(0, 0, 0, 1) 3px 3px 6px 6px;
+	box-shadow: inset rgba(0, 0, 0, 1) 0px 0px 6px 3px;
 }
 .PaymentMethod:active Image {
-	box-shadow: inset rgba(0, 0, 0, 1) 2px 2px 4px 4px;
+	box-shadow: inset rgba(0, 0, 0, 1) 0px 0px 5px 5px;
 }
 #PaymentDescription {
 	margin: 30px 40px 0px 40px;
@@ -1540,7 +1540,7 @@
 	width: 90px;
 	background-size: 16px 16px;
 	background-position: 0% 50%;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 	background-repeat: no-repeat;
 	horizontal-align: right;
 	margin-right: 30px;
@@ -1671,7 +1671,7 @@
 .IsTreasure #TreasureShowInfo {
 	width: 26px;
 	height: 26px;
-	background-image: url("s2r://panorama/images/hud/reborn/icon_inspect_psd.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/icon_inspect_psd.png");
 	background-size: 100%;
 	margin: 4px;
 	transition: brightness 0.1s ease-in-out 0s;

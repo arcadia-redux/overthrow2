@@ -63,7 +63,7 @@
 #TopCloseButton {
 	width: 24px;
 	height: 24px;
-	background-image: url("s2r://panorama/images/control_icons/x_close_png.vtex");
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
 	background-size: 24px 24px;
 	background-repeat: no-repeat;
 	background-position: 50% 50%;
