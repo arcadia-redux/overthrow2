@@ -70,25 +70,40 @@ modifier_doom_bringer_devour_custom = {
 	IsPurgable = function() return false end,
 
 	DeclareFunctions = function() return { MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT } end,
-	GetModifierConstantHealthRegen = function(self) return self:GetAbility():GetSpecialValueFor("health_regen") end,
+	GetModifierConstantHealthRegen = function(self) return self.health_regen end,
 }
 
-if IsServer() then
-	local interval = 1
-	function modifier_doom_bringer_devour_custom:OnCreated()
-		self.gold = 0
-		self:StartIntervalThink(interval)
-	end
 
-	function modifier_doom_bringer_devour_custom:OnIntervalThink()
-		local goldPerMinute = self:GetAbility():GetSpecialValueFor("bonus_gold_per_minute")
-		if self:GetCaster():FindAbilityByName("special_bonus_unique_doom_3"):GetLevel() > 0 then
-			goldPerMinute = goldPerMinute + 150
-		end
-		self.gold = self.gold + (goldPerMinute / 60) * interval
+function modifier_doom_bringer_devour_custom:OnCreated()
+	self.gold = 0
 
-		local integral, fractional = math.modf(self.gold, 1)
-		self:GetParent():ModifyGold(integral, false, DOTA_ModifyGold_GameTick)
-		self.gold = fractional
+	self.ability = self:GetAbility()
+	self.parent = self:GetParent()
+	self.caster = self:GetCaster()
+
+	self.health_regen = self.ability:GetSpecialValueFor("health_regen")
+
+	if IsServer() then
+		self.interval = 1
+		self:StartIntervalThink(self.interval)
 	end
 end
+
+function modifier_doom_bringer_devour_custom:OnIntervalThink()
+	if not self.ability or not self.parent or not self.caster then return end
+	if self.ability:IsNull() or self.parent:IsNull() or self.caster:IsNull() then return end
+
+	local goldPerMinute = self.ability:GetSpecialValueFor("bonus_gold_per_minute")
+
+	local talent = self.caster:FindAbilityByName("special_bonus_unique_doom_3")
+
+	if talent and not talent:IsNull() and talent:GetLevel() > 0 then
+		goldPerMinute = goldPerMinute + 150
+	end
+	self.gold = self.gold + (goldPerMinute / 60) * self.interval
+
+	local integral, fractional = math.modf(self.gold, 1)
+	self.parent:ModifyGold(integral, false, DOTA_ModifyGold_GameTick)
+	self.gold = fractional
+end
+

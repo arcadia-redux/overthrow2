@@ -117,8 +117,8 @@ end
 
 LinkLuaModifier("modifier_item_helm_of_the_dominator_custom_aura", "abilities/items/helm_of_the_dominator", LUA_MODIFIER_MOTION_NONE)
 modifier_item_helm_of_the_dominator_custom_aura = {
-	GetModifierAttackSpeedBonus_Constant = function(self) return self:GetAbility():GetSpecialValueFor("attack_speed_aura") end,
-	GetModifierConstantHealthRegen = function(self) return self:GetAbility():GetSpecialValueFor("hp_regen_aura") end,
+	GetModifierAttackSpeedBonus_Constant = function(self) return self.attack_speed_aura end,
+	GetModifierConstantHealthRegen = function(self) return self.hp_regen_aura end,
 }
 
 function modifier_item_helm_of_the_dominator_custom_aura:DeclareFunctions()
@@ -126,4 +126,11 @@ function modifier_item_helm_of_the_dominator_custom_aura:DeclareFunctions()
 		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 		MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
 	}
+end
+
+function modifier_item_helm_of_the_dominator_custom_aura:OnCreated()
+	local ability = self:GetAbility()
+
+	self.attack_speed_aura = ability:GetSpecialValueFor("attack_speed_aura")
+	self.hp_regen_aura = ability:GetSpecialValueFor("hp_regen_aura")
 end

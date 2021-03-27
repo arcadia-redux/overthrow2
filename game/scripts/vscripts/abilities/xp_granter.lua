@@ -59,6 +59,8 @@ if IsServer() then
 		local parent = self:GetParent()
 		local ability = self:GetAbility()
 
+		if not parent or parent:IsNull() then return end
+
 		local xp = ability:GetSpecialValueFor("aura_xp")
 		local gold = ability:GetSpecialValueFor("aura_gold")
 		parent:ModifyGold(gold, false, 0)
@@ -83,7 +85,11 @@ if IsServer() then
 
 	function modifier_get_xp_late_bonus:OnIntervalThink()
 		local parent = self:GetParent()
+		if not parent or parent:IsNull() then return end
+
 		local ability = self:GetAbility()
+		if not ability or ability:IsNull() then return end
+
 		local isOnCenter = parent:HasModifier("modifier_get_xp")
 		if isOnCenter then
 			self:Destroy()

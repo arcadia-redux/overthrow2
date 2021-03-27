@@ -37,15 +37,18 @@ function treasure_chest_channel:OnChannelFinish(interrupted)
 					hero:InterruptChannel()
 				end
 			end
-
-			if COverthrowGameMode.treasure_chest_spawns[caster.channeling_treasure] and COverthrowGameMode.treasure_chest_spawns[caster.channeling_treasure]:GetContainer() then
-				COverthrowGameMode.treasure_chest_spawns[caster.channeling_treasure]:GetContainer():Destroy()
-				COverthrowGameMode.treasure_chest_spawns[caster.channeling_treasure]:Destroy()
+			local chest = COverthrowGameMode.treasure_chest_spawns[caster.channeling_treasure]
+			if chest and not chest:IsNull() then
+				local container = chest:GetContainer()
+				if container then
+					container:Destroy()
+				end
+				chest:Destroy()
 			end
 		end
 
 		caster:StopSound("Treasure.ChannelLoop")
 		caster.channeling_treasure = nil
-		self:Destroy()	
+		self:Destroy()
 	end
 end

@@ -789,7 +789,13 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 		if ability and ability:IsItem() and target and target:HasInventory() then
 			unit:DropItemAtPositionImmediate( ability, target:GetAbsOrigin() + target:GetForwardVector() )
 			Timers:CreateTimer( 0, function()
-				ability:GetContainer():Destroy()
+				if not ability or ability:IsNull() then return end
+
+				local container = ability:GetContainer()
+				if container and not container:IsNull() then
+					container:Destroy()
+				end
+
 				target:AddItem( ability )
 			end )
 
@@ -955,6 +961,7 @@ function COverthrowGameMode:OnPlayerChat(keys)
 	end
 
 	local command = args[1]
+	if not command then return end
 	table.remove(args, 1)
 
 	local fixed_command = command.sub(command, 2)
@@ -969,6 +976,7 @@ RegisterCustomEventListener("P3ButtonClick", function(keys)
 end)
 
 function COverthrowGameMode:P3Act(playerid)
+	if not playerid then return end
 	if p3bonus[playerid] ~= true then
 		p3bonus[playerid] = true
 		_G.nCOUNTDOWNTIMER = _G.nCOUNTDOWNTIMER + 30
@@ -2835,6 +2843,7 @@ RegisterCustomEventListener("SelectVO", SelectVO)
 RegisterCustomEventListener("set_mute_player", function(data)
 	local fromId = data.PlayerID
 	local toId = data.toPlayerId
+	if not fromId or toId then return end
 	local disable = data.disable
 	_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
 	if disable == 0 then
@@ -2848,11 +2857,11 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 	local playerId = data.PlayerID
 	if not playerId then return end
 
-	if WebApi.playerSettings and WebApi.playerSettings[data.PlayerID] then
+	if WebApi.playerSettings and WebApi.playerSettings[playerId] then
 		local favourites = data.favourites
 		if not favourites then return end
 
-		WebApi.playerSettings[data.PlayerID].chatWheelFavourites = favourites
-		WebApi:ScheduleUpdateSettings(data.PlayerID)
+		WebApi.playerSettings[playerId].chatWheelFavourites = favourites
+		WebApi:ScheduleUpdateSettings(playerId)
 	end
 end)

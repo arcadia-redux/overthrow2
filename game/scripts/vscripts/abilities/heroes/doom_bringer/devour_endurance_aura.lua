@@ -23,13 +23,19 @@ modifier_devour_endurance_aura = modifier_devour_endurance_aura or class({
 	IsPermanent             = function(self) return false end,
 })
 
+function modifier_devour_speed_aura:OnCreated()
+	local ability = self:GetAbility()
+	if not ability then return end
+
+	self.radius = ability:GetSpecialValueFor("radius")
+end
 
 function modifier_devour_endurance_aura:GetModifierAura()
     return "modifier_devour_endurance_aura_buff"
 end
 
 function modifier_devour_endurance_aura:GetAuraRadius()
-    return self:GetAbility():GetSpecialValueFor("radius")
+    return self.radius
 end
 
 function modifier_devour_endurance_aura:GetTexture()
@@ -65,9 +71,9 @@ function modifier_devour_endurance_aura_buff:GetTexture()
 end
 
 function modifier_devour_endurance_aura_buff:DeclareFunctions()
-	local funcs = 
+	local funcs =
 	{
-		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT, 
+		MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
 	}
 	return funcs
 end
@@ -75,7 +81,7 @@ end
 function modifier_devour_endurance_aura_buff:GetModifierAttackSpeedBonus_Constant()
 	if self:GetAbility() then
 		return self:GetAbility():GetSpecialValueFor("bonus_attack_speed")
-	else 
+	else
 		return 0
-	end		
+	end
 end

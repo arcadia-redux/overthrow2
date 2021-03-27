@@ -49,7 +49,7 @@ function item_ogre_seal_totem:IsMuted()
 	if not self:GetCaster():IsHero() then
 		return true
 	end
-	
+
 	return self.BaseClass.IsMuted( self )
 end
 
@@ -68,7 +68,9 @@ end
 
 function item_ogre_seal_totem:OnAbilityPhaseInterrupted()
 	if IsServer() then
-		ParticleManager:DestroyParticle( self.nPreviewFXIndex, true )
+		if self.nPreviewFXIndex then
+			ParticleManager:DestroyParticle( self.nPreviewFXIndex, true )
+		end
 
 		--self:GetCaster():RemoveGesture( ACT_DOTA_VICTORY )
 		self:GetCaster():RemoveModifierByName( "modifier_techies_suicide_leap_animation" )
