@@ -202,12 +202,8 @@ function WebApi:AfterMatch(winnerTeam)
 					kills = PlayerResource:GetKills(playerId),
 					deaths = PlayerResource:GetDeaths(playerId),
 					assists = PlayerResource:GetAssists(playerId),
+					perk = GamePerks.choosed_perks[playerId],
 				}
-
-				local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-				if IsValidEntity(hero) then
-					player_data.level = hero:GetLevel()
-				end
 
 				table.insert(team_data.players, player_data)
 			end
