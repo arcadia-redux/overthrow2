@@ -2,17 +2,17 @@ MAX_NEUTRAL_ITEMS_FOR_PLAYER = 2
 
 function DropItem(item_name, player)
 	if not IsServer() then return end
-	
+
 	local dummyInventory = player.dummyInventory
 	if not dummyInventory then return end
-	
+
 	local hero = PlayerResource:GetSelectedHeroEntity(player:GetPlayerID())
 	print_d("   >>> PRECREATE ITEM [" .. item_name .. "]")
 	local item = CreateItem(item_name, hero, hero)
 	print_d("   >>> ITEM WAS CREATED SUCCESSFULLY [" .. item_name .. "]")
 	local item_entity_index = item:entindex()
 	local team = player:GetTeam()
-	
+
 	local teamBeacon
 	local beacons
 	if GetMapName() == "core_quartet" then
@@ -20,7 +20,7 @@ function DropItem(item_name, player)
 	else
 		beacons = Entities:FindAllByName("npc_dota_tower")
 	end
-	
+
 	for _, beacon in pairs(beacons) do
 		if beacon:GetTeam() == team then
 			teamBeacon = beacon
@@ -28,7 +28,7 @@ function DropItem(item_name, player)
 	end
 
 	print_d("   >>> BEACON WAS FIND FOR TEAM [" .. team .. "]")
-	
+
 	if not teamBeacon then return end
 	local getRandomValue = function()
 		return (RandomInt(0, 1) * 2 - 1) * ( 50 + RandomInt(0, 120 - 50 ) )
@@ -38,19 +38,20 @@ function DropItem(item_name, player)
 	CreateItemOnPositionSync(pos_item, item)
 	item.neutralDropInBase = true
 	CustomGameEventManager:Send_ServerToTeam(team, "neutral_item_dropped", { item = item_entity_index, itemName = item_name})
-	Timers:CreateTimer(15,function() -- !!! You should put here time from function NeutralItemDropped from neutral_items.js - Schelude
+	Timers:CreateTimer(15,function() -- !!! You should put here time from function NeutralItemDropped from neutral_items.js - Schedule
+		if not item or item:IsNull() then return end
+
 		local container = item.GetContainer and item:GetContainer()
-		if container then
-			print_d("   >>>> ITEM NOT PICKED UP. MOVED TO NEUTRAL SHOP [" .. item_name .. "]")
-			UTIL_Remove(container)
-			dummyInventory:AddItem(item)
-			ExecuteOrderFromTable({
-				UnitIndex = dummyInventory:entindex(),
-				OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN ,
-				AbilityIndex = item_entity_index,
-			})
-		end
-		return nil
+		if not container or container:IsNull() then return end
+
+		print_d("   >>>> ITEM NOT PICKED UP. MOVED TO NEUTRAL SHOP [" .. item_name .. "]")
+		UTIL_Remove(container)
+		dummyInventory:AddItem(item)
+		ExecuteOrderFromTable({
+			UnitIndex = dummyInventory:entindex(),
+			OrderType = DOTA_UNIT_ORDER_DROP_ITEM_AT_FOUNTAIN ,
+			AbilityIndex = item_entity_index,
+		})
 	end)
 end
 

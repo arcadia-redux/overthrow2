@@ -116,7 +116,8 @@ function CDOTA_Item:TransferToBuyer(unit)
 
 	self.isTransfer = true
 
-	Timers:CreateTimer(0.0000000000000000000001, function()
+	Timers:CreateTimer(0, function()
+		if not self or self:IsNull() then return end
 		local itemBuyerInventory = (unit.IsCourier and unit:IsCourier() and unit) or buyer
 		itemBuyerInventory:TakeItem(self)
 		local container = self:GetContainer()

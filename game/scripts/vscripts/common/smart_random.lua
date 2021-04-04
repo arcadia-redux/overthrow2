@@ -58,6 +58,7 @@ function SmartRandom:PrepareAutoPick()
 	end
 
 	WebApi:Send("match/auto-pick", { mapName = GetMapName(), players = players, selectedHeroes = heroes }, function(data)
+		if not data or not data.players then return end
 		for _,player in ipairs(data.players) do
 			local playerId = GetPlayerIdBySteamId(player.steamId)
 			SmartRandom.AutoPickHeroes[playerId] = player.heroes

@@ -18,24 +18,29 @@ function chen_soul_persuasion:OnSpellStart()
 	local currentData = self.abilityData[summonSouls]
 
 	if parent:GetMana() < currentData.manacost then
-		CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwnerID(), "display_custom_error", { message = "#dota_hud_error_not_enough_mana" })
+		local player = parent:GetPlayerOwnerID()
+		if player and not player:IsNull() then
+			CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwnerID(), "display_custom_error", {
+				message = "#dota_hud_error_not_enough_mana"
+			})
+		end
 		self:EndCooldown()
 		return
 	end
-	
+
 	parent:SetModifierStackCount(soulsModifierName, self, soulsCount - summonSouls)
 	local creepsCount = parent:HasScepter() and self.creeps_with_aghanim or 1
 
 	for _ = 1, creepsCount do
 		self:CreateCreep(currentData.creeps)
 	end
-	
+
 	parent:ReduceMana(currentData.manacost)
 	self:StartCooldown(currentData.cooldown * parent:GetCooldownReduction())
 end
 
 function chen_soul_persuasion:CreateCreep(creepsData)
-	local parent = self:GetCaster()	
+	local parent = self:GetCaster()
 	local minDistance, maxDistance = 140, 210
 	local spawnPoint = GetRandomPathablePositionWithin(parent:GetAbsOrigin(), maxDistance, minDistance)
 	spawnPoint.z = 0
@@ -175,4 +180,4 @@ function chen_soul_persuasion:DataInit()
 			icon = "chen_soul_persuasion_4",
 		}
 	}
-end 
+end

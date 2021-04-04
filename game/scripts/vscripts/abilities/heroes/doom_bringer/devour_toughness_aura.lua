@@ -23,13 +23,19 @@ modifier_devour_toughness_aura = modifier_devour_toughness_aura or class({
 	IsPermanent             = function(self) return false end,
 })
 
+function modifier_devour_toughness_aura:OnCreated()
+	local ability = self:GetAbility()
+	if not ability then return end
+
+	self.radius = ability:GetSpecialValueFor("radius")
+end
 
 function modifier_devour_toughness_aura:GetModifierAura()
     return "modifier_devour_toughness_aura_buff"
 end
 
 function modifier_devour_toughness_aura:GetAuraRadius()
-    return self:GetAbility():GetSpecialValueFor("radius")
+    return self.radius
 end
 
 function modifier_devour_toughness_aura:GetTexture()
@@ -65,9 +71,9 @@ function modifier_devour_toughness_aura_buff:GetTexture()
 end
 
 function modifier_devour_toughness_aura_buff:DeclareFunctions()
-	local funcs = 
+	local funcs =
 	{
-		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS, 
+		MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
 	}
 	return funcs
 end
@@ -75,7 +81,7 @@ end
 function modifier_devour_toughness_aura_buff:GetModifierPhysicalArmorBonus()
 	if self:GetAbility() then
 		return self:GetAbility():GetSpecialValueFor("bonus_armor")
-	else 
+	else
 		return 0
-	end		
+	end
 end

@@ -179,7 +179,8 @@ function COverthrowGameMode:OnNPCSpawned( event )
 		end
 	end)
 
-	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn and _G.lastHeroKillers[spawnedUnit] then
+	if spawnedUnit and spawnedUnit.reduceCooldownAfterRespawn
+	and _G.lastHeroKillers[spawnedUnit] and not _G.lastHeroKillers[spawnedUnit]:IsNull() then
 		local killersTeam = _G.lastHeroKillers[spawnedUnit]:GetTeamNumber()
 		if killersTeam ~=spawnedUnit:GetTeamNumber() and killersTeam~= DOTA_TEAM_NEUTRALS then
 			for i = 0, 20 do
@@ -650,6 +651,7 @@ function COverthrowGameMode:OnItemPickUp( event )
 	elseif event.itemname == "item_treasure_chest" then
 		DoEntFire( "item_spawn_particle_" .. self.itemSpawnIndex, "Stop", "0", 0, self, self )
 		local channel_ability = owner:AddAbility("treasure_chest_channel")
+		if not channel_ability or channel_ability:IsNull() then return end
 		channel_ability:SetLevel(1)
 		owner.channeling_treasure = item.spawn_number
 

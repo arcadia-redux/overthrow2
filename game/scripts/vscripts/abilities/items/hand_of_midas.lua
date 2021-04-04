@@ -57,11 +57,12 @@ if IsServer() then
 	end
 
 	function item_hand_of_midas_custom:OnProjectileHit(target)
-		if target then
-			COverthrowGameMode:AddGoldenCoin(target)
-			target:AddExperienceCustom(self:GetSpecialValueFor("xp_per_coin"), 0, false, false)
-			SendOverheadEventMessage(target, OVERHEAD_ALERT_XP, target, self:GetSpecialValueFor("xp_per_coin"), nil)
-		end
+		if not target then return end
+		if not target.AddExperienceCustom then return end
+
+		COverthrowGameMode:AddGoldenCoin(target)
+		target:AddExperienceCustom(self:GetSpecialValueFor("xp_per_coin"), 0, false, false)
+		SendOverheadEventMessage(target, OVERHEAD_ALERT_XP, target, self:GetSpecialValueFor("xp_per_coin"), nil)
 	end
 end
 

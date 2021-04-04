@@ -94,11 +94,17 @@ _G.VisiblePerksForEnemyTeam = {}
 _G.timerForCheckerPerks = false
 
 RegisterCustomEventListener("check_patreon_level_and_perks", function(data)
-	local patreonLvl = Supporters:GetLevel(data.PlayerID)
-	local currentPerk = _G.PlayersPatreonsPerk[data.PlayerID]
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(data.PlayerID), "return_patreon_level_and_perks", {
-		patreonLevel = patreonLvl,
-		patreonCurrentPerk = currentPerk
+	local player_id = data.PlayerID
+	if not player_id then return end
+
+	local player = PlayerResource:GetPlayer(player_id)
+	if not player or player:IsNull() then return end
+
+	local patreon_level = Supporters:GetLevel(player_id)
+	local current_perk = _G.PlayersPatreonsPerk[player_id]
+	CustomGameEventManager:Send_ServerToPlayer(player, "return_patreon_level_and_perks", {
+		patreonLevel = patreon_level,
+		patreonCurrentPerk = current_perk
 	})
 end)
 
@@ -130,6 +136,7 @@ RegisterCustomEventListener("set_patreon_game_perk", function(data)
 		end
 	else
 		Timers:CreateTimer(3, function()
+			if not player or player:IsNull() then return end
 			hero = player:GetAssignedHero()
 			if hero then
 				hero:AddNewModifier(hero, nil, newModifierName, {duration = -1})

@@ -23,13 +23,19 @@ modifier_devour_command_aura = modifier_devour_command_aura or class({
 	IsPermanent             = function(self) return false end,
 })
 
+function modifier_devour_command_aura:OnCreated()
+	local ability = self:GetAbility()
+	if not ability then return end
+
+	self.radius = ability:GetSpecialValueFor("radius")
+end
 
 function modifier_devour_command_aura:GetModifierAura()
     return "modifier_devour_command_aura_buff"
 end
 
 function modifier_devour_command_aura:GetAuraRadius()
-    return self:GetAbility():GetSpecialValueFor("radius")
+    return self.radius
 end
 
 function modifier_devour_command_aura:GetTexture()
@@ -65,9 +71,9 @@ function modifier_devour_command_aura_buff:GetTexture()
 end
 
 function modifier_devour_command_aura_buff:DeclareFunctions()
-	local funcs = 
+	local funcs =
 	{
-		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE, 
+		MODIFIER_PROPERTY_BASEDAMAGEOUTGOING_PERCENTAGE,
 	}
 	return funcs
 end
@@ -75,7 +81,7 @@ end
 function modifier_devour_command_aura_buff:GetModifierBaseDamageOutgoing_Percentage()
 	if self:GetAbility() then
 		return self:GetAbility():GetSpecialValueFor("bonus_damage_pct")
-	else 
+	else
 		return 0
-	end		
+	end
 end

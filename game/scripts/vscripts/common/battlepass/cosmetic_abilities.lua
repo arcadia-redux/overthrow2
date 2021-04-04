@@ -18,7 +18,7 @@ function Cosmetics:InitCosmeticForUnit(unit)
 		unit.dummyCaster:ForceKill(false)
 		unit.dummyCaster = nil
 	end
-	
+
 	if unit:IsRealHero() and not unit.dummyCaster then
 		local dummyCaster = CreateUnitByName("npc_dummy_cosmetic_caster", unit:GetAbsOrigin(), true, unit, unit, unit:GetTeam())
 		for _, abilityName in pairs( STARTING_ABILITIES ) do
@@ -48,7 +48,7 @@ function Cosmetics:InitCosmeticForUnit(unit)
 	end
 end
 function Cosmetics:UpdateDummyPosition(unit)
-	if unit:IsAlive() then
+	if unit and not unit:IsNull() and unit:IsAlive() then
 		local dummy = unit.dummyCaster
 		if not dummy then return end
 		dummy:SetAbsOrigin(unit:GetAbsOrigin())
