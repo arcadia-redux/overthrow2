@@ -327,6 +327,7 @@ function COverthrowGameMode:InitGameMode()
 
 	UniquePortraits:Init()
 	Battlepass:Init()
+	GamePerks:Init()
 end
 
 ---------------------------------------------------------------------------

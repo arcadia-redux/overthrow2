@@ -145,7 +145,7 @@ function COverthrowGameMode:OnGameRulesStateChange()
 		CustomNetTables:SetTableValue( "game_state", "victory_condition", { kills_to_win = self.TEAM_KILLS_TO_WIN } );
 
 		self._fPreGameStartTime = GameRules:GetGameTime()
-		StartTrackPerks(self.teams)
+		GamePerks:StartTrackPerks(self.teams)
 	end
 
 	if nNewState == DOTA_GAMERULES_STATE_GAME_IN_PROGRESS then
