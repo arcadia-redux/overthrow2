@@ -342,6 +342,13 @@
 		"heros_t-t"							"Heroes T-T"
 		"heros_u-v"							"Heroes U-V"
 		"heros_w-z"							"Heroes W-Z"
+		"heros_i-l"							"Heroes I-L"
+		"heros_e-h"							"Heroes E-H"
+		"heros_t-v"							"Heroes T-V"
+		"heros_r-s"							"Heroes R-S"
+		"heros_v-w"							"Heroes V-W"
+		"heros_z-z"							"Heroes Z-Z"
+		
 		"whtooltip"							"Type '-ch {d:num}' to play this sound"
 		"votooltip"							"Hold 'L' to access the chat wheel"
 		"whtooltipff"						"Right click a sound to add it to the favorites menu"
@@ -359,6 +366,7 @@
 		"playing_to_win"					"That's ing to win, baby!"
 		"that_was_questionable"				"I...uh...That was questionable at the...at the best."
 		"what_just_happened"				"I can't believe what we're seeing. What just happened?"
+		"ceeb"								"Ceeeeeeb!"
 		"oy_oy_oy"							"Oyoy oy oy, oy, oy, oy, oy, oy!"
 		"ta_daaaa"							"Lakad Matataaag! Normalin, Normalin."
 		"oh_my_lord"						"Oh my lord!"
@@ -1841,5 +1849,6 @@
 		"fix_game_description"	"The custom game community has come together with an open letter to Valve. Join our petition which outlines the lobby issues that impact ALL custom games. Reaching new players due to the 30 game requirement is one of our main hurdles and is hindering the growth of the Arcade section. Read more about each of the problems and how they can be solved on our website below:"
 		"fix_game_more"			"Read More..."
 		"fix_game_dismiss"		"Dismiss"
+		"wheel_cooldown"					"Cooldown (##sec##s)"
 	}
 }

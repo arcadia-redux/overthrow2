@@ -10,13 +10,23 @@ const heronames = [
 		"Centaur Warrunner",
 		"Chaos Knight",
 	],
-	["Chen", "Clinkz", "Clockwerk", "Crystal Maiden", "Dark Seer", "Dark Willow", "Dazzle", "Death Prophet"],
-	["Disruptor", "Doom", "Dragon Knight", "Drow Ranger", "Earth Spirit", "Earthshaker", "Elder Titan", "Ember Spirit"],
-	["Enchantress", "Enigma", "Faceless Void", "Grimstroke", "Gyrocopter", "Hoodwink", "Huskar", "Invoker"],
-	["Io", "Jakiro", "Juggernaut", "Keeper of the Light", "Kunkka", "Legion Commander", "Leshrac", "Lich"],
-	["Lifestealer", "Lina", "Lion", "Lone Druid", "Luna", "Lycan", "Magnus", "Mars"],
-	["Medusa", "Meepo", "Mirana", "Monkey King", "Morphling", "Naga Siren", "Nature's Prophet", "Necrophos"],
+	["Chen", "Clinkz", "Clockwerk", "Crystal Maiden", "Dark Seer", "Dark Willow", "Dazzle", "Dawnbreaker"],
 	[
+		"Death Prophet",
+		"Disruptor",
+		"Doom",
+		"Dragon Knight",
+		"Drow Ranger",
+		"Earth Spirit",
+		"Earthshaker",
+		"Elder Titan",
+	],
+	["Ember Spirit", "Enchantress", "Enigma", "Faceless Void", "Grimstroke", "Gyrocopter", "Hoodwink", "Huskar"],
+	["Invoker", "Io", "Jakiro", "Juggernaut", "Keeper of the Light", "Kunkka", "Legion Commander", "Leshrac"],
+	["Lich", "Lifestealer", "Lina", "Lion", "Lone Druid", "Luna", "Lycan", "Magnus"],
+	["Mars", "Medusa", "Meepo", "Mirana", "Monkey King", "Morphling", "Naga Siren", "Nature's Prophet"],
+	[
+		"Necrophos",
 		"Night Stalker",
 		"Nyx Assassin",
 		"Ogre Magi",
@@ -24,23 +34,14 @@ const heronames = [
 		"Oracle",
 		"Outworld Devourer",
 		"Pangolier",
-		"Phantom Assassin",
 	],
-	["Phantom Lancer", "Phoenix", "Puck", "Pudge", "Pugna", "Queen of Pain", "Razor", "Riki"],
-	["Rubick", "Sand King", "Shadow Demon", "Shadow Fiend", "Shadow Shaman", "Silencer", "Skywrath Mage", "Slardar"],
-	["Slark", "Snapfire", "Sniper", "Spectre", "Spirit Breaker", "Storm Spirit", "Sven", "Techies"],
-	[
-		"Templar Assassin",
-		"Terrorblade",
-		"Tidehunter",
-		"Timbersaw",
-		"Tinker",
-		"Tiny",
-		"Treant Protector",
-		"Troll Warlord",
-	],
-	["Tusk", "Underlord", "Undying", "Ursa", "Vengeful Spirit", "Venomancer", "Viper", "Visage"],
-	["Void Spirit", "Warlock", "Weaver", "Windranger", "Winter Wyvern ", "Witch Doctor", "Wraith King", "Zeus"],
+	["Phantom Assassin", "Phantom Lancer", "Phoenix", "Puck", "Pudge", "Pugna", "Queen of Pain", "Razor"],
+	["Riki", "Rubick", "Sand King", "Shadow Demon", "Shadow Fiend", "Shadow Shaman", "Silencer", "Skywrath Mage"],
+	["Slardar", "Slark", "Snapfire", "Sniper", "Spectre", "Spirit Breaker", "Storm Spirit", "Sven"],
+	["Techies", "Templar Assassin", "Terrorblade", "Tidehunter", "Timbersaw", "Tinker", "Tiny", "Treant Protector"],
+	["Troll Warlord", "Tusk", "Underlord", "Undying", "Ursa", "Vengeful Spirit", "Venomancer", "Viper"],
+	["Visage", "Void Spirit", "Warlock", "Weaver", "Windranger", "Winter Wyvern ", "Witch Doctor", "Wraith King"],
+	["Zeus", "", "", "", "", "", "", ""],
 ];
 const heronames2 = [
 	"abaddon",
@@ -66,6 +67,7 @@ const heronames2 = [
 	"dark_seer",
 	"dark_willow",
 	"dazzle",
+	"dawnbreaker",
 	"death_prophet",
 	"disruptor",
 	"doom_bringer",
@@ -166,7 +168,7 @@ const heronames2 = [
 ];
 const mesarrs = ["_laugh", "_thank", "_deny", "_1", "_2", "_3", "_4", "_5"];
 const herostartnum = 110;
-const nowrings = 18;
+const nowrings = 19;
 const herostartrings = nowrings + heronames.length + 1;
 
 let rings = [
@@ -236,7 +238,7 @@ let rings = [
 		[10, 55, 56, 57, 58, 59, 60, 61],
 	],
 	[
-		["#heros_a-b", "#heros_b-c", "#heros_c-d", "#more", "#heros_d-e", "#heros_e-i", "#heros_j-l", "#heros_l-m"],
+		["#heros_a-b", "#heros_b-c", "#heros_c-d", "#more", "#heros_d-e", "#heros_e-h", "#heros_i-l", "#heros_l-m"],
 		[false, false, false, false, false, false, false, false],
 		[nowrings + 1, nowrings + 2, nowrings + 3, 12, nowrings + 4, nowrings + 5, nowrings + 6, nowrings + 7],
 	],
@@ -339,27 +341,9 @@ let rings = [
 		[24, 18, 23, 20, 21, 22, 19, 17],
 	],
 	[
-		[
-			"#heros_m-n",
-			"#heros_n-p",
-			"#heros_p-r",
-			"#heros_s-s",
-			"#heros_s-t",
-			"#heros_t-t",
-			"#heros_u-v",
-			"#heros_w-z",
-		],
+		["#heros_m-n", "#heros_n-p", "#heros_p-r", "#more", "#heros_r-s", "#heros_s-s", "#heros_t-t", "#heros_t-v"],
 		[false, false, false, false, false, false, false, false],
-		[
-			nowrings + 8,
-			nowrings + 9,
-			nowrings + 10,
-			nowrings + 11,
-			nowrings + 12,
-			nowrings + 13,
-			nowrings + 14,
-			nowrings + 15,
-		],
+		[nowrings + 8, nowrings + 9, nowrings + 10, 19, nowrings + 11, nowrings + 12, nowrings + 13, nowrings + 14],
 	],
 	[
 		["#englishannouncer", "#chineseannouncer", "#russianannouncer", "", "", "", "#epiccaster", "#koreancaster"],
@@ -426,5 +410,10 @@ let rings = [
 		["#whtooltipff", "", "", "", "", "", "", ""],
 		[false, false, false, false, false, false, false, false],
 		[0, 0, 0, 0, 0, 0, 0, 0],
+	],
+	[
+		["#heros_v-w", "#heros_z-z", "", "", "", "", "", ""],
+		[false, false, false, false, false, false, false, false],
+		[nowrings + 15, nowrings + 16, 0, 0, 0, 0, 0, 0],
 	],
 ];

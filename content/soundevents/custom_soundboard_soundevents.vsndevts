@@ -160,4 +160,24 @@
 		limiter_on = 1.000000
 		vsnd_files = "sounds/misc/soundboard/kor_million_dollar_house.vsnd"
 	}
+	soundboard.ceb.start = 
+	{
+		type = "dota_src1_2d"
+		volume = 0.500000
+		pitch = 1.000000
+		volume_fade_out = 0.050000
+		max_gain_change_per_second = 100.000000
+		limiter_on = 1.000000
+		vsnd_files = "sounds/misc/soundboard/ceeeb_start.vsnd"
+	}
+	soundboard.ceb.stop = 
+	{
+		type = "dota_src1_2d"
+		volume = 0.500000
+		pitch = 1.000000
+		volume_fade_in = 0.030000
+		max_gain_change_per_second = 100.000000
+		limiter_on = 1.000000
+		vsnd_files = "sounds/misc/soundboard/ceeeb_stop.vsnd"
+	}
 }

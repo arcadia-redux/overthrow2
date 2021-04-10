@@ -239,7 +239,7 @@
 		"DOTA_Tooltip_Ability_warlock_fatal_bonds_balanced_duration"					"ДЛИТЕЛЬНОСТЬ:"
 		
 		//Chat Wheel
-		"wheel_cooldown"					"Перезарядка"
+		"wheel_cooldown"					"Перезарядка (##sec##сек)"
 		"announcers"						"Комментаторы"
 		"englishannouncer"					"Английские комментаторы"
 		"englishannouncer2"					"Английские комментаторы 2"

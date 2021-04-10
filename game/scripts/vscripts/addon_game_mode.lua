@@ -18,7 +18,12 @@ _G.timesOfTheLastKillings = {}
 
 _G.personalCouriers = {}
 _G.mainTeamCouriers = {}
+
 _G.tPlayersMuted = {}
+for player_id = 0, 24 do
+	_G.tPlayersMuted[player_id] = {}
+end
+
 _G.tUserIds = {}
 _G.alertsKickForPlayer = {}
 _G.kicks = {}
@@ -1223,6 +1228,7 @@ SelectVO = function(keys)
 		"dark_seer",
 		"dark_willow",
 		"dazzle",
+		"dawnbreaker",
 		"death_prophet",
 		"disruptor",
 		"doom_bringer",
@@ -1583,7 +1589,7 @@ SelectVO = function(keys)
 				"soundboard.next_level",
 				"soundboard.oy_oy_oy",
 				"soundboard.ta_daaaa",
-				"soundboard.ceeb",--need fix
+				"soundboard.ceb.start",
 				"soundboard.goodness_gracious",
 				--epic2
 				"soundboard.nakupuuu",
@@ -1833,6 +1839,16 @@ SelectVO = function(keys)
 				"dazzle_dazz_ability_shadowave_02",
 				"dazzle_dazz_kill_10",
 				"dazzle_dazz_respawn_09",
+				},
+				{
+				"dawnbreaker_valora_wheel_laugh_04",
+				"dawnbreaker_valora_wheel_thanks_01",
+				"dawnbreaker_valora_wheel_deny_01",
+				"dawnbreaker_valora_wheel_all_01",
+				"dawnbreaker_valora_wheel_all_02",
+				"dawnbreaker_valora_wheel_all_03",
+				"dawnbreaker_valora_wheel_all_04",
+				"dawnbreaker_valora_wheel_all_05",
 				},
 				{
 				"death_prophet_dpro_laugh_012",
@@ -2816,8 +2832,13 @@ SelectVO = function(keys)
 				votimer[keys.PlayerID] = GameRules:GetGameTime()
 				vousedcol[keys.PlayerID] = vousedcol[keys.PlayerID] + 1
 			else
-				local remaining_cd = " ("..string.format("%.1f", 5 + vousedcol[keys.PlayerID] - (GameRules:GetGameTime() - votimer[keys.PlayerID])).."s)"
-				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error", { message = "#wheel_cooldown"..remaining_cd })
+				local remaining_cd = string.format("%.1f", 5 + vousedcol[keys.PlayerID] - (GameRules:GetGameTime() - votimer[keys.PlayerID]))
+				CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(keys.PlayerID), "display_custom_error_with_value", {
+					message = "#wheel_cooldown",
+					values = {
+						["sec"] = remaining_cd,
+					},
+				})
 			end
 		else
 			local chat = LoadKeyValues("scripts/hero_chat_wheel_english.txt")
@@ -2830,11 +2851,25 @@ SelectVO = function(keys)
 	end
 end
 
-function ChatSound(phrase, playerId)
+function ChatSound(phrase, source_player_id)
 	local all_heroes = HeroList:GetAllHeroes()
 	for _, hero in pairs(all_heroes) do
-		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() and hero:GetPlayerID() and (not _G.tPlayersMuted[hero:GetPlayerID()] or not _G.tPlayersMuted[hero:GetPlayerID()][playerId]) then
-			EmitAnnouncerSoundForPlayer(phrase, hero:GetPlayerID())
+		if hero:IsRealHero() and hero:IsControllableByAnyPlayer() then
+			local player_id = hero:GetPlayerOwnerID()
+			if player_id and not _G.tPlayersMuted[player_id][source_player_id] then
+				local player = PlayerResource:GetPlayer(player_id)
+				CustomGameEventManager:Send_ServerToPlayer(player, "chat_wheel:emit_sound", {
+					sound = phrase
+				})
+				if phrase == "soundboard.ceb.start" then
+					Timers:CreateTimer(2, function()
+						StopGlobalSound("soundboard.ceb.start")
+						CustomGameEventManager:Send_ServerToPlayer(player, "chat_wheel:emit_sound", {
+							sound = "soundboard.ceb.stop"
+						})
+					end)
+				end
+			end
 		end
 	end
 end
@@ -2842,15 +2877,12 @@ end
 RegisterCustomEventListener("SelectVO", SelectVO)
 
 RegisterCustomEventListener("set_mute_player", function(data)
-	local fromId = data.PlayerID
-	local toId = data.toPlayerId
-	if not fromId or toId then return end
-	local disable = data.disable
-	_G.tPlayersMuted[fromId] = _G.tPlayersMuted[fromId] or {}
-	if disable == 0 then
-		_G.tPlayersMuted[fromId][toId] = nil
-	else
-		_G.tPlayersMuted[fromId][toId] = disable
+	if data and data.PlayerID and data.toPlayerId then
+		local fromId = data.PlayerID
+		local toId = data.toPlayerId
+		local disable = data.disable
+
+		_G.tPlayersMuted[fromId][toId] = disable == 1
 	end
 end)
 

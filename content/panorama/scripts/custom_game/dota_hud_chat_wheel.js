@@ -177,7 +177,11 @@ function OnMouseOut() {
 	$("#Arrow").AddClass("Hidden");
 	$("#WHTooltip").visible = false;
 }
-
+function EmitSoundFromServer(data) {
+	const sound_name = data.sound;
+	if (sound_name == undefined) return;
+	Game.EmitSound(sound_name);
+}
 (function () {
 	GameUI.CustomUIConfig().chatWheelLoaded = true;
 
@@ -214,4 +218,5 @@ function OnMouseOut() {
 	$("#Bubble").visible = false;
 	$("#PhrasesContainer").visible = false;
 	$("#WHTooltip").visible = false;
+	GameEvents.Subscribe("chat_wheel:emit_sound", EmitSoundFromServer);
 })();
