@@ -1,4 +1,6 @@
 chen_soul_persuasion = class({})
+chen_soul_persuasion.summon_list = chen_soul_persuasion.summon_list or {}
+
 LinkLuaModifier("chen_soul_persuasion_passive", "abilities/heroes/chen/chen_soul_persuasion_passive", LUA_MODIFIER_MOTION_NONE)
 
 function chen_soul_persuasion:GetIntrinsicModifierName()
@@ -15,6 +17,15 @@ function chen_soul_persuasion:OnSpellStart()
 		self:EndCooldown()
 		return
 	end
+	
+	local summonMax = self:GetSpecialValueFor("creeps_max_summoned")
+	self:ValidateCurrentSummons()
+	if #self.summon_list >= summonMax then
+		CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwner(), "display_custom_error", { message = "#dota_chen_soul_persuasion_max_limit_error" })
+		self:EndCooldown()
+		return
+	end
+	
 	local currentData = self.abilityData[summonSouls]
 
 	if parent:GetMana() < currentData.manacost then
@@ -29,7 +40,7 @@ function chen_soul_persuasion:OnSpellStart()
 	end
 
 	parent:SetModifierStackCount(soulsModifierName, self, soulsCount - summonSouls)
-	local creepsCount = parent:HasScepter() and self.creeps_with_aghanim or 1
+	local creepsCount = math.min(parent:HasScepter() and self.creeps_with_aghanim or 1, summonMax - #self.summon_list)
 
 	for _ = 1, creepsCount do
 		self:CreateCreep(currentData.creeps)
@@ -37,6 +48,15 @@ function chen_soul_persuasion:OnSpellStart()
 
 	parent:ReduceMana(currentData.manacost)
 	self:StartCooldown(currentData.cooldown * parent:GetCooldownReduction())
+end
+
+function chen_soul_persuasion:ValidateCurrentSummons()
+	for unit_index = #self.summon_list, 1, -1 do
+		local unit_handle = self.summon_list[unit_index]
+		if not unit_handle or unit_handle:IsNull() or not unit_handle:IsAlive() then
+			table.remove(self.summon_list, unit_index)
+		end
+	end
 end
 
 function chen_soul_persuasion:CreateCreep(creepsData)
@@ -47,6 +67,7 @@ function chen_soul_persuasion:CreateCreep(creepsData)
 	local unit = CreateUnitByName(table.random(creepsData), spawnPoint, false, parent, parent, parent:GetTeamNumber())
 	FindClearSpaceForUnit(unit, spawnPoint, true)
 	unit:SetControllableByPlayer(parent:GetPlayerOwnerID(), true)
+	table.insert(self.summon_list, unit)
 
 	local talentForHP = parent:FindAbilityByName("special_bonus_unique_chen_4")
 
