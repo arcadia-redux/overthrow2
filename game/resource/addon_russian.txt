@@ -697,10 +697,13 @@
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_Description"		"<font color='#70EA72'>Chen периодически получает</font> %souls_per_second% <font color='#70EA72'>душу или</font> %souls_per_kill% <font color='#70EA72'>душ за убйиство вражеского героя. При активации умения Chen призывает случайного нейтрального крипа. </font><br><br><font color='#819af7'>МАЛЕНЬКИЙ КРИП</font>: %souls_summon_little% душ(и), перезарядка - %cooldown_little% сек., стомость - %manacost_little% маны<br><font color='#9e63f7'>СРЕДНИЙ КРИП</font>: %souls_summon_middle% душ(и), перезарядка - %cooldown_middle% сек., %manacost_middle% маны<br><font color='#d52222'>БОЛЬШИЙ КРИП</font>: %souls_summon_big% душ(и), перезарядка - %cooldown_big% сек., %manacost_big% маны<br><font color='#f8c71b'>ДРЕВНИЙ КРИП</font>: %souls_summon_ancient% душ(и), перезарядка - %cooldown_ancient% сек., %manacost_ancient% маны"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_limit"		"ЛИМИТ ДУШ:"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion_souls_tick_rate"	"ИНТЕРВАЛ ПОЛУЧЕНИЯ ДУШ:"
+		"dota_chen_soul_persuasion_max_limit_error"					"Призвано максимальное количество существ."
+		"DOTA_Tooltip_ability_chen_soul_persuasion_scepter_description"		"Chen призывает <b>двух</b> существ вместо одного."
 		
 		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"	"{s:value} сек. к интервалу получения душ от Soul Persuasion"
 		
 		"DOTA_Tooltip_ability_chen_soul_persuasion_aghanim_description"		"Chen призывается несколько существ вместо одного"
+		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_max_summoned" 	"МАКСИМУМ СУЩЕСТВ:"
 		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_with_aghanim" 	"СУЩЕСТВ СО СКИПЕТРОМ:"
         		
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} к мин. здоровью крипов от Soul Persuasion"

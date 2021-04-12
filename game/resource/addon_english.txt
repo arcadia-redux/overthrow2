@@ -804,8 +804,9 @@
 		"DOTA_Tooltip_ability_chen_soul_persuasion_aghanim_description"		"Chen summon several creeps for one cast ability"
 		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_max_summoned" 	"MAX CREEP COUNT:"
 		"DOTA_Tooltip_ability_chen_soul_persuasion_creeps_with_aghanim" 	"CREEPS WITH SCEPTER:"
-		"dota_chen_soul_persuasion_max_limit_error"				"Cannot cast because you have too many summoned creeps."
-
+		"dota_chen_soul_persuasion_max_limit_error"							"Cannot cast because you have too many summoned creeps."
+		"DOTA_Tooltip_ability_chen_soul_persuasion_scepter_description"		"Chen summons <b>two</b> creeps instead of one."
+		
 		"DOTA_Tooltip_ability_special_chen_soul_persuasion_tickrate"		"{s:value} seconds for soul gain interval for Soul Persuasion"
 
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_4"			"+{s:value} Soul Persuasion Minimum Health"

@@ -1,4 +1,6 @@
 chen_soul_persuasion = class({})
+chen_soul_persuasion.summon_list = chen_soul_persuasion.summon_list or {}
+
 LinkLuaModifier("chen_soul_persuasion_passive", "abilities/heroes/chen/chen_soul_persuasion_passive", LUA_MODIFIER_MOTION_NONE)
 
 function chen_soul_persuasion:GetIntrinsicModifierName()
@@ -15,6 +17,15 @@ function chen_soul_persuasion:OnSpellStart()
 		self:EndCooldown()
 		return
 	end
+	
+	local summonMax = self:GetSpecialValueFor("creeps_max_summoned")
+	self:ValidateCurrentSummons()
+	if #self.summon_list >= summonMax then
+		CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwner(), "display_custom_error", { message = "#dota_chen_soul_persuasion_max_limit_error" })
+		self:EndCooldown()
+		return
+	end
+	
 	local currentData = self.abilityData[summonSouls]
 
 	if parent:GetMana() < currentData.manacost then
@@ -24,14 +35,6 @@ function chen_soul_persuasion:OnSpellStart()
 				message = "#dota_hud_error_not_enough_mana"
 			})
 		end
-		self:EndCooldown()
-		return
-	end
-
-	local summonMax = self:GetSpecialValueFor("creeps_max_summoned")
-	self:ValidateCurrentSummons()
-	if #self.summon_list >= summonMax then
-		CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwner(), "display_custom_error", { message = "#dota_chen_soul_persuasion_max_limit_error" })
 		self:EndCooldown()
 		return
 	end
@@ -47,7 +50,6 @@ function chen_soul_persuasion:OnSpellStart()
 	self:StartCooldown(currentData.cooldown * parent:GetCooldownReduction())
 end
 
-chen_soul_persuasion.summon_list = {}
 function chen_soul_persuasion:ValidateCurrentSummons()
 	for unit_index = #self.summon_list, 1, -1 do
 		local unit_handle = self.summon_list[unit_index]
