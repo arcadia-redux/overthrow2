@@ -1131,6 +1131,11 @@
 			"17"
 			{
 				"var_type"				"FIELD_INTEGER"
+				"creeps_max_summoned"	"10"
+			}
+			"18"
+			{
+				"var_type"				"FIELD_INTEGER"
 				"creeps_with_aghanim"	"2"
 				"RequiresScepter"		"1"
 			}
