@@ -1,5 +1,6 @@
 WebApi = WebApi or {}
 WebApi.playerSettings = WebApi.playerSettings or {}
+WebApi.all_leaderboards = {}
 
 local isTesting = IsInToolsMode() and true or false
 for playerId = 0, 23 do
@@ -118,9 +119,9 @@ function WebApi:BeforeMatch()
 			}
 			SmartRandom:SetPlayerInfo(playerId, nil, "no_stats") -- TODO: either make working or get rid of it
 		end
+		WebApi.all_leaderboards[GetMapName()] = data.leaderboard;
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
 		CustomNetTables:SetTableValue("game_state", "player_ratings", data.mapPlayersRating)
-		CustomNetTables:SetTableValue("game_state", "leaderboard", data.leaderboard)
 
 		Battlepass:OnDataArrival(data)
 	end,
@@ -278,4 +279,41 @@ RegisterGameEventListener("player_connect_full", function()
 	if WebApi.firstPlayerLoaded then return end
 	WebApi.firstPlayerLoaded = true
 	WebApi:BeforeMatch()
+end)
+RegisterCustomEventListener("leaderboard:get_leaderboard", function(event)
+	local map_name = event.map_name
+	if not map_name then return end
+	
+	local player_id = event.PlayerID
+	if not player_id then return end
+	
+	local player = PlayerResource:GetPlayer(player_id)
+	if not player or player:IsNull() then return end
+
+	if not WebApi.all_leaderboards[map_name] then
+		WebApi.all_leaderboards[map_name] = true;
+		WebApi:Send(
+			"match/get_leaderboard",
+			{
+				customGame = WebApi.customGame,
+				mapName = map_name
+			},
+			function(data)
+				WebApi.all_leaderboards[map_name] = data,
+				CustomGameEventManager:Send_ServerToPlayer(player, "leaderboard:create_table", {
+					map_name = map_name,
+					players_list =  data
+				})
+				print("Successfully got leaderboards for map " .. map_name)
+			end,
+			function(e)
+				print("error while add glory: ", e)
+			end
+		)
+	elseif type(WebApi.all_leaderboards[map_name]) == "table" then
+		CustomGameEventManager:Send_ServerToPlayer(player, "leaderboard:create_table", {
+			map_name = map_name,
+			players_list =  WebApi.all_leaderboards[map_name]
+		})
+	end
 end)

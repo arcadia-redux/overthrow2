@@ -1,203 +1,280 @@
-.Background {
-    width: 100%;
-    height: 100%;
-}
-
-.BackgroundPanel {
-    background-color: gradient( linear, 0% 0%, 0% 25%, from( #232326 ), to( #1c1d20 ) );
-    box-shadow: #00000099 -4px -4px 8px 8px;
-    border: 2px solid #32383677;
-}
-
-.BackgroundPanelHeader {
-    width: 100%;
-    height: 32px;
-
-    background-color: #00000077;
-    padding: 0px 8px;
-}
-
-.BackgroundPanelHeader Label {
-    color: #cccccc;
-    font-size: 20px;
-    vertical-align: middle;
-    text-transform: uppercase;
-}
-
-.BackgroundPanelBody {
-    width: fit-children;
-    height: fill-parent-flow(1.0);
-
-    padding: 0 38px;
-}
-
-
-.Leaderboard {
-    width: fit-children;
-    max-height: 80%;
-
-    horizontal-align: center;
-    vertical-align: center;
-    
-    flow-children: down;
-    z-index: 80000;
-}
-
-.BackgroundPanelHeader .CloseButton {
-    horizontal-align: right;
-    vertical-align: center;
-}
-
-.table {
-    width: fit-children;
-    height: fill-parent-flow(1.0);
-
-    flow-children: down;
-}
-
-.table Label {
-    font-size: 20px;
-}
-
-#TableHeader {
-    width: fit-children;
-}
-
-#TableHeader Label {
-    color: #cccccc;
-    text-transform: uppercase;
-}
-
-.TableBody {
-    width: fit-children;
-    height: fill-parent-flow(1.0);
-
-    flow-children: down;
-    overflow: clip scroll;
-}
-
-#LocalPlayer {
-    margin-top: 8px;
-    margin-bottom: 16px; 
-
-    border-top: 1px solid #364140;
-}
-
-.TableRecord {
-    width: fit-children;
-    height: 50px;
-
-    border-bottom: 1px solid #364140;
-
-    flow-children: right;
-}
-
-.TableRecord.local {
-    background-color: #3d3d42;
-}
-
-.TableRecord > Label {
-    width: fill-parent-flow(1.0);
-    text-align: center;
-    vertical-align: middle;
-}
-
-.TableRecord > Panel {
-    height: 100%;
-}
-
-#Rank {
-    width: 100px;
-}
-
-#Player {
-    width: 300px;    
-}
-
-#Player > Panel {
-    vertical-align: middle;
-}
-
-#Rating {
-    width: 100px;
-    
-    flow-children: right;
-}
-
-#Rating > Panel,
-#Rating > Label {
-    vertical-align: middle;
-}
-
-.rating-info {
-    width: 20px;
-    height: 20px;
-
-    margin-left: 8px;
-
-    background-image: url("file://{resources}/images/custom_game/import_dota/information_psd.png");
-    background-position: 50% 50%;
-    background-size: contain;
-}
-
-.playerInfo {
-    flow-children: right;
-    horizontal-align: left;
-}
-
-#PlayerAvatar {
-    width: 40px;
-    height: width-percentage(100%);
-
-    border-radius: 50%;
-    border: 2px solid #32383677;
-    padding: -2px;
-}
-
-#Player DOTAAvatarImage,
-#Player DOTAUserName {
-    vertical-align: middle;
-}
-
-#Player DOTAUserName { 
-    width: fit-children;
-    margin-left: 8px;
-}
-
 #OpenLeaderboard {
-    background-image: url('file://{resources}/images/custom_game/leaderboard_icon.png');
-    background-size: 28px;
+	background-image: url("file://{resources}/images/custom_game/leaderboard_icon.png");
+	background-size: 28px;
 }
-
-#LeaderboardMapChoose {
-	horizontal-align: center;
-	width: 250px;
+#LeaderboardChooserRoot {
+	width: 100%;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
+}
+#LeaderboardMapChooserBG {
+	width: 430px;
 	height: 40px;
-	color: #ffffffff;
-	margin-bottom: 8px;
-	background-color: rgba(0, 0, 0, 0.37);
-	transition: brightness 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
-	margin-bottom: 2px;
-	margin-top: 7px;
+	margin: 7px 0px 7px 0px;
+	horizontal-align: center;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header_dark.png");
+	background-size: 100%;
 }
-#LeaderboardMapChoose:hover{
+#LeaderboardMapChoose {
+	width: 430px;
+	height: 40px;
+	margin: 7px 0px 7px 0px;
+	horizontal-align: center;
+	color: #d5d5d5;
+	background-color: transparent;
+	transition: brightness 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
+	box-shadow: none;
+	border: 2px solid rgba(0, 0, 0, 0.7);
+}
+#LeaderboardMapChoose:hover {
 	brightness: 1.7;
 	background-color: rgba(0, 0, 0, 0.2);
 }
-#LeaderboardMapChooseDropDownMenu{
-	width: 250px;
+#LeaderboardMapChooseDropDownMenu {
+	width: 430px;
 }
 #LeaderboardMapChooseDropDownMenu Label {
-	background-color: rgba(0, 0, 0, 0.73);
+	/*background-color: rgba(0, 0, 0, 0.73);*/
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
 	padding-right: 10px;
 	transition: brightness 0.2s ease-in-out 0s, background-color 0.2s ease-in-out 0s;
 	padding-top: 4px;
+	box-shadow: inset rgba(0, 0, 0, 0.7) 0px 0px 1px 2px;
 }
 #LeaderboardMapChooseDropDownMenu Label:hover {
 	brightness: 1.7;
-	background-color: rgba(0, 0, 0, 0.60);
+	background-color: rgba(0, 0, 0, 0.6);
 }
-.LeaderboardMapDrop{
+.LeaderboardMapDrop {
 	text-align: center;
-	padding-left: 20px;
+	padding-left: 26px;
+	font-size: 20px;
+	color: #ccdeff;
+	text-transform: uppercase;
+}
+.LeaderboardRoot {
+	align: center center;
+}
+#Leaderboard {
+	width: 450px;
+	height: 700px;
+	align: center center;
+	flow-children: down;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/patchnotes_background.png");
+	background-size: 100%;
+	box-shadow: black 0px 0px 8px 0px;
+	visibility: collapse;
+}
+#Leaderboard.Show {
+	visibility: visible;
+}
+#LeaderboardHeaderRoot {
+	width: 100%;
+}
+#LeaderboardHeader {
+	width: 100%;
+	text-align: center;
+	padding: 4px 0px 4px 0px;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
+	font-size: 25px;
+	text-transform: uppercase;
+	font-weight: semi-bold;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#cc6c33), to(#f1cc23));
+	text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.5);
+	letter-spacing: 1px;
+	font-family: titleFont;
+	brightness: 1.2;
+}
+#CloseLeaderboard {
+	width: 21px;
+	height: 21px;
+	wash-color: #90a7c4;
+	transition: brightness 0.1s ease-in-out 0s;
+	background-image: url("file://{resources}/images/custom_game/import_dota/x_close_png.png");
+	background-size: 100%;
+	horizontal-align: right;
+	margin: 4px;
+}
+#CloseLeaderboard:hover {
+	brightness: 1.5;
+}
+#CloseLeaderboard:active {
+	brightness: 2.5;
+}
+.FullSize {
+	width: 100%;
+	height: 100%;
+}
+
+#LeaderboardDataWrap {
+	margin-top: 30px;
+	width: 100%;
+}
+.LeaderboardData {
+	flow-children: down;
+	overflow: squish scroll;
+	width: 100%;
+}
+#TableHeader {
+	width: 100%;
+	height: 30px;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-top: 1px solid transparent;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.64);
+}
+.HeaderText {
+	text-transform: uppercase;
+	font-weight: lighter;
+	color: white;
+	font-size: 18px;
+	vertical-align: center;
+	margin-top: 1px;
+	text-align: center;
+}
+#h1 {
+	margin-left: 8px;
+	width: 63px;
+}
+#h2 {
+	horizontal-align: center;
+}
+#h3 {
+	horizontal-align: right;
+	margin-right: 8px;
+	width: 80px;
+}
+
+.LeaderboardPlayer {
+	width: 100%;
+	height: 51px;
+	flow-children: right;
+	padding: 2px 0px 2px 0px;
+}
+.LeaderboardPlayer.dark {
+	background-color: rgba(0, 0, 0, 0.36);
+}
+.LeaderboardPlayer.local {
+	background-color: rgba(0, 0, 0, 0.36);
+	box-shadow: inset rgb(255, 227, 116) 0px 0px 80px 8px;
+}
+
+#RankIndexWrap {
+	width: 30px;
+	height: 30px;
+	align: left center;
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_icon_top0.png");
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin-left: 25px;
+}
+.top1 #RankIndexWrap {
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_icon_top1.png");
+}
+.top2 #RankIndexWrap {
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_icon_top2.png");
+}
+.top3 #RankIndexWrap {
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_icon_top3.png");
+}
+.top1 #RankIndex {
+	text-shadow: 0px 0px 3px 3 rgba(0, 0, 0, 0.8);
+}
+.top3 #RankIndex {
+	margin-left: 2px;
+}
+#RankIndex {
+	align: center center;
+	text-align: center;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#e19e46), to(#ffcf3e));
+	font-size: 21px;
+	text-shadow: 0px 0px 3px 2 rgba(0, 0, 0, 0.78);
+	text-overflow: shrink;
+	width: 22px;
+	height: 23px;
+	/*background-color: rgba(14, 205, 230, 0.13);*/
+}
+
+.RankPlayerAvatar {
+	width: 40px;
+	height: 40px;
+	vertical-align: center;
+	margin-left: 25px;
+}
+
+.RankPlayerAvatar DOTAAvatarImage {
+	width: 40px;
+	height: 40px;
+	border-radius: 10px;
+}
+.RankPlayerName {
+	font-size: 20px;
+	vertical-align: center;
+	margin-left: 10px;
+	width: 230px;
+	height: 20px;
+}
+#Rating {
+	margin-right: 21px;
+	font-size: 22px;
+	align: right center;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#e19e46), to(#ffcf3e));
+	saturation: 1.025;
+	text-shadow: 0px 0px 3px 2 rgba(0, 0, 0, 0.5);
+	text-align: center;
+	width: 56px;
+}
+#ScrollThumb {
+	background-color: #667895;
+}
+#VerticalScrollBar {
+	width: 6px;
+}
+#LocalRatingInfoRoot {
+	height: 70px;
+	width: 100%;
+	background-image: url("file://{resources}/images/custom_game/loading_screen/quest_header.png");
+	background-size: 100%;
+}
+#LocalAvatarImage {
+	width: 50px;
+	height: 50px;
+	vertical-align: center;
+}
+#LocalRatingInfo {
+	align: center center;
+}
+#LocalRatingInfo DOTAUserName {
+	margin-left: 60px;
+	max-width: 250px;
+}
+#LocalRatingInfo DOTAUserName Label {
+	height: 21px;
+}
+#PlayerRatingLabel {
+	width: 94px;
+	height: 29px;
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_cup_ffa.png");
+	background-size: 100%;
+	margin-left: 60px;
+	vertical-align: bottom;
+}
+#PlayerRatingWrap {
+	height: 24px;
+	width: 65px;
+	vertical-align: bottom;
+	margin-left: 87px;
+	margin-bottom: 1px;
+}
+#LocalPlayerRating {
+	width: 52px;
+	height: 22px;
+	text-align: center;
+	color: gradient(linear, 0% 100%, 0% 0%, from(#e19e46), to(#ffcf3e));
+	font-size: 18px;
+	text-shadow: 0px 0px 2px 1 rgba(0, 0, 0, 1);
+	transition: height 0.2s ease-in-out 0s, width 0.2s ease-in-out 0s;
+	align: center center;
+	text-overflow: shrink;
 }

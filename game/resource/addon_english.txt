@@ -1852,5 +1852,10 @@
 		"fix_game_more"			"Read More..."
 		"fix_game_dismiss"		"Dismiss"
 		"wheel_cooldown"					"Cooldown (##sec##s)"
+		
+		"leaderboard"			"Leaderboard"
+		"leaderboard_rank"		"Rank"
+		"leaderboard_player"	"Player"
+		"leaderboard_rating"	"Rating"
 	}
 }

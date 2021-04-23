@@ -2,6 +2,7 @@
     <styles>
 		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
         <include src="file://{resources}/layout/custom_game/leaderboard/leaderboard.css" />
+		<include src="file://{resources}/layout/custom_game/common/styles/dotau_styles.css" />
     </styles>
 
     <scripts>
@@ -10,62 +11,69 @@
     </scripts>
 
     <snippets>
-        <snippet name="TableRecord">
-            <Panel class="TableRecord">
-                <Label id="Rank" />
-                <Panel id="Player">
-                    <Panel class="playerInfo">
-                        <DOTAAvatarImage id="PlayerAvatar" />
-                        <DOTAUserName id="PlayerUserName" />
-                    </Panel>
-                </Panel>
-                <Label id="Rating" />
-            </Panel>
+        <snippet name="LeaderboardPlayer">
+			<Panel class="LeaderboardPlayer">
+				<Panel id="RankIndexWrap">
+					<Label id="RankIndex"/>
+				</Panel>
+				<DOTAAvatarImage steamid="local" id="PlayerAvatar" class="RankPlayerAvatar"/>
+				<DOTAUserName steamid="local" id="PlayerUserName" class="RankPlayerName"/>
+				<Label id="Rating" text="12333"/>
+			</Panel>
         </snippet>
     </snippets>
 
-    <Panel hittest="false" class="Background">
-        <Panel class="BackgroundPanel Leaderboard" id="Leaderboard">
-            <Panel class="BackgroundPanelHeader">
-                <Label text="#leaderboard"/>
-                <Button id="Close" class="CloseButton" onactivate="onClose()">
-                    <Image src="s2r://panorama/images/control_icons/x_close_png.vtex" />
-                </Button>
-            </Panel>
-            <Panel class="BackgroundPanelBody">
-                <Panel class="table">
-					<DropDown id="LeaderboardMapChoose" >
-						<Label id="core_quartet_dropdown_option" class="LeaderboardMapDrop" text="Core Quartet" onmouseover="updateMapSelection('core_quartet')" />
-						<Label id="desert_duo_dropdown_option" class="LeaderboardMapDrop" text="Desert Duo" onmouseover="updateMapSelection('desert_duo')" />
-						<Label id="desert_octet_dropdown_option" class="LeaderboardMapDrop" text="Desert Octet" onmouseover="updateMapSelection('desert_octet')" />
-						<Label id="desert_quintet_dropdown_option" class="LeaderboardMapDrop" text="Desert Quintet" onmouseover="updateMapSelection('desert_quintet')" />
-						<Label id="forest_solo_dropdown_option" class="LeaderboardMapDrop" text="Forest Solo" onmouseover="updateMapSelection('forest_solo')" />
-						<Label id="mines_trio_dropdown_option" class="LeaderboardMapDrop" text="Mines Trio" onmouseover="updateMapSelection('mines_trio')" />
-						<Label id="temple_quartet_dropdown_option" class="LeaderboardMapDrop" text="Temple Quartet" onmouseover="updateMapSelection('temple_quartet')" />
-					</DropDown>
-                    <Panel id="TableHeader">
-                        <Panel class="TableRecord">
-                            <Label text="#leaderboard_rank" id="Rank" />
-                            <Label text="#leaderboard_player" id="Player" />
-                            <Panel id="Rating">
-                                <Label text="#leaderboard_rating" />
-                                <Panel class="rating-info" onmouseover="DOTAShowTextTooltip(#leaderboard_info)" onmouseout="DOTAHideTextTooltip()" />
-                            </Panel>
-                        </Panel>
-                    </Panel>
-					<Panel id="RatingsTable">
-						<Panel id="TableBody_core_quartet" class="TableBody"/>
-						<Panel id="TableBody_desert_duo" class="TableBody"/>
-						<Panel id="TableBody_desert_octet" class="TableBody"/>
-						<Panel id="TableBody_desert_quintet" class="TableBody"/>
-						<Panel id="TableBody_forest_solo" class="TableBody"/>
-						<Panel id="TableBody_mines_trio" class="TableBody"/>
-						<Panel id="TableBody_temple_quartet" class="TableBody"/>
-						<Panel id="LocalPlayer" />
+    <Panel hittest="false" class="LeaderboardRoot">
+        <Panel id="Leaderboard">
+			<Panel id="LeaderboardHeaderRoot">
+				<Label id="LeaderboardHeader" text="#leaderboard"/>
+				<Button id="CloseLeaderboard" onactivate="CloseLeaderboard()"/>
+			</Panel>
+			<Panel id="LeaderboardChooserRoot" >
+				<Panel class="OverlayShadow_Top" hittest="false"/>
+				<Panel id="LeaderboardMapChooserBG"/>
+				<DropDown id="LeaderboardMapChoose" >
+					<Label id="core_quartet_dropdown_option" class="LeaderboardMapDrop" text="Core Quartet" onmouseover="UpdateMapSelection('core_quartet')" />
+					<Label id="desert_duo_dropdown_option" class="LeaderboardMapDrop" text="Desert Duo" onmouseover="UpdateMapSelection('desert_duo')" />
+					<Label id="desert_octet_dropdown_option" class="LeaderboardMapDrop" text="Desert Octet" onmouseover="UpdateMapSelection('desert_octet')" />
+					<Label id="desert_quintet_dropdown_option" class="LeaderboardMapDrop" text="Desert Quintet" onmouseover="UpdateMapSelection('desert_quintet')" />
+					<Label id="forest_solo_dropdown_option" class="LeaderboardMapDrop" text="Forest Solo" onmouseover="UpdateMapSelection('forest_solo')" />
+					<Label id="mines_trio_dropdown_option" class="LeaderboardMapDrop" text="Mines Trio" onmouseover="UpdateMapSelection('mines_trio')" />
+					<Label id="temple_quartet_dropdown_option" class="LeaderboardMapDrop" text="Temple Quartet" onmouseover="UpdateMapSelection('temple_quartet')" />
+				</DropDown>
+			</Panel>
+			<Panel id="LocalRatingInfoRoot">
+				<Panel id="LocalRatingInfo">
+					<DOTAAvatarImage id="LocalAvatarImage" steamid="local"/>
+					<DOTAUserName steamid="local"/>
+					<Panel id="PlayerRatingLabel"/>
+					<Panel id="PlayerRatingWrap">
+						<Label id="LocalPlayerRating" text="9999"/>
 					</Panel>
-
-                </Panel>
-            </Panel>
+				</Panel>
+				<Panel class="OverlayShadow_Top" hittest="false"/>
+			</Panel>
+			<Panel id="LeaderboardDataRoot" class="FullSize">
+				
+				<Panel id="LeaderboardDataWrap">
+					<Panel id="TableBody_core_quartet" class="LeaderboardData"/>
+					<Panel id="TableBody_desert_duo" class="LeaderboardData"/>
+					<Panel id="TableBody_desert_octet" class="LeaderboardData"/>
+					<Panel id="TableBody_desert_quintet" class="LeaderboardData"/>
+					<Panel id="TableBody_forest_solo" class="LeaderboardData"/>
+					<Panel id="TableBody_mines_trio" class="LeaderboardData"/>
+					<Panel id="TableBody_temple_quartet" class="LeaderboardData"/>
+				</Panel>
+			
+				<Panel class="OverlayShadow_Top" hittest="false"/>
+				<Panel class="OverlayShadow_Bottom" hittest="false"/>
+				<Panel id="TableHeader" class="FullSize">
+					<Label class="HeaderText" id="h1" text="#leaderboard_rank"/>
+					<Label class="HeaderText" id="h2" text="#leaderboard_player"/>
+					<Label class="HeaderText" id="h3" text="#leaderboard_rating"/>
+					
+				</Panel>
+			</Panel>
         </Panel>
     </Panel>
 </root>
