@@ -36,7 +36,7 @@ function GamePerks:Init()
 		["linken"] = true;
 		["buff_amplify"] = true;
 		--["builder"] = true;
-		["traveler"] = true;
+		--["traveler"] = true;
 		["delayed_damage"] = true;
 	};
 

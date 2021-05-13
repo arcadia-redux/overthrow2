@@ -4,7 +4,7 @@ const game_perks = [
 	`linken`,
 	`buff_amplify`,
 	// `builder`,
-	`traveler`,
+	// `traveler`,
 	`delayed_damage`,
 	`str_for_kill`,
 	`agi_for_kill`,
