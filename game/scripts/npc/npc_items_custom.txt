@@ -588,25 +588,6 @@
 		}
 	}
 
-	"item_patreon_courier"
-	{
-		// General
-		//-------------------------------------------------------------------------------------------------------------
-		"ID"							"1503"
-		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-		"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES"
-		"BaseClass"						"item_datadriven"
-		"AbilityTextureName"			"courier_dire"
-		// Item Info
-		//-------------------------------------------------------------------------------------------------------------
-		"ItemShopTags"					"consumable"
-		"ItemQuality"					"consumable"
-		"ItemKillable"                  "1"
-		"ItemSellable"                  "1"
-		"ItemDroppable"                 "1"
-		"ItemPurchasable"				"1"
-		"IsTempestDoubleClonable"		"0"
-	}
 	"item_dimensional_doorway"
 	{
 		"AbilityCooldown"				"20.0"
