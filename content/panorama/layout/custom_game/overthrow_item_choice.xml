@@ -1,5 +1,6 @@
 <root>
 	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
 		<include src="file://{resources}/styles/custom_game/overthrow_item_choice.css" />
 	</styles>
 
@@ -13,20 +14,20 @@
 
 			<Panel id="perk_choice_row" >
 				<Panel class="perk_container" onmouseactivate="MakeChoice('1')" >
-					<Image id="perk_choice_1" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_mp_regen_t0.png"/>
-					<Label id="perk_text_1" class="perk_text" text="#patreon_perk_mp_regen_t0" />
+					<Image id="perk_choice_1" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/mp_regen_t0.png"/>
+					<Label id="perk_text_1" class="perk_text" text="#mp_regen_t0" />
 				</Panel>
 				<Panel class="perk_container" onmouseactivate="MakeChoice('2')" >
-					<Image id="perk_choice_2" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_hp_regen_t0.png"/>
-					<Label id="perk_text_2" class="perk_text" text="#patreon_perk_hp_regen_t0" />
+					<Image id="perk_choice_2" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/hp_regen_t0.png"/>
+					<Label id="perk_text_2" class="perk_text" text="#hp_regen_t0" />
 				</Panel>
 				<Panel class="perk_container" onmouseactivate="MakeChoice('3')" >
-					<Image id="perk_choice_3" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_movespeed_t0.png"/>
-					<Label id="perk_text_3" class="perk_text" text="#patreon_perk_bonus_movespeed_t0" />
+					<Image id="perk_choice_3" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/bonus_movespeed_t0.png"/>
+					<Label id="perk_text_3" class="perk_text" text="#bonus_movespeed_t0" />
 				</Panel>
 				<Panel class="perk_container" onmouseactivate="MakeChoice('4')" >
-					<Image id="perk_choice_4" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/patreon_perk_bonus_gold_t0.png"/>
-					<Label id="perk_text_4" class="perk_text" text="#patreon_perk_bonus_gold_t0" />
+					<Image id="perk_choice_4" class="perk_choice" src="file://{resources}/layout/custom_game/common/patreon/game_perk/icons/bonus_gold_t0.png"/>
+					<Label id="perk_text_4" class="perk_text" text="#bonus_gold_t0" />
 				</Panel>
 			</Panel>
 

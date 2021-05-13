@@ -1,23 +1,20 @@
-.perk_choice_root
-{
+.perk_choice_root {
 	width: 100%;
 	height: 100%;
 }
 
-#perk_choice_container
-{
+#perk_choice_container {
 	horizontal-align: center;
 	vertical-align: bottom;
 	margin-bottom: 250px;
 	flow-children: down;
-	border-radius: 8px;
-	background-color: gradient( linear, 0% 0%, 0% 100%, from( #000000b0 ), to( #000000d0 ) );
-	box-shadow: #000000ff -5px -5px 5px 10px;
+	background-image: url("file://{resources}/images/custom_game/leaderboards/leaderboards_background_1.png");
+	background-size: 100%;
+	box-shadow: fill #000000 0px 0px 7px 1px;
 	visibility: collapse;
 }
 
-#perk_choice_label
-{
+#perk_choice_label {
 	color: #ffffffff;
 	margin-top: 8px;
 	horizontal-align: center;
@@ -25,11 +22,13 @@
 	font-size: 24;
 	font-weight: bold;
 	font-family: "DejaVu Sans";
-	text-shadow: 1px 1px 8px 3.0 #000000FF;
+	font-family: titleFont;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 8px 3 #000000ff;
+	letter-spacing: 1px;
 }
 
-#perk_choice_row
-{
+#perk_choice_row {
 	margin-left: 6px;
 	margin-right: 6px;
 	margin-top: 8px;
@@ -40,19 +39,18 @@
 	flow-children: down;
 }
 
-.perk_container:Hover {
+.perk_container:hover {
 	brightness: 1.4;
 }
 
-.perk_choice
-{
+.perk_choice {
 	align: center center;
 	margin-left: 4px;
 	margin-right: 4px;
 	height: 64px;
 	width: 64px;
-	border-radius: 6px;
-	border: 3px solid #121816D0;
+	border-radius: 2px;
+	border: 2px solid #121816d0;
 }
 
 .perk_text {
@@ -65,11 +63,10 @@
 	font-size: 14;
 	font-weight: bold;
 	font-family: "DejaVu Sans";
-	text-shadow: 1px 1px 3px 2.0 #000000FF;
+	text-shadow: 1px 1px 3px 2 #000000ff;
 }
 
-#remaining_time
-{
+#remaining_time {
 	width: 100%;
 	height: 12px;
 	margin-top: 8px;
@@ -79,10 +76,9 @@
 	border-radius: 6px;
 	horizontal-align: center;
 	vertical-align: center;
-	background-color: gradient( linear, 0% 100%, 0% 0%, from( #000000FF ), color-stop(0.1, #0A4088ff ), to( #609AE0ff ) );
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#000000ff), color-stop(0.1, #0a4088ff), to(#609ae0ff));
 }
 
-#remaining_time .ProgressBarLeft
-{
-	background-color: gradient( linear, 0% 100%, 0% 0%, from( #000000FF ), color-stop(0.1, #0A4088ff ), to( #609AE0ff ) );
+#remaining_time .ProgressBarLeft {
+	background-color: gradient(linear, 0% 100%, 0% 0%, from(#000000ff), color-stop(0.1, #0a4088ff), to(#609ae0ff));
 }

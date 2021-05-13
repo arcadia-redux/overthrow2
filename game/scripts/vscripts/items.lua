@@ -91,28 +91,28 @@ function COverthrowGameMode:SpecialItemAdd(owner)
 
 	-- All available perks
 	local all_perks = {
-		"patreon_perk_mp_regen",
-		"patreon_perk_hp_regen",
-		"patreon_perk_bonus_movespeed",
-		"patreon_perk_bonus_agi",
-		"patreon_perk_bonus_str",
-		"patreon_perk_bonus_int",
-		"patreon_perk_bonus_all_stats",
-		"patreon_perk_attack_range",
-		"patreon_perk_bonus_hp_pct",
-		"patreon_perk_cast_range",
-		"patreon_perk_cooldown_reduction",
-		"patreon_perk_damage",
-		"patreon_perk_evasion",
-		"patreon_perk_lifesteal",
-		"patreon_perk_mag_resist",
-		"patreon_perk_spell_amp",
-		"patreon_perk_spell_lifesteal",
-		"patreon_perk_status_resistance",
-		"patreon_perk_outcomming_heal_amplify",
-		"patreon_perk_cleave",
-		"patreon_perk_cd_after_deadth",
-		"patreon_perk_manaburn"
+		"mp_regen",
+		"hp_regen",
+		"bonus_movespeed",
+		"bonus_agi",
+		"bonus_str",
+		"bonus_int",
+		"bonus_all_stats",
+		"attack_range",
+		"bonus_hp_pct",
+		"cast_range",
+		"cooldown_reduction",
+		"damage",
+		"evasion",
+		"lifesteal",
+		"mag_resist",
+		"spell_amp",
+		"spell_lifesteal",
+		"status_resistance",
+		"outcomming_heal_amplify",
+		"cleave",
+		"cd_after_death",
+		"manaburn"
 	}
 
 	-- Pick 3 random perks among the ones the hero doesn't have yet
@@ -154,7 +154,7 @@ function COverthrowGameMode:SpecialItemAdd(owner)
 	end
 
 	-- Gold choice
-	table.insert(perk_choices, "patreon_perk_bonus_gold".."_t"..item_tier)
+	table.insert(perk_choices, "bonus_gold".."_t"..item_tier)
 
 	self:StartItemPick(owner, perk_choices)
 end
@@ -182,13 +182,13 @@ function COverthrowGameMode:FinishItemPick(keys)
 	-- Add the chosen perk
 	print("chosen perk:")
 	print(perk)
-	if perk == "patreon_perk_bonus_gold_t0" then
+	if perk == "bonus_gold_t0" then
 		owner:ModifyGold(1000, false, DOTA_ModifyGold_HeroKill)
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 1000, nil)
-	elseif perk == "patreon_perk_bonus_gold_t1" then
+	elseif perk == "bonus_gold_t1" then
 		owner:ModifyGold(1500, false, DOTA_ModifyGold_HeroKill)
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 1500, nil)
-	elseif perk == "patreon_perk_bonus_gold_t2" then
+	elseif perk == "bonus_gold_t2" then
 		owner:ModifyGold(2000, false, DOTA_ModifyGold_HeroKill)
 		SendOverheadEventMessage(nil, OVERHEAD_ALERT_GOLD, owner, 2000, nil)
 	else

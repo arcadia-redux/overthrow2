@@ -63,7 +63,7 @@
 			var playerId = $.GetContextPanel().GetAttributeInt( "player_id", -1 );
 			if (playerId == event_data.playerId){
 				const perkImage = $("#PerkForPlayer");
-				perkImage.SetImage("file://{resources}/layout/custom_game/common/patreon/game_perk/icons/"+event_data.perkName+".png");
+				perkImage.SetImage("file://{resources}/layout/custom_game/common/game_perks/icons/"+event_data.perkName+".png");
 				perkImage.SetPanelEvent( "onmouseover", function() {
 					$.DispatchEvent( 'DOTAShowTextTooltip', perkImage, $.Localize("DOTA_Tooltip_"+event_data.perkName));
 				})
@@ -72,7 +72,7 @@
 
 		GameEvents.Subscribe("set_disable_help_refresh", RefreshMuteAndDisableHelpList);
 		GameEvents.Subscribe("set_mute_refresh", ToggleMuteItem);
-		GameEvents.Subscribe("show_player_perk", ShowPlayerPerk);
+		GameEvents.Subscribe("game_perks:show_player_perk", ShowPlayerPerk);
 
 		GameEvents.SendCustomGameEventToServer("check_perks_for_players", {});
 

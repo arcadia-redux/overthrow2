@@ -1,0 +1,50 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/game_perks/game_perks.css" />
+	</styles>
+ 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/game_perks/game_perks_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/game_perks/game_perks.js" />
+		<include src="file://{resources}/scripts/custom_game/override_dota_ui.js" />
+		<include src="file://{resources}/scripts/custom_game/ability_tooltip_filter.js" />
+	</scripts>
+	<snippets>
+		<snippet name="GamePerk">
+			<Panel class="GamePerk">
+				<Image id="GamePerkImage"/>
+				<Label id="GamePerkText"/>
+			</Panel>
+		</snippet>
+		<snippet name="GamePerksTier">
+			<Panel class="GamePerksTier">
+				<Panel id="GamePerksTierHeader">
+					<Label id="GamePerksTierHeaderTextMain"/>
+				</Panel>
+				<Panel id="PerksRoot"/>
+			</Panel>
+		</snippet>
+	</snippets>
+	
+ 	<Panel hittest="false" class="GamePerkRoot">
+		<Image id="PatreonGamePerkButtonOption" src="file://{resources}/layout/custom_game/common/game_perks/background_game_peks.png"/>
+
+ 		<Panel id="GamePerkButtonPanel">
+			<Panel id="SetGamePerkButton" onactivate="ShowGamePerks()" onmouseover="DOTAShowTextTooltip(#game_perk_choose_hint)" onmouseout="DOTAHideTextTooltip()"/>
+		</Panel>
+
+		<Panel id="GamePerksMenu">
+			<Panel class="GamePerksMenuHeadGrid">
+				<Label class="GamePerksMenuHeadText" text="#patreons_perk_hide_choose"/>
+			</Panel>
+			<Panel id="PerksGrid">
+				<Panel id="GamePerksTierList"/>
+				<Panel id="GamePerks_OverlayTop" hittest="false"/>
+				<Panel id="GamePerks_OverlayBottom" hittest="false"/>
+			</Panel>
+		</Panel>
+
+		<Button id="CloseGamePerks" onactivate="HideGamePerks()" onmouseover="DOTAShowTextTooltip(#close_patreons_game_perks_menu)" onmouseout="DOTAHideTextTooltip()"/>
+	</Panel>
+</root>

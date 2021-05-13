@@ -2501,4 +2501,191 @@
 	{
 		"ItemInitialStockTime"			"420"
 	}
+	
+	"item_teleport_perk_0"
+	{
+		"BaseClass"						"item_lua"
+		"ID"							"5000"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityTextureName"	        "item_teleport_perk"
+		"ScriptFile"					"items/item_teleport_perk.lua"
+ 
+		"AbilityManaCost"               "0"
+		"AbilityChannelTime"			"3"
+		"ItemCost"						"100"
+		"AbilityCooldown"				"90"
+		
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemPurchasable"				"0"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tooltip_channel_time"	"3"
+			}
+		}
+	}
+	"item_teleport_perk_1"
+	{
+		"BaseClass"						"item_lua"
+		"ID"							"5001"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityTextureName"	        "item_teleport_perk"
+		"ScriptFile"					"items/item_teleport_perk.lua"
+		
+		"AbilityManaCost"               "0"
+		"AbilityChannelTime"			"3"
+		"ItemCost"						"200"
+		"AbilityCooldown"				"60"
+		
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemPurchasable"				"0"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tooltip_channel_time"	"3"
+			}
+		}
+	}
+	"item_teleport_perk_2"
+	{
+		"BaseClass"						"item_lua"
+		"ID"							"5002"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+		"AbilityTextureName"	        "item_teleport_perk"
+		"ScriptFile"					"items/item_teleport_perk.lua"
+		
+		"AbilityManaCost"               "0"
+		"AbilityChannelTime"			"3"
+		"ItemCost"						"300"
+		"AbilityCooldown"				"30"
+		
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemPurchasable"				"0"
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"tooltip_channel_time"	"3"
+			}
+		}
+	}
+	"item_linken_perk_0"
+	{
+		"BaseClass"						"item_lua"
+		"ID"							"5003"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityTextureName"	        "item_linken_perk"
+		"ScriptFile"					"items/item_linken_perk.lua"
+		
+		"AbilityManaCost"               "0"
+		"ItemCost"						"100"
+		"AbilityCooldown"				"60"
+		"AbilityCastRange"				"400"
+		
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemPurchasable"				"0"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"buff_duration"			"3"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"block_cooldown"		"60.0"
+			}
+		}
+	}
+	"item_linken_perk_1"
+	{
+		"BaseClass"						"item_lua"
+		"ID"							"5004"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityTextureName"	        "item_linken_perk"
+		"ScriptFile"					"items/item_linken_perk.lua"
+		
+		"AbilityManaCost"               "0"
+		"ItemCost"						"200"
+		"AbilityCooldown"				"45"
+		"AbilityCastRange"				"550"
+		
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemPurchasable"				"0"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"buff_duration"			"4"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"block_cooldown"		"45.0"
+			}
+		}
+	}
+	"item_linken_perk_2"
+	{
+		"BaseClass"						"item_lua"
+		"ID"							"5005"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+		"AbilityUnitTargetTeam"			"DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+		"AbilityUnitTargetType"			"DOTA_UNIT_TARGET_HERO"
+		"AbilityTextureName"	        "item_linken_perk"
+		"ScriptFile"					"items/item_linken_perk.lua"
+		
+		"AbilityManaCost"               "0"
+		"ItemCost"						"300"
+		"AbilityCooldown"				"30"
+		"AbilityCastRange"				"700"
+		
+		"ItemStackable"					"0"
+		"ItemKillable"                  "1"
+		"ItemSellable"                  "1"
+		"ItemDroppable"                 "1"
+		"ItemPurchasable"				"0"
+		
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"buff_duration"			"5"
+			}
+			"02"
+			{
+				"var_type"				"FIELD_FLOAT"
+				"block_cooldown"		"30.0"
+			}
+		}
+	}
 }

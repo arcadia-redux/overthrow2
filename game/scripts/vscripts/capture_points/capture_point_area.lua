@@ -129,7 +129,7 @@ function capture_point_area:StartCapturePoint(nTeamNumber)
 		self.nCaptureProgress = self.nCaptureProgress + INTERVAL_THINK
 		self:SetRingColor(nTeamNumber)
 		if self.nCaptureProgress >= TIME_FOR_CAPTURE_POINT then
-			self:AddRewardForTeam()
+			self:AddRewardForTeam(nTeamNumber)
 		end
 	else
 		self.nRecaptutingTime = self.nRecaptutingTime - INTERVAL_THINK
@@ -182,12 +182,12 @@ function capture_point_area:OnDestroy()
 	end
 end
 ------------------------------------------------------------------------------
-function capture_point_area:AddRewardForTeam()
+function capture_point_area:AddRewardForTeam(nTeamNumber)
 	if not IsServer() then return end
 	local hParent = self:GetParent()
 	if hParent.bAddedReward then return end
 	hParent.bAddedReward = true
-	self:GiveItemToTeam()
+	self:GiveItemToTeam(nTeamNumber)
 	self:StopPoint()
 	--local pRewardBoom = ParticleManager:CreateParticle("particles/econ/events/ti10/blink_dagger_start_ti10_lvl2_sparkles.vpcf", PATTACH_ABSORIGIN, self:GetParent())
 	--ParticleManager:SetParticleControl(pRewardBoom, 0, hParent:GetAbsOrigin())
@@ -222,10 +222,10 @@ function capture_point_area:GetItemsTable(nItemTier)
 	return {table = tBasicItemsList, tier = nItemTier}
 end
 ------------------------------------------------------------------------------
-function capture_point_area:GiveItemToTeam()
+function capture_point_area:GiveItemToTeam(nTeamNumber)
 	local player_id
 	for _player_id = 0, 23 do
-		if PlayerResource:GetTeam(_player_id) == self.nCapturingTeam then
+		if PlayerResource:GetTeam(_player_id) == nTeamNumber then
 			player_id = _player_id
 		end
 	end
@@ -233,7 +233,7 @@ function capture_point_area:GiveItemToTeam()
 	local tSortedTeams = COverthrowGameMode:GetSortedTeams()
 	local nItemTier = 1
 	for i = 1, #tSortedTeams do
-		if tSortedTeams[i].team == self.nCapturingTeam then
+		if tSortedTeams[i].team == nTeamNumber then
 			if i <= (1 + math.max(#tSortedTeams - 3, 0) / 3) then
 			elseif i >= (#tSortedTeams - math.max(#tSortedTeams - 3, 0) / 3) then
 				nItemTier = nItemTier + 1
@@ -250,17 +250,18 @@ function capture_point_area:GiveItemToTeam()
 	print_d("TIER FOR NEUTRAL DROP " .. nItemTier)
 	if not NEUTRAL_ITEMS[nItemTier] then return end
 	print_d("--CHECK IS OKAY--")
-	tTeamsItems[self.nCapturingTeam] = tTeamsItems[self.nCapturingTeam] or {}
+	tTeamsItems[nTeamNumber] = tTeamsItems[nTeamNumber] or {}
 	local tItems = self:GetItemsTable(nItemTier)
 	local sItemName = table.random(tItems.table)
 	print_d("ITEMS TABLE:")
 	for id, itemName in pairs(tItems.table) do
 		print_d(	"  > ID: [" .. id .. "] Name: " .. itemName)
 	end
-	if not tTeamsItems[self.nCapturingTeam][sItemName] then
-		tTeamsItems[self.nCapturingTeam][sItemName] = true
+	if not tTeamsItems[nTeamNumber][sItemName] then
+		tTeamsItems[nTeamNumber][sItemName] = true
 	end
 	print_d("  >> CHOOSED DROP: [" .. sItemName .. "]")
+	print_d("  >> TEAM FOR DROP: [" .. nTeamNumber .. "]")
 	
 	local player = PlayerResource:GetPlayer(player_id)
 	if not player then return end

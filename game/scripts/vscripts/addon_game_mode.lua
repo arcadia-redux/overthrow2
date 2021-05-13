@@ -59,6 +59,7 @@ LinkLuaModifier("modifier_patreon_courier", "couriers/modifier_patreon_courier",
 LinkLuaModifier("modifier_core_courier", "couriers/modifier_core_courier", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_courier_quartet", "couriers/modifier_courier_quartet", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_alert_before_kick_lua", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_delayed_damage","common/game_perks/modifier_lib/delayed_damage", LUA_MODIFIER_MOTION_NONE)
 
 Precache = require( "precache" )
 
@@ -359,6 +360,22 @@ function COverthrowGameMode:DamageFilter(event)
 				if _G.pairKillCounts[uniqueKey] == 2 then
 					GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
 				end
+			end
+		end
+
+		local ability
+		if (event.entindex_inflictor_const) then ability = EntIndexToHScript(event.entindex_inflictor_const) end
+
+		if death_unit and death_unit.delay_damage_by_perk and death_unit.delay_damage_by_perk_duration and event.damage > 10 then
+			local delayed_damage = event.damage * (death_unit.delay_damage_by_perk / 100)
+			if not ability or ability:GetName() ~= "delayed_damage_perk" then
+				event.damage = event.damage - delayed_damage
+				death_unit:AddNewModifier(death_unit, nil, "modifier_delayed_damage", {
+					duration = death_unit.delay_damage_by_perk_duration,
+					attacker_ent = event.entindex_attacker_const,
+					damage_type = event.damagetype_const,
+					damage = delayed_damage
+				})
 			end
 		end
 	end
@@ -826,6 +843,49 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 
 	if parent and parent:GetUnitName() == "npc_dummy_inventory" and filterTable.name_const ~= "modifier_dummy_inventory_custom" then
 		return false
+	end
+
+	--[[ BUFF AMPLIFY LOGIC PART ]]--
+
+	local caster = filterTable.entindex_caster_const and filterTable.entindex_caster_const ~= 0 and EntIndexToHScript(filterTable.entindex_caster_const)
+	if not caster or not parent then return end
+
+	local ability = filterTable.entindex_ability_const and filterTable.entindex_ability_const ~= 0 and EntIndexToHScript(filterTable.entindex_ability_const)
+	local m_name = filterTable.name_const
+
+	local is_amplified_perk = amplified_modifier[m_name] or counter_updaters[m_name] or self_updaters[m_name]
+	if ability then
+		is_amplified_perk = is_amplified_perk and (not common_buffs_not_amplify_by_skills[m_name] or not common_buffs_not_amplify_by_skills[m_name][ability:GetAbilityName()])
+	end
+
+	local is_correct_source = (parent:GetTeam() == caster:GetTeam()) or enemies_buff[m_name]
+	local is_correct_duration = filterTable.duration and filterTable.duration > 0
+	local amplify_source = buffs_from_parent[m_name] and parent or caster
+
+	if amplify_source and amplify_source.buff_amplify and is_amplified_perk and is_correct_source and is_correct_duration then
+		local new_duration = filterTable.duration * amplify_source.buff_amplify
+
+		if counter_updaters[m_name] then
+			Timers:CreateTimer(0, function()
+				local parent_modifier = parent:FindModifierByName(counter_updaters[m_name])
+				if parent_modifier then
+					parent_modifier:SetDuration(new_duration, true)
+				end
+			end)
+		end
+		if self_updaters[m_name] then
+			Timers:CreateTimer(0, function()
+				local modifier = parent:FindModifierByName(m_name)
+				if not modifier then return nil end
+				local time = modifier:GetRemainingTime() + modifier:GetElapsedTime()
+				if time < new_duration then
+					modifier:SetDuration(new_duration, true)
+				end
+				return 0.1
+			end)
+		end
+
+		filterTable.duration = new_duration
 	end
 
 	return true

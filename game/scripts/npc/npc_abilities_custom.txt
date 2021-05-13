@@ -1318,4 +1318,13 @@
 		"AbilityDamage"					"0"
 		"AbilityManaCost"				"0"
 	}
+	
+	"delayed_damage_perk"
+	{
+		"BaseClass"						"ability_lua"
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_HIDDEN"
+		"MaxLevel"						"1"
+		"AbilityTextureName"			"perkIcons/delayed_damage"
+		"ScriptFile"					"common/game_perks/modifier_lib/delayed_damage"
+	}
 }
