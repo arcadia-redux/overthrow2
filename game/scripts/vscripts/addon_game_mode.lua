@@ -848,7 +848,7 @@ function COverthrowGameMode:ModifierGainedFilter(filterTable)
 	--[[ BUFF AMPLIFY LOGIC PART ]]--
 
 	local caster = filterTable.entindex_caster_const and filterTable.entindex_caster_const ~= 0 and EntIndexToHScript(filterTable.entindex_caster_const)
-	if not caster or not parent then return end
+	if not caster or not parent then return true end
 
 	local ability = filterTable.entindex_ability_const and filterTable.entindex_ability_const ~= 0 and EntIndexToHScript(filterTable.entindex_ability_const)
 	local m_name = filterTable.name_const
