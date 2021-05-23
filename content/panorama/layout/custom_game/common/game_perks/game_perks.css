@@ -122,11 +122,11 @@
 	height: 127px;
 	flow-children: down;
 	border-radius: 10px;
-	box-shadow: inset #000000 0px 0px 10px 3px;
+	box-shadow: inset rgba(0, 0, 0, 0.9) 0px 0px 15px -4px;
 }
 
 #GamePerkImage {
-	margin-top: 5px;
+	margin-top: 6px;
 	width: 60px;
 	height: 60px;
 	horizontal-align: center;
@@ -134,17 +134,16 @@
 }
 
 #GamePerkText {
-	width: 120px;
-	horizontal-align: center;
-	vertical-align: center;
+	/*width: 108px;*/
+	align: center center;
 	color: rgb(109, 163, 111);
 	font-size: 16px;
 	text-overflow: clip;
 	text-align: center;
-	margin-left: 2px;
-	margin-right: 2px;
-	margin-bottom: -2px;
 	text-shadow: 1px -1px 2px 3 #000000ff;
+	/*background-color: red;*/
+	text-overflow: shrink;
+	padding: 0px 5px 0px 5px;
 }
 
 .GamePerkNotAvailable #GamePerkText {
