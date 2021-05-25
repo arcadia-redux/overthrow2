@@ -17,11 +17,12 @@ function chen_soul_persuasion:OnSpellStart()
 		self:EndCooldown()
 		return
 	end
+	local player = parent:GetPlayerOwner()
 	
 	local summonMax = self:GetSpecialValueFor("creeps_max_summoned")
 	self:ValidateCurrentSummons()
-	if #self.summon_list >= summonMax then
-		CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwner(), "display_custom_error", { message = "#dota_chen_soul_persuasion_max_limit_error" })
+	if #self.summon_list >= summonMax and player and not player:IsNull() then
+		CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", { message = "#dota_chen_soul_persuasion_max_limit_error" })
 		self:EndCooldown()
 		return
 	end
@@ -29,9 +30,8 @@ function chen_soul_persuasion:OnSpellStart()
 	local currentData = self.abilityData[summonSouls]
 
 	if parent:GetMana() < currentData.manacost then
-		local player = parent:GetPlayerOwnerID()
 		if player and not player:IsNull() then
-			CustomGameEventManager:Send_ServerToPlayer(parent:GetPlayerOwnerID(), "display_custom_error", {
+			CustomGameEventManager:Send_ServerToPlayer(player, "display_custom_error", {
 				message = "#dota_hud_error_not_enough_mana"
 			})
 		end

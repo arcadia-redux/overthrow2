@@ -59,7 +59,7 @@ if IsServer() then
 		local parent = self:GetParent()
 		local ability = self:GetAbility()
 
-		if not parent or parent:IsNull() then return end
+		if not parent or parent:IsNull() or not parent.ModifyGold or not parent.AddExperienceCustom then return end
 
 		local xp = ability:GetSpecialValueFor("aura_xp")
 		local gold = ability:GetSpecialValueFor("aura_gold")
@@ -85,7 +85,7 @@ if IsServer() then
 
 	function modifier_get_xp_late_bonus:OnIntervalThink()
 		local parent = self:GetParent()
-		if not parent or parent:IsNull() then return end
+		if not parent or parent:IsNull() or not parent.ModifyGold or not parent.AddExperienceCustom then return end
 
 		local ability = self:GetAbility()
 		if not ability or ability:IsNull() then return end

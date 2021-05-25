@@ -10,5 +10,6 @@ require("common/disable_help")
 require("common/smart_random")
 require("common/game_perks/game_perks_core")
 require("common/unique_portraits")
+require("common/custom_chat")
 
 LinkLuaModifier("modifier_donator", "common/modifier_donator", LUA_MODIFIER_MOTION_NONE)

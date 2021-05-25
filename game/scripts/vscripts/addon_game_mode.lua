@@ -340,43 +340,54 @@ end
 -- Fix feed on tower
 ---------------------------------------------------------------------------
 function COverthrowGameMode:DamageFilter(event)
-	local death_unit = EntIndexToHScript(event.entindex_victim_const)
+	local entindex_victim_const = event.entindex_victim_const
+	local entindex_attacker_const = event.entindex_attacker_const
+	local entindex_inflictor_const = event.entindex_inflictor_const
+	local target
+	local attacker
+	local ability
+
+	if (entindex_victim_const) then target = EntIndexToHScript(entindex_victim_const) end
+	if (entindex_attacker_const) then attacker = EntIndexToHScript(entindex_attacker_const) end
+	if (entindex_inflictor_const) then ability = EntIndexToHScript(entindex_inflictor_const) end
+
 	local uniqueKey
-	if event.entindex_attacker_const and event.entindex_victim_const then
-		uniqueKey = event.entindex_attacker_const .. "_" .. event.entindex_victim_const
+	if entindex_attacker_const and entindex_victim_const then
+		uniqueKey = entindex_attacker_const .. "_" .. entindex_victim_const
 
 		local checkLastKill = true
 
-		local deathUnitHasKill = _G.timesOfTheLastKillings[death_unit]
+		local deathUnitHasKill = _G.timesOfTheLastKillings[target]
 
 		if deathUnitHasKill then
-			checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[death_unit]) >= LOCK_ANTI_FEED_TIME_SEC
+			checkLastKill = (GameRules:GetGameTime() - _G.timesOfTheLastKillings[target]) >= LOCK_ANTI_FEED_TIME_SEC
 		end
 
-		if _G.pairKillCounts[uniqueKey] and death_unit:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(death_unit:GetPlayerID()) == death_unit) and checkLastKill then
-			if death_unit:GetHealth() <= event.damage then
+		if _G.pairKillCounts[uniqueKey] and target:IsRealHero() and (PlayerResource:GetSelectedHeroEntity(target:GetPlayerID()) == target) and checkLastKill then
+			if target:GetHealth() <= event.damage then
 				_G.pairKillCounts[uniqueKey] = (_G.pairKillCounts[uniqueKey]) + 1
-				death_unit:Kill(nil, death_unit)
+				target:Kill(nil, target)
 				if _G.pairKillCounts[uniqueKey] == 2 then
-					GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", death_unit:GetTeamNumber(), 0)
+					GameRules:SendCustomMessage("#stop_to_feed_on_enemy_base", target:GetTeamNumber(), 0)
 				end
 			end
 		end
-
-		local ability
-		if (event.entindex_inflictor_const) then ability = EntIndexToHScript(event.entindex_inflictor_const) end
-
-		if death_unit and death_unit.delay_damage_by_perk and death_unit.delay_damage_by_perk_duration and event.damage > 10 then
-			local delayed_damage = event.damage * (death_unit.delay_damage_by_perk / 100)
-			if not ability or ability:GetName() ~= "delayed_damage_perk" then
-				event.damage = event.damage - delayed_damage
-				death_unit:AddNewModifier(death_unit, nil, "modifier_delayed_damage", {
-					duration = death_unit.delay_damage_by_perk_duration,
-					attacker_ent = event.entindex_attacker_const,
-					damage_type = event.damagetype_const,
-					damage = delayed_damage
-				})
-			end
+	end
+	
+	if target and target.delay_damage_by_perk and target.delay_damage_by_perk_duration and event.damage > 10 then
+		local delayed_damage = event.damage * (target.delay_damage_by_perk / 100)
+		local black_list_for_delay = {
+			["delayed_damage_perk"] = true,
+			["skeleton_king_reincarnation"] = true,
+		}
+		if (not ability or not black_list_for_delay[ability:GetName()]) and (not event.damagetype_const or event.damagetype_const > 0) then
+			event.damage = event.damage - delayed_damage
+			target:AddNewModifier(target, nil, "modifier_delayed_damage", {
+				duration = target.delay_damage_by_perk_duration,
+				attacker_ent = entindex_attacker_const,
+				damage_type = event.damagetype_const,
+				damage = delayed_damage
+			})
 		end
 	end
 
@@ -707,7 +718,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	end
 
 	if orderType == DOTA_UNIT_ORDER_CAST_TARGET then
-		if target:GetName() == "npc_dota_seasonal_ti9_drums" then
+		if target and not target:IsNull() and target.GetName and target:GetName() == "npc_dota_seasonal_ti9_drums" then
 			CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "display_custom_error", { message = "#dota_hud_error_cant_cast_on_other" })
 			return
 		end
@@ -749,7 +760,7 @@ function COverthrowGameMode:ExecuteOrderFilter( filterTable )
 	end
 
 	if orderType == DOTA_UNIT_ORDER_PICKUP_ITEM and playerId ~= -1 then
-		if not target then return true end
+		if not target or target:IsNull() or not target.GetContainedItem then return true end
 		local pickedItem = target:GetContainedItem()
 		if not pickedItem then return true end
 
@@ -1263,7 +1274,8 @@ votimer = {}
 vousedcol = {}
 SelectVO = function(keys)
 	local supporter_level = Supporters:GetLevel(keys.PlayerID)
-	print(keys.num)
+	if not keys.num then return end
+	
 	local heroes = {
 		"abaddon",
 		"alchemist",

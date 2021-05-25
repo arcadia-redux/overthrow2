@@ -2,6 +2,8 @@ Payments = Payments or {}
 
 RegisterCustomEventListener("payments:create", function(event)
 	local payerId = event.PlayerID
+	if not payerId then return end
+	
 	local steamId = tostring(PlayerResource:GetSteamID(payerId))
 	local matchId = tonumber(tostring(GameRules:Script_GetMatchID()))
 

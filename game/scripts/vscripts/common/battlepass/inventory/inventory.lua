@@ -550,8 +550,10 @@ end
 function BP_Inventory:SaveOnlyEquippedItems(data)
 	local playerId = data.PlayerID
 	local state = toboolean(data.state)
-	WebApi.playerSettings[playerId].only_owned_items = state
-	WebApi:ScheduleUpdateSettings(playerId)
+	if WebApi.playerSettings[playerId] then
+		WebApi.playerSettings[playerId].only_owned_items = state
+		WebApi:ScheduleUpdateSettings(playerId)
+	end
 end
 
 function BP_Inventory:InitBaseCollection(_data)

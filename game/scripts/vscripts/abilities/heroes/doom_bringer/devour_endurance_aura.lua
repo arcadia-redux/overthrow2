@@ -23,7 +23,7 @@ modifier_devour_endurance_aura = modifier_devour_endurance_aura or class({
 	IsPermanent             = function(self) return false end,
 })
 
-function modifier_devour_speed_aura:OnCreated()
+function modifier_devour_endurance_aura:OnCreated()
 	local ability = self:GetAbility()
 	if not ability then return end
 

@@ -167,10 +167,10 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	local name = spawnedUnit:GetUnitName()
 
 	Timers:CreateTimer(0.1, function()
-		if spawnedUnit and not spawnedUnit:IsNull() and (spawnedUnit:IsTempestDouble() or spawnedUnit:IsClone()) then
+		if spawnedUnit and not spawnedUnit:IsNull() and ((spawnedUnit.IsTempestDouble and spawnedUnit:IsTempestDouble()) or (spawnedUnit.IsClone and spawnedUnit:IsClone())) then
 			local playerId = spawnedUnit:GetPlayerOwnerID()
-			if _G.PlayersPatreonsPerk[playerId] then
-				local perkName = _G.PlayersPatreonsPerk[playerId]
+			if GamePerks.choosed_perks[playerId] then
+				local perkName = GamePerks.choosed_perks[playerId]
 				spawnedUnit:AddNewModifier(spawnedUnit, nil, perkName, {duration = -1})
 				local mainHero = PlayerResource:GetSelectedHeroEntity(playerId)
 				local perkStacks = mainHero:GetModifierStackCount(perkName, mainHero)
@@ -527,13 +527,9 @@ function COverthrowGameMode:OnEntityKilled( event )
 				local inflictor_index = event.entindex_inflictor
 				if inflictor_index ~= nil then
 					local ability = EntIndexToHScript( event.entindex_inflictor )
-					if ability ~= nil then
-						if ability:GetAbilityName() ~= nil then
-							if ability:GetAbilityName() == "necrolyte_reapers_scythe" then
-								print("Killed by Necro Ult")
-								extraTime = 20
-							end
-						end
+					if ability and not ability:IsNull() and ability.GetAbilityName and ability:GetAbilityName() == "necrolyte_reapers_scythe" then
+						--print("Killed by Necro Ult")
+						extraTime = 20
 					end
 				end
 			end

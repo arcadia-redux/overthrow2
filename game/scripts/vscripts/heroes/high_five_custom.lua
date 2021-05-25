@@ -92,10 +92,10 @@ modifier_high_five_custom_search = class({
 	end,
 
 	GetRgbColor = function(self,target)
-		if not GameMode.vTeamColors or not GameMode.vTeamColors[target:GetTeam()] then
+		if not COverthrowGameMode.m_TeamColors or not COverthrowGameMode.m_TeamColors[target:GetTeam()] then
 			return 'rgb(255,255,255)'
 		end
-		local colorTeam = GameMode.vTeamColors[target:GetTeam()]
+		local colorTeam = COverthrowGameMode.m_TeamColors[target:GetTeam()]
 		return 'rgb(' .. colorTeam[1] .. ',' .. colorTeam[2] .. ',' .. colorTeam[3] .. ')'
 	end,
 
