@@ -1,17 +1,20 @@
 MAX_NEUTRAL_ITEMS_FOR_PLAYER = 2
 
-function DropItem(item_name, player)
+function DropItem(item_name, player_id, team)
 	if not IsServer() then return end
 
-	local dummyInventory = player.dummyInventory
+	local dummyInventory = GetDummyInventory(player_id)
 	if not dummyInventory then return end
 
-	local hero = PlayerResource:GetSelectedHeroEntity(player:GetPlayerID())
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 	print_d("   >>> PRECREATE ITEM [" .. item_name .. "]")
+	if not hero then
+		print_d("   >>> ERROR BY GETTING HERO [" .. player_id .. "]")
+		return
+	end
 	local item = CreateItem(item_name, hero, hero)
 	print_d("   >>> ITEM WAS CREATED SUCCESSFULLY [" .. item_name .. "]")
 	local item_entity_index = item:entindex()
-	local team = player:GetTeam()
 
 	local teamBeacon
 	local beacons

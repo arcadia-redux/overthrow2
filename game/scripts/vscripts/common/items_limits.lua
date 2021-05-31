@@ -1,5 +1,6 @@
 local lastTimeBuyItemWithCooldown = {}
 local maxItemsForPlayersData = {}
+d_inventories = {}
 LinkLuaModifier("modifier_dummy_inventory_custom", LUA_MODIFIER_MOTION_VERTICAL)
 
 -------------------------------------------------------------------------
@@ -125,7 +126,7 @@ function CDOTA_Item:TransferToBuyer(unit)
 			UTIL_Remove(container)
 		end
 		Timers:CreateTimer(0.04, function()
-			local dummyInventory = buyer:GetOwner().dummyInventory
+			local dummyInventory = GetDummyInventory(buyer:GetPlayerOwnerID())
 			dummyInventory:AddItem(self)
 			Timers:CreateTimer(0.2, function()
 				for i = 0, 15 do
@@ -159,15 +160,16 @@ end
 
 -------------------------------------------------------------------------
 function CreateDummyInventoryForPlayer(playerId, unit)
-	if PlayerResource:GetPlayer(playerId).dummyInventory then
-		PlayerResource:GetPlayer(playerId).dummyInventory:Kill(nil, nil)
+	local old_d_inventory = GetDummyInventory(playerId)
+	if old_d_inventory then
+		old_d_inventory:Kill(nil, nil)
 	end
 
 	local startPointSpawn = unit:GetAbsOrigin() + (RandomFloat(100, 100))
 	local dInventory = CreateUnitByName("npc_dummy_inventory", startPointSpawn, true, unit, unit, PlayerResource:GetTeam(playerId))
 	dInventory:SetControllableByPlayer(playerId, true)
 	dInventory:AddNewModifier(dInventory, nil, "modifier_dummy_inventory_custom", {duration = -1})
-	PlayerResource:GetPlayer(playerId).dummyInventory = dInventory
+	d_inventories[playerId] = dInventory
 end
 -------------------------------------------------------------------------
 function CDOTA_BaseNPC:IsMonkeyClone()
@@ -178,3 +180,6 @@ function CDOTA_BaseNPC:IsMainHero()
 	return self and (not self:IsNull()) and self:IsRealHero() and (not self:IsTempestDouble()) and (not self:IsMonkeyClone()) and (not self:IsClone())
 end
 -------------------------------------------------------------------------
+function GetDummyInventory(player_id)
+	return d_inventories[player_id] or nil
+end 

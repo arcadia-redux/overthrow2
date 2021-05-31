@@ -224,9 +224,12 @@ end
 ------------------------------------------------------------------------------
 function capture_point_area:GiveItemToTeam(nTeamNumber)
 	local player_id
+	local d_inventroty
 	for _player_id = 0, 23 do
-		if PlayerResource:GetTeam(_player_id) == nTeamNumber then
+		_d_inventroty = GetDummyInventory(_player_id)
+		if PlayerResource:GetTeam(_player_id) == nTeamNumber and _d_inventroty then
 			player_id = _player_id
+			d_inventroty = _d_inventroty
 		end
 	end
 	
@@ -263,20 +266,23 @@ function capture_point_area:GiveItemToTeam(nTeamNumber)
 	print_d("  >> CHOOSED DROP: [" .. sItemName .. "]")
 	print_d("  >> TEAM FOR DROP: [" .. nTeamNumber .. "]")
 	
-	local player = PlayerResource:GetPlayer(player_id)
-	if not player then return end
-	print_d("  >> PLAYER FOUND: [" .. player_id .. "]")
+	if player_id then 
+		print_d("  >> TRY FOUND PLAYER BY ID: [" .. player_id .. "]") 
+	else
+		print_d("  >> FAIL BY FOUND PLAYER: [" .. player_id .. "]")
+	end
 	
-	if not player.dummyInventory then
+	if not d_inventroty then
 		print_d("  >> NO DUMMY INV, NEED RECREATE: [" .. player_id .. "]")
 		local hero = PlayerResource:GetSelectedHeroEntity(player_id)
 		CreateDummyInventoryForPlayer(player_id, hero)
+		d_inventroty = GetDummyInventory(player_id)
 	end
 	
-	if player.dummyInventory and sItemName then
+	if d_inventroty and sItemName then
 		print_d("  >> POPUP NOTIFICATION FOR ITEM: [" .. sItemName .. "]")
 		CustomGameEventManager:Send_ServerToAllClients( "OnPickedUpItem", {position = self:GetParent():GetAbsOrigin(), itemName = sItemName, tier = tItems.tier} )
-		DropItem(sItemName, player)
+		DropItem(sItemName, player_id, nTeamNumber)
 	end
 end
 ------------------------------------------------------------------------------
