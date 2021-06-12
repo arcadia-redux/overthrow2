@@ -269,7 +269,7 @@ function capture_point_area:GiveItemToTeam(nTeamNumber)
 	if player_id then 
 		print_d("  >> TRY FOUND PLAYER BY ID: [" .. player_id .. "]") 
 	else
-		print_d("  >> FAIL BY FOUND PLAYER: [" .. player_id .. "]")
+		print_d("  >> FAIL FOUND PLAYER")
 	end
 	
 	if not d_inventroty then
