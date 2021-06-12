@@ -6,6 +6,7 @@
 		<include src="file://{resources}/layout/custom_game/common/collection/payments.css" />
 		<include src="file://{resources}/layout/custom_game/common/collection/mastery.css" />
 		<include src="file://{resources}/layout/custom_game/common/collection/dota_u/collection_dota_u.css" />
+		<include src="file://{resources}/layout/custom_game/common/styles/dotau_styles.css" />
 	</styles>
 
 	<scripts>
@@ -48,8 +49,11 @@
 			<Panel class="MasteriesRoot">
 				<Panel id="MasteriesAbilities">
 					<Label id="MasteriesAbilitiesHeader" text="#mastery_select_header"/>
-					<Panel id="MasteriesAbilitiesListRoot">
-						<Panel id="MasteriesAbilitiesList"/>
+					<Panel id="MasteriesAbilitiesListWrap">
+						<Panel id="MasteriesAbilitiesListRoot">
+							<Panel id="MasteriesAbilitiesList"/>
+						</Panel>
+						<Panel class="OverlayShadow_Bottom" hittest="false"/>
 					</Panel>
 					<Panel id="MasteriesAbilitiesFoot">
 						<Panel id="MasteriesUpgradeRoot">
@@ -136,7 +140,10 @@
 					<Label id="TreasureName" html="true" text="Common Treasure"/>
 					<Image id="TreasureImagePreview" src="file://{resources}/images/custom_game/collection/Treasures/treasure_common.png"/>
 				</Panel>
-				<Panel id="ItemsPreviewList"/>
+				<Panel id="ItemsPreviewListRoot">
+					<Panel id="ItemsPreviewList"/>
+					<Panel class="OverlayShadow_Bottom" hittest="false"/>
+				</Panel>
 				<Panel id="PreviewButtons">
 					<Button id="Preview_OpenTreasure" class="AccessButtons">
 						<Label class="AccessText" text="#open_treasure"/>
@@ -209,6 +216,9 @@
 				<Button class="CloseDotaU" onactivate="CloseCollectionDotaU()">
 					<Image src="s2r://panorama/images/control_icons/x_close_png.vtex" />
 					<Label text="#Close" />
+				</Button>
+				<Button id="OpenGiftCodes" onactivate="OpenGiftCodes()">
+					<Label text="#gift_codes_open" />
 				</Button>
 			</Panel>
 
@@ -364,7 +374,7 @@
 					<Image id="PurchasingIcon" src="file://{resources}/images/custom_game/payment/payment_boost.png"/>
 					<Panel id="PurchasingInfo">
 						<Label id="PurchasingHeader"/>
-						<Label id="PurchasingDescription"/>
+						<Label id="PurchasingDescription" html="true"/>
 						<Panel id="PurchasingPriceWrap">
 							<Label id="TotalPrice" text="#total_price"/>
 							<Label id="Price" text="{s:paySymbol}{s:price}"/>
@@ -388,18 +398,23 @@
 						<Label class="PaymentInBrowser" text="#completed_in_browser"/>
 					</Button>
 				</Panel>
+				<ToggleButton id="GiftCodePaymentFlag" checked="false" text="#pay_item_like_gift_code" onactivate="UpdateGiftCodeState()"/>
 				<Label id="PaymentDescription" html="true" text="#payment_description"/>
 			</Panel>
 		</Panel>
 
 		<Panel id="PaymentWindow" onactivate="">
 			<Panel id="PaymentWindowContent">
+				<Panel id="PaymentWindowHTML_Loading">
+					<Label class="PaymentMessage" text="#html_loading"/>
+					<Panel class="Spinner" />
+				</Panel>
 				<HTML id="PaymentWindowHTML" acceptsinput="true" />
 				<Panel id="PaymentWindowLoader">
 					<Panel class="Spinner" />
 				</Panel>
 				<Panel id="PaymentWindowError">
-					<Label id="PaymentWindowErrorMessage" />
+					<Label id="PaymentWindowErrorMessage" class="PaymentMessage"/>
 				</Panel>
 			</Panel>
 			<Button class="CloseButton" onactivate="setPaymentWindowStatus('closed')" />

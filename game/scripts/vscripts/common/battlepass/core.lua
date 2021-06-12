@@ -1,3 +1,4 @@
+require("common/battlepass/inventory/collection_enum")
 require("common/battlepass/player_progress")
 require("common/battlepass/quests")
 require("common/battlepass/chests")
@@ -5,6 +6,7 @@ require("common/battlepass/achievements")
 require("common/battlepass/masteries")
 require("common/battlepass/inventory/wear_functions")
 require("common/battlepass/inventory/inventory")
+require("common/battlepass/inventory/gift_codes")
 require("common/battlepass/tracker/progress_tracker")
 require("common/battlepass/cosmetic_abilities")
 

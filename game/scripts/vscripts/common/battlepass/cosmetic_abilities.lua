@@ -14,13 +14,13 @@ end
 
 function Cosmetics:InitCosmeticForUnit(unit)
 
-	if unit.dummyCaster then
-		unit.dummyCaster:ForceKill(false)
-		unit.dummyCaster = nil
+	if unit.dummy_caster then
+		unit.dummy_caster:ForceKill(false)
+		unit.dummy_caster = nil
 	end
 
-	if unit:IsRealHero() and not unit.dummyCaster then
-		local dummyCaster = CreateUnitByName("npc_dummy_cosmetic_caster", unit:GetAbsOrigin(), true, unit, unit, unit:GetTeam())
+	if unit:IsRealHero() and not unit.dummy_caster then
+		local dummy_caster = CreateUnitByName("npc_dummy_cosmetic_caster", unit:GetAbsOrigin(), true, unit, unit, unit:GetTeam())
 		for _, abilityName in pairs( STARTING_ABILITIES ) do
 			local overrideCooldown
 			if abilityName == "high_five_custom" then
@@ -29,27 +29,28 @@ function Cosmetics:InitCosmeticForUnit(unit)
 			if abilityName == "spray_custom" then
 				overrideCooldown = 0
 			end
-			Cosmetics:AddAbility(dummyCaster, abilityName, overrideCooldown)
+			Cosmetics:AddAbility(dummy_caster, abilityName, overrideCooldown)
 		end
-		--dummyCaster:FollowEntity(unit, true)
-		unit.dummyCaster = dummyCaster
-		dummyCaster:SetControllableByPlayer(unit:GetPlayerOwnerID(), true)
-		dummyCaster:SetOwner(unit)
-		CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "cosmetic_abilities:update_dummy_tracking", {ent = dummyCaster:GetEntityIndex()})
+		--dummy_caster:FollowEntity(unit, true)
+		unit.dummy_caster = dummy_caster
+		dummy_caster:SetControllableByPlayer(unit:GetPlayerOwnerID(), true)
+		dummy_caster:SetOwner(unit)
+		CustomGameEventManager:Send_ServerToPlayer(unit:GetOwner(), "cosmetic_abilities:update_dummy_tracking", {ent = dummy_caster:GetEntityIndex()})
 		if unit:HasModifier("modifier_hero_refreshing") then
-			dummyCaster:AddNewModifier(dummyCaster, nil, "modifier_hero_refreshing", {})
+			dummy_caster:AddNewModifier(dummy_caster, nil, "modifier_hero_refreshing", {})
 		end
-		dummyCaster:AddNewModifier(dummyCaster, nil, "modifier_dummy_caster", {})
-		dummyCaster:SetContextThink("UpdateDummyPosition", function()
+		dummy_caster:AddNewModifier(dummy_caster, nil, "modifier_dummy_caster", {})
+		dummy_caster:SetContextThink("UpdateDummyPosition", function()
+			if not unit or unit:IsNull() then return end
 			self:UpdateDummyPosition(unit)
 			return 0.33
 		end, 0.5)
-		dummyCaster:RemoveNoDraw()
+		dummy_caster:RemoveNoDraw()
 	end
 end
 function Cosmetics:UpdateDummyPosition(unit)
-	if unit and not unit:IsNull() and unit:IsAlive() then
-		local dummy = unit.dummyCaster
+	if unit:IsAlive() then
+		local dummy = unit.dummy_caster
 		if not dummy then return end
 		dummy:SetAbsOrigin(unit:GetAbsOrigin())
 		dummy:SetForwardVector(unit:GetForwardVector())
@@ -69,6 +70,6 @@ function Cosmetics:GetDummyCasterForClient(data)
 	if not playerId then return end
 	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
 	if not hero then return end
-	if not hero.dummyCaster then return end
-	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "cosmetic_abilities:update_dummy_tracking", {ent = hero.dummyCaster:GetEntityIndex()})
+	if not hero.dummy_caster then return end
+	CustomGameEventManager:Send_ServerToPlayer(hero:GetOwner(), "cosmetic_abilities:update_dummy_tracking", {ent = hero.dummy_caster:GetEntityIndex()})
 end

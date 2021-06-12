@@ -134,16 +134,14 @@
 	text-align: center;
 }
 #h1 {
-	margin-left: 8px;
-	width: 63px;
+	width: 80px;
 }
 #h2 {
 	horizontal-align: center;
 }
 #h3 {
 	horizontal-align: right;
-	margin-right: 8px;
-	width: 80px;
+	width: 100px;
 }
 
 .LeaderboardPlayer {

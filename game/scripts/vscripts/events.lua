@@ -226,11 +226,7 @@ function COverthrowGameMode:OnNPCSpawned( event )
 	--end
 
 	if not spawnedUnit:IsRealHero() then return end
-
-	if not spawnedUnit.dummyCaster then
-		Cosmetics:InitCosmeticForUnit(spawnedUnit)
-	end
-
+	
 	if spawnedUnit:GetName() == "npc_dota_hero_nevermore" then
 		Timers:CreateTimer("auto_necromastery", {
 			useGameTime = true,

@@ -46,6 +46,7 @@ const ITEMS_TYPES = [
 	"Masteries",
 	"Treasures",
 	"Auras",
+	"HeroSkins",
 	"Pets",
 	"KillEffects",
 	"Barrages",
@@ -60,6 +61,8 @@ const ITEMS_TYPES = [
 	"Sprays",
 	"Specials",
 ];
+
+const PERMANENT_SHOW_TYPES = ["Masteries", "Treasures"];
 
 const EQUIPPED = 0;
 const EQUIP = 1;

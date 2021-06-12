@@ -1,0 +1,153 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection.css" />
+		<include src="file://{resources}/layout/custom_game/common/collection/gift_codes/gift_codes.css" />
+		<include src="file://{resources}/layout/custom_game/common/styles/dotau_styles.css" />
+	</styles>
+
+	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/collection_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/gift_codes/gift_codes_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/payments_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/collection/gift_codes/gift_codes.js" />
+	</scripts>
+	
+	<snippets>
+		<snippet name="GiftCode">
+			<Panel class="GiftCode">
+				<Panel id="GiftCode_Root">
+					<Label id="GiftCode_Name"/>
+					<Button id="GiftCode_ValueWrap">
+						<Label id="GiftCode_Value" text="XXXX-XXXX-XXXX-XXXX-XXXX"/>
+					</Button>
+					<Button id="GiftCode_RevealButton">
+						<Label text="#gife_code_reveal"/>
+					</Button>
+					<Label id="GiftCode_Status"/>
+				</Panel>
+				<Panel id="GiftCode_Events">
+					<Button id="GiftCode_ReclaimButton" class="GiftCode_ActionButton PlayerCodeButton">
+						<Label text="#gife_code_reclaim"/>
+					</Button>
+					<Button id="GiftCode_SendButton" class="PlayerCodeButton">
+						<Label text="#gife_code_send_local_lobby"/>
+					</Button>
+					<Panel id="GiftCode_CodeUsed">
+						<Label text="#gift_code_claimed_by"/>
+						<DOTAUserName steamid="local"/>
+					</Panel>
+				</Panel>
+			</Panel>
+		</snippet>
+		<snippet name="PlayerForGift">
+			<Button class="PlayerForGift">
+				<DOTAAvatarImage id="PlayerForGiftAvatar" steamid="local"/>
+				<Panel id="PlayerForGiftInfo">
+					<DOTAUserName id="PlayerGift_SteamName" steamid="local"/>
+					<Label id="PlayerGiftHeroName"/>
+				</Panel>
+			</Button>
+		</snippet>
+	</snippets>
+	
+	<Panel class="GiftCodes_Root" hittest="false">
+		<Panel id="GiftCodes_PanelWrap" hittest="false">
+			<Panel id="GiftCodes_Panel" onactivate="">
+				<Panel id="GiftCodes_Header">
+					<Label id="GiftCodes_HeaderText" text="#gift_codes_header"/>
+					<Button id="CloseGiftCodes" onactivate="CloseGiftCodes()">
+						<Image src="s2r://panorama/images/control_icons/x_close_png.vtex"/>
+						<Label text="#Close" />
+					</Button>
+					<Panel id="GiftCodes_Header_DescriptionRoot">
+						<Panel id="GiftCodes_Header_DescriptionRootTestWrap">
+							<Label text="#gift_codes_description" />
+						</Panel>
+						<Image src="file://{resources}/images/custom_game/collection/gift_codes/gift_codes_letter.png"/>
+					</Panel>
+				</Panel>
+				<Panel id="GiftCodes_RedeemUse">
+					<Panel id="GiftCodes_RedeemRoot">
+						<Label id="GiftCodes_RedeemUseText" text="#gift_codes_redeem_use"/>
+						<TextEntry id="GiftCodes_RedeemUseField" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX" ontextentrychange="HideIncorrectCode();"/>
+						<Button id="GiftCodes_RedeemUseButton" class="GiftCode_ActionButton" onactivate="RedeemNewCode()">
+							<Label text="#gift_code_redeem"/>
+						</Button>
+					</Panel>
+					<Panel id="GiftCodes_RedeemState">
+						<Panel/>
+						<Label text="#gift_code_invalid"/>
+					</Panel>
+				</Panel>
+				<Panel id="GiftCodes_PlayerCodesWrap">
+					<Panel id="GiftCodes_PlayerCodes">
+						<Panel id="GiftCodes_PlayerCodesHeader">
+							<Label id="GiftCodes_PlayerCodes_ItemName" class="GiftCodes_PlayerCodesText" text="#gift_code_item"/>
+							<Panel id="GiftCodes_PlayerCodes_GiftCodeRoot">
+								<Label id="GiftCodes_PlayerCodes_GiftCode" class="GiftCodes_PlayerCodesText" text="#gift_code_code"/>
+								<Label id="GiftCodes_PlayerCodes_GiftCodeCopy" class="GiftCodes_PlayerCodesText" text="#gift_codes_click_to_copy"/>
+							</Panel>
+							<Label id="GiftCodes_PlayerCodes_Status" class="GiftCodes_PlayerCodesText" text="#gift_code_status"/>
+							<Button id="UpdateCodesButton" onactivate="UpdateLocalCodes()">
+								<Image src="s2r://panorama/images/control_icons/refresh_psd.vtex"/>
+								<Label id="GiftCodes_PlayerCodes_Update" class="GiftCodes_PlayerCodesText" text="#gift_code_update"/>
+							</Button>
+						</Panel>
+						<Panel id="GiftCodes_PlayerCodesRoot">
+							<Panel id="GiftCodes_PlayerCodesAvaileble"/>
+							<Panel id="GiftCodes_PlayerCodesSeparator"/>
+							<Panel id="GiftCodes_PlayerCodesClaimed"/>
+						</Panel>
+					</Panel>
+					<Panel class="OverlayShadow_Bottom" hittest="false"/>
+				</Panel>
+			</Panel>
+		</Panel>
+
+		<Panel id="SelfGiftNotificationRoot">
+			<Panel id="SelfGiftNotificationDataRoot">
+				<Label id="SelfGiftNotification_Header" text="#gift_code_self_gift_header"/>
+				<Label id="SelfGiftNotification_ItemName" text="item name from gift"/>
+				<Panel id="SelfGiftPlayerOwner">
+					<Label id="SelfGiftNotification_From" text="#gift_code_self_from"/>
+					<DOTAAvatarImage id="SelfGiftNotification_PlayerAvatar" steamid="local"/>
+					<Panel id="SelfGift_PlayerDataWrap">
+						<DOTAUserName id="PlayerGiftSenderName" steamid="local"/>
+						<Label id="PlayerGiftSenderHero"/>
+					</Panel>
+				</Panel>
+				<Button id="SelfGift_Button" class="GiftCode_ActionButton PlayerCodeButton" onactivate="OpenCollectionFromGiftNoticiation()">
+					<Label text="#gift_code_open_collection"/>
+				</Button>
+			</Panel>
+			<Image src="file://{resources}/images/custom_game/collection/gift_codes/gift_codes_letter.png"/>
+		</Panel>
+		
+		<Panel id="GiftCodeNotificationForAll">
+			<Panel id="GiftCodeNotificationForAll_DataWrap">
+				<Panel id="GiftCodeNotificationForAll_Data">
+					<Label id="GiftCodeNotificationForAll_Sender"/>
+					<Label text="#gift_code_was_sent_to"/>
+					<Label id="GiftCodeNotificationForAll_Target"/>
+					<Label text="!"/>
+				</Panel>
+			</Panel>
+			<Image src="file://{resources}/images/custom_game/collection/gift_codes/gift_codes_letter.png"/>
+		</Panel>
+
+		<Panel id="ArrowRightLeft" src="file://{resources}/images/custom_game/collection/gift_codes/gift_codes_arrow.png"/>
+		<Panel id="SelectLocalGift" onmouseover="ShowLocalGiftCodes()" onmouseout="HideLocalGiftCodes()">
+			<Panel id="LocalPlayersForGiftRoot">
+				<Label id="SelectGift_Header" text="#select_player_for_gift"/>
+				<Label id="SelectGift_Description" text="#player_for_gift_description"/>
+				<Panel id="PlayersForGift_Root"/>
+				<Label id="SelectGift_Warning" text="#player_for_gift_warning"/>
+				<Button id="LocalPlayersGift_SendButton" class="GiftCode_ActionButton" onactivate="SendCodeToLocalPlayer()">
+					<Label text="#gife_code_send_local_lobby"/>
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

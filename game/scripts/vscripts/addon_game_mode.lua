@@ -334,6 +334,7 @@ function COverthrowGameMode:InitGameMode()
 	UniquePortraits:Init()
 	Battlepass:Init()
 	GamePerks:Init()
+	GiftCodes:Init()
 end
 
 ---------------------------------------------------------------------------
@@ -2962,11 +2963,17 @@ RegisterCustomEventListener("patreon_update_chat_wheel_favorites", function(data
 	local playerId = data.PlayerID
 	if not playerId then return end
 
-	if WebApi.playerSettings and WebApi.playerSettings[playerId] then
+	if WebApi.player_settings and WebApi.player_settings[playerId] then
 		local favourites = data.favourites
 		if not favourites then return end
 
-		WebApi.playerSettings[playerId].chatWheelFavourites = favourites
+		local old_settings = CustomNetTables:GetTableValue("player_settings", tostring(playerId))
+		old_settings.chatWheelFavourites = favourites
+
+		CustomNetTables:SetTableValue("player_settings", tostring(playerId), old_settings)
+
+		WebApi.player_settings[data.PlayerID].chatWheelFavourites = favourites
+		
 		WebApi:ScheduleUpdateSettings(playerId)
 	end
 end)

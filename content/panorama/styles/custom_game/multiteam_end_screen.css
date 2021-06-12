@@ -10,7 +10,7 @@
 	text-align: center;
 	padding: 0px 0px 0px 0px;
 	font-size: 10px;
-	background-color: #121A20;
+	background-color: #121a20;
 	vertical-align: bottom;
 }
 
@@ -19,7 +19,7 @@
 	text-align: center;
 	padding: 0px 1px 0px 1px;
 	font-size: 12px;
-	background-color: #121A20;
+	background-color: #121a20;
 	vertical-align: bottom;
 }
 
@@ -71,64 +71,64 @@
 	horizontal-align: right;
 }
 
-.EndScreenRoot
-{
+.EndScreenRoot {
 	width: 100%;
-    height: 100%;
-    background-color: gradient( linear, 0% 0%, 0% 100%, from( #000000FF ), color-stop( 0.12, #000000ff ), color-stop( 0.5, #00000022 ), to( #00000000 ) );
+	height: 100%;
+	background-color: gradient(
+		linear,
+		0% 0%,
+		0% 100%,
+		from(#000000ff),
+		color-stop(0.12, #000000ff),
+		color-stop(0.5, #00000022),
+		to(#00000000)
+	);
 }
 
-#VictoryRow
-{
+#VictoryRow {
 	flow-children: right;
-    horizontal-align: right;
+	horizontal-align: right;
 	margin-right: 8px;
 	margin-bottom: 16px;
 
 	transition-property: opacity, transform;
-    transition-duration: 1s;
+	transition-duration: 1s;
 	opacity: 0;
 	transform: scaleX(0) scaleY(0) translatey(-50px);
 }
 
-.endgame #VictoryRow
-{
+.endgame #VictoryRow {
 	opacity: 1;
 	transform: scaleX(1) scaleY(1);
 }
 
-#WinningTeamLogo
-{
+#WinningTeamLogo {
 	vertical-align: center;
 	margin-right: 16px;
 }
 
-#EndScreenVictory
-{
-    font-size: 64px;
-    color: #cccccc;
+#EndScreenVictory {
+	font-size: 64px;
+	color: #cccccc;
 	vertical-align: center;
 
 	text-transform: uppercase;
 	margin-bottom: -16px;
 }
 
-.EndScreenWindow
-{
-    margin-top: 100px;
-    margin-right: 200px;
-    flow-children: down;
-    horizontal-align: right;
+.EndScreenWindow {
+	margin-top: 100px;
+	margin-right: 200px;
+	flow-children: down;
+	horizontal-align: right;
 	flow-children: down;
 }
 
-.AspectRatio4x3 .EndScreenWindow
-{
-    margin-right: 50px;
+.AspectRatio4x3 .EndScreenWindow {
+	margin-right: 50px;
 }
 
-.EndScreenVictoryRow
-{
+.EndScreenVictoryRow {
 	width: 100%;
 }
 
@@ -165,110 +165,93 @@
 	color: #d4d4d4;
 }
 
-.FlyoutScoreboardRoot.flyout_scoreboard_visible
-{
-    transform: translatey( 0px );
+.FlyoutScoreboardRoot.flyout_scoreboard_visible {
+	transform: translatey(0px);
 }
 
-#TeamsContainer
-{
+#TeamsContainer {
 	horizontal-align: right;
-    flow-children: down;
+	flow-children: down;
 	transition: transform 0.3s ease-in-out 0s;
 }
 .chat {
 	transform: translatey(-390px);
 }
-.FlyoutTeam
-{
+.FlyoutTeam {
 	margin-top: 3px;
 	margin-bottom: 3px;
 
-    transition-property: opacity, transform;
-    transition-duration: 0.5s;
+	transition-property: opacity, transform;
+	transition-duration: 0.5s;
 	opacity: 0;
 	transform: translatey(-50px);
-	
+
 	margin-right: 8px;
 }
 
-.FlyoutTeam.local_player_team
-{
+.FlyoutTeam.local_player_team {
 }
 
-.FlyoutTeam.team_endgame
-{
+.FlyoutTeam.team_endgame {
 	opacity: 1;
 	transform: translatey(0px);
 }
 
-.FlyoutTeam.no_players
-{
+.FlyoutTeam.no_players {
 	visibility: collapse;
 }
 
-.FlyoutTeamData
-{
-    flow-children: right;
+.FlyoutTeamData {
+	flow-children: right;
 }
 
-.TeamInfo
-{
+.TeamInfo {
 	margin-top: 1px;
 	height: 100%;
 }
 
-#TeamColor_GradentFromTransparentLeft
-{
+#TeamColor_GradentFromTransparentLeft {
 	width: 100%;
 	height: 100%;
 }
 
-.FlyoutPlayer
-{ 
-    flow-children: right;
+.FlyoutPlayer {
+	flow-children: right;
 }
 
-.TeamCloseSpacer
-{
+.TeamCloseSpacer {
 }
 
-#PlayersContainer
-{
-    flow-children: down;
+#PlayersContainer {
+	flow-children: down;
 }
 
-.local_player_team #PlayersContainer
-{
-    box-shadow: fill #ffffff40 -3px -3px 3px 6px;
+.local_player_team #PlayersContainer {
+	box-shadow: fill #ffffff40 -3px -3px 3px 6px;
 }
 
-.TeamId
-{
-    flow-children: right;
+.TeamId {
+	flow-children: right;
 }
 
-#TeamLogo
-{
+#TeamLogo {
 	vertical-align: top;
 	horizontal-align: right;
-    height: 30px;
-    width: 30px;
+	height: 30px;
+	width: 30px;
 	margin-top: 2px;
 	margin-right: 2px;
 }
 
-#TeamScorePanel
-{
+#TeamScorePanel {
 	margin-top: 1px;
 	margin-left: 306px;
 	width: 79px;
 	height: 100%;
-    background-color: BACKGROUND_COLOR;
+	background-color: BACKGROUND_COLOR;
 }
 
-#TeamScore
-{
+#TeamScore {
 	vertical-align: center;
 	horizontal-align: center;
 	color: #cccccc;
@@ -278,90 +261,77 @@
 	margin-top: -2px;
 }
 
-.one_player #TeamScore
-{
+.one_player #TeamScore {
 	font-size: 30px;
 }
 
-.local_player_team #TeamScore
-{
+.local_player_team #TeamScore {
 	color: white;
 }
 
-.Legend
-{
+.Legend {
 	flow-children: right;
 	horizontal-align: right;
 	margin-right: 8px;
 }
 
-.Legend Label
-{
+.Legend Label {
 	text-transform: uppercase;
 	font-size: 12px;
 	color: #90999b;
 }
 
-.PlayerRow
-{
+.PlayerRow {
 	height: 32px;
 }
 
-#PlayerRowContainer
-{
+#PlayerRowContainer {
 	flow-children: right;
 	height: 32px;
 }
 
-#HeroIcon
-{
-    vertical-align: middle;
+#HeroIcon {
+	vertical-align: middle;
 	border: 1px solid black;
 }
 
 #LevelContainer,
 #KillsContainer,
 #DeathsContainer,
-#AssistsContainer
-{
+#AssistsContainer {
 	height: 100%;
 }
 
-.ScoreboardPanel
-{
-    background-color: BACKGROUND_COLOR;
+.ScoreboardPanel {
+	background-color: BACKGROUND_COLOR;
 	margin-top: 1px;
 	margin-left: 1px;
 	height: 100%;
 }
 
-.LegendPanel
-{
+.LegendPanel {
 	margin-top: 1px;
 	margin-left: 1px;
 }
 
-.ScoreboardPanel Label
-{
+.ScoreboardPanel Label {
 	font-size: 30px;
 	text-shadow: 2px 2px 2px black;
 	margin-top: -2px;
 }
 
-.UltimateIndicatorShared
-{
+.UltimateIndicatorShared {
 	margin-left: 44px;
 	margin-top: 2px;
 	vertical-align: center;
 	width: 20px;
 	height: 20px;
-    background-size: 20px;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
 }
 
-#Level
-{
+#Level {
 	vertical-align: middle;
 	horizontal-align: center;
 	color: #898b8c;
@@ -370,8 +340,7 @@
 #Kills,
 #Deaths,
 #Assists,
-#PlayerGoldAmount
-{
+#PlayerGoldAmount {
 	horizontal-align: center;
 	vertical-align: center;
 	text-align: center;
@@ -379,12 +348,10 @@
 	margin-top: 3px;
 }
 
-#PlayerGoldAmount
-{
+#PlayerGoldAmount {
 }
 
-#PlayerName
-{
+#PlayerName {
 	font-size: 14px;
 	font-weight: bold;
 	margin-bottom: -4px;
@@ -394,8 +361,7 @@
 	white-space: nowrap;
 }
 
-#HeroNameAndDescription
-{
+#HeroNameAndDescription {
 	padding-left: 4px;
 	font-size: 13px;
 	text-shadow: 2px 2px 2px black;
@@ -404,79 +370,64 @@
 	vertical-align: bottom;
 }
 
-#PlayerDetailsContainer
-{
+#PlayerDetailsContainer {
 	height: 100%;
 }
 
-#PlayerAndHeroName
-{
+#PlayerAndHeroName {
 	height: 100%;
 }
 
-#PlayerItemsContainer
-{
+#PlayerItemsContainer {
 	flow-children: right;
 }
 
-#PlayerItemsContainer Image
-{
+#PlayerItemsContainer Image {
 	margin: 1px;
 	width: 41px;
 	height: 30px;
 	background-color: BACKGROUND_COLOR;
 }
 
-
-
-.is_local_player Label
-{
+.is_local_player Label {
 	color: white;
 }
 
-.ScoreCol_TeamInfo
-{
+.ScoreCol_TeamInfo {
 	width: 80px;
 }
 
-.ScoreCol_PlayerDetails
-{
+.ScoreCol_PlayerDetails {
 	width: 170px;
 }
 
-.ScoreCol_TeamScore
-{
+.ScoreCol_TeamScore {
 	width: 80px;
 	text-align: center;
 }
 
-.ScoreCol_Hero
-{
+.ScoreCol_Hero {
 	width: 53px;
 }
 
-.ScoreCol_Level
-{
+.ScoreCol_Level {
 	width: 50px;
 	text-align: center;
 }
 
 .ScoreCol_Kills,
 .ScoreCol_Deaths,
-.ScoreCol_Assists
-{
+.ScoreCol_Assists {
 	width: 50px;
 	text-align: center;
 }
 
-.ScoreCol_Items
-{
+.ScoreCol_Items {
 	width: 258px;
 	text-align: center;
 }
 
-.ScoreCol_Gold
-{
+.ScoreCol_Gold {
 	width: 70px;
 	text-align: center;
 }

@@ -38,7 +38,7 @@ function modifier_cosmetic_pet:OnIntervalThink()
 		local ownerDir = owner:GetForwardVector()
 		local dir = ownerDir * RandomInt( MIN_DISTANCE_MOVE, MAX_DISTANCE_MOVE )
 
-		if owner:IsInvisible() then
+		if owner and owner:IsInvisible() then
 			pet:AddNewModifier(pet, nil, "modifier_invisible", {})
 		elseif pet:HasModifier("modifier_invisible") then
 			pet:RemoveModifierByName("modifier_invisible")

@@ -2,21 +2,21 @@ spray_custom = {}
 
 function spray_custom:OnSpellStart()
 	local playerId = self:GetCaster():GetPlayerOwnerID()
-	
+
 	local hero = PlayerResource:GetSelectedHeroEntity( playerId )
-	local data = WearFunc.Sprays[playerId]
+	local data = WearFunc[CHC_ITEM_TYPE_SPRAYS][playerId]
 
 	if not hero or not data then
 		return
 	end
-	
+
 	local pos = self:GetCursorPosition()
 
 	if (pos-hero:GetAbsOrigin()):Length2D() > self:GetCastRange(hero:GetOrigin(), hero) then
 		self:EndCooldown()
 		return
 	end
-	
+
 	if data.particle then
 		ParticleManager:DestroyParticle( data.particle, true )
 		ParticleManager:ReleaseParticleIndex( data.particle )
@@ -30,7 +30,7 @@ function spray_custom:OnSpellStart()
 	ParticleManager:SetParticleControl( effect, 0, pos )
 
 	local spray = ParticleManager:CreateParticle(
-		BP_Inventory.item_definitions[data.itemName].Particles["1"].ParticleName,
+		BP_Inventory.item_definitions[data.item_name].Particles["1"].ParticleName,
 		PATTACH_WORLDORIGIN,
 		nil
 	)

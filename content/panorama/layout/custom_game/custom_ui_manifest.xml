@@ -5,6 +5,7 @@
 		<include src="file://{resources}/layout/custom_game/common/override_courier_ui.js" />
 		<include src="file://{resources}/layout/custom_game/common/display_error.js" />
 		<include src="file://{resources}/layout/custom_game/common/debug_message.js" />
+		<include src="file://{resources}/layout/custom_game/common/custom_chat.js" />
 	</scripts>
 
 	<script>
@@ -90,6 +91,7 @@
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/collection/collection.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/cosmetic_abilities/cosmetic_abilities.xml"/>
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/feedback/feedback.xml" />
+		<CustomUIElement type="Hud" 				layoutfile="file://{resources}/layout/custom_game/common/collection/gift_codes/gift_codes.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/fix_custom_game/fix_custom_game.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/common/minimap_overlay/minimap_overlay.xml" />
 		<CustomUIElement type="Hud"					layoutfile="file://{resources}/layout/custom_game/leaderboard/leaderboard.xml"/>

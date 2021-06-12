@@ -4,223 +4,291 @@ LinkLuaModifier("modifier_dummy_caster", "common/battlepass/inventory/modifiers/
 LinkLuaModifier("modifier_cosmetic_pet_flying_visual", "common/battlepass/inventory/modifiers/modifier_cosmetic_pet_flying_visual", LUA_MODIFIER_MOTION_NONE)
 
 function WearFunc:Init()
-	for category, _ in pairs(BP_Inventory.categories) do
+	self.cooldown_for_kill_effects = {}
+
+	for _, category in pairs(BP_Inventory.categories) do
 		WearFunc[category] = {}
 	end
+	-- Just a crutch
+	WearFunc.Masteries = {}
 	ListenToGameEvent( "entity_killed", Dynamic_Wrap( self, "OnEntityKilled" ), self )
 end
 
-function WearFunc:OnEntityKilled(data)
-	local hKilledUnit = data.entindex_killed and EntIndexToHScript(data.entindex_killed)
-	local hAttackerUnit = data.entindex_attacker and EntIndexToHScript( data.entindex_attacker )
-	if hAttackerUnit and hKilledUnit and hKilledUnit.IsRealHero and hKilledUnit:IsRealHero() then
-		WearFunc:CreateKilledEffect(hAttackerUnit, hKilledUnit)
-	end
-end
+function WearFunc:EquipItemInCategory(player_id, category, item_name)
+	if not player_id or not category then return end
 
-function WearFunc.Equip_CosmeticAbilities(playerId, itemName)
-	if WearFunc.CosmeticAbilities[playerId] and WearFunc.CosmeticAbilities[playerId] ~= itemName then
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.CosmeticAbilities[playerId] })
-	end
-	WearFunc.CosmeticAbilities[playerId] = itemName
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+	if not hero then return end
 
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	hero.dummyCaster:RemoveAbility( "default_cosmetic_ability" )
-	Cosmetics:AddAbility(hero.dummyCaster, itemName)
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "cosmetic_abilities:update_ability", {ability = itemName})
-end
+	if not WearFunc[category] then return end
 
-function WearFunc.TakeOff_CosmeticAbilities(playerId)
-	if not WearFunc.CosmeticAbilities[playerId] then return end
-	local abilityName = WearFunc.CosmeticAbilities[playerId]
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	hero.dummyCaster:RemoveAbility( abilityName )
-	Cosmetics:AddAbility(hero.dummyCaster, "default_cosmetic_ability")
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "cosmetic_abilities:update_ability", {ability = "default_cosmetic_ability"})
-end
-
-function WearFunc.Equip_Barrages(playerId, itemName)
-	if WearFunc.Barrages[playerId] and WearFunc.Barrages[playerId] ~= itemName then
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.Barrages[playerId] })
-	end
-	WearFunc.Barrages[playerId] = itemName
-	CustomNetTables:SetTableValue("player_settings", "barrageEffects_" .. playerId, { barrageCosmeticEffect = itemName })
-end
-
-function WearFunc.TakeOff_Barrages(playerId)
-	CustomNetTables:SetTableValue("player_settings", "barrageEffects_" .. playerId, { barrageCosmeticEffect = nil })
-end
-
-function WearFunc:CreateKilledEffect(killer, killedUnit)
-	if not killer or not killer.GetPlayerOwnerID then return end
-	local playerId = killer:GetPlayerOwnerID()
-	if not WearFunc.KillEffects[playerId] then return end
-	if WearFunc.KillEffects[playerId] and WearFunc.KillEffects[playerId].particles then
-		WearFunc:_CreateParticlesFromConfigList(WearFunc.KillEffects[playerId].particles, killedUnit)
-	end
-end
-
-function WearFunc.Equip_KillEffects(playerId, itemName)
-	if not WearFunc.KillEffects[playerId] then
-		WearFunc.KillEffects[playerId] = {}
-	else
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.KillEffects[playerId].itemName })
-	end
-	WearFunc.KillEffects[playerId].itemName = itemName
-	WearFunc.KillEffects[playerId].particles = BP_Inventory.item_definitions[itemName].Particles
-end
-
-function WearFunc.TakeOff_KillEffects(playerId)
-	if not WearFunc.KillEffects[playerId] then return end
-	WearFunc.KillEffects[playerId] = {}
-end
-
-function WearFunc.TakeOff_Auras(playerId)
-	if not WearFunc.Auras[playerId] then return end
-	if WearFunc.Auras[playerId].equippedParticles then
-		for _, particle in pairs(WearFunc.Auras[playerId].equippedParticles) do
-			ParticleManager:DestroyParticle(particle, true)
-			ParticleManager:ReleaseParticleIndex( particle )
+	local init_category_for_player = function(t)
+		if not WearFunc[category][player_id] then
+			WearFunc[category][player_id] = t
+			return false
 		end
-	end
-	WearFunc.Auras[playerId] = {}
-end
-
-function WearFunc.Equip_Auras(playerId, itemName)
-	if not WearFunc.Auras[playerId] then
-		WearFunc.Auras[playerId] = {}
-	else
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.Auras[playerId].itemName })
+		return true
 	end
 
-	local particles = BP_Inventory.item_definitions[itemName].Particles
-	WearFunc.Auras[playerId].itemName = itemName
-	WearFunc.Auras[playerId].equippedParticles = {}
-	WearFunc:_CreateParticlesFromConfigList(particles, PlayerResource:GetSelectedHeroEntity(playerId), WearFunc.Auras[playerId].equippedParticles)
-end
+	if category == CHC_ITEM_TYPE_MASTERIES then
+		local itemLevel = BP_Masteries:GetMasteryLevel(player_id, item_name);
+		if itemLevel < 1 then return end
 
-function WearFunc.TakeOff_Pets(playerId)
-	if not WearFunc.Pets[playerId] then return end
-	local pet = WearFunc.Pets[playerId].unit
-	if pet then
-		local destoryPetParticle = ParticleManager:CreateParticle( "particles/units/heroes/hero_monkey_king/monkey_king_disguise_smoke_top.vpcf", PATTACH_WORLDORIGIN, nil )
-		ParticleManager:SetParticleControl( destoryPetParticle, 0, pet:GetAbsOrigin() )
-		ParticleManager:ReleaseParticleIndex( destoryPetParticle )
-		if not pet.notRemove then
-			pet:RemoveNoDraw()
-			pet:Destroy()
+		local current_masteries_count = BP_Masteries.players_current_masteries_count[player_id]
+		if current_masteries_count >= BP_Masteries.players_masteries_count[player_id] then
+			return
 		end
+
+		init_category_for_player({})
+
+		BP_Masteries.players_current_masteries_count[player_id] = current_masteries_count + 1
+		table.insert(WearFunc[category][player_id], item_name)
+		BP_Masteries:EquipMastery(hero, item_name, itemLevel)
+		BP_Masteries:UpdateEquippedMastery(player_id)
+		return
 	end
 
-	if WearFunc.Pets[playerId].particles then
-		for _, particle in pairs(WearFunc.Pets[playerId].particles) do
-			ParticleManager:DestroyParticle(particle, true)
-			ParticleManager:ReleaseParticleIndex( particle )
+	if category == CHC_ITEM_TYPE_AURAS then
+		if init_category_for_player({}) then
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id].item_name })
 		end
+
+		local particles = BP_Inventory.item_definitions[item_name].Particles
+		WearFunc[category][player_id].item_name = item_name
+		WearFunc[category][player_id].equipped_particles = {}
+		WearFunc:_CreateParticlesFromConfigList(particles, PlayerResource:GetSelectedHeroEntity(player_id), WearFunc[category][player_id].equipped_particles)
+		return
 	end
-	WearFunc.Pets[playerId].unit = nil
+
+	if category == CHC_ITEM_TYPE_HERO_SKINS then
+		if init_category_for_player({}) then
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id].item_name })
+		end
+
+		WearFunc[category][player_id].item_name = item_name
+		hero:AddNewModifier(hero, nil, "modifier_cosmetic_skin_"..item_name, {})
+		return
+	end
+
+	if category == CHC_ITEM_TYPE_PETS then
+		init_category_for_player( { particles = {} })
+
+		local old_pet = WearFunc[category][player_id].unit
+		local old_pet_pos
+		local old_pet_dir
+		local pet_data = BP_Inventory.item_definitions[item_name]
+		local pet
+		if old_pet then
+			old_pet_pos = old_pet:GetAbsOrigin()
+			old_pet_dir = old_pet:GetForwardVector()
+			old_pet.notRemove = true;
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id].item_name})
+			pet = old_pet
+			pet:StartGesture( ACT_DOTA_SPAWN );
+			pet.notRemove = nil;
+		else
+			pet = CreateUnitByName("npc_cosmetic_pet", old_pet_pos or hero:GetAbsOrigin() + RandomVector(RandomInt(100, 160)), true, hero, hero, hero:GetTeam())
+		end
+
+		pet:SetForwardVector(old_pet_dir or hero:GetAbsOrigin())
+		pet:AddNewModifier(pet, nil, "modifier_cosmetic_pet", { hero = PlayerResource:GetSelectedHeroEntity(player_id) })
+		pet:SetModel(pet_data.Model)
+		pet:SetOriginalModel(pet_data.Model)
+		pet:SetModelScale(pet_data.ModelScale)
+
+		if pet_data.MaterialGroup then
+			pet:SetMaterialGroup(tostring(pet_data.MaterialGroup))
+		end
+
+		if pet_data.IsFlying then
+			pet:AddNewModifier(pet, nil, "modifier_cosmetic_pet_flying_visual", {})
+		end
+
+		if pet_data.Particles then
+			WearFunc:_CreateParticlesFromConfigList(pet_data.Particles, pet, WearFunc[category][player_id].particles)
+		end
+		WearFunc[category][player_id].item_name = item_name
+		WearFunc[category][player_id].unit = pet
+		return
+	end
+
+	if category == CHC_ITEM_TYPE_KILL_EFFECTS then
+		if init_category_for_player({}) then
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id].item_name })
+		end
+		WearFunc[category][player_id].item_name = item_name
+		WearFunc[category][player_id].particles = BP_Inventory.item_definitions[item_name].Particles
+		return
+	end
+
+	if category == CHC_ITEM_TYPE_BARRAGES then
+		if WearFunc[category][player_id] and WearFunc[category][player_id] ~= item_name then
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id] })
+		end
+		WearFunc[category][player_id] = item_name
+		CustomNetTables:SetTableValue("player_settings", "barrageEffects_" .. player_id, { barrageCosmeticEffect = item_name })
+		return
+	end
+
+	if category == CHC_ITEM_TYPE_COSMETIC_ABILITIES then
+		if not hero.dummy_caster then return end
+
+		if WearFunc[category][player_id] and WearFunc[category][player_id] ~= item_name then
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id] })
+		end
+		WearFunc[category][player_id] = item_name
+
+		hero.dummy_caster:RemoveAbility( "default_cosmetic_ability" )
+		Cosmetics:AddAbility(hero.dummy_caster, item_name)
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "cosmetic_abilities:update_ability", {ability = item_name})
+		return
+	end
+
+	if category == CHC_ITEM_TYPE_SPRAYS then
+		if init_category_for_player({ item_name = item_name }) then
+			BP_Inventory:TakeOffItem({ PlayerID = player_id, item_name = WearFunc[category][player_id].item_name})
+			WearFunc[category][player_id].item_name = item_name
+		end
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "cosmetic_abilities:update_spray", {spray = item_name})
+		return
+	end
 end
 
-function WearFunc.Equip_Pets(playerId, itemName)
-	if not WearFunc.Pets[playerId] then
-		WearFunc.Pets[playerId] = { particles = {} }
+function WearFunc:TakeOffItemInCategory(player_id, category, item_name)
+	if not player_id or not category then return end
+
+	local hero = PlayerResource:GetSelectedHeroEntity(player_id)
+	if not hero then return end
+
+	local category_table = WearFunc[category]
+	if not category_table then return end
+
+	if not WearFunc[category][player_id] then return end
+
+	if category == CHC_ITEM_TYPE_MASTERIES then
+		for _, masteryName in pairs(WearFunc[category][player_id]) do
+			BP_Masteries:TakeOffMastery(hero, masteryName)
+		end
+		BP_Masteries.players_current_masteries_count[player_id] = 0
+		WearFunc[category][player_id] = {}
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "masteries:take_off_mastery", {})
+
+		CustomGameEventManager:Send_ServerToAllClients("masteries:update_public_masteries", {
+			masteries = {[player_id] = {}};
+		})
+
+		return
 	end
 
-	local oldPet = WearFunc.Pets[playerId] and WearFunc.Pets[playerId].unit
-	local oldPetPos
-	local oldPetDir
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	local petData = BP_Inventory.item_definitions[itemName]
-	local pet
-	if oldPet then
-		oldPetPos = oldPet:GetAbsOrigin()
-		oldPetDir = oldPet:GetForwardVector()
-		oldPet.notRemove = true;
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.Pets[playerId].itemName})
-		pet = oldPet
-		pet:StartGesture( ACT_DOTA_SPAWN );
-		pet.notRemove = nil;
-	else
-		pet = CreateUnitByName("npc_cosmetic_pet", oldPetPos or hero:GetAbsOrigin() + RandomVector(RandomInt(100, 160)), true, hero, hero, hero:GetTeam())
-	end
-
-	pet:SetForwardVector(oldPetDir or hero:GetAbsOrigin())
-	pet:AddNewModifier(pet, nil, "modifier_cosmetic_pet", { hero = PlayerResource:GetSelectedHeroEntity(playerId) })
-	pet:SetModel(petData.Model)
-	pet:SetOriginalModel(petData.Model)
-	pet:SetModelScale(petData.ModelScale)
-
-	if petData.MaterialGroup then
-		pet:SetMaterialGroup(tostring(petData.MaterialGroup))
-	end
-
-	if petData.IsFlying then
-		pet:AddNewModifier(pet, nil, "modifier_cosmetic_pet_flying_visual", {})
-	end
-
-	if petData.Particles then
-		WearFunc:_CreateParticlesFromConfigList(petData.Particles, pet, WearFunc.Pets[playerId].particles)
-	end
-	WearFunc.Pets[playerId].itemName = itemName
-	WearFunc.Pets[playerId].unit = pet
-end
-
-function WearFunc.Equip_Sprays( playerId, itemName )
-	if not WearFunc.Sprays[playerId] then
-		WearFunc.Sprays[playerId] = {
-			itemName = itemName
-		}
-	else
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.Sprays[playerId].itemName})
-		WearFunc.Sprays[playerId].itemName = itemName
-	end
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "cosmetic_abilities:update_spray", {spray = itemName})
-end
-
-function WearFunc.TakeOff_Sprays(playerId)
-	if not WearFunc.Sprays[playerId] then return end
-	WearFunc.Sprays[playerId].itemName = nil
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "cosmetic_abilities:update_spray", {spray = ""})
-end
-
-function WearFunc.Equip_Masteries(playerId, itemName)
-	local itemLevel = BP_Masteries:GetMasteryLevel(playerId, itemName);
-	if itemLevel < 1 then return end
-	if not WearFunc.Masteries[playerId] then
-		WearFunc.Masteries[playerId] = {
-			itemName = itemName
-		}
-	else
-		BP_Inventory:TakeOffItem({ PlayerID = playerId, itemName = WearFunc.Masteries[playerId].itemName})
-		WearFunc.Masteries[playerId].itemName = itemName
-	end
-
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	BP_Masteries:EquipMastery(hero, itemName, itemLevel)
-	BP_Masteries:UpdateEquippedMastery(playerId)
-end
-
-function WearFunc.TakeOff_Masteries(playerId)
-	if not WearFunc.Masteries[playerId] then return end
-	local hero = PlayerResource:GetSelectedHeroEntity(playerId)
-	BP_Masteries:TakeOffMastery(hero, WearFunc.Masteries[playerId].itemName)
-	WearFunc.Masteries[playerId].itemName = nil
-	CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(playerId), "masteries:take_off_mastery", {})
-end
-
-function WearFunc:_CreateParticlesFromConfigList(particlesData, target, saveData)
-	for _, particleData in pairs(particlesData) do
-		local particle = ParticleManager:CreateParticle(particleData.ParticleName, _G[particleData.ParticleAttach], target)
-		if particleData.CP then
-			for number, cp in pairs(particleData.CP) do
-				number = tonumber(number)
-				ParticleManager:SetParticleControlEnt(particle, number, target, _G[particleData.ParticleAttach], cp.attachment, target:GetAbsOrigin(), true)
+	if category == CHC_ITEM_TYPE_AURAS then
+		if WearFunc[category][player_id].equipped_particles then
+			for _, particle in pairs(WearFunc[category][player_id].equipped_particles) do
+				ParticleManager:DestroyParticle(particle, true)
+				ParticleManager:ReleaseParticleIndex( particle )
 			end
 		end
-		if saveData then
-			table.insert(saveData, particle)
+		WearFunc[category][player_id] = {}
+		return
+	end
+
+	if category == CHC_ITEM_TYPE_HERO_SKINS then
+		if hero then hero:RemoveModifierByName("modifier_cosmetic_skin_"..WearFunc[category][player_id].item_name) end
+		WearFunc[category][player_id] = {}
+		return
+	end
+	if category == CHC_ITEM_TYPE_PETS then
+		local pet = WearFunc[category][player_id].unit
+		if pet then
+			local destory_pet_particle = ParticleManager:CreateParticle( "particles/units/heroes/hero_monkey_king/monkey_king_disguise_smoke_top.vpcf", PATTACH_WORLDORIGIN, nil )
+			ParticleManager:SetParticleControl( destory_pet_particle, 0, pet:GetAbsOrigin() )
+			ParticleManager:ReleaseParticleIndex( destory_pet_particle )
+			if not pet.notRemove then
+				pet:RemoveNoDraw()
+				pet:Destroy()
+			end
+		end
+
+		if WearFunc[category][player_id].particles then
+			for _, particle in pairs(WearFunc[category][player_id].particles) do
+				ParticleManager:DestroyParticle(particle, true)
+				ParticleManager:ReleaseParticleIndex( particle )
+			end
+		end
+
+		WearFunc[category][player_id].unit = nil
+		return
+	end
+	if category == CHC_ITEM_TYPE_KILL_EFFECTS then
+		WearFunc[category][player_id] = {}
+		return
+	end
+	if category == CHC_ITEM_TYPE_BARRAGES then
+		CustomNetTables:SetTableValue("player_settings", "barrageEffects_" .. player_id, { barrageCosmeticEffect = nil })
+		return
+	end
+	if category == CHC_ITEM_TYPE_COSMETIC_ABILITIES then
+		hero.dummy_caster:RemoveAbility( WearFunc[category][player_id] )
+		Cosmetics:AddAbility(hero.dummy_caster, "default_cosmetic_ability")
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "cosmetic_abilities:update_ability", {ability = "default_cosmetic_ability"})
+		return
+	end
+	if category == CHC_ITEM_TYPE_SPRAYS then
+		WearFunc[category][player_id].item_name = nil
+		CustomGameEventManager:Send_ServerToPlayer(PlayerResource:GetPlayer(player_id), "cosmetic_abilities:update_spray", {spray = ""})
+		return
+	end
+end
+
+
+function WearFunc:CreateKilledEffect(killer, killedUnit)
+	local category_table = WearFunc[CHC_ITEM_TYPE_KILL_EFFECTS]
+	if not category_table then return end
+	if not killer or not killer.GetPlayerOwnerID then return end
+
+	local player_id = killer:GetPlayerOwnerID()
+
+	if WearFunc[CHC_ITEM_TYPE_KILL_EFFECTS][player_id]
+		and WearFunc[CHC_ITEM_TYPE_KILL_EFFECTS][player_id].particles then
+		WearFunc:_CreateParticlesFromConfigList(WearFunc[CHC_ITEM_TYPE_KILL_EFFECTS][player_id].particles, killedUnit)
+	end
+end
+
+function WearFunc:_CreateParticlesFromConfigList(particles_data, target, save_data)
+	for _, partcile_data in pairs(particles_data) do
+		local particle = ParticleManager:CreateParticle(partcile_data.ParticleName, _G[partcile_data.ParticleAttach], target)
+		if partcile_data.CP then
+			for number, cp in pairs(partcile_data.CP) do
+				number = tonumber(number)
+				ParticleManager:SetParticleControlEnt(particle, number, target, _G[partcile_data.ParticleAttach], cp.attachment, target:GetAbsOrigin(), true)
+			end
+		end
+		if save_data then
+			table.insert(save_data, particle)
 		else
 			ParticleManager:ReleaseParticleIndex(particle)
+		end
+	end
+end
+
+function WearFunc:OnEntityKilled(data)
+	local killed_unit = data.entindex_killed and EntIndexToHScript(data.entindex_killed)
+	local attacker_unit = data.entindex_attacker and EntIndexToHScript( data.entindex_attacker )
+
+	if attacker_unit and killed_unit then
+		if killed_unit.IsRealHero and killed_unit:IsRealHero() then
+			self:CreateKilledEffect(attacker_unit, killed_unit)
+		else
+			local player_id = attacker_unit.GetPlayerOwnerID and attacker_unit:GetPlayerOwnerID()
+			if player_id then
+				local last_time_kill_effect = self.cooldown_for_kill_effects[player_id]
+				local gameTime = GameRules:GetGameTime()
+
+				-- Cooldown for kill effect for NON hero kills
+				if not last_time_kill_effect or ((gameTime - last_time_kill_effect) > 10) then
+					self.cooldown_for_kill_effects[player_id] = gameTime
+					self:CreateKilledEffect(attacker_unit, killed_unit)
+				end
+			end
 		end
 	end
 end

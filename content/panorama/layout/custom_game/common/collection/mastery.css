@@ -97,10 +97,13 @@
 .MasteryTier_2 #MasteryBackground {
 	background-image: url("file://{images}/custom_game/collection/mastery/mastery_poligon_tier_3.png");
 }
-#MasteriesAbilitiesListRoot {
+#MasteriesAbilitiesListWrap {
 	height: 348px;
 	width: 100%;
-	box-shadow: inset rgba(0, 0, 0, 0.7) -15px -47px 10px -42px;
+}
+#MasteriesAbilitiesListRoot {
+	height: 100%;
+	width: 100%;
 	overflow: squish scroll;
 }
 #MasteriesAbilitiesList {

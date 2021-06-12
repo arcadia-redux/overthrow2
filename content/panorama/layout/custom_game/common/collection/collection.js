@@ -11,12 +11,14 @@ let stopWheelSchelude;
 let spinSound;
 let spinEndSound;
 let treasureGlowSchelude;
+let isGiftCode = false;
 
 let currentSorting = "default";
 let lastPreviewPanel = "";
 
 const treasuresPreviewRoot = $("#TreasuresPreviewRoot");
 const COLLECTION_DOTAU = $("#CollectionDotaU");
+const giftCodeChecker = $("#GiftCodePaymentFlag");
 
 function OpenTreasurePreview(treasureName) {
 	Game.EmitSound("ui.treasure_unlock.wav");
@@ -73,7 +75,7 @@ function _ChangeItemEquipState(itemName, equipState) {
 	Game.EmitSound(equipState ? "ui.inv_equip" : "ui.inv_unequip");
 	GameEvents.SendCustomGameEventToServer(
 		equipState ? "battlepass_inventory:equip_item" : "battlepass_inventory:take_off_item",
-		{ itemName: itemName },
+		{ item_name: itemName },
 	);
 }
 const ITEM_BUTTON_FUNCTIONS = {
@@ -97,6 +99,8 @@ const ITEM_BUTTON_FUNCTIONS = {
 
 function SetPaymentVisible(state) {
 	$("#CollectionPayment").SetHasClass("show", state);
+	giftCodeChecker.SetSelected(false);
+	isGiftCode = false;
 }
 
 function ParseBigNumber(x) {
@@ -151,6 +155,11 @@ function AddItemToAvailebleList(itemName, state, count) {
 	itemPanel.count = count;
 	if (itemPanel.season) itemPanel.visible = true;
 	itemPanel.FindChildTraverse("ItemActionButton").style.washColor = null;
+
+	if (itemPanel.sourceClassName == "Other") {
+		$(`#ItemType_${itemPanel.category}`).AddClass("NotOtherOnly");
+	}
+
 	const itemPreviewPanel = $("#ItemPreview_" + itemName);
 	if (!itemPreviewPanel) return;
 	itemPreviewPanel.RemoveClass("BW");
@@ -229,6 +238,9 @@ function SetItemToNotAvailebleList(itemName) {
 	}
 
 	item.sourceClassName = sourceClassName;
+	if (sourceClassName != "Other") {
+		$(`#ItemType_${item.category}`).AddClass("NotOtherOnly");
+	}
 	item.AddClass(sourceClassName);
 
 	const itemCountText = item.FindChildTraverse("ItemCount");
@@ -259,7 +271,7 @@ function UpdatePlayerItems(data) {
 		.Children()
 		.forEach((panel, index) => {
 			const tabPanel = $("#ItemsTypesList").GetChild(index);
-			tabPanel.SetHasClass("IsHasAvailbleItems", index < 2);
+			tabPanel.SetHasClass("IsHasAvailbleItems", PERMANENT_SHOW_TYPES.indexOf(ITEMS_TYPES[index]) > -1);
 			const itemParent = panel.FindChildTraverse("Items");
 			const items = itemParent.Children();
 			for (const item of items) {
@@ -350,14 +362,17 @@ function ShowBoostInfo(boostName) {
 	$("#" + boostName).SetHasClass("Active", true);
 }
 
+const GIFT_CODE_CHECKER = $("#GiftCodePaymentFlag");
 function _CreatePurchaseAccess(name, imagePath, headerKey, descKey, price) {
 	$("#PatreonPaymentButton").visible = name == "base_booster" || name == "golden_booster";
 	$("#PurchasingHeader").text = $.Localize("#" + headerKey);
 	$("#PurchasingDescription").text = $.Localize("#" + descKey);
+	GIFT_CODE_CHECKER.visible = true;
 	let priceValue = 0;
 	let newPayment = name;
 	if (PAYMENT_VALUES[name]) {
 		if (PAYMENT_VALUES[name].price) priceValue = PAYMENT_VALUES[name].price;
+		if (PAYMENT_VALUES[name].no_gifteable) GIFT_CODE_CHECKER.visible = false;
 	} else if ($("#Item_" + name) != undefined) {
 		newPayment = "purchase_" + name;
 		priceValue = Math.round($("#Item_" + name).sourceValue * 100) / 100;
@@ -367,6 +382,7 @@ function _CreatePurchaseAccess(name, imagePath, headerKey, descKey, price) {
 	$("#Price").SetDialogVariable("price", GetLocalPrice(priceValue));
 	$("#Price").SetDialogVariable("paySymbol", $.Localize("#paySymbol"));
 	$("#PurchasingIcon").SetImage(imagePath);
+
 	SetPaymentVisible(true);
 }
 
@@ -992,6 +1008,10 @@ function OpenSpecificCollection(data) {
 function SelectSprays() {
 	COLLECTION_DOTAU.SetHasClass("show", true);
 	SelectItemType("Sprays");
+}
+
+function OpenGiftCodes() {
+	FindDotaHudElement("GiftCodes_PanelWrap").SetHasClass("Show", true);
 }
 
 (function () {

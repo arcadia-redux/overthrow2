@@ -7,6 +7,7 @@ function setPaymentWindowStatus(state) {
 	const hid = $("#PaymentWindow").BHasClass("Hidden");
 	const visible = state !== "closed";
 	$("#PaymentWindow").SetHasClass("Hidden", !visible);
+	$("#PaymentWindowHTML_Loading").visible = state == "html";
 	GameEvents.SendCustomGameEventToServer("payments:window", { visible });
 	$("#PaymentWindowLoader").visible = state === "loading";
 	$("#PaymentWindowHTML").visible = state === "html";
@@ -24,6 +25,10 @@ const createPaymentRequest = createEventRequestCreator("payments:create");
 let paymentWindowUpdateListener;
 /** @type {ScheduleID} */
 let paymentWindowPostUpdateTimer;
+
+function UpdateGiftCodeState() {
+	isGiftCode = giftCodeChecker.IsSelected();
+}
 
 /** @type {"wechat" | "alipay" | "checkout"} */
 function updatePaymentWindow(method) {
@@ -43,7 +48,7 @@ function updatePaymentWindow(method) {
 
 	setPaymentWindowStatus("loading");
 
-	paymentWindowUpdateListener = createPaymentRequest({ method, paymentKind }, (response) => {
+	paymentWindowUpdateListener = createPaymentRequest({ method, paymentKind, isGiftCode }, (response) => {
 		if (response.url == null) {
 			setPaymentWindowStatus({ error: response.error || "Unknown error" });
 			return;
