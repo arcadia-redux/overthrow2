@@ -100,11 +100,11 @@ function WebApi:BeforeMatch()
 			if player.masteries then
 				BP_Masteries:SetMasteriesForPlayer(playerId, player.masteries)
 			end
-			
+
 			if player.gift_codes then
 				GiftCodes:SetCodesForPlayer(playerId, player.gift_codes)
 			end
-			
+
 			if player.settings then
 				WebApi.player_settings[playerId] = player.settings
 				CustomNetTables:SetTableValue("player_settings", tostring(playerId), player.settings)
@@ -122,7 +122,7 @@ function WebApi:BeforeMatch()
 				loses = player.stats.loses,
 				rating = player.rating,
 			}
-			SmartRandom:SetPlayerInfo(playerId, nil, "no_stats") -- TODO: either make working or get rid of it
+			SmartRandom:SetPlayerInfo(playerId, player.smartRandomHeroes, "no_stats")
 		end
 		WebApi.all_leaderboards[GetMapName()] = data.leaderboard;
 		CustomNetTables:SetTableValue("game_state", "player_stats", publicStats)
@@ -288,10 +288,10 @@ end)
 RegisterCustomEventListener("leaderboard:get_leaderboard", function(event)
 	local map_name = event.map_name
 	if not map_name then return end
-	
+
 	local player_id = event.PlayerID
 	if not player_id then return end
-	
+
 	local player = PlayerResource:GetPlayer(player_id)
 	if not player or player:IsNull() then return end
 
