@@ -13,16 +13,19 @@
     </scripts>
 
   <Panel hittest="false" class="FlyoutScoreboardRoot">
-		<Panel class="Legend">
-			<Panel class="LegendPanel ScoreCol_TeamInfo" />
-			<Panel class="LegendPanel ScoreCol_Hero" />
-			<Panel class="LegendPanel ScoreCol_PlayerDetails" />
-			<Label class="LegendPanel ScoreCol_TeamScore" text="#custom_end_screen_legend_team_score" />
-			<Label class="LegendPanel ScoreCol_Kills" text="#custom_end_screen_legend_kills" />
-			<Label class="LegendPanel ScoreCol_Deaths" text="#custom_end_screen_legend_deaths" />
-			<Label class="LegendPanel ScoreCol_Assists" text="#custom_end_screen_legend_assists" />
+		<Panel class="TeamsRoot">
+			<Panel class="Legend">
+				<Panel class="LegendPanel ScoreCol_TeamInfo" />
+				<Panel class="LegendPanel ScoreCol_Hero" />
+				<Panel class="LegendPanel ScoreCol_PlayerDetails" />
+				<Label class="LegendPanel ScoreCol_TeamScore" text="#custom_end_screen_legend_team_score" />
+				<Label class="LegendPanel ScoreCol_Kills" text="#custom_end_screen_legend_kills" />
+				<Label class="LegendPanel ScoreCol_Deaths" text="#custom_end_screen_legend_deaths" />
+				<Label class="LegendPanel ScoreCol_Assists" text="#custom_end_screen_legend_assists" />
+			</Panel>
+			<Panel id="TeamsContainer" />
 		</Panel>
-		<Panel id="TeamsContainer" />
+		<ToggleButton id="MuteAll" onactivate="MuteAll()" onmouseover="UIShowTextTooltip(#mute_all_hint)" onmouseout="UIHideTextTooltip()"/>
   </Panel>
 </root>
 

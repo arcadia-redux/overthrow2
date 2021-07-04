@@ -1,5 +1,5 @@
 "use strict";
-
+const MUTE_ALL_BUTTON = $("#MuteAll");
 var g_ScoreboardHandle = null;
 
 function SetFlyoutScoreboardVisible(bVisible) {
@@ -8,6 +8,20 @@ function SetFlyoutScoreboardVisible(bVisible) {
 		ScoreboardUpdater_SetScoreboardActive(g_ScoreboardHandle, true);
 	} else {
 		ScoreboardUpdater_SetScoreboardActive(g_ScoreboardHandle, false);
+	}
+}
+
+const team_root = $("#TeamsContainer");
+function MuteAll() {
+	for (const player_id of Game.GetAllPlayerIDs()) {
+		const player_panel = team_root.FindChildTraverse(`_dynamic_player_${player_id}`);
+		if (MUTE_ALL_BUTTON.checked) {
+			player_panel.SetHasClass("player_muted", true);
+			Game.SetPlayerMuted(player_id, true);
+		} else if (!player_panel.custom_mute) {
+			player_panel.SetHasClass("player_muted", false);
+			Game.SetPlayerMuted(player_id, false);
+		}
 	}
 }
 

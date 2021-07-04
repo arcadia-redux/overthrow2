@@ -1974,5 +1974,7 @@
 		"gift_code_self_from"			"From:"
 		"gift_code_open_collection"		"Open collection"
 		"gift_code_was_sent_to"			" sent gift to "
+		
+		"mute_all_hint"	"Mute All"
 	}
 }

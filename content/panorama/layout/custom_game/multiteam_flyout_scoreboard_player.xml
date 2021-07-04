@@ -13,7 +13,8 @@
 				var newIsMuted = !Game.IsPlayerMuted( playerId );
 				Game.SetPlayerMuted( playerId, newIsMuted );
 				$.GetContextPanel().SetHasClass( "player_muted", newIsMuted );
-
+				$.GetContextPanel().custom_mute = newIsMuted;
+		
 				GameEvents.SendCustomGameEventToServer("set_mute_player", { disable: newIsMuted, toPlayerId: playerId } );
 			}
 		}

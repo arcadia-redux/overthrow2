@@ -1,11 +1,15 @@
 @define BACKGROUND_COLOR: #000000;
 @define BACKGROUND_COLOR_WHITE: #FFFFFF28;
 
+.TeamsRoot {
+	flow-children: down;
+}
+
 .FlyoutScoreboardRoot {
 	horizontal-align: left;
 	vertical-align: top;
 	margin-top: 150px;
-	flow-children: down;
+	flow-children: right;
 	padding: 10px;
 
 	transform: translatex(-600px);
@@ -364,4 +368,29 @@
 
 .NoParty {
 	color: #ffffff;
+}
+
+#MuteAll {
+	width: 25px;
+	height: 25px;
+	margin: 3px 0px 0px 4px;
+	background-image: url("s2r://panorama/images/custom_game/import_dota/button_audio_on_psd_png.vtex");
+	background-size: 100%;
+	img-shadow: #000000 0px 0px 3px 1px;
+	box-shadow: transparent 0px 0px 0px 0px;
+	background-color: transparent;
+	color: transparent;
+	margin: 9px 0px 0px 7px;
+}
+#MuteAll .TickBox {
+	visibility: collapse;
+}
+#MuteAll:hover {
+	brightness: 1.5;
+}
+#MuteAll:active {
+	brightness: 1.1;
+}
+#MuteAll:selected {
+	background-image: url("s2r://panorama/images/custom_game/import_dota/button_audio_off_psd_CUSTOM_NOT_DOTA.png");
 }
