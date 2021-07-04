@@ -93,7 +93,7 @@ function ClientPing(data) {
 
 	const coef_x = world_pos[0] / (WORLD_X * 2);
 	const coef_y = world_pos[1] / (WORLD_Y * 2);
-	const pos_x = (coef_x + 0.5) * original_map_width;
+	const pos_x = (coef_x + 0.5) * original_map_width + X_OFFSET;
 	const pos_y = (0.5 - coef_y) * original_map_height + Y_OFFSET;
 
 	if (pos_x > original_map_width || pos_y > original_map_height) return;
