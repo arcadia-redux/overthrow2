@@ -4,6 +4,7 @@
 	</styles>
 
 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
 		<include src="file://{resources}/layout/custom_game/common/neutral_items/neutral_items.js" />
 	</scripts>
 
@@ -34,7 +35,7 @@
 
 		<snippet name="WhoTakedItem">
 			<Panel class="NewItem" style="flow-children: right;">
-				<DOTAHeroImage id="HeroImage" />
+				<Image id="HeroImage" />
 				<Image id="NeutralItemTakedPointer" src="file://{resources}/images/custom_game/pointer.png"/>
 				<DOTAItemImage id="ItemImage" />
 			</Panel>

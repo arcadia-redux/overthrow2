@@ -1,0 +1,169 @@
+.WheelPingFixRoot {
+	width: 100%;
+	height: 100%;
+}
+#CustomPingsHudTracker {
+	width: 100%;
+	height: 100%;
+}
+#Custom_PingWheel {
+	flow-children: down;
+}
+#Custom_PingWheel.DefaultPing {
+	background-color: gradient(
+		radial,
+		50% 50%,
+		0% 0%,
+		33% 33%,
+		from(#e4d500),
+		color-stop(0.4, #ffe10c),
+		color-stop(0.7, rgba(255, 225, 12, 0.3)),
+		to(transparent)
+	);
+}
+
+.Ping_Line {
+	flow-children: right;
+	horizontal-align: center;
+}
+.Custom_Ping {
+	width: 53px;
+	height: 53px;
+	padding: 3px;
+	saturation: 0;
+	opacity: 0.65;
+}
+.Custom_Ping.Active {
+	background-color: gradient(
+		radial,
+		50% 50%,
+		0% 0%,
+		50% 50%,
+		from(#fff000),
+		color-stop(0.6, #fff000),
+		to(transparent)
+	);
+	saturation: 1;
+	opacity: 1;
+}
+#CustomPings_Minimap {
+	width: 280px;
+	height: 280px;
+	vertical-align: bottom;
+	opacity-mask: url("file://{resources}/images/custom_game/custom_pings_map_mask.png");
+	transform: scaleY(-1);
+}
+.MinimapExtraLarge #CustomPings_Minimap {
+	width: 316px;
+	height: 316px;
+}
+.HUDFlipped #CustomPings_Minimap {
+	transform: scaleY(-1) scaleX(-1);
+	horizontal-align: right;
+}
+.CustomPing {
+	width: 50px;
+	height: 50px;
+	transform: scaleY(-1);
+}
+#CustomPing_Marker {
+	width: 100%;
+	height: 100%;
+}
+#CustomPing_Marker.Pulse {
+	animation-duration: 3.6s;
+	animation-iteration-count: infinite;
+	animation-name: PingPulse;
+	animation-timing-function: linear;
+}
+#CustomPing_HeroImage {
+	align: center center;
+	width: 21px;
+	height: 21px;
+}
+
+@keyframes 'PingPulse' {
+	0% {
+		opacity: 1;
+		pre-transform-scale2d: 1;
+	}
+	10% {
+		pre-transform-scale2d: 0;
+	}
+	20% {
+		pre-transform-scale2d: 1;
+	}
+	30% {
+		pre-transform-scale2d: 0;
+	}
+	40% {
+		pre-transform-scale2d: 1;
+	}
+	50% {
+		pre-transform-scale2d: 0;
+	}
+	60% {
+		pre-transform-scale2d: 1;
+	}
+	70% {
+		pre-transform-scale2d: 0;
+	}
+	80% {
+		pre-transform-scale2d: 1;
+	}
+	90% {
+		opacity: 0;
+		pre-transform-scale2d: 0;
+	}
+	100% {
+		pre-transform-scale2d: 0;
+	}
+}
+
+#MapOverlay {
+	height: 320px;
+	width: 253px;
+	background-image: url("file://{resources}/images/custom_game/minimap_overlay_OT.png");
+	background-size: 100%;
+	vertical-align: bottom;
+}
+.MinimapExtraLarge #MapOverlay {
+	height: 362px;
+	width: 280px;
+}
+.HUDFlipped #MapOverlay {
+	horizontal-align: right;
+}
+
+.HeroNamePing {
+	font-size: 19px;
+	text-shadow: 1px 1.5px 0px 2 #000000;
+	font-weight: bold;
+	padding: 10px;
+}
+
+#MapOverlayText {
+	align: center top;
+	color: gradient(linear, 0% 0%, 120% 0%, from(#612f0b), to(#b46106));
+	font-size: 20px;
+	font-family: titleFont;
+	font-weight: semi-bold;
+	margin-top: 43px;
+	text-shadow: black 0px 0px 1px 1;
+	margin-right: 7px;
+}
+.HUDFlipped #MapOverlayText {
+	color: gradient(linear, 0% 0%, 120% 0%, from(#b46106), to(#612f0b));
+	margin-right: 0px;
+	margin-left: 10px;
+}
+.MinimapExtraLarge #MapOverlayText {
+	font-size: 22px;
+	margin-top: 48px;
+	margin-right: 10px;
+}
+.HUDFlipped.MinimapExtraLarge #MapOverlayText {
+	font-size: 22px;
+	margin-right: 0px;
+	margin-left: 10px;
+}

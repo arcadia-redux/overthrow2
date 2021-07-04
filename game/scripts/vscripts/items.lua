@@ -199,7 +199,8 @@ function COverthrowGameMode:FinishItemPick(keys)
 
 	local overthrow_item_drop = {
 		hero_id = hero,
-		dropped_item = perk
+		dropped_item = perk,
+		player_id = player_id
 	}
 
 	CustomGameEventManager:Send_ServerToAllClients( "overthrow_item_drop", overthrow_item_drop)

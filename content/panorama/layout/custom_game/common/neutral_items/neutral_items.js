@@ -41,7 +41,10 @@ function NeutralItemTaked(data) {
 	taked.BLoadLayoutSnippet("WhoTakedItem");
 	taked.AddClass("Slide");
 	taked.FindChildTraverse("ItemImage").itemname = Abilities.GetAbilityName(data.item);
-	taked.FindChildTraverse("HeroImage").heroname = Players.GetPlayerSelectedHero(data.player);
+
+	taked
+		.FindChildTraverse("HeroImage")
+		.SetImage(GetPortraitImage(data.player, Players.GetPlayerSelectedHero(data.player)));
 
 	$.Schedule(5, function () {
 		taked.RemoveClass("Slide");

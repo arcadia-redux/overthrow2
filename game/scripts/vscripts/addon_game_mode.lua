@@ -46,6 +46,7 @@ require("items")
 require("gpm_lib")
 require("capture_points/capture_points_const")
 require("neutral_items_drop_choice")
+require("custom_pings")
 
 require("chat_commands/admin_commands")
 
@@ -335,6 +336,7 @@ function COverthrowGameMode:InitGameMode()
 	Battlepass:Init()
 	GamePerks:Init()
 	GiftCodes:Init()
+	CustomPings:Init()
 end
 
 ---------------------------------------------------------------------------
@@ -469,6 +471,7 @@ function COverthrowGameMode:UpdatePlayerColor( nPlayerID )
 
 	local teamID = PlayerResource:GetTeam( nPlayerID )
 	local color = self:ColorForTeam( teamID )
+	CustomPings:SetColor(nPlayerID, color)
 	PlayerResource:SetCustomPlayerColor( nPlayerID, color[1], color[2], color[3] )
 end
 

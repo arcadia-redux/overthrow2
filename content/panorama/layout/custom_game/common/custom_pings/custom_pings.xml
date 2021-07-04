@@ -1,0 +1,44 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/layout/custom_game/common/custom_pings/custom_pings.css" />
+	</styles>
+	
+ 	<scripts>
+		<include src="file://{resources}/layout/custom_game/common/utils.js" />
+		<include src="file://{resources}/layout/custom_game/common/custom_pings/custom_pings_const.js" />
+		<include src="file://{resources}/layout/custom_game/common/custom_pings/custom_pings.js" />
+	</scripts>
+
+	<snippets>
+		<snippet name="CustomPing">
+			<Image class="CustomPing" hittest="false">
+				<Image id="CustomPing_Marker" src="file://{resources}/images/custom_game/import_dota/ping_icon_friendlyward_psd.png" hittest="false"/>
+				<Image id="CustomPing_HeroImage" hittest="false"/>
+			</Image>
+		</snippet>
+	</snippets>
+	
+ 	<Panel class="WheelPingFixRoot" hittest="false">
+		<Panel id="CustomPingsHudTracker" hittest="true"/>
+		<Panel id="Custom_PingWheel">
+			<Panel class="Ping_Line">
+				<Image id="Custom_Ping3" class="Custom_Ping" ping-type="2" src="file://{resources}/images/custom_game/import_dota/ping_icon_waypoint_psd.png"/>
+				<Image id="Custom_Ping2" class="Custom_Ping" ping-type="3" src="file://{resources}/images/custom_game/import_dota/ping_icon_retreat_psd.png"/>
+			</Panel>
+			<Panel class="Ping_Line">
+				<Image id="Custom_Ping4" class="Custom_Ping" ping-type="4" src="file://{resources}/images/custom_game/import_dota/ping_icon_attack_psd.png"/>
+				<Image id="Custom_Ping7" class="Custom_Ping" ping-type="0" src="file://{resources}/images/custom_game/import_dota/ping_icon_default_psd.png"/>
+				<Image id="Custom_Ping1" class="Custom_Ping" ping-type="5" src="file://{resources}/images/custom_game/import_dota/ping_icon_enemyward_psd.png"/>
+			</Panel>
+			<Panel class="Ping_Line">
+				<Image id="Custom_Ping5" class="Custom_Ping" ping-type="6" src="file://{resources}/images/custom_game/import_dota/ping_icon_friendlyward_psd.png"/>
+				<Image id="Custom_Ping6" class="Custom_Ping" ping-type="1" src="file://{resources}/images/custom_game/import_dota/ping_danger_psd.png"/>
+			</Panel>
+		</Panel>
+		<Panel id="CustomPings_Minimap" hittest="false"/>		
+		<Panel id="MapOverlay" hittest="false">
+			<Label id="MapOverlayText" text="Overthrow 2.0" hittest="false"/>
+		</Panel>
+	</Panel>
+</root>

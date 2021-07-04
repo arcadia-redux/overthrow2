@@ -514,5 +514,7 @@
 "file://{resources}/layout/custom_game/common/game_perks/icons/delayed_damage_t2.png"
 
 "file://{resources}/images/custom_game/minimap_overlay_OT.png"
-
+"file://{resources}/images/custom_game/custom_pings_map_mask.png"
+"file://{resources}/images/custom_game/ping_icon_waypoint_minimap.png"
+"file://{resources}/images/custom_game/ping_icon_world_minimap.png"
 -->

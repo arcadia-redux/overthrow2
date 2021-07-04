@@ -29,7 +29,7 @@ GameEvents.Subscribe("custom_chat_message", (event) => {
 		$.CreatePanelWithProperties("Panel", message, "", { class: "HeroBadge", selectionpos: "auto" });
 
 		const heroIcon = $.CreatePanelWithProperties("Image", message, "", { class: "HeroIcon", selectionpos: "auto" });
-		heroIcon.SetImage("file://{images}/heroes/" + playerInfo.player_selected_hero + ".png");
+		heroIcon.SetImage(GetPortraitImage(event.PlayerID, playerInfo.player_selected_hero));
 	} else {
 		text += event.isTeam ? `[${$.Localize("#DOTA_ChatCommand_GameAllies_Name")}] ` : NON_BREAKING_SPACE;
 	}

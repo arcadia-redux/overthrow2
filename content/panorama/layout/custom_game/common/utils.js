@@ -102,3 +102,30 @@ function CreateButtonInTopMenu(button, activateEvent, overEvent, outEvent) {
 		});
 	button.SetParent(menu);
 }
+
+function _GetVarFromUniquePortraitsData(player_id, hero_name, path) {
+	const unique_portraits = CustomNetTables.GetTableValue("game_state", "portraits");
+	if (unique_portraits && unique_portraits[player_id]) {
+		return `${path}${unique_portraits[player_id]}.png`;
+	} else {
+		return `${path}${hero_name}.png`;
+	}
+}
+
+function GetPortraitImage(player_id, hero_name) {
+	return _GetVarFromUniquePortraitsData(player_id, hero_name, "file://{images}/heroes/");
+}
+function GetPortraitIcon(player_id, hero_name) {
+	return _GetVarFromUniquePortraitsData(player_id, hero_name, "file://{images}/heroes/icons/");
+}
+
+function GetHEXPlayerColor(player_id) {
+	var player_color = Players.GetPlayerColor(player_id).toString(16);
+	return player_color == null
+		? "#000000"
+		: "#" +
+				player_color.substring(6, 8) +
+				player_color.substring(4, 6) +
+				player_color.substring(2, 4) +
+				player_color.substring(0, 2);
+}
