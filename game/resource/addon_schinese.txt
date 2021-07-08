@@ -3,8 +3,8 @@
 	"Language"		"schinese"
 	"Tokens"
 	{
-		"addon_game_name"								"Overthrow 2.0"
-		"DOTA_GameMode_15"													"Overthrow 2.0"
+		"addon_game_name"								"乱战先锋2.0"
+		"DOTA_GameMode_15"													"乱战先锋2.0"
 
 		"cosemtics_header_abilities"								"技能"
 		"cosemtics_header_effects"									"效果"
@@ -123,23 +123,23 @@
 		"DOTA_Tooltip_Ability_item_ward_sentry"			"岗哨守卫（改进）"
 		"DOTA_Tooltip_Ability_item_dust"				"显影之尘（改进）"
 
-		"DOTA_Tooltip_ability_necrolyte_reapers_scythe_Description"					"击晕目标敌方英雄，然后根据失去的生命值造成伤害。\n\n<font color='#70EA72'>在Overthrow中，被死神镰刀击杀的英雄，其重生时间将增加20秒。</font>\n\n受此效果影响的一切击杀都将被计入瘟疫法师的击杀。\n\n可由阿哈利姆神杖升级。"
+		"DOTA_Tooltip_ability_necrolyte_reapers_scythe_Description"					"击晕目标敌方英雄，然后根据失去的生命值造成伤害。\n\n<font color='#70EA72'>在乱战先锋中，被死神镰刀击杀的英雄，其重生时间将增加20秒。</font>\n\n受此效果影响的一切击杀都将被计入瘟疫法师的击杀。\n\n可由阿哈利姆神杖升级。"
 
-		"DOTA_Tooltip_ability_riki_permanent_invisibility_Description"				"力丸遁入阴影，保持隐身状态。每次力丸从背后攻击敌人都会造成基于敏捷值的额外伤害。主动攻击敌人，力丸将会显形。\n\n<font color='#70EA72'>在Overthrow中，刀光谍影的进入隐身时间和延迟均有所延长。</font>"
+		"DOTA_Tooltip_ability_riki_permanent_invisibility_Description"				"力丸遁入阴影，保持隐身状态。每次力丸从背后攻击敌人都会造成基于敏捷值的额外伤害。主动攻击敌人，力丸将会显形。\n\n<font color='#70EA72'>在乱战先锋中，刀光谍影的进入隐身时间和延迟均有所延长。</font>"
 
-		"DOTA_Tooltip_ability_silencer_glaives_of_wisdom_Description"				"沉默术士用他的智慧强化刀刃，造成基于他智力值的额外伤害。\n\n智慧之刃是一个独特的攻击效果，且不会与其他独特攻击效果叠加。\n\n<font color='#70EA72'>在Overthrow中，智慧之刃的智力百分比与范围均有削减。</font>"
+		"DOTA_Tooltip_ability_silencer_glaives_of_wisdom_Description"				"沉默术士用他的智慧强化刀刃，造成基于他智力值的额外伤害。\n\n智慧之刃是一个独特的攻击效果，且不会与其他独特攻击效果叠加。\n\n<font color='#70EA72'>在乱战先锋中，智慧之刃的智力百分比与范围均有削减。</font>"
 
-		"DOTA_Tooltip_ability_zuus_thundergods_wrath_Description"					"用闪电打击所有敌方英雄，无论他们身在何处。  雷神之怒还会提供每个受攻击的英雄周围的真实视域。  隐身的英雄不会受到伤害，但你依然会获得他所在之处的真实视域。\n\n可由阿哈利姆神杖升级。\n\n<font color='#70EA72'>在Overthrow中，雷神之怒的冷却时间和魔法消耗均有增加，且伤害有所降低。</font>"
+		"DOTA_Tooltip_ability_zuus_thundergods_wrath_Description"					"用闪电打击所有敌方英雄，无论他们身在何处。  雷神之怒还会提供每个受攻击的英雄周围的真实视域。  隐身的英雄不会受到伤害，但你依然会获得他所在之处的真实视域。\n\n可由阿哈利姆神杖升级。\n\n<font color='#70EA72'>在乱战先锋中，雷神之怒的冷却时间和魔法消耗均有增加，且伤害有所降低。</font>"
 
-		"DOTA_Tooltip_ability_pudge_flesh_heap_Description"							"提升帕吉的对于魔法伤害的抗性，并且帕吉每次杀死一个敌方英雄，或者附近有敌方英雄死亡时，帕吉将获得额力量加成。  腐肉堆积在学习之前就可以积累力量，但是学习之后才能获得这部分力量。\n\n<font color='#70EA72'>在Overthrow中，腐肉堆积额外力量与范围都有所削弱。</font>"
+		"DOTA_Tooltip_ability_pudge_flesh_heap_Description"							"提升帕吉的对于魔法伤害的抗性，并且帕吉每次杀死一个敌方英雄，或者附近有敌方英雄死亡时，帕吉将获得额力量加成。  腐肉堆积在学习之前就可以积累力量，但是学习之后才能获得这部分力量。\n\n<font color='#70EA72'>在乱战先锋中，腐肉堆积额外力量与范围都有所削弱。</font>"
 
-		"DOTA_Tooltip_ability_item_ward_sentry_Description"							"使用：放置岗哨守卫，这是可提供真实视域的隐形守卫，具有发现隐身敌方单位和守卫的能力，可为其范围内的任意友方提供视野。持续%duration_minutes_tooltip%分钟。\n\n按住Ctrl键可将岗哨守卫给予友方英雄。\n\n<font color='#70EA72'>在Overthrow中，岗哨守卫的价格是50金币，持续时间为6分钟。</font>"
+		"DOTA_Tooltip_ability_item_ward_sentry_Description"							"使用：放置岗哨守卫，这是可提供真实视域的隐形守卫，具有发现隐身敌方单位和守卫的能力，可为其范围内的任意友方提供视野。持续%duration_minutes_tooltip%分钟。\n\n按住Ctrl键可将岗哨守卫给予友方英雄。\n\n<font color='#70EA72'>在乱战先锋中，岗哨守卫的价格是50金币，持续时间为6分钟。</font>"
 
-		"DOTA_Tooltip_ability_item_dust_Description"								"使用：揭示附近区域的隐形英雄并将其减速。\n\n<font color='#70EA72'>在Overthrow中，显影之尘的价格是90金币，且冷却时间略有缩短。</font>"
+		"DOTA_Tooltip_ability_item_dust_Description"								"使用：揭示附近区域的隐形英雄并将其减速。\n\n<font color='#70EA72'>在乱战先锋中，显影之尘的价格是90金币，且冷却时间略有缩短。</font>"
 
 
 		"npc_dota_hero_undying"				"不朽尸王（改进）"
-		"DOTA_Tooltip_ability_undying_tombstone_Description"				"在目标位置召唤一座墓碑。  墓碑会不断在其附近的每个敌方单位身边产生僵尸攻击他们。  僵尸拥有死亡渴望技能，使他们的攻击带有减速效果，并且若目标的生命值低于一定数值或一定百分比，僵尸的攻击和移动速度会提升。\n\n<font color='#70EA72'>在Overthrow中，墓碑的施放距离有所缩短，且其冷却时间有所加长。</font>"
+		"DOTA_Tooltip_ability_undying_tombstone_Description"				"在目标位置召唤一座墓碑。  墓碑会不断在其附近的每个敌方单位身边产生僵尸攻击他们。  僵尸拥有死亡渴望技能，使他们的攻击带有减速效果，并且若目标的生命值低于一定数值或一定百分比，僵尸的攻击和移动速度会提升。\n\n<font color='#70EA72'>在乱战先锋中，墓碑的施放距离有所缩短，且其冷却时间有所加长。</font>"
 
 		"DOTA_Tooltip_ability_pugna_nether_ward_Description"							"帕格纳在目标地点放置一个幽冥守卫。守卫将使附近敌方英雄每秒损失最大魔法值的一定百分比，对任何施法的敌方英雄发射魔力闪光。幽冥守卫造成的伤害为基础伤害加上敌方英雄施法时消耗魔法值的数倍。\n\n<font color='#70EA72'>幽冥守卫的攻击范围减少600。</font>"
 
@@ -153,7 +153,7 @@
 		"DOTA_Tooltip_modifier_disconnect_invulnerable"			"无敌"
 
 		"DOTA_Tooltip_ability_item_helm_of_the_dominator_custom"						"支配者头盔（改进）"
-		"DOTA_Tooltip_ability_item_helm_of_the_dominator_custom_Description"			"<h1>主动技能：支配</h1>控制一个目标单位，或生成随机中立单位并将其移动速度设为%speed_base%，最大生命值设为%health_min%。<br><br>被支配的单位，如果其最大生命值大于%health_min%，则会保留其原始最大生命值。  被支配单位的赏金设为%gold_bounty%金币。<br><br>范围：%tooltip_range%\n<h1>被动：支配者光环</h1>提高附近友方%attack_speed_aura%的攻击速度与%hp_regen_aura%的生命值回复。<br><br>半径：%aura_radius%\n\n<font color='#70EA72'>在Overthrow中，支配者头盔可在地面上施放以召唤随机中立小兵。</font>"
+		"DOTA_Tooltip_ability_item_helm_of_the_dominator_custom_Description"			"<h1>主动技能：支配</h1>控制一个目标单位，或生成随机中立单位并将其移动速度设为%speed_base%，最大生命值设为%health_min%。<br><br>被支配的单位，如果其最大生命值大于%health_min%，则会保留其原始最大生命值。  被支配单位的赏金设为%gold_bounty%金币。<br><br>范围：%tooltip_range%\n<h1>被动：支配者光环</h1>提高附近友方%attack_speed_aura%的攻击速度与%hp_regen_aura%的生命值回复。<br><br>半径：%aura_radius%\n\n<font color='#70EA72'>在乱战先锋中，支配者头盔可在地面上施放以召唤随机中立小兵。</font>"
 		"DOTA_Tooltip_ability_item_helm_of_the_dominator_custom_Lore"					"死去的死灵法师留下的可怕头盔。 "
 		"DOTA_Tooltip_ability_item_helm_of_the_dominator_custom_Note0"					"无法同时支配一个以上的单位。  如果支配了新的单位，则旧的将死亡。"
 		"DOTA_Tooltip_ability_item_helm_of_the_dominator_custom_Note1"					"出售支配者头盔将导致被支配单位死亡。"
@@ -162,7 +162,7 @@
 		"DOTA_Tooltip_modifier_item_helm_of_the_dominator_custom_aura_Description"		"提高%dMODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT%的生命值回复与%dMODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT%的攻击速度。"
 
 		"DOTA_Tooltip_ability_item_hand_of_midas_custom"						"迈达斯之手（改进）"
-		"DOTA_Tooltip_ability_item_hand_of_midas_custom_Description"			"<h1>主动技能：炼金</h1>获取所选点附近%aoe_radius%范围内的所有金币并给出金币与%xp_per_coin%经验。<br><br>范围：%transmute_cast_range_tooltip%\n\n<font color='#70EA72'>在Overthrow中，迈达斯之手将有效果区域目标功能，且可从远处收集金币。通过此方式收集的金币将提供额外经验。</font>"
+		"DOTA_Tooltip_ability_item_hand_of_midas_custom_Description"			"<h1>主动技能：炼金</h1>获取所选点附近%aoe_radius%范围内的所有金币并给出金币与%xp_per_coin%经验。<br><br>范围：%transmute_cast_range_tooltip%\n\n<font color='#70EA72'>在乱战先锋中，迈达斯之手将有效果区域目标功能，且可从远处收集金币。通过此方式收集的金币将提供额外经验。</font>"
 		"DOTA_Tooltip_ability_item_hand_of_midas_custom_Lore"					"以未知的魔法手段保存至今的迈达斯之手是件贪婪的武器，通过炼化生灵来装满持有者的腰包。"
 		"DOTA_Tooltip_ability_item_hand_of_midas_custom_Note0"					"使用炼金获得的经验将不会分享。"
 		"DOTA_Tooltip_ability_item_hand_of_midas_custom_bonus_attack_speed"		"+$attack"
@@ -172,7 +172,7 @@
 		//////////////////////////////////////////////////////////////////
 
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom"						"吞噬"
-		"DOTA_Tooltip_ability_doom_bringer_devour_custom_Description"			"消化一个敌军或中立生物，获得其特殊技能。\n\n<font color='#70EA72'>在Overthrow中，这是一个可立即施放的技能，且可提供随机中立生物技能，还会带来被动金币收入和生命值回复。</font>"
+		"DOTA_Tooltip_ability_doom_bringer_devour_custom_Description"			"消化一个敌军或中立生物，获得其特殊技能。\n\n<font color='#70EA72'>在乱战先锋中，这是一个可立即施放的技能，且可提供随机中立生物技能，还会带来被动金币收入和生命值回复。</font>"
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_Lore"					"路西法的食欲和贪婪永远不会得到满足。"
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_bonus_gold_per_minute"	"每分钟金币奖励："
 		"DOTA_Tooltip_ability_doom_bringer_devour_custom_health_regen"			"回复速率："
@@ -241,17 +241,17 @@
 		"DOTA_Tooltip_modifier_devour_mana_aura_buff_Description"	"魔法回复提高。"
 
 		"DOTA_Tooltip_ability_doom_bringer_doom"					"末日（改进）"
-		"DOTA_Tooltip_ability_doom_bringer_doom_Description"		"对敌人施加末日诅咒，使其无法施放技能或使用物品，同时造成持续伤害。\n\n驱散类型：基础驱散\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间与持续时间有所缩短，且只有3次充能</font>"
+		"DOTA_Tooltip_ability_doom_bringer_doom_Description"		"对敌人施加末日诅咒，使其无法施放技能或使用物品，同时造成持续伤害。\n\n驱散类型：基础驱散\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间与持续时间有所缩短，且只有3次充能</font>"
 
 
-		"DOTA_Tooltip_ability_treant_overgrowth_Description"		"对敌人施加末日诅咒，使其无法施放技能或使用物品，同时造成持续伤害。\n\n驱散类型：基础驱散\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间与持续时间有所缩短，且只有3次充能</font>"
+		"DOTA_Tooltip_ability_treant_overgrowth_Description"		"对敌人施加末日诅咒，使其无法施放技能或使用物品，同时造成持续伤害。\n\n驱散类型：基础驱散\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间与持续时间有所缩短，且只有3次充能</font>"
 
 		"DOTA_Tooltip_ability_treant_overgrowth"					"疯狂生长（改进）"
-		"DOTA_Tooltip_ability_treant_overgrowth_Description"			"在树精卫士周围召唤出疯狂生长的伤害性藤条和枝干，阻止被缠绕的敌人移动、闪烁、进入隐身或攻击。\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间略有缩短</font>"
+		"DOTA_Tooltip_ability_treant_overgrowth_Description"			"在树精卫士周围召唤出疯狂生长的伤害性藤条和枝干，阻止被缠绕的敌人移动、闪烁、进入隐身或攻击。\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间略有缩短</font>"
 
 		//////////////////////////////////////////////////////////////////
 		"DOTA_Tooltip_ability_lone_druid_spirit_bear"								"熊灵伙伴（改进）"
-		"DOTA_Tooltip_ability_lone_druid_spirit_bear_Description"					"召唤一只可以装备物品的熊灵伙伴。  若熊灵与德鲁伊的距离超过1100，则不能攻击。  如果熊灵死亡，德鲁伊会受到自身最大生命值的%backlash_damage%%%作为反冲伤害。熊灵装备的物品拥有的属性加成对熊灵无效。\n熊灵拥有回归，缠绕之爪和粉碎击技能。\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间略有缩短</font>"
+		"DOTA_Tooltip_ability_lone_druid_spirit_bear_Description"					"召唤一只可以装备物品的熊灵伙伴。  若熊灵与德鲁伊的距离超过1100，则不能攻击。  如果熊灵死亡，德鲁伊会受到自身最大生命值的%backlash_damage%%%作为反冲伤害。熊灵装备的物品拥有的属性加成对熊灵无效。\n熊灵拥有回归，缠绕之爪和粉碎击技能。\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间略有缩短</font>"
 
 		"donator_label_1"			"Patron"
 		"donator_label_2"			"团队成员"
@@ -856,14 +856,14 @@
 		"leaderboard_rating"	"评分"
 		"leaderboard_info"		"额外信息"
 
-		"summer_feedback_link_header"			"Overthrow 2.0反馈2020夏季"
+		"summer_feedback_link_header"			"乱战先锋2.0反馈2020夏季"
 		"summer_feedback_open_in_browser"		"在浏览器中打开"
 
 		"npc_dummy_inventory"					"Dummy库存"
 
 		"npc_dota_hero_nevermore"										"影魔（改进）"
 		"DOTA_Tooltip_ability_nevermore_necromastery"					"支配死灵（改进）"
-		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"影魔每杀死一个单位都会窃取其灵魂，获得额外攻击力。影魔死亡时一半灵魂将逃离他的束缚。\n\n<font color='#70EA72'>在Overthrow中，影魔将每<b>5</b>秒得到1个灵魂。</font>"
+		"DOTA_Tooltip_ability_nevermore_necromastery_Description"		"影魔每杀死一个单位都会窃取其灵魂，获得额外攻击力。影魔死亡时一半灵魂将逃离他的束缚。\n\n<font color='#70EA72'>在乱战先锋中，影魔将每<b>5</b>秒得到1个灵魂。</font>"
 
 		"npc_dota_hero_chen"												"陈（改进）"
 		"DOTA_Tooltip_Ability_chen_soul_persuasion"							"灵魂劝化"
@@ -884,16 +884,16 @@
 		"DOTA_Tooltip_ability_special_bonus_unique_chen_5"			"+{s:value}灵魂劝化伤害"
 
 		"DOTA_Tooltip_ability_chen_divine_favor"					"神力恩泽（改进）"
-		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"被动光环效果，提供生命恢复加成，并且所有生命回复效果增强一定百分比。\n\n可以对友军施放，将他们传送至陈身边。如果对陈施放，陈控制的所有单位将被传送至他身边。施放目标受到伤害将驱散传送效果。承担伤害将驱散增益。\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间略有缩短</font>"
+		"DOTA_Tooltip_ability_chen_divine_favor_Description"		"被动光环效果，提供生命恢复加成，并且所有生命回复效果增强一定百分比。\n\n可以对友军施放，将他们传送至陈身边。如果对陈施放，陈控制的所有单位将被传送至他身边。施放目标受到伤害将驱散传送效果。承担伤害将驱散增益。\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间略有缩短</font>"
 		"DOTA_Tooltip_ability_chen_hand_of_god"						"上帝之手（改进）"
-		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"治疗地图上的所有友军英雄以及陈控制的所有单位。\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间略有缩短</font>"
+		"DOTA_Tooltip_ability_chen_hand_of_god_Description"			"治疗地图上的所有友军英雄以及陈控制的所有单位。\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间略有缩短</font>"
 
 		"npc_dota_hero_treant"											"树精卫士（改进）"
 		"DOTA_Tooltip_ability_treant_natures_guise"						"自然蔽护（改进）"
-		"DOTA_Tooltip_ability_treant_natures_guise_Description"			"树精卫士只要靠近一棵树木，%cooldown_time%秒内不受到伤害就会获得树木穿行。获得后移动速度得到提升，对自身的治疗和恢复效果得到增强。\n\n<font color='#70EA72'>在Overthrow中，此技能的冷却时间略有缩短</font>"
+		"DOTA_Tooltip_ability_treant_natures_guise_Description"			"树精卫士只要靠近一棵树木，%cooldown_time%秒内不受到伤害就会获得树木穿行。获得后移动速度得到提升，对自身的治疗和恢复效果得到增强。\n\n<font color='#70EA72'>在乱战先锋中，此技能的冷却时间略有缩短</font>"
 
 		"DOTA_Tooltip_ability_treant_living_armor"						"活体护甲（改进）"
-		"DOTA_Tooltip_ability_treant_living_armor_Description"			"将目标英雄或建筑笼罩在保护性外壳中，治疗目标并提供护甲加成。\n\n<font color='#70EA72'>在Overthrow中，此技能的数据翻倍</font>"
+		"DOTA_Tooltip_ability_treant_living_armor_Description"			"将目标英雄或建筑笼罩在保护性外壳中，治疗目标并提供护甲加成。\n\n<font color='#70EA72'>在乱战先锋中，此技能的数据翻倍</font>"
 
 
 		"DOTA_Tooltip_Ability_treant_generating_tree"					"生命种子"
